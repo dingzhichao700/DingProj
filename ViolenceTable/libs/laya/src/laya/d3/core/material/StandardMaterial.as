@@ -110,7 +110,7 @@ package laya.d3.core.material {
 		public function set renderMode(value:int):void {
 			switch (value) {
 			case RENDERMODE_OPAQUE: 
-				renderQueue = BaseMaterial.RENDERQUEUE_OPAQUE;
+				renderQueue = RenderQueue.OPAQUE;
 				depthWrite = true;
 				cull = CULL_BACK;
 				blend = BLEND_DISABLE;
@@ -118,7 +118,7 @@ package laya.d3.core.material {
 				_removeShaderDefine(SHADERDEFINE_ADDTIVEFOG);
 				break;
 			case RENDERMODE_OPAQUEDOUBLEFACE: 
-				renderQueue = BaseMaterial.RENDERQUEUE_OPAQUE;
+				renderQueue = RenderQueue.OPAQUE;
 				depthWrite = true;
 				cull = CULL_NONE;
 				blend = BLEND_DISABLE;
@@ -129,12 +129,12 @@ package laya.d3.core.material {
 				depthWrite = true;
 				cull = CULL_BACK;
 				blend = BLEND_DISABLE;
-				renderQueue = BaseMaterial.RENDERQUEUE_OPAQUE;
+				renderQueue = RenderQueue.OPAQUE;
 				alphaTest = true;
 				_removeShaderDefine(SHADERDEFINE_ADDTIVEFOG);
 				break;
 			case RENDERMODE_CUTOUTDOUBLEFACE: 
-				renderQueue = BaseMaterial.RENDERQUEUE_OPAQUE;
+				renderQueue = RenderQueue.OPAQUE;
 				depthWrite = true;
 				cull = CULL_NONE;
 				blend = BLEND_DISABLE;
@@ -142,7 +142,7 @@ package laya.d3.core.material {
 				_removeShaderDefine(SHADERDEFINE_ADDTIVEFOG);
 				break;
 			case RENDERMODE_TRANSPARENT: 
-				renderQueue = BaseMaterial.RENDERQUEUE_TRANSPARENT;
+				renderQueue = RenderQueue.TRANSPARENT;
 				depthWrite = true;
 				cull = CULL_BACK;
 				blend = BLEND_ENABLE_ALL;
@@ -152,7 +152,7 @@ package laya.d3.core.material {
 				_removeShaderDefine(SHADERDEFINE_ADDTIVEFOG);
 				break;
 			case RENDERMODE_TRANSPARENTDOUBLEFACE: 
-				renderQueue = BaseMaterial.RENDERQUEUE_TRANSPARENT;
+				renderQueue = RenderQueue.TRANSPARENT;
 				depthWrite = true;
 				cull = CULL_NONE;
 				blend = BLEND_ENABLE_ALL;
@@ -162,7 +162,7 @@ package laya.d3.core.material {
 				_removeShaderDefine(SHADERDEFINE_ADDTIVEFOG);
 				break;
 			case RENDERMODE_ADDTIVE: 
-				renderQueue = BaseMaterial.RENDERQUEUE_TRANSPARENT;
+				renderQueue = RenderQueue.TRANSPARENT;
 				depthWrite = true;
 				cull = CULL_BACK;
 				blend = BLEND_ENABLE_ALL;
@@ -172,7 +172,7 @@ package laya.d3.core.material {
 				_addShaderDefine(SHADERDEFINE_ADDTIVEFOG);
 				break;
 			case RENDERMODE_ADDTIVEDOUBLEFACE: 
-				renderQueue = BaseMaterial.RENDERQUEUE_TRANSPARENT;
+				renderQueue = RenderQueue.TRANSPARENT;
 				depthWrite = true;
 				cull = CULL_NONE;
 				blend = BLEND_ENABLE_ALL;
@@ -182,7 +182,7 @@ package laya.d3.core.material {
 				_addShaderDefine(SHADERDEFINE_ADDTIVEFOG);
 				break;
 			case RENDERMODE_DEPTHREAD_TRANSPARENT: 
-				renderQueue = BaseMaterial.RENDERQUEUE_TRANSPARENT;
+				renderQueue = RenderQueue.TRANSPARENT;
 				depthWrite = false;
 				cull = CULL_BACK;
 				blend = BLEND_ENABLE_ALL;
@@ -192,7 +192,7 @@ package laya.d3.core.material {
 				_removeShaderDefine(SHADERDEFINE_ADDTIVEFOG);
 				break;
 			case RENDERMODE_DEPTHREAD_TRANSPARENTDOUBLEFACE: 
-				renderQueue = BaseMaterial.RENDERQUEUE_TRANSPARENT;
+				renderQueue = RenderQueue.TRANSPARENT;
 				depthWrite = false;
 				cull = CULL_NONE;
 				blend = BLEND_ENABLE_ALL;
@@ -202,7 +202,7 @@ package laya.d3.core.material {
 				_removeShaderDefine(SHADERDEFINE_ADDTIVEFOG);
 				break;
 			case RENDERMODE_DEPTHREAD_ADDTIVE: 
-				renderQueue = BaseMaterial.RENDERQUEUE_TRANSPARENT;
+				renderQueue = RenderQueue.TRANSPARENT;
 				depthWrite = false;
 				cull = CULL_BACK;
 				blend = BLEND_ENABLE_ALL;
@@ -212,7 +212,7 @@ package laya.d3.core.material {
 				_addShaderDefine(SHADERDEFINE_ADDTIVEFOG);
 				break;
 			case RENDERMODE_DEPTHREAD_ADDTIVEDOUBLEFACE: 
-				renderQueue = BaseMaterial.RENDERQUEUE_TRANSPARENT;
+				renderQueue = RenderQueue.TRANSPARENT;
 				depthWrite = false;
 				cull = CULL_NONE;
 				blend = BLEND_ENABLE_ALL;
@@ -222,7 +222,7 @@ package laya.d3.core.material {
 				_addShaderDefine(SHADERDEFINE_ADDTIVEFOG);
 				break;
 			case RENDERMODE_NONDEPTH_TRANSPARENT: 
-				renderQueue = BaseMaterial.RENDERQUEUE_TRANSPARENT;
+				renderQueue = RenderQueue.TRANSPARENT;
 				depthTest = DEPTHTEST_LESS;
 				cull = CULL_BACK;
 				blend = BLEND_ENABLE_ALL;
@@ -232,7 +232,7 @@ package laya.d3.core.material {
 				_removeShaderDefine(SHADERDEFINE_ADDTIVEFOG);
 				break;
 			case RENDERMODE_NONDEPTH_TRANSPARENTDOUBLEFACE: 
-				renderQueue = BaseMaterial.RENDERQUEUE_TRANSPARENT;
+				renderQueue = RenderQueue.TRANSPARENT;
 				depthTest = DEPTHTEST_LESS;
 				cull = CULL_NONE;
 				blend = BLEND_ENABLE_ALL;
@@ -242,7 +242,7 @@ package laya.d3.core.material {
 				_removeShaderDefine(SHADERDEFINE_ADDTIVEFOG);
 				break;
 			case RENDERMODE_NONDEPTH_ADDTIVE: 
-				renderQueue = BaseMaterial.RENDERQUEUE_TRANSPARENT;
+				renderQueue = RenderQueue.TRANSPARENT;
 				depthTest = DEPTHTEST_LESS;
 				cull = CULL_BACK;
 				blend = BLEND_ENABLE_ALL;
@@ -252,7 +252,7 @@ package laya.d3.core.material {
 				_addShaderDefine(SHADERDEFINE_ADDTIVEFOG);
 				break;
 			case RENDERMODE_NONDEPTH_ADDTIVEDOUBLEFACE: 
-				renderQueue = BaseMaterial.RENDERQUEUE_TRANSPARENT;
+				renderQueue = RenderQueue.TRANSPARENT;
 				depthTest = DEPTHTEST_LESS;
 				cull = CULL_NONE;
 				blend = BLEND_ENABLE_ALL;

@@ -297,7 +297,7 @@ package laya.display {
 			this._url = url;
 			var _this_:Animation = this;
 			if (!_actionName) _actionName = "";
-			if (!_this_._setFramesFromCache(_actionName)) {
+			if (!_this_._setFramesFromCache("")) {
 				if (!atlas || Loader.getAtlas(atlas)) {
 					_loadAnimationData(url, loaded, atlas);
 				} else {

@@ -1,7 +1,6 @@
 package laya.d3.resource {
 	import laya.d3.utils.Size;
 	import laya.maths.Arith;
-	import laya.renders.Render;
 	import laya.webgl.WebGL;
 	import laya.webgl.WebGLContext;
 	
@@ -88,9 +87,6 @@ package laya.d3.resource {
 			_surfaceFormat = surfaceFormat;
 			_surfaceType = surfaceType;
 			_depthStencilFormat = depthStencilFormat;
-			if (Render.isConchWebGL && _depthStencilFormat === WebGLContext.DEPTH_STENCIL) {
-				_depthStencilFormat = WebGLContext.DEPTH_COMPONENT16; 
-			}
 			_mipmap = mipMap;
 			_repeat = repeat;
 			_minFifter = minFifter;

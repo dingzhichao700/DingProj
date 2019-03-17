@@ -608,18 +608,5 @@ package laya.utils {
 			this._u8d_.set(uint8array.subarray(offset, offset + length), _pos_);
 			this._pos_ += length;
 		}
-		
-		/**
-		 * 读取ArrayBuffer数据
-		 * @param	length
-		 * @return
-		 */
-		public function readArrayBuffer(length:int):ArrayBuffer
-		{
-			var rst:ArrayBuffer;
-			rst = this._u8d_.buffer.slice(this._pos_, this._pos_ +length);
-			this._pos_ = this._pos_ +length
-			return rst;
-		}
 	}
 }

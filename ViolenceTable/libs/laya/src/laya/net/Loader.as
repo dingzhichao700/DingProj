@@ -50,13 +50,11 @@ package laya.net {
 		public static const FONT:String = "font";
 		/** TTF字体类型，加载完成后返回null。*/
 		public static const TTF:String = "ttf";
-		/** 预加载文件类型，加载完成后自动解析到preLoadedMap。*/
-		public static const PLF:String = "plf";
 		/**@private */
 		public static const PKM:String = "pkm";
 		
 		/** 文件后缀和类型对应表。*/
-		public static var typeMap:Object = /*[STATIC SAFE]*/ {"png": "image", "jpg": "image", "jpeg": "image", "txt": "text", "json": "json", "xml": "xml", "als": "atlas", "atlas": "atlas", "mp3": "sound", "ogg": "sound", "wav": "sound", "part": "json", "fnt": "font", "pkm": "pkm", "ttf": "ttf","plf":"plf","ani":"json","sk":"arraybuffer"};
+		public static var typeMap:Object = /*[STATIC SAFE]*/ {"png": "image", "jpg": "image", "jpeg": "image", "txt": "text", "json": "json", "xml": "xml", "als": "atlas", "atlas": "atlas", "mp3": "sound", "ogg": "sound", "wav": "sound", "part": "json", "fnt": "font", "pkm": "pkm", "ttf": "ttf"};
 		/**资源解析函数对应表，用来扩展更多类型的资源加载解析。*/
 		public static var parserMap:Object = /*[STATIC SAFE]*/ {};
 		/** 资源分组对应表。*/
@@ -65,8 +63,8 @@ package laya.net {
 		public static var maxTimeOut:int = 100;
 		/** @private 已加载的资源池。*/
 		public static const loadedMap:Object = {};
-		/** @private 已加载的数据文件。*/
-		public static const preLoadedMap:Object = {};
+		/** @private 已加载的图集配置文件。*/
+		public static const preLoadedAtlasConfigMap:Object = {};
 		/**@private 已加载的图集资源池。*/
 		protected static const atlasMap:Object = {};
 		/**@private */
@@ -132,11 +130,22 @@ package laya.net {
 			if (type === SOUND) return _loadSound(url);
 			if (type === TTF) return _loadTTF(url);
 			
-			
+			if (type == ATLAS) {
+				if (preLoadedAtlasConfigMap[url]) {
+					onLoaded(preLoadedAtlasConfigMap[url]);
+					delete preLoadedAtlasConfigMap[url];
+					return;
+				}
+			}
+			if (!_http) {
+				_http = new HttpRequest();
+				_http.on(Event.PROGRESS, this, onProgress);
+				_http.on(Event.ERROR, this, onError);
+				_http.on(Event.COMPLETE, this, onLoaded);
+			}
 			var contentType:String;
 			switch (type) {
 			case ATLAS: 
-			case PLF: 
 				contentType = JSON;
 				break;
 			case FONT: 
@@ -148,21 +157,7 @@ package laya.net {
 			default: 
 				contentType = type;
 			}
-			if (preLoadedMap[url])
-			{
-				onLoaded(preLoadedMap[url]);
-			}else
-			{
-				if (!_http) 
-				{
-					_http = new HttpRequest();
-					_http.on(Event.PROGRESS, this, onProgress);
-					_http.on(Event.ERROR, this, onError);
-					_http.on(Event.COMPLETE, this, onLoaded);
-				}
-				_http.send(url, null, "get", contentType);
-			}
-			
+			_http.send(url, null, "get", contentType);
 		}
 		
 		/**
@@ -276,11 +271,6 @@ package laya.net {
 		 */
 		protected function onLoaded(data:* = null):void {
 			var type:String = this._type;
-			if (type == PLF)
-			{
-				parsePLFData(data);
-				complete(data);
-			}else
 			if (type === IMAGE) {
 				var tex:Texture = new Texture(data);
 				tex.url = _url;
@@ -340,10 +330,8 @@ package laya.net {
 							var tPic:Object = pics[obj.frame.idx ? obj.frame.idx : 0];//是否释放
 							var url:String = URL.formatURL(directory + name);
 							tPic.scaleRate = scaleRate;
-							var tTexture:Texture;
-							tTexture = Texture.create(tPic, obj.frame.x, obj.frame.y, obj.frame.w, obj.frame.h, obj.spriteSourceSize.x, obj.spriteSourceSize.y, obj.sourceSize.w, obj.sourceSize.h);
-							cacheRes(url, tTexture);
-							tTexture.url = url;
+							cacheRes(url, Texture.create(tPic, obj.frame.x, obj.frame.y, obj.frame.w, obj.frame.h, obj.spriteSourceSize.x, obj.spriteSourceSize.y, obj.sourceSize.w, obj.sourceSize.h));
+							loadedMap[url].url = url;
 							map.push(url);
 						}
 					}else{
@@ -384,33 +372,6 @@ package laya.net {
 				complete(tex1);
 			} else {
 				complete(data);
-			}
-		}
-		
-		private function parsePLFData(plfData:Object):void
-		{
-			var type:String;
-			var filePath:String;
-			var fileDic:Object;
-			for (type in plfData)
-			{
-				fileDic = plfData[type];
-				switch(type)
-				{
-					case "json":
-					case "text":
-						for (filePath in fileDic)
-						{
-							preLoadedMap[URL.formatURL(filePath)]=fileDic[filePath]
-						}
-						break;
-					default:
-						for (filePath in fileDic)
-						{
-							preLoadedMap[URL.formatURL(filePath)]=fileDic[filePath]
-						}
-				}
-				
 			}
 		}
 		
@@ -457,6 +418,7 @@ package laya.net {
 			content && (this._data = content);
 			if (this._cache) cacheRes(this._url, this._data);
 			
+			_customParse = false;
 			event(Event.PROGRESS, 1);
 			event(Event.COMPLETE, data is Array ? [data] : data);
 		
@@ -525,7 +487,7 @@ package laya.net {
 			var arr:Array = Loader.getAtlas(url);
 			var res:* = (arr && arr.length>0) ? Loader.getRes(arr[0]) : Loader.getRes(url);
 			if (res && res.bitmap) {
-				if (Render.isConchApp && !Render.isConchWebGL) {
+				if (Render.isConchApp) {
 					//兼容老版本
 					if (res.bitmap.source.releaseTexture) {
 						res.bitmap.source.releaseTexture();
@@ -536,6 +498,14 @@ package laya.net {
 			}
 		}
 		
+		/**
+		 * 设置预加载的图集配置文件
+		 * @param	url 资源地址。
+		 * @param	configO 配置数据
+		 */
+		public static function setAtlasConfigs(url:String, config:Object):void {
+			preLoadedAtlasConfigMap[URL.formatURL(url)] = config;
+		}
 		
 		/**
 		 * 获取指定资源地址的资源。

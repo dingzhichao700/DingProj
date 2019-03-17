@@ -204,7 +204,7 @@ package laya.display {
 				_calculateFrameValues(keyframes[i], keyframes[i + 1], frames);
 			}
 			if (len == 0) {
-				frames[keyframes[0].index] = keyframes[0].value;
+				frames[0] = keyframes[0].value;
 				if (_animationNewFrames)
 					_animationNewFrames[keyframes[0].index] = true;
 			}

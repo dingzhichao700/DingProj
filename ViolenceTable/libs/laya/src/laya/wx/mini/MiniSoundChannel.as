@@ -62,18 +62,6 @@ package laya.wx.mini {
 			this._audio.play();
 		}
 		
-		/**
-		 * 设置开始时间 
-		 * @param time
-		 */		
-		public function set startTime(time:Number):void
-		{
-			if(this._audio)
-			{
-				this._audio.startTime = time;
-			}
-		}
-		
 			
 		/**@private  **/
 		public function set autoplay(value:Boolean):void

@@ -40,11 +40,11 @@ package laya.wx.mini {
 				Browser.onIPhone = true;
 				Browser.onIOS = true;
 				Browser.onIPad = true;
-				Browser.onAndroid = false;
+				Browser.onAndriod = false;
 			}
 			if(system.indexOf("Android") != -1 || system.indexOf("Adr") != -1)
 			{
-				Browser.onAndroid = true;
+				Browser.onAndriod = true;
 				Browser.onIPhone = false;
 				Browser.onIOS = false;
 				Browser.onIPad = false;

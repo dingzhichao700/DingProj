@@ -709,7 +709,7 @@ package laya.d3.shader {
 			
             var extendTerrainCompile3D:ShaderCompile3D = ShaderCompile3D.add(extendTerrainShader, vs, ps, attributeMap, uniformMap);
 			extendTerrainCompile3D.addSpriteDefines(RenderableSprite3D.shaderDefines);
-			extendTerrainCompile3D.addMaterialDefines(ExtendTerrainMaterial.shaderDefines);
+			extendTerrainCompile3D.addSpriteDefines(ExtendTerrainMaterial.shaderDefines);
 			
 			//Trail
 			attributeMap = {

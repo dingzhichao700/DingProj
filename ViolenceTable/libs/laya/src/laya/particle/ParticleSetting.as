@@ -158,12 +158,8 @@ package laya.particle {
 					setting[key] = _defaultSetting[key];
 				}
 			}
-			
-			//强转一下防止出错。这几个变量会直接传给shader，如果不是数字的话，有的runtime受不了（例如微信）
-			setting.endVelocity = +setting.endVelocity;
-			setting.gravity[0] =+setting.gravity[0];
-			setting.gravity[1] =+setting.gravity[1];
-			setting.gravity[2] =+setting.gravity[2];
 		}
+	
 	}
+
 }

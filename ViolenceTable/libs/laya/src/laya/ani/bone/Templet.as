@@ -637,10 +637,6 @@ package laya.ani.bone {
 		 */
 		public function getTexture(name:String):Texture {
 			var tTexture:Texture = subTextureDic[name];
-			if (!tTexture)
-			{
-				tTexture = subTextureDic[name.substr(0,name.length-1)];
-			}
 			if (tTexture == null) {
 				return _mainTexture;
 			}
@@ -704,12 +700,7 @@ package laya.ani.bone {
 		 * @return
 		 */
 		public function getGrahicsDataWithCache(aniIndex:int, frameIndex:Number):Graphics {
-			if (_graphicsCache[aniIndex] && _graphicsCache[aniIndex][frameIndex])
-			{
-				return _graphicsCache[aniIndex][frameIndex];
-			}
-			//trace("getGrahicsDataWithCache fail:",aniIndex,frameIndex,this._path);
-			return null;
+			return _graphicsCache[aniIndex][frameIndex];
 		}
 		
 		/**

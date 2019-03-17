@@ -68,12 +68,11 @@ package laya.utils {
 		 * <p>当对象池中无此类型标识的对象时，则使用传入的创建此类型对象的函数，新建一个对象返回。</p>
 		 * @param sign 对象类型标识字符。
 		 * @param createFun 用于创建该类型对象的方法。
-		 * @param caller this对象
 		 * @return 此类型标识的一个对象。
 		 */
-		public static function getItemByCreateFun(sign:String, createFun:Function,caller:*=null):* {
+		public static function getItemByCreateFun(sign:String, createFun:Function):* {
 			var pool:Array = getPoolBySign(sign);
-			var rst:Object = pool.length ? pool.pop() : createFun.call(caller);
+			var rst:Object = pool.length ? pool.pop() : createFun();
 			/*[IF-FLASH]*/
 			delete _inPoolDic[rst];
 			//[IF-JS]rst[InPoolSign] = false;

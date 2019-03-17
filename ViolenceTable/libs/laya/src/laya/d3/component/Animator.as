@@ -15,7 +15,6 @@ package laya.d3.component {
 	import laya.d3.math.Quaternion;
 	import laya.d3.math.Vector3;
 	import laya.d3.utils.Utils3D;
-	import laya.display.Node;
 	import laya.events.Event;
 	import laya.resource.IDestroy;
 	import laya.utils.Stat;
@@ -94,8 +93,6 @@ package laya.d3.component {
 		public var _cacheSpriteToNodesMap:Vector.<int>;
 		/**@private */
 		public var _cacheFullFrames:Vector.<Array>;
-		/**@private	*/
-		public var _linkSpritesData:Object;
 		/**@private	*/
 		public var _avatarNodeMap:Object;
 		/**@private	*/
@@ -462,7 +459,7 @@ package laya.d3.component {
 				for (var i:int = 0; i < nodeCount; i++) {
 					var node:KeyframeNode = nodes[i];
 					var nodeFullFrames:Int32Array = new Int32Array(frameCount);//使用Int32Array非UInt16Array,因为需要-1表示没到第0帧的情况
-					(nodeFullFrames as Object).fill(-1);
+					(nodeFullFrames as *).fill(-1);
 					var keyFrames:Vector.<Keyframe> = node.keyFrames;
 					for (var j:int = 0, n:int = keyFrames.length; j < n; j++) {
 						var keyFrame:Keyframe = keyFrames[j];
@@ -901,11 +898,6 @@ package laya.d3.component {
 			if (clip) {
 				animator.clip = clip;
 			}
-			if (_linkSpritesData){
-				animator._linkSpritesData = {};
-				for (var k:String in _linkSpritesData)
-					animator._linkSpritesData[k] = _linkSpritesData[k].slice();
-			}
 		}
 		
 		/**
@@ -1057,7 +1049,7 @@ package laya.d3.component {
 			_currentFrameIndex = 0;
 			_startUpdateLoopCount = Stat.loopCount;
 			
-			if (_lastPlayAnimationClip)
+			if (_lastPlayAnimationClip) 
 				(_lastPlayAnimationClip !== _currentPlayClip) && (_revertKeyframeNodes(_lastPlayAnimationClip, _lastPlayAnimationClipIndex));//TODO:还原动画节点，防止切换动作时跳帧，如果是从stop而来是否无需设置
 			
 			//TODO:此处是否直接设置一帧最接近的原始帧率,后面AnimationClip首帧可以设置为null了就
@@ -1077,42 +1069,21 @@ package laya.d3.component {
 		}
 		
 		/**
-		 * @private
-		 */
-		private function _getLinkSpritePath(sprite3D:Sprite3D,path:Array):void{
-			path.unshift(sprite3D.name);
-			var parent:Sprite3D = sprite3D._parent as Sprite3D;
-			if (parent._hierarchyAnimator === this)
-				_getLinkSpritePath(parent, path);
-			else
-				path.shift();
-		}
-		
-		/**
 		 * 关联精灵节点到Avatar节点,此Animator必须有Avatar文件。
 		 * @param nodeName 关联节点的名字。
 		 * @param sprite3D 精灵节点。
 		 * @return 是否关联成功。
 		 */
 		public function linkSprite3DToAvatarNode(nodeName:String, sprite3D:Sprite3D):Boolean {
-			if (sprite3D._hierarchyAnimator === this) {
-				if (_avatar) {
-					var node:AnimationNode = _avatarNodeMap[nodeName];
-					if (node) {
-						_linkSpritesData ||= {};
-						var path:Array = [];
-						_getLinkSpritePath(sprite3D,path);
-						_linkSpritesData[nodeName] = path;
-						sprite3D._isLinkSpriteToAnimationNode(this, node, true);
-						return true;
-					} else {
-						return false;
-					}
+			if (_avatar) {
+				var node:AnimationNode = _avatarNodeMap[nodeName];
+				if (node) {
+					sprite3D._isLinkSpriteToAnimationNode(this, node, true);
+					return true;
 				} else {
 					return false;
 				}
-			}else {
-				throw("Animator:sprite3D must belong to this Animator");
+			} else {
 				return false;
 			}
 		}

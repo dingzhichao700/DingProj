@@ -45,23 +45,7 @@ package laya.wx.mini {
 		 *
 		 */
 		public function load(url:String):void {
-			if (!MiniFileMgr.isLocalNativeFile(url)) {
-				url = URL.formatURL(url);
-			}else
-			{
-				if (url.indexOf("http://") != -1 || url.indexOf("https://") != -1)
-				{
-					if(MiniFileMgr.loadPath != "")
-					{
-						url = url.split(MiniFileMgr.loadPath)[1];//去掉http头
-					}else
-					{
-						var tempStr:String = URL.rootPath != "" ? URL.rootPath : URL.basePath;
-						if(tempStr != "")
-							url = url.split(tempStr)[1];//去掉http头
-					}
-				}
-			}
+			url = URL.formatURL(url);
 			this.url = url;
 			this.readyUrl = url;
 			if (_audioCache[this.readyUrl]) {
@@ -78,43 +62,7 @@ package laya.wx.mini {
 					onDownLoadCallBack(url,0);
 				}else
 				{
-                    if (MiniFileMgr.isLocalNativeFile(url))
-					{
-						tempStr = URL.rootPath != "" ? URL.rootPath : URL.basePath;
-                        var tempUrl:String = url;
-                        if(tempStr != "")
-                            url = url.split(tempStr)[1];//去掉http头
-                        if (!url){
-                            url = tempUrl;
-                        }
-						//分包目录资源加载处理
-						if (MiniAdpter.subNativeFiles && MiniAdpter.subNativeheads.length == 0)
-						{
-							for (var key:* in MiniAdpter.subNativeFiles)
-							{
-								var tempArr:Array = MiniAdpter.subNativeFiles[key];
-								MiniAdpter.subNativeheads = MiniAdpter.subNativeheads.concat(tempArr);
-								for (var aa:int = 0; aa < tempArr.length;aa++)
-								{
-									MiniAdpter.subMaps[tempArr[aa]] = key + "/" + tempArr[aa];
-								}
-							}
-						}
-						//判断当前的url是否为分包映射路径
-						if(MiniAdpter.subNativeFiles && url.indexOf("/") != -1)
-						{
-							var curfileHead:String = url.split("/")[0] + "/";//文件头
-							if(curfileHead && MiniAdpter.subNativeheads.indexOf(curfileHead) != -1)
-							{
-								var newfileHead:String = MiniAdpter.subMaps[curfileHead];
-								url = url.replace(curfileHead,newfileHead);
-							}
-						}
-                        onDownLoadCallBack(url,0);
-					}else
-					{
-						MiniFileMgr.downOtherFiles(url,Handler.create(this,onDownLoadCallBack,[url]),url);
-					}
+					MiniFileMgr.downOtherFiles(url,Handler.create(this,onDownLoadCallBack,[url]),url);
 				}
 			}
 		}
@@ -128,14 +76,8 @@ package laya.wx.mini {
 				if(MiniAdpter.autoCacheFile)
 				{
 					var fileObj:Object = MiniFileMgr.getFileInfo(sourceUrl);
-					if(fileObj && fileObj.md5)
-					{
-						var fileMd5Name:String = fileObj.md5;
-						fileNativeUrl = MiniFileMgr.getFileNativePath(fileMd5Name);
-					}else
-					{
-						fileNativeUrl = sourceUrl;
-					}
+					var fileMd5Name:String = fileObj.md5;
+					fileNativeUrl = MiniFileMgr.getFileNativePath(fileMd5Name);
 					_sound = _createSound();
 					_sound.src = url =  fileNativeUrl;
 				}else
@@ -174,7 +116,7 @@ package laya.wx.mini {
 		{
 			this.loaded = true;
 			this.event(Event.COMPLETE);
-			//_audioCache[this.readyUrl] = this;  //修复同一个声音不连续播放的bug
+			_audioCache[this.readyUrl] = this;
 			_sound.offCanplay(null);
 		}
 		

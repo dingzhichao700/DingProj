@@ -33,36 +33,8 @@ package laya.wx.mini {
 					}else
 					{
 						var tempStr:String = URL.rootPath != "" ? URL.rootPath : URL.basePath;
-						var tempUrl:String = url;
 						if(tempStr != "")
 							url = url.split(tempStr)[1];//去掉http头
-						if(!url)
-						{
-							url = tempUrl;
-						}
-					}
-					
-				}
-				if (MiniAdpter.subNativeFiles && MiniAdpter.subNativeheads.length == 0)
-				{
-					for (var key:* in MiniAdpter.subNativeFiles)
-					{
-						var tempArr:Array = MiniAdpter.subNativeFiles[key];
-						MiniAdpter.subNativeheads = MiniAdpter.subNativeheads.concat(tempArr);
-						for (var aa:int = 0; aa < tempArr.length;aa++)
-						{
-							MiniAdpter.subMaps[tempArr[aa]] = key + "/" + tempArr[aa];
-						}
-					}
-				}
-				//判断当前的url是否为分包映射路径
-				if(MiniAdpter.subNativeFiles && url.indexOf("/") != -1)
-				{
-					var curfileHead:String = url.split("/")[0] + "/";//文件头
-					if(curfileHead && MiniAdpter.subNativeheads.indexOf(curfileHead) != -1)
-					{
-						var newfileHead:String = MiniAdpter.subMaps[curfileHead];
-						url = url.replace(curfileHead,newfileHead);
 					}
 				}
 			}
@@ -125,17 +97,7 @@ package laya.wx.mini {
 						fileNativeUrl = MiniFileMgr.getFileNativePath(fileMd5Name);
 					}
 				} else
-					if(MiniAdpter.isZiYu)
-					{
-						//子域里需要读取主域透传过来的信息，然后这里获取一个本地磁盘图片路径，然后赋值给fileNativeUrl
-						var tempUrl:String = URL.formatURL(sourceUrl);
-						if(MiniFileMgr.ziyuFileTextureData[tempUrl])
-						{
-							fileNativeUrl = MiniFileMgr.ziyuFileTextureData[tempUrl];
-						}else
-							fileNativeUrl = sourceUrl;
-					}else
-						fileNativeUrl = sourceUrl;
+					fileNativeUrl = sourceUrl;
 			}else
 			{
 				if(!isLocal)

@@ -151,14 +151,14 @@ package laya.d3.core.material {
 		public function set renderMode(value:int):void {
 			switch (value) {
 			case RENDERMODE_OPAQUE: 
-				renderQueue = BaseMaterial.RENDERQUEUE_OPAQUE;
+				renderQueue = RenderQueue.OPAQUE;
 				depthWrite = true;
 				cull = CULL_BACK;
 				blend = BLEND_DISABLE;
 				depthTest = DEPTHTEST_LESS;
 				break;
 			case RENDERMODE_TRANSPARENT: 
-				renderQueue = BaseMaterial.RENDERQUEUE_OPAQUE;
+				renderQueue = RenderQueue.OPAQUE;
 				depthWrite = false;
 				cull = CULL_BACK;
 				blend = BLEND_ENABLE_ALL;

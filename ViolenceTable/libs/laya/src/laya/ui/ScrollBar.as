@@ -401,7 +401,6 @@ package laya.ui {
 		
 		public function set mouseWheelEnable(value:Boolean):void {
 			_mouseWheelEnable = value;
-			target = _target; 		
 		}
 		
 		/**@private */

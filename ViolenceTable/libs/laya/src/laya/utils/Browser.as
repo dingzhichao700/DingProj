@@ -35,6 +35,8 @@ package laya.utils {
 		/** 表示是否在 ipad 设备。*/
 		public static var onIPad:Boolean;
 		/** 表示是否在 Android设备。*/
+		public static var onAndriod:Boolean;
+		/** 表示是否在 Android设备。*/
 		public static var onAndroid:Boolean;
 		/** 表示是否在 Windows Phone 设备。*/
 		public static var onWP:Boolean;
@@ -90,7 +92,6 @@ package laya.utils {
 			__JS__("window.requestAnimationFrame=window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function (c){return window.setTimeout(c, 1000 / 60);};");
 			//强制修改body样式
 			//__JS__("var $BS=window.document.body.style;$BS.margin=0;$BS.overflow='hidden';");
-			__JS__("var $BS=window.document.body.style;$BS['-webkit-user-select']='none';$BS['-webkit-tap-highlight-color']='rgba(200,200,200,0)';");
 			//强制修改meta标签
 			//__JS__("var metas=window.document.getElementsByTagName('meta');");
 			//__JS__("var i=0,flag=false,content='width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no';");
@@ -104,14 +105,14 @@ package laya.utils {
 			onIPhone = /*[STATIC SAFE]*/ u.indexOf("iPhone") > -1;
 			onMac = /*[STATIC SAFE]*/ u.indexOf("Mac OS X") > -1;
 			onIPad = /*[STATIC SAFE]*/ u.indexOf("iPad") > -1;
-			onAndroid = /*[STATIC SAFE]*/ u.indexOf('Android') > -1 || u.indexOf('Adr') > -1;
+			onAndriod = /*[STATIC SAFE]*/ u.indexOf('Android') > -1 || u.indexOf('Adr') > -1;
 			onWP = /*[STATIC SAFE]*/ u.indexOf("Windows Phone") > -1;
 			onQQBrowser = /*[STATIC SAFE]*/ u.indexOf("QQBrowser") > -1;
 			onMQQBrowser = /*[STATIC SAFE]*/ u.indexOf("MQQBrowser") > -1 || (u.indexOf("Mobile") > -1 && u.indexOf("QQ") > -1);
 			onIE = /*[STATIC SAFE]*/ !!window.ActiveXObject || "ActiveXObject" in window;
 			onWeiXin = /*[STATIC SAFE]*/ u.indexOf('MicroMessenger') > -1;
 			onPC = /*[STATIC SAFE]*/ !onMobile;
-			onSafari = /*[STATIC SAFE]*/ u.indexOf("Safari") > -1;
+			onSafari = /*[STATIC SAFE]*/ !!u.match(/Version\/\d+\.\d\x20Mobile\/\S+\x20Safari/);
 			onFirefox = /*[STATIC SAFE]*/ u.indexOf('Firefox') > -1;
 			onEdge = /*[STATIC SAFE]*/ u.indexOf('Edge') > -1;
 			onMiniGame = /*[STATIC SAFE]*/ u.indexOf('MiniGame') > -1;
@@ -130,7 +131,6 @@ package laya.utils {
 			__JS__("Browser.enableTouch=(('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch)");
 			__JS__("window.focus()");
 			__JS__("SoundManager._soundClass=Sound;");
-			SoundManager._musicClass = AudioSound;
 			
 			Render._mainCanvas = Render._mainCanvas || HTMLCanvas.create('2D');
 			if (canvas) return;

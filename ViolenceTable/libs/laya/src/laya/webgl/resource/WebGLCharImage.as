@@ -15,12 +15,8 @@ package laya.webgl.resource {
 		private var _allowMerageInAtlas:Boolean;
 		/**是否允许加入大图合集*/
 		private var _enableMerageInAtlas:Boolean;
-		/**@private*/
-		public static var canUseCanvas:Boolean = true;
 		/**HTML Canvas，绘制字符载体,非私有数据载体*/
 		public var canvas:*;
-		/**@private */
-		private static var _fontSizeReg:RegExp =/*[STATIC SAFE]*/ new RegExp("\\d+(?=px)","g");
 		/**********************************************************************************/
 		public var cw:Number;
 		public var ch:Number;
@@ -55,14 +51,6 @@ package laya.webgl.resource {
 		
 		public function get atlasSource():* {
 			return canvas;
-		}
-		
-		public function get atlasImgData():* {
-			if (!canUseCanvas) {//这个版本不能用 canvas
-				if( _ctx.getImageData)
-					return _ctx.getImageData(0,0,_w,_h);
-			}
-			return null;
 		}
 		
 		/**
@@ -155,8 +143,7 @@ package laya.webgl.resource {
 					//TODO先凑合一下，回头再把scale信息传入到C++
 					nFontSize = parseInt(nFontSize * ((xs > ys) ? xs : ys) + "");
 				}
-				var sFont:String = "normal 100 " + font;
-				sFont = sFont.replace(_fontSizeReg, nFontSize);
+				var sFont:String = "normal 100 " + nFontSize + "px Arial";
 				if (borderColor) {
 					sFont += " 1 " + borderColor;
 				}
@@ -166,7 +153,6 @@ package laya.webgl.resource {
 				_ctx.fillText(char, CborderSize, CborderSize, null, null, null);
 			} else {
 				_ctx.save();
-				_ctx.lineJoin="round";
 				(_ctx as Object).clearRect(0, 0, cw + CborderSize * 2, ch + CborderSize * 2);
 				
 				_ctx.font = font;

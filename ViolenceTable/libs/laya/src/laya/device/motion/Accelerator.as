@@ -91,7 +91,7 @@ package laya.device.motion
 			rotationRate.beta = e.rotationRate.alpha * -1;
 			rotationRate.gamma = e.rotationRate.beta;
 			
-			if (Browser.onAndroid)
+			if (Browser.onAndriod)
 			{
 				if (onChrome)
 				{

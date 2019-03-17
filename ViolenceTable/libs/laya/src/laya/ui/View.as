@@ -233,7 +233,7 @@ package laya.ui {
 			if (prop === "var" && view) {
 				view[value] = comp;
 			} else if (prop == "onClick") {
-				var fun:Function = Laya._runScript("(function(){" + value + "})");
+				var fun:Function = Browser.window.eval("(function(){" + value + "})");
 				comp.on(Event.CLICK, view, fun);
 			} else {
 				comp[prop] = (value === "true" ? true : (value === "false" ? false : value));

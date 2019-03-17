@@ -265,7 +265,6 @@ package laya.utils {
 				var vArr:Array = obj[key];
 				if (frame >= vArr.length)
 					frame = vArr.length - 1;
-				if(obj[key][frame]!=undefined)
 				return obj[key][frame];
 			}
 			if (obj2.hasOwnProperty(key)) {

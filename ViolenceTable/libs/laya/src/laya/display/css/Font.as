@@ -197,7 +197,7 @@ package laya.display.css {
 		 * 规定添加到文本的修饰。
 		 */
 		public function get decoration():String {
-			return _decoration ? _decoration.value : null;
+			return _decoration ? _decoration.value : "none";
 		}
 		
 		/**

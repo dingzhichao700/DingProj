@@ -262,13 +262,8 @@ package laya.webgl {
 				if (canvasWidth <= 0 || canvasHeight <= 0) {
 					trace("[error] canvasWidth and canvasHeight should greater than zero");	
 				}
-				// RenderSprite.renders[_renderType]._fun 已经不再加 sprite.x sprite.y了，所以这里也不要减了。
-				//offsetX -= sprite.x;
-				//offsetY -= sprite.y;
-				
-				//把参数强转成int
-				canvasWidth |= 0;	canvasHeight |= 0;	offsetX |= 0;	offsetY |= 0;
-				
+				offsetX -= sprite.x;
+				offsetY -= sprite.y;
 				var renderTarget:RenderTarget2D = RenderTarget2D.create(canvasWidth, canvasHeight, WebGLContext.RGBA, WebGLContext.UNSIGNED_BYTE, 0, false);
 				renderTarget.start();
 				renderTarget.clear(0, 0, 0, 0);
@@ -276,13 +271,8 @@ package laya.webgl {
 				RenderSprite.renders[_renderType]._fun(sprite, Render.context, offsetX, RenderState2D.height - canvasHeight + offsetY);
 				Render.context.flush();
 				renderTarget.end();
-				var pixels:Uint8Array = renderTarget.getData(0, 0, canvasWidth, canvasHeight);
+				var pixels:Uint8Array = renderTarget.getData(0, 0, renderTarget.width, renderTarget.height);
 				renderTarget.recycle();
-				if (pixels.byteLength != canvasWidth * canvasHeight * 4) {
-					trace('drawToCanvas error: w:' + canvasWidth + ',h:' + canvasHeight + ',datalen:' + pixels.byteLength);
-					return;
-				}
-				
 				
 				var htmlCanvas:* = new WebGLCanvas();
 				htmlCanvas._canvas = Browser.createElement("canvas");

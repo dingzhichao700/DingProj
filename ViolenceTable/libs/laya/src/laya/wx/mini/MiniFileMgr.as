@@ -17,8 +17,6 @@ package laya.wx.mini {
 		public static var fileListName:String = "layaairfiles.txt";
 		/**@private 子域数据存储对象**/
 		public static var ziyuFileData:Object = {};
-		/**子域图片磁盘缓存路径存储对象**/
-		public static var ziyuFileTextureData:Object = {};
 		/**加载路径设定(相当于URL.rootPath)**/
 		public static var loadPath:String = "";
 		/**@private **/
@@ -35,7 +33,6 @@ package laya.wx.mini {
 		{
 			for(var i:int = 0,sz:int = MiniAdpter.nativefiles.length;i<sz;i++)
 			{
-				//优化调整  if(url.indexOf(MiniAdpter.nativefiles[i]) == 0)
 				if(url.indexOf(MiniAdpter.nativefiles[i]) != -1)
 					return true;
 			}
@@ -49,7 +46,7 @@ package laya.wx.mini {
 		 * @return
 		 */
 		public static function getFileInfo(fileUrl:String):Object {
-			var fileNativePath:String = fileUrl;//.split("?")[0];?????这里好像不需要
+			var fileNativePath:String = fileUrl.split("?")[0];
 			var fileObj:Object = filesListObj[fileNativePath];//这里要去除?好的完整路径
 			if (fileObj == null)
 				return null;
@@ -97,18 +94,10 @@ package laya.wx.mini {
 		 * @param isSaveFile 是否自动缓存下载的文件,只有在开发者自己单独加载时生效
 		 * @param fileType 文件类型
 		 */
-		public static function downFiles(fileUrl:String, encoding:String = "ascii", callBack:Handler = null, readyUrl:String = "",isSaveFile:Boolean = false,fileType:String = "",isAutoClear:Boolean =true):void {
+		public static function downFiles(fileUrl:String, encoding:String = "ascii", callBack:Handler = null, readyUrl:String = "",isSaveFile:Boolean = false,fileType:String = ""):void {
 			var downloadTask:* = wxdown({url: fileUrl, success: function(data:Object):void {
 				if (data.statusCode === 200)
-					readFile(data.tempFilePath, encoding, callBack, readyUrl,isSaveFile,fileType,isAutoClear);
-				else
-					if(data.statusCode === 403)
-					{
-						callBack != null && callBack.runWith([0, fileUrl]);//修复本地加载非本地列表的配置文件处理
-					}else
-					{
-						callBack != null && callBack.runWith([1, data]);
-					}
+					readFile(data.tempFilePath, encoding, callBack, readyUrl,isSaveFile,fileType);
 			}, fail: function(data:Object):void {
 				callBack != null && callBack.runWith([1, data]);
 			}});
@@ -128,13 +117,13 @@ package laya.wx.mini {
 		 * @param isSaveFile 是否自动缓存下载的文件,只有在开发者自己单独加载时生效
 		 * @param fileType 文件类型
 		 */
-		public static function readFile(filePath:String, encoding:String = "ascill", callBack:Handler = null, readyUrl:String = "",isSaveFile:Boolean = false,fileType:String = "",isAutoClear:Boolean =true):void {
+		public static function readFile(filePath:String, encoding:String = "ascill", callBack:Handler = null, readyUrl:String = "",isSaveFile:Boolean = false,fileType:String = ""):void {
 			fs.readFile({filePath: filePath, encoding: encoding, success: function(data:Object):void {
 				if (filePath.indexOf("http://") != -1 || filePath.indexOf("https://") != -1)
 				{
 					if(MiniAdpter.autoCacheFile || isSaveFile)
 					{
-						copyFile(filePath, readyUrl, callBack,encoding,isAutoClear);
+						copyFile(filePath, readyUrl, callBack,encoding);
 					}
 				}
 				else
@@ -154,16 +143,13 @@ package laya.wx.mini {
 		 * @param readyUrl 文件真实下载地址
 		 * @param isSaveFile 是否自动缓存下载的文件,只有在开发者自己单独加载时生效
 		 */
-		public static function downOtherFiles(fileUrl:String, callBack:Handler = null, readyUrl:String = "",isSaveFile:Boolean = false,isAutoClear:Boolean = true):void {
+		public static function downOtherFiles(fileUrl:String, callBack:Handler = null, readyUrl:String = "",isSaveFile:Boolean = false):void {
 			wxdown({url: fileUrl, success: function(data:Object):void {
 				if (data.statusCode === 200) {
-					if((MiniAdpter.autoCacheFile || isSaveFile )&& readyUrl.indexOf("wx.qlogo.cn")== -1 && readyUrl.indexOf(".php") == -1)
-						copyFile(data.tempFilePath, readyUrl, callBack,"",isAutoClear);
+					if((MiniAdpter.autoCacheFile || isSaveFile )&& readyUrl.indexOf("wx.qlogo.cn")== -1)
+						copyFile(data.tempFilePath, readyUrl, callBack);
 					else
 						callBack != null && callBack.runWith([0, data.tempFilePath]);
-				}else
-				{
-					callBack != null && callBack.runWith([1, data]);//修复下载文件返回非200状态码的bug
 				}
 			}, fail: function(data:Object):void {
 				callBack != null && callBack.runWith([1, data]);
@@ -180,16 +166,10 @@ package laya.wx.mini {
 		 */				
 		public static function downLoadFile(fileUrl:String, fileType:String = "",callBack:Handler = null,encoding:String = "ascii"):void
 		{
-			if(__JS__('window').navigator.userAgent.indexOf('MiniGame') <0)
-			{
-				Laya.loader.load(fileUrl,callBack);
-			}else
-			{
-				if(fileType == Loader.IMAGE || fileType == Loader.SOUND)
-					downOtherFiles(fileUrl,callBack,fileUrl,true,false);
-				else
-					downFiles(fileUrl,encoding,callBack,fileUrl,true,fileType,false);
-			}
+			if(fileType == Loader.IMAGE || fileType == Loader.SOUND)
+				downOtherFiles(fileUrl,callBack,fileUrl,true);
+			else
+				downFiles(fileUrl,encoding,callBack,fileUrl,true,fileType);
 		}
 		
 		/**
@@ -200,10 +180,10 @@ package laya.wx.mini {
 		 * @param callBack
 		 * @param encoding 编码
 		 */
-		private static function copyFile(tempFilePath:String, readyUrl:String, callBack:Handler,encoding:String = "",isAutoClear:Boolean = true):void {
+		private static function copyFile(tempFilePath:String, readyUrl:String, callBack:Handler,encoding:String = ""):void {
 			var temp:Array = tempFilePath.split("/");
 			var tempFileName:String = temp[temp.length - 1];
-			var fileurlkey:String = readyUrl;//.split("?")[0];
+			var fileurlkey:String = readyUrl.split("?")[0];
 			var fileObj:Object = getFileInfo(readyUrl);
 			var saveFilePath:String = getFileNativePath(tempFileName);
 			
@@ -218,7 +198,7 @@ package laya.wx.mini {
 						filePath:tempFilePath,
 						success:function(data:Object):void
 						{
-							if((isAutoClear && (fileUseSize + chaSize + data.size) >= totalSize))
+							if((fileUseSize + chaSize + data.size) >= totalSize)
 							{
 								if(data.size > MiniAdpter.minClearSize)
 									MiniAdpter.minClearSize = data.size;
@@ -239,7 +219,7 @@ package laya.wx.mini {
 					filePath:tempFilePath,
 					success:function(data:Object):void
 					{
-						if((isAutoClear &&  (fileUseSize + chaSize + data.size) >= totalSize))
+						if((fileUseSize + chaSize + data.size) >= totalSize)
 						{
 							if(data.size > MiniAdpter.minClearSize)
 								MiniAdpter.minClearSize = data.size;
@@ -270,7 +250,7 @@ package laya.wx.mini {
 			{
 				tempFileListArr.push(filesListObj[key]);
 			}
-			sortOn(tempFileListArr,"times",NUMERIC);//按时间进行排序
+			sortOn(tempFileListArr,"time",NUMERIC);//按时间进行排序
 			var clearSize:int = 0;
 			for(var i:int = 1,sz:int = tempFileListArr.length;i<sz;i++)
 			{
@@ -352,13 +332,6 @@ package laya.wx.mini {
 				var fileObj:Object = tempFileListArr[i];
 				deleteFile("",fileObj.readyUrl);
 			}
-			//清理
-			if(MiniFileMgr.filesListObj && MiniFileMgr.filesListObj.fileUsedSize)
-			{
-				MiniFileMgr.filesListObj.fileUsedSize = 0;
-			}
-			MiniFileMgr.writeFilesList("",JSON.stringify({}),false);
-			
 		}
 		
 		/**
@@ -372,7 +345,7 @@ package laya.wx.mini {
 		 * @param fileSize 文件大小
 		 */
 		public static function onSaveFile(readyUrl:String, md5Name:String,isAdd:Boolean = true,encoding:String = "",callBack:Handler = null,fileSize:int = 0):void {
-			var fileurlkey:String = readyUrl;//.split("?")[0];
+			var fileurlkey:String = readyUrl.split("?")[0];
 			if(filesListObj['fileUsedSize'] == null)
 				filesListObj['fileUsedSize'] =  0;
 			if(isAdd)

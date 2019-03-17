@@ -435,7 +435,7 @@ package laya.ani.swf {
 		 * @param   atlasPath  图集路径，默认使用与swf同名的图集
 		 */
 		public function load(url:String,atlas:Boolean=false,atlasPath:String=null):void {
-			_url = url;
+			_url = url = URL.formatURL(url);
 			if(atlas) _atlasPath=atlasPath?atlasPath:url.split(".swf")[0] + ".json";	
 			stop();
 			_clear();
@@ -458,11 +458,6 @@ package laya.ani.swf {
 				event(Event.ERROR,"file not find");
 				return;
 			} 
-			if (_atlasPath && !Loader.getAtlas(_atlasPath))
-			{
-				event(Event.ERROR,"Atlas not find");
-				return;
-			}
 			this.basePath =_atlasPath?Loader.getAtlas(_atlasPath).dir:_url.split(".swf")[0] + "/image/";		
 			_initData(data);
 		}

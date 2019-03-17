@@ -495,11 +495,7 @@ package laya.webgl
 		
 		public function generateMipmap(target:*):*{return null;}
 		
-		public function getActiveAttribEx(... args):*{return null;}
-		
 		public function getActiveAttrib(program:*, index:int):*{return null;}
-		
-		public function getActiveUniformEx(... args):*{return null;}
 		
 		public function getActiveUniform(program:*, index:int):*{return null;}
 		
@@ -512,8 +508,6 @@ package laya.webgl
 		public function getError():*{return null;}
 		
 		public function getFramebufferAttachmentParameter(target:*, attachment:*, pname:*):void{}
-		
-		public function getProgramParameterEx(program:*, pname:*,...args):int{return 0;}
 		
 		public function getProgramParameter(program:*, pname:*):int{return 0;}
 		
@@ -585,15 +579,11 @@ package laya.webgl
 		
 		public function stencilOpSeparate(face:uint, fail:uint, zfail:uint, zpass:uint):void{}
 		
-		public function texImage2DEx(... args):void{}
-		
 		public function texImage2D(... args):void{}
 		
 		public function texParameterf(target:*, pname:*, param:*):void{}
 		
 		public function texParameteri(target:*, pname:*, param:*):void{}
-		
-		public function texSubImage2DEx(... args):void{}
 		
 		public function texSubImage2D(... args):void{}
 		

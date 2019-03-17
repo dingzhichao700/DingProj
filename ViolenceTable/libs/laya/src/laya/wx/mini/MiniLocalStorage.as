@@ -1,7 +1,5 @@
 package laya.wx.mini
 {
-	//import laya.utils.ErrorLog;
-
 	/** @private **/
 	public class MiniLocalStorage
 	{
@@ -26,19 +24,7 @@ package laya.wx.mini
 		 * @param value 键值。
 		 */
 		public static function setItem(key:String, value:*):void {
-
-			try
-			{
-				__JS__('wx').setStorageSync(key,value);//安卓系统 4.4.4有bug，临时采用异步设置缓存的方式
-			} 
-			catch(error:Error) 
-			{
-				__JS__('wx').setStorage({
-					key:key,
-					data:value
-				});
-				//ErrorLog.I && ErrorLog.I.reportError("SLocal:",error.stack,null);
-			}
+			__JS__('wx').setStorageSync(key,value);
 		}
 		
 		/**

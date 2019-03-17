@@ -22,13 +22,6 @@ package laya.d3.core.material {
 	 * <code>BaseMaterial</code> 类用于创建材质,抽象类,不允许实例。
 	 */
 	public class BaseMaterial extends Resource implements IClone {
-		/** 渲染队列_不透明。*/
-		public static const RENDERQUEUE_OPAQUE:int = 2000;
-		/** 渲染队列_阿尔法裁剪。*/
-		public static const RENDERQUEUE_ALPHATEST:int = 2450;
-		/** 渲染队列_透明。*/
-		public static const RENDERQUEUE_TRANSPARENT:int = 3000;
-		
 		/**剔除枚举_不剔除。*/
 		public static const CULL_NONE:int = 0;
 		/**剔除枚举_剔除正面。*/
@@ -93,7 +86,7 @@ package laya.d3.core.material {
 		public static const DEPTHTEST_ALWAYS:int = 0x0207/*WebGLContext.ALWAYS*/;
 		
 		/**@private 材质级着色器宏定义,透明测试。*/
-		public static var SHADERDEFINE_ALPHATEST:int = 0x1;
+		public static var SHADERDEFINE_ALPHATEST:int=0x1;
 		
 		/**@private 着色器变量,透明测试值。*/
 		public static const ALPHATESTVALUE:int = 0;
@@ -203,7 +196,7 @@ package laya.d3.core.material {
 			_disablePublicShaderDefine = 0;
 			_shaderValues = new ValusArray();
 			_values = [];
-			renderQueue = BaseMaterial.RENDERQUEUE_OPAQUE;
+			renderQueue = RenderQueue.OPAQUE;
 			_alphaTest = false;
 			cull = CULL_BACK;
 			blend = BLEND_DISABLE;
@@ -553,69 +546,6 @@ package laya.d3.core.material {
 						var defineNames:Array = props[key];
 						for (i = 0, n = defineNames.length; i < n; i++) {
 							var define:int = _shaderCompile.getMaterialDefineByName(defineNames[i]);
-							_addShaderDefine(define);
-						}
-						break;
-					case "cull": 
-					case "blend": 
-					case "srcBlend": 
-					case "dstBlend": 
-					case "depthWrite": 
-						this[key] = props[key];
-						break;
-					case "renderQueue": 
-						var queue:int = props[key];
-						switch (queue) {
-						case 1: 
-							this.renderQueue = RENDERQUEUE_OPAQUE;
-							break;
-						case 2: 
-							this.renderQueue = RENDERQUEUE_TRANSPARENT;
-							break;
-						default: 
-						}
-						break;
-					default: 
-						this[key] = props[key];
-					}
-				}
-				break;
-			case "LAYAMATERIAL:02": 
-				props = jsonData.props;
-				for (key in props) {
-					switch (key) {
-					case "vectors": 
-						vectors = props[key];
-						for (i = 0, n = vectors.length; i < n; i++) {
-							vector = vectors[i];
-							vectorValue = vector.value;
-							switch (vectorValue.length) {
-							case 2: 
-								this[vector.name] = new Vector2(vectorValue[0], vectorValue[1]);
-								break;
-							case 3: 
-								this[vector.name] = new Vector3(vectorValue[0], vectorValue[1], vectorValue[2]);
-								break;
-							case 4: 
-								this[vector.name] = new Vector4(vectorValue[0], vectorValue[1], vectorValue[2], vectorValue[3]);
-								break;
-							default: 
-								throw new Error("BaseMaterial:unkonwn color length.");
-							}
-						}
-						break;
-					case "textures": 
-						textures = props[key];
-						for (i = 0, n = textures.length; i < n; i++) {
-							texture = textures[i];
-							path = texture.path;
-							(path) && (this[texture.name] = Loader.getRes(textureMap[path]));
-						}
-						break;
-					case "defines": 
-						defineNames = props[key];
-						for (i = 0, n = defineNames.length; i < n; i++) {
-							define = _shaderCompile.getMaterialDefineByName(defineNames[i]);
 							_addShaderDefine(define);
 						}
 						break;

@@ -48,7 +48,7 @@ package laya.media.webaudio {
 		
 		private var _onPlayEnd:Function;
 		private static var _tryCleanFailed:Boolean = false;
-		public static const SetTargetDelay:Number = 0.001;
+		
 		public function WebAudioSoundChannel() {
 			super();
 			_onPlayEnd = Utils.bind(__onPlayEnd, this);
@@ -78,18 +78,10 @@ package laya.media.webaudio {
 			bufferSource.onended = _onPlayEnd;
 			if (this.startTime >= this.duration) this.startTime = 0;
 			this._startTime = Browser.now();
-			if (this.gain.gain.setTargetAtTime)
-			{
-				this.gain.gain.setTargetAtTime(this._volume,this.context.currentTime,SetTargetDelay);
-			}else
 			this.gain.gain.value = this._volume;
 			if (loops == 0) {
 				bufferSource.loop = true;
 			}
-			if (bufferSource.playbackRate.setTargetAtTime)
-			{
-				bufferSource.playbackRate.setTargetAtTime(SoundManager.playbackRate,this.context.currentTime,SetTargetDelay)
-			}else
 			bufferSource.playbackRate.value = SoundManager.playbackRate;
 			bufferSource.start(0, this.startTime);
 			this._currentTime = 0;
@@ -210,10 +202,6 @@ package laya.media.webaudio {
 			}
 			
 			this._volume = v;
-			if (this.gain.gain.setTargetAtTime)
-			{
-				this.gain.gain.setTargetAtTime(v,this.context.currentTime,SetTargetDelay);
-			}else
 			this.gain.gain.value = v;
 		}
 		

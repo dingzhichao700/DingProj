@@ -1,7 +1,6 @@
 package laya.media {
 	import laya.events.Event;
 	import laya.media.h5audio.AudioSound;
-	import laya.media.webaudio.WebAudioSound;
 	import laya.net.Loader;
 	import laya.net.URL;
 	import laya.renders.Render;
@@ -140,23 +139,15 @@ package laya.media {
 				if (!_musicChannel.isStopped) {
 					_blurPaused = true;
 					_musicChannel.pause();
-					
+					Laya.stage.once(Event.MOUSE_DOWN, null, _stageOnFocus);
 				}
 				
-			}	
+			}
 			stopAllSound();
-			Laya.stage.once(Event.MOUSE_DOWN, null, _stageOnFocus);
-		}
-		
-		private static function _recoverWebAudio():void
-		{
-			if(WebAudioSound.ctx&&WebAudioSound.ctx.state!="running"&&WebAudioSound.ctx.resume)
-			WebAudioSound.ctx.resume();
 		}
 		
 		private static function _stageOnFocus():void {
 			_isActive = true;
-			_recoverWebAudio();
 			Laya.stage.off(Event.MOUSE_DOWN, null, _stageOnFocus);
 			if (_blurPaused) {
 				if (_musicChannel && _musicChannel.isStopped)
@@ -204,12 +195,7 @@ package laya.media {
 				{
 					if (_musicChannel&&!_musicChannel.isStopped)
 					{
-						if (Render.isConchApp) {
-							__JS__("if (SoundManager._musicChannel._audio) SoundManager._musicChannel._audio.muted = true;");
-						}
-						else {
-							_musicChannel.pause();
-						}
+						_musicChannel.pause();
 					}else
 					{
 						_musicChannel = null;
@@ -225,12 +211,7 @@ package laya.media {
 				if (_tMusic) {
 					if (_musicChannel)
 					{
-						if (Render.isConchApp) {
-							__JS__("if (SoundManager._musicChannel._audio) SoundManager._musicChannel._audio.muted = false;");
-						}
-						else {
-							_musicChannel.resume();
-						}
+						_musicChannel.resume();
 					}
 				}
 			}
@@ -249,13 +230,7 @@ package laya.media {
 		static public function set useAudioMusic(value:Boolean):void 
 		{
 			_useAudioMusic = value;
-			if (value)
-			{
-				_musicClass = AudioSound;
-			}else
-			{
-				_musicClass = null;
-			} 
+			if (value) _musicClass = AudioSound;
 		}
 		
 		/**
@@ -270,7 +245,6 @@ package laya.media {
 		public static function playSound(url:String, loops:int = 1, complete:Handler = null, soundClass:Class = null, startTime:Number = 0):SoundChannel {
 			if (!_isActive || !url) return null;
 			if (_muted) return null;
-			_recoverWebAudio();
 			url = URL.formatURL(url);
 			if (url == _tMusic) {
 				if (_musicMuted) return null;
@@ -293,10 +267,7 @@ package laya.media {
 			if (!tSound) {
 				tSound = new soundClass();
 				tSound.load(url);
-				if (!Browser.onMiniGame)
-				{
-					Loader.cacheRes(url, tSound);
-				}	
+				Loader.cacheRes(url, tSound);
 			}
 			var channel:SoundChannel;
 			channel = tSound.play(startTime, loops);

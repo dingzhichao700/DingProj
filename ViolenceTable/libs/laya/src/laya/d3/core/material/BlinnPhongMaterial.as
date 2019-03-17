@@ -56,7 +56,7 @@ package laya.d3.core.material {
 			SHADERDEFINE_SPECULARMAP = shaderDefines.registerDefine("SPECULARMAP");
 			SHADERDEFINE_REFLECTMAP = shaderDefines.registerDefine("REFLECTMAP");
 			SHADERDEFINE_TILINGOFFSET = shaderDefines.registerDefine("TILINGOFFSET");
-			SHADERDEFINE_ADDTIVEFOG = shaderDefines.registerDefine("ADDTIVEFOG");
+			SHADERDEFINE_ADDTIVEFOG = shaderDefines.registerDefine("ADDTIVEFOG");;
 		}
 		
 		/**
@@ -81,7 +81,7 @@ package laya.d3.core.material {
 		public function set renderMode(value:int):void {
 			switch (value) {
 			case RENDERMODE_OPAQUE: 
-				renderQueue = BaseMaterial.RENDERQUEUE_OPAQUE;
+				renderQueue = RenderQueue.OPAQUE;
 				depthWrite = true;
 				cull = CULL_BACK;
 				blend = BLEND_DISABLE;
@@ -93,13 +93,13 @@ package laya.d3.core.material {
 				depthWrite = true;
 				cull = CULL_BACK;
 				blend = BLEND_DISABLE;
-				renderQueue = BaseMaterial.RENDERQUEUE_OPAQUE;
+				renderQueue = RenderQueue.OPAQUE;
 				alphaTest = true;
 				depthTest = DEPTHTEST_LESS;
 				_removeShaderDefine(SHADERDEFINE_ADDTIVEFOG);
 				break;
 			case RENDERMODE_TRANSPARENT: 
-				renderQueue = BaseMaterial.RENDERQUEUE_TRANSPARENT;
+				renderQueue = RenderQueue.TRANSPARENT;
 				depthWrite = false;
 				cull = CULL_BACK;
 				blend = BLEND_ENABLE_ALL;
@@ -110,7 +110,7 @@ package laya.d3.core.material {
 				_removeShaderDefine(SHADERDEFINE_ADDTIVEFOG);
 				break;
 			case RENDERMODE_ADDTIVE: 
-				renderQueue = BaseMaterial.RENDERQUEUE_TRANSPARENT;
+				renderQueue = RenderQueue.TRANSPARENT;
 				depthWrite = false;
 				cull = CULL_BACK;
 				blend = BLEND_ENABLE_ALL;
@@ -371,17 +371,6 @@ package laya.d3.core.material {
 		 */
 		public function disableFog():void {
 			_addDisablePublicShaderDefine(ShaderCompile3D.SHADERDEFINE_FOG);
-		}
-		
-		/**
-		 * @inheritDoc
-		 */
-		override public function cloneTo(destObject:*):void {
-			super.cloneTo(destObject);
-			var destMaterial:BlinnPhongMaterial = destObject as BlinnPhongMaterial;
-			destMaterial._enableLighting = _enableLighting;
-			destMaterial._albedoIntensity = _albedoIntensity;
-			_albedoColor.cloneTo(destMaterial._albedoColor);
 		}
 	}
 

@@ -374,6 +374,7 @@ package laya.resource {
 		
 		/*** @private */
 		public function drawTexture2(x:Number, y:Number, pivotX:Number, pivotY:Number, m:Matrix, alpha:Number, blendMode:String, args2:Array):void {
+			'use strict';
 			var tex:Texture = args2[0];
 			if (!(tex.loaded && tex.bitmap && tex.source))//source内调用tex.active();
 			{

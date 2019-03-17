@@ -82,12 +82,7 @@ package laya.display {
 					x += tex.offsetX;
 					y += tex.offsetY;
 					var uv:Array = tex.uv, w:Number = tex.bitmap.width, h:Number = tex.bitmap.height;
-					if (uv[4] < uv[0] && uv[5] < uv[1]) {
-						this.drawImageM(tex.bitmap.source, uv[4] * w, uv[5] * h, (uv[0] - uv[4]) * w, (uv[1] - uv[5]) * h, x, y, width, height, m, alpha);
-					}
-					else {
-						this.drawImageM(tex.bitmap.source, uv[0] * w, uv[1] * h, (uv[2] - uv[0]) * w, (uv[5] - uv[3]) * h, x, y, width, height, m, alpha);
-					}
+					this.drawImageM(tex.bitmap.source, uv[0] * w, uv[1] * h, (uv[2] - uv[0]) * w, (uv[5] - uv[3]) * h, x, y, width, height, m, alpha);
 					this._repaint();
 				}
 				from.fillTexture = function(tex:Texture, x:Number, y:Number, width:Number = 0, height:Number = 0, type:String = "repeat", offset:Point = null):void {
@@ -267,7 +262,7 @@ package laya.display {
 			if (!width) width = tex.sourceWidth;
 			if (!height) height = tex.sourceHeight;
 			alpha = alpha < 0 ? 0 : (alpha > 1 ? 1 : alpha);
-			var offset:Number = (!Render.isWebGL && (Browser.onFirefox || Browser.onEdge||Browser.onIE||Browser.onSafari)) ? 0.5 : 0;
+			var offset:Number = (!Render.isWebGL && (Browser.onFirefox || Browser.onEdge||Browser.onIE)) ? 0.5 : 0;
 			var wRate:Number = width / tex.sourceWidth;
 			var hRate:Number = height / tex.sourceHeight;
 			width = tex.width * wRate;
@@ -339,7 +334,6 @@ package laya.display {
 				_one[2] = y;
 				_one[3] = width;
 				_one[4] = height;
-				this._repaint();
 			} else {
 				clear();
 				tex && drawTexture(tex, x, y, width, height);

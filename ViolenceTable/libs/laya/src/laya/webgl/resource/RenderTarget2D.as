@@ -1,6 +1,5 @@
 package laya.webgl.resource {
 	import laya.events.Event;
-	import laya.renders.Render;
 	import laya.resource.IDispose;
 	import laya.resource.Texture;
 	import laya.webgl.WebGL;
@@ -82,10 +81,6 @@ package laya.webgl.resource {
 			_surfaceFormat = surfaceFormat;
 			_surfaceType = surfaceType;
 			_depthStencilFormat = depthStencilFormat;
-			//OpenGL es extesion support DEPTH_STENCIL
-			if (Render.isConchWebGL && _depthStencilFormat === WebGLContext.DEPTH_STENCIL) {
-				_depthStencilFormat = WebGLContext.DEPTH_COMPONENT16; 
-			}
 			_mipMap = mipMap;
 			_repeat = repeat;
 			_minFifter = minFifter;
@@ -136,10 +131,6 @@ package laya.webgl.resource {
 				t._surfaceFormat = surfaceFormat;
 				t._surfaceType = surfaceType;
 				t._depthStencilFormat = depthStencilFormat;
-				//OpenGL es extesion support DEPTH_STENCIL
-				if (Render.isConchWebGL && t._depthStencilFormat === WebGLContext.DEPTH_STENCIL) {
-					t._depthStencilFormat = WebGLContext.DEPTH_COMPONENT16; 
-				}
 				t._mipMap = mipMap;
 				t._repeat = repeat;
 				t._minFifter = minFifter;
@@ -157,6 +148,7 @@ package laya.webgl.resource {
 			
 			RenderState2D.curRenderTarget = this;
 			gl.bindFramebuffer(WebGLContext.FRAMEBUFFER, bitmap.frameBuffer);
+			
 			_alreadyResolved = false;
 			
 			if (_type == TYPE2D) {

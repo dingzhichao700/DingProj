@@ -8,7 +8,6 @@ package laya.ani.bone {
 	import laya.renders.Render;
 	import laya.resource.Texture;
 	import laya.utils.RunDriver;
-	import laya.display.Sprite;
 	
 	/**
 	 * @private
@@ -36,8 +35,6 @@ package laya.ani.bone {
 		
 		/** 显示皮肤的索引 */
 		public var displayIndex:int = -1;
-		/** @private */
-		public var originalIndex:int = -1;
 		
 		/** 用户自定义的皮肤 */
 		private var _diyTexture:Texture;
@@ -103,7 +100,7 @@ package laya.ani.bone {
 		{
 			if (!currSlotData) return;
 			_replaceDic[tarIndex] = newIndex;
-			if (originalIndex == tarIndex)
+			if (displayIndex == tarIndex)
 			{
 				showDisplayByIndex(tarIndex);
 			}
@@ -114,7 +111,6 @@ package laya.ani.bone {
 		 * @param	index
 		 */
 		public function showDisplayByIndex(index:int):void {
-			this.originalIndex = index;
 			if (_replaceDic[index]!=null) index = _replaceDic[index];
 			if (currSlotData && index > -1 && index < currSlotData.displayArr.length) {
 				displayIndex = index;
@@ -126,7 +122,7 @@ package laya.ani.bone {
 					//{
 						//currTexture = currDisplayData.createTexture(currTexture);
 					//}
-					if (currTexture && currDisplayData.type == 0 && currDisplayData.uvs && (!Render.isConchApp || (Render.isConchApp && Sprite.RUNTIMEVERION > "0.9.15")))
+					if (currTexture && !Render.isConchApp && currDisplayData.type == 0 && currDisplayData.uvs)
 					{
 						currTexture = currDisplayData.createTexture(currTexture);
 					}

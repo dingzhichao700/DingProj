@@ -27,7 +27,7 @@ package laya.d3.core.trail {
 	 */
 	public class TrailRenderElement implements IRenderable {
 		
-		public static var renderElementCount:int = 0;
+		private static var renderElementCount:int = 0;
 		public var _id:int;
 		
 		private var _owner:TrailFilter;
@@ -70,20 +70,21 @@ package laya.d3.core.trail {
 		
 		private var _isStart:Boolean = false;
 		private var _isFinish:Boolean = false;
-		public var _isDead:Boolean = false;
+		public  var _isDead:Boolean = false;
 		private var _curtime:Number;
 		private var _curDisappearIndex:int = 0;
 		
 		public function TrailRenderElement(owner:TrailFilter) {
 			
 			_owner = owner;
-			_id = renderElementCount++;
+			_id = renderElementCount ++;
 			
 			if (_id == 0) {
 				owner._owner.transform.position.cloneTo(_lastPosition);
 			} else {
 				owner._curSubTrailFinishPosition.cloneTo(_lastPosition);
 			}
+			
 			_everyGroupVertexBirthTime = new Vector.<Number>();
 			_VerticesToTailLength = new Float32Array(_maxVerticesCount);
 			_everyVertexToPreVertexDistance = new Float32Array(_maxVerticesCount);
@@ -238,9 +239,10 @@ package laya.d3.core.trail {
 			
 			var i:int, j:int;
 			for (i = 0, j = (_verticesCount + _virtualVerticesCount) / 2; i < j; i++) {
-				if (_owner.textureMode == TextureMode.Stretch) {
+				if (_owner.textureMode == TextureMode.Stretch){
 					_uvX = (_VerticesToTailLength[i] - _owner._trailDeadLength) / (_owner._trailTotalLength + _owner._trailSupplementLength - _owner._trailDeadLength);
-				} else {
+				}
+				else{
 					_uvX = _owner._trailTotalLength + _owner._trailSupplementLength - _VerticesToTailLength[i];
 				}
 				_vertices2[_uvIndex++] = 1.0 - _uvX;
@@ -289,16 +291,11 @@ package laya.d3.core.trail {
 			_camera = state.camera;
 			if (_camera == null)
 				return false;
-			
+				
 			_owner._owner.transform.position.cloneTo(_curPosition);
 			
 			if (!_isDead) {
 				if (_verticesCount < _maxVerticesCount) {
-					
-					if (!_owner._isStart) {
-						_owner._owner.transform.position.cloneTo(_lastPosition);
-						_owner._isStart = true;
-					}
 					
 					if (!Vector3.equals(_lastPosition, _curPosition)) {
 						_updateTrail();
@@ -310,12 +307,12 @@ package laya.d3.core.trail {
 					}
 				}
 				
-				if (_verticesCount > 0) {
+				if (_verticesCount > 0){
 					_updateVertexBuffer2();
 					_updateDisappear();
 					return true;
 				}
-			}
+			} 
 			return false;
 		}
 		
@@ -330,7 +327,6 @@ package laya.d3.core.trail {
 			
 			WebGL.mainContext.drawArrays(WebGLContext.TRIANGLE_STRIP, _curDisappearIndex * 2, _verticesCount + _virtualVerticesCount - _curDisappearIndex * 2);
 			//WebGL.mainContext.drawArrays(WebGLContext.LINES,          _curDisappearIndex * 2, _verticesCount + _virtualVerticesCount - _curDisappearIndex * 2);
-			trace(_curDisappearIndex * 2, _verticesCount + _virtualVerticesCount - _curDisappearIndex * 2);
 			Stat.drawCall++;
 			Stat.trianglesFaces += (_verticesCount + _virtualVerticesCount - _curDisappearIndex * 2 - 2);
 		}
@@ -382,11 +378,18 @@ package laya.d3.core.trail {
 		}
 		
 		/**
+		 * @private
+		 */
+		public function _renderRuntime(conchGraphics3D:*, renderElement:RenderElement, state:RenderState):void {
+		
+		}
+		
+		/**
 		 * 重新激活该renderElement
 		 */
-		public function reActivate():void {
+		public function reActivate():void{
 			
-			_id = TrailRenderElement.renderElementCount++;
+			_id = TrailRenderElement.renderElementCount ++;
 			_isStart = false;
 			_isFinish = false;
 			_isDead = false;
@@ -397,12 +400,13 @@ package laya.d3.core.trail {
 			_curDisappearIndex = 0;
 			_everyGroupVertexBirthTime = new Vector.<Number>();
 			_owner._curSubTrailFinishPosition.cloneTo(_lastPosition);
+			
 		}
 		
 		/**
 		 * @private
 		 */
-		public function _destroy():void {
+		public function _destroy():void{
 			
 			_vertexBuffer1.dispose();
 			_vertexBuffer2.dispose();
@@ -426,6 +430,6 @@ package laya.d3.core.trail {
 			_pointA = null;
 			_pointB = null;
 		}
-	
+		
 	}
 }

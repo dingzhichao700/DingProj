@@ -236,14 +236,14 @@ package laya.d3.core.material {
 		public function set renderMode(value:int):void {
 			switch (value) {
 			case RENDERMODE_OPAQUE: 
-				renderQueue = BaseMaterial.RENDERQUEUE_OPAQUE;
+				renderQueue = RenderQueue.OPAQUE;
 				depthWrite = true;
 				cull = CULL_BACK;
 				blend = BLEND_DISABLE;
 				alphaTest = false;
 				break;
 			case RENDERMODE_OPAQUEDOUBLEFACE: 
-				renderQueue = BaseMaterial.RENDERQUEUE_OPAQUE;
+				renderQueue = RenderQueue.OPAQUE;
 				depthWrite = true;
 				cull = CULL_NONE;
 				blend = BLEND_DISABLE;
@@ -253,10 +253,10 @@ package laya.d3.core.material {
 				depthWrite = true;
 				cull = CULL_BACK;
 				blend = BLEND_DISABLE;
-				renderQueue = BaseMaterial.RENDERQUEUE_OPAQUE;
+				renderQueue = RenderQueue.OPAQUE;
 				break;
 			case RENDERMODE_TRANSPARENT: 
-				renderQueue = BaseMaterial.RENDERQUEUE_TRANSPARENT;
+				renderQueue = RenderQueue.TRANSPARENT;
 				depthWrite = true;
 				cull = CULL_BACK;
 				blend = BLEND_ENABLE_ALL;

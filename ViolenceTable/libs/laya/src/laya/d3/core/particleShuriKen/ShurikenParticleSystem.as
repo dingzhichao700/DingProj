@@ -2197,5 +2197,10 @@ package laya.d3.core.particleShuriKen {
 		public function _getVertexBuffers():Vector.<VertexBuffer3D>{
 			return null;
 		}
+		
+		public function _renderRuntime(conchGraphics3D:*, renderElement:RenderElement, state:RenderState):void//NATIVE
+		{
+		
+		}
 	}
 }

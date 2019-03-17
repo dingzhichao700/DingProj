@@ -15,7 +15,7 @@ package laya.webgl.resource {
 		
 		public static var _createContext:Function;
 		public var flipY:Boolean = true;	//上传的时候是否上下颠倒
-		public static var premulAlpha:Boolean = false; //上传的时候是否预乘alpha
+		public var premulAlpha:Boolean = false; //上传的时候是否预乘alpha
 		
 		private var _ctx:Context;
 		//private var _is2D:Boolean = false;
@@ -70,7 +70,6 @@ package laya.webgl.resource {
 		override public function destroy():void {
 			_ctx && _ctx.destroy();
 			_ctx = null;
-			super.destroy();	//由于resource的dispose被郭磊改成了destroy，这里会重载父类的destroy，所以必须调用这个，否则会有泄露。
 		}
 		
 		public function get context():Context {
@@ -140,14 +139,9 @@ package laya.webgl.resource {
 			gl.pixelStorei(WebGLContext.UNPACK_FLIP_Y_WEBGL, flipY?1:0);
 			//var imgdata:* = Browser.context.getImageData(0, 0, _w, _h);//_canvas's ctx
 			//gl.pixelStorei( WebGLContext.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);//TODO canvas? 如果是canvas应该不用设置
-			if (Render.isConchWebGL) {
-				gl.texImage2DEx(premulAlpha, WebGLContext.TEXTURE_2D, 0, WebGLContext.RGBA, WebGLContext.RGBA, WebGLContext.UNSIGNED_BYTE, _imgData);
-			}
-			else {
-				premulAlpha&&gl.pixelStorei( WebGLContext.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
-				gl.texImage2D(WebGLContext.TEXTURE_2D, 0, WebGLContext.RGBA, WebGLContext.RGBA, WebGLContext.UNSIGNED_BYTE, _imgData);
-				premulAlpha && gl.pixelStorei( WebGLContext.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
-			}
+			premulAlpha&&gl.pixelStorei( WebGLContext.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
+			gl.texImage2D(WebGLContext.TEXTURE_2D, 0, WebGLContext.RGBA, WebGLContext.RGBA, WebGLContext.UNSIGNED_BYTE, _imgData);
+			premulAlpha && gl.pixelStorei( WebGLContext.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
 			
 			gl.texParameteri(WebGLContext.TEXTURE_2D, WebGLContext.TEXTURE_MAG_FILTER, WebGLContext.LINEAR);
 			gl.texParameteri(WebGLContext.TEXTURE_2D, WebGLContext.TEXTURE_MIN_FILTER, WebGLContext.LINEAR);
@@ -167,14 +161,9 @@ package laya.webgl.resource {
 			var preTarget:* = WebGLContext.curBindTexTarget;
 			var preTexture:* = WebGLContext.curBindTexValue;
 			WebGLContext.bindTexture(gl, WebGLContext.TEXTURE_2D, _source);
-			if (Render.isConchWebGL) {
-				gl.texImage2DEx(premulAlpha, WebGLContext.TEXTURE_2D, 0, WebGLContext.RGBA, WebGLContext.RGBA, WebGLContext.UNSIGNED_BYTE, _imgData);
-			}
-			else {
-				premulAlpha&&gl.pixelStorei( WebGLContext.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
-				gl.texImage2D(WebGLContext.TEXTURE_2D, 0, WebGLContext.RGBA, WebGLContext.RGBA, WebGLContext.UNSIGNED_BYTE, _imgData);
-				premulAlpha && gl.pixelStorei( WebGLContext.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
-			}
+			premulAlpha&&gl.pixelStorei( WebGLContext.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
+			gl.texImage2D(WebGLContext.TEXTURE_2D, 0, WebGLContext.RGBA, WebGLContext.RGBA, WebGLContext.UNSIGNED_BYTE, _imgData);
+			premulAlpha && gl.pixelStorei( WebGLContext.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
 			
 			gl.pixelStorei(WebGLContext.UNPACK_FLIP_Y_WEBGL, 0);
 			(preTarget && preTexture) && (WebGLContext.bindTexture(gl, preTarget, preTexture));
@@ -186,14 +175,9 @@ package laya.webgl.resource {
 			var preTarget:* = WebGLContext.curBindTexTarget;
 			var preTexture:* = WebGLContext.curBindTexValue;
 			WebGLContext.bindTexture(gl, WebGLContext.TEXTURE_2D, _source);
-			if (Render.isConchWebGL) {
-				gl.texSubImage2DEx(true, WebGLContext.TEXTURE_2D, 0, xoffset, yoffset, WebGLContext.RGBA, WebGLContext.UNSIGNED_BYTE, webglCanvas._source);
-			}
-			else {
-				gl.pixelStorei( WebGLContext.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
-				gl.texSubImage2D(WebGLContext.TEXTURE_2D, 0, xoffset, yoffset, WebGLContext.RGBA, WebGLContext.UNSIGNED_BYTE, webglCanvas._source);
-				gl.pixelStorei( WebGLContext.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
-			}
+			gl.pixelStorei( WebGLContext.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
+			gl.texSubImage2D(WebGLContext.TEXTURE_2D, 0, xoffset, yoffset, WebGLContext.RGBA, WebGLContext.UNSIGNED_BYTE, webglCanvas._source);
+			gl.pixelStorei( WebGLContext.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
 			(preTarget && preTexture) && (WebGLContext.bindTexture(gl, preTarget, preTexture));
 		}
 		public function toBase64(type:String, encoderOptions:Number, callBack:Function):void {

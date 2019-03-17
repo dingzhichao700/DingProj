@@ -2,7 +2,6 @@ package laya.d3.resource {
 	import laya.d3.utils.Size;
 	import laya.events.Event;
 	import laya.maths.Arith;
-	import laya.renders.Render;
 	import laya.utils.Browser;
 	import laya.utils.Byte;
 	import laya.webgl.WebGL;
@@ -83,9 +82,6 @@ package laya.d3.resource {
 			var magFifter:int = this._magFifter;
 			var repeat:int = this._repeat ? WebGLContext.REPEAT : WebGLContext.CLAMP_TO_EDGE;
 			
-			var wrapModeU:int = this._wrapModeU == WARPMODE_REPEAT ? WebGLContext.REPEAT : WebGLContext.CLAMP_TO_EDGE;
-			var wrapModeV:int = this._wrapModeV == WARPMODE_REPEAT ? WebGLContext.REPEAT : WebGLContext.CLAMP_TO_EDGE;
-			
 			var isPot:Boolean = Arith.isPOT(w, h);//提前修改内存尺寸，忽悠异步影响
 			if (isPot) {
 				if (this._mipmap)
@@ -99,10 +95,6 @@ package laya.d3.resource {
 				gl.texParameteri(_type, WebGLContext.TEXTURE_MAG_FILTER, magFifter);
 				gl.texParameteri(_type, WebGLContext.TEXTURE_WRAP_S, repeat);
 				gl.texParameteri(_type, WebGLContext.TEXTURE_WRAP_T, repeat);
-				
-				gl.texParameteri(_type, WebGLContext.TEXTURE_WRAP_S, wrapModeU);
-				gl.texParameteri(_type, WebGLContext.TEXTURE_WRAP_T, wrapModeV);
-				
 				this._mipmap && gl.generateMipmap(_type);
 			} else {
 				(minFifter !== -1) || (minFifter = WebGLContext.LINEAR);
@@ -143,11 +135,6 @@ package laya.d3.resource {
 				(format!==undefined) && (_format = format);
 				var mipmap:* = params[3];
 				(mipmap !== undefined) && (_mipmap = mipmap);
-				
-				var wrapModeU:* = params.wrapModeU;
-				(wrapModeU !== undefined) && (_wrapModeU = wrapModeU);
-				var wrapModeV:* = params.wrapModeV;
-				(wrapModeV !== undefined) && (_wrapModeV = wrapModeV);
 			}
 			switch (_format) {
 			case WebGLContext.RGB: 
@@ -159,19 +146,11 @@ package laya.d3.resource {
 				_height = h;
 				_size = new Size(w, h);
 				if (_canRead) {
-					if (Render.isConchApp) {
-						if (__JS__("data instanceof window.HTMLElement") ) {
-							_pixels = new Uint8Array(data.getImageData(0, 0, w, h));
-						}
-					}
-					else {
-						Browser.canvas.size(w, h);
-						Browser.canvas.clear();
-						Browser.context.drawImage(data, 0, 0, w, h);
-						_pixels = new Uint8Array(Browser.context.getImageData(0, 0, w, h).data.buffer);//TODO:如果为RGB,会错误
-					}
+					Browser.canvas.size(w, h);
+					Browser.canvas.clear();
+					Browser.context.drawImage(data, 0, 0, w, h);
+					_pixels = new Uint8Array(Browser.context.getImageData(0, 0, w, h).data.buffer);//TODO:如果为RGB,会错误
 				}
-				
 				break;
 			case WebGL.compressEtc1.COMPRESSED_RGB_ETC1_WEBGL: 
 				var readData:Byte = new Byte(data);

@@ -2,7 +2,6 @@ package laya.wx.mini {
 	import laya.display.Input;
 	import laya.net.Loader;
 	import laya.net.LocalStorage;
-	import laya.net.URL;
 	import laya.utils.Browser;
 	import laya.utils.Handler;
 	import laya.utils.RunDriver;
@@ -30,14 +29,6 @@ package laya.wx.mini {
 		public static var minClearSize:int = (5 * 1024 * 1024); 
 		/**本地资源列表**/
 		public static var nativefiles:Array = ["layaNativeDir","wxlocal"];
-		/**本地分包资源表**/
-		public static var subNativeFiles:Object;
-		/**本地分包文件目录数组**/
-		public static var subNativeheads:Array = [];
-		/**本地分包文件目录映射表**/
-		public static var subMaps:Array = [];
-		/**@private 是否自动缓存非图片声音文件(这里要确保文件编码最好一致)**/
-		public static var AutoCacheDownFile:Boolean = false;
 		/**@private **/
 		public static function getJson(data:String):Object {
 			return JSON.parse(data);
@@ -56,14 +47,6 @@ package laya.wx.mini {
 			isZiYu = isSon;
 			isPosMsgYu = isPosMsg;
 			EnvConfig = {};
-			try
-			{
-				__JS__("laya.webgl.resource.WebGLCanvas.premulAlpha=true");
-			}catch(e:*)
-			{
-				
-			}
-			
 			
 			//设置资源存储目录
 			if(!isZiYu)
@@ -73,20 +56,10 @@ package laya.wx.mini {
 			}
 			systemInfo = __JS__('wx.getSystemInfoSync()');
 			
-			if (systemInfo.system.toLowerCase() === 'ios 10.1.1')
-			{
-				try
-				{
-					__JS__("laya.webgl.resource.WebGLCharImage.canUseCanvas=false");
-				}catch(e:*)
-				{
-					
-				}
-			}
 			window.focus = function():void {
 			};
 			//清空路径设定
-			Laya['_getUrlPath'] = function():void {
+			Laya['getUrlPath'] = function():void {
 			};
 			//add---xiaosong--snowgame
 			window.logtime = function(str:String):void {
@@ -123,49 +96,8 @@ package laya.wx.mini {
 			//修改图片加载
 			Loader.prototype._loadImage = MiniImage.prototype._loadImage;
 			//本地缓存类
-			LocalStorage._baseClass = MiniLocalStorage;
 			MiniLocalStorage.__init__();
-			onReciveData();
-		}
-		
-		private static function onReciveData():void
-		{
-			//接收主域透传的数据
-			if(MiniAdpter.isZiYu)
-			{
-				__JS__('wx').onMessage(function(message:Object):void{
-					if(message['isLoad'] == "opendatacontext")
-					{
-						if(message.url)
-						{
-							MiniFileMgr.ziyuFileData[message.url] = message.atlasdata;//图集配置数据
-							MiniFileMgr.ziyuFileTextureData[message.imgReadyUrl] = message.imgNativeUrl;//imgNativeUrl 为本地磁盘地址;imgReadyUrl为外网路径
-						}
-					}else if(message['isLoad'] == "openJsondatacontext")
-					{
-						if(message.url)
-						{
-							MiniFileMgr.ziyuFileData[message.url] = message.atlasdata;//json配置数据信息
-						}
-					}else if(message['isLoad'] == "openJsondatacontextPic")
-					{
-						MiniFileMgr.ziyuFileTextureData[message.imgReadyUrl] = message.imgNativeUrl;//imgNativeUrl 为本地磁盘地址;imgReadyUrl为外网路径
-					}
-				});
-			}	
-		}
-		
-		
-		private static var _measureText:Function;
-		public static function measureText(str:String):Object
-		{
-			var tempObj:Object = _measureText(str);
-			if(!tempObj)
-			{
-				tempObj ={width:16};
-				console.warn("-------微信获取文字宽度失败----等待修复---------");
-			}
-			return tempObj;
+			LocalStorage._baseClass = MiniLocalStorage;
 		}
 		
 		/**
@@ -176,9 +108,11 @@ package laya.wx.mini {
 		 */		
 		public static  function getUrlEncode(url:String,type:String):String
 		{
-			if(type == "arraybuffer")
+			if(url.indexOf(".fnt") != -1)
+				return "utf8";
+			else if(type == "arraybuffer")
 				return "";
-			return "utf8";
+			return "ascii";
 		}
 			
 		/**
@@ -351,112 +285,6 @@ package laya.wx.mini {
 				return this[conditionScript.replace("this.", "")];
 			}
 			return func;
-		}
-		
-		/**
-		 * 传递图集url地址到 
-		 * @param url 为绝对地址
-		 */		
-		public static function sendAtlasToOpenDataContext(url:String):void
-		{
-			if(!MiniAdpter.isZiYu)
-			{
-				var atlasJson:Object = Loader.getRes(URL.formatURL(url));
-				if(atlasJson)
-				{
-					var  textureArr:Array = (atlasJson.meta.image as String).split(",");
-					
-					//构造加载图片信息
-					if (atlasJson.meta && atlasJson.meta.image) {
-						//带图片信息的类型
-						var toloadPics:Array = atlasJson.meta.image.split(",");
-						var split:String = url.indexOf("/") >= 0 ? "/" : "\\";
-						var idx:int = url.lastIndexOf(split);
-						var folderPath:String = idx >= 0 ? url.substr(0, idx + 1) : "";
-						for (var i:int = 0, len:int = toloadPics.length; i < len; i++) {
-							toloadPics[i] = folderPath + toloadPics[i];
-						}
-					} else {
-						//不带图片信息
-						toloadPics = [url.replace(".json", ".png")];
-					}
-					for(i = 0;i<toloadPics.length;i++)
-					{
-						var tempAtlasPngUrl:String = toloadPics[i];
-						postInfoToContext(url,tempAtlasPngUrl,atlasJson);
-					}
-				}else
-				{
-					throw "传递的url没有获取到对应的图集数据信息，请确保图集已经过！";
-				}
-			}
-		}
-		
-		private static function postInfoToContext(url:String,atlaspngUrl:String,atlasJson:Object):void
-		{
-			var postData:Object = {"frames":atlasJson.frames,"meta":atlasJson.meta}; 
-			var textureUrl:String = atlaspngUrl;
-			var fileObj:Object = MiniFileMgr.getFileInfo(URL.formatURL(atlaspngUrl));
-			if(fileObj)
-			{
-				var fileMd5Name:String = fileObj.md5;
-				var fileNativeUrl:String = MiniFileMgr.getFileNativePath(fileMd5Name);
-			}else
-			{
-				fileNativeUrl = textureUrl;//4M包使用
-			}
-			if(fileNativeUrl)
-			{
-				__JS__('wx').postMessage({url:url,atlasdata:postData,imgNativeUrl:fileNativeUrl,imgReadyUrl:textureUrl,isLoad:"opendatacontext"});
-			}else
-			{
-				throw "获取图集的磁盘url路径不存在！";
-			}
-		}
-		
-		/**
-		 * 发送单张图片到开放数据域 
-		 * @param url
-		 */		
-		public static function sendSinglePicToOpenDataContext(url:String):void
-		{
-			var tempTextureUrl:String = URL.formatURL(url);
-			var fileObj:Object = MiniFileMgr.getFileInfo(tempTextureUrl);
-			if(fileObj)
-			{
-				var fileMd5Name:String = fileObj.md5;
-				var fileNativeUrl:String = MiniFileMgr.getFileNativePath(fileMd5Name);
-				url = tempTextureUrl;
-			}else
-			{
-				fileNativeUrl = url;//4M包使用
-			}
-			if(fileNativeUrl)
-			{
-				__JS__('wx').postMessage({url:url,imgNativeUrl:fileNativeUrl,imgReadyUrl:url,isLoad:"openJsondatacontextPic"});
-			}else
-			{
-				throw "获取图集的磁盘url路径不存在！";
-			}
-		}
-		
-		/**
-		 * 传递json配置数据到开放数据域 
-		 * @param url 为绝对地址
-		 */		
-		public static function sendJsonDataToDataContext(url:String):void
-		{
-			if(!MiniAdpter.isZiYu)
-			{
-				var atlasJson:Object = Loader.getRes(url);
-				if(atlasJson)
-				{
-					__JS__('wx').postMessage({url:url,atlasdata:atlasJson,isLoad:"openJsondatacontext"});
-				}else
-				{
-					throw "传递的url没有获取到对应的图集数据信息，请确保图集已经过！";
-				}
-			}
 		}
 	}
 }

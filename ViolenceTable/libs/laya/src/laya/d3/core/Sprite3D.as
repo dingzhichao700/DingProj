@@ -619,6 +619,13 @@ package laya.d3.core {
 		}
 		
 		/**
+		 * @private
+		 */
+		override public function createConchModel():* {
+			return __JS__("null");
+		}
+		
+		/**
 		 * 清理自身渲染物体，请重载此函数。
 		 */
 		protected function _clearSelfRenderObjects():void {
@@ -649,6 +656,17 @@ package laya.d3.core {
 		}
 		
 		/**
+		 * 更新子节点。
+		 * @param	state 渲染相关状态。
+		 */
+		protected function _updateChildsConch(state:RenderState):void {//NATIVE
+			var n:int = _childs.length;
+			if (n === 0) return;
+			for (var i:int = 0; i < n; ++i)
+				_childs[i]._update((state));
+		}
+		
+		/**
 		 * 排序函数。
 		 * @param	state 渲染相关状态。
 		 */
@@ -661,6 +679,21 @@ package laya.d3.core {
 		 * @param	state 渲染相关状态
 		 */
 		public function _update(state:RenderState):void {
+			state.owner = this;
+			if (_activeInHierarchy) {
+				_updateComponents(state);
+				_lateUpdateComponents(state);
+				
+				Stat.spriteCount++;
+				_childs.length && _updateChilds(state);
+			}
+		}
+		
+		/**
+		 * 更新
+		 * @param	state 渲染相关状态
+		 */
+		public function _updateConch(state:RenderState):void {//NATIVE
 			state.owner = this;
 			if (_activeInHierarchy) {
 				_updateComponents(state);
@@ -842,28 +875,6 @@ package laya.d3.core {
 			
 			for (i = 0, n = _childs.length; i < n; i++)
 				destSprite3D.addChild(_childs[i].clone());
-			
-			
-			var destAnimator:Animator = destSprite3D.getComponentByType(Animator) as Animator;
-			if (destAnimator){
-				var destLinkSpritesData:Object = destAnimator._linkSpritesData;
-				if (destLinkSpritesData){
-					for (var k:String in destLinkSpritesData){
-						var path:Array = destLinkSpritesData[k];
-						var sp:Sprite3D = destSprite3D;
-						for (var j:int = 0, m:int = path.length; j < m; j++){
-							sp = sp.getChildByName(path[j]) as Sprite3D;
-							if (!sp)
-								break;
-						}
-						
-						if (sp){
-							var node:AnimationNode = destAnimator._avatarNodeMap[k];
-							sp._isLinkSpriteToAnimationNode(destAnimator,node,true);
-						}
-					}
-				}
-			}
 		}
 		
 		/**

@@ -109,7 +109,7 @@ package laya.display {
 		public var canvasDegree:int = 0;
 		/**
 		 * <p>设置是否渲染，设置为false，可以停止渲染，画面会停留到最后一次渲染上，减少cpu消耗，此设置不影响时钟。</p>
-		 * <p>比如非激活状态，可以设置renderingEnabled=false以节省消耗。</p>
+		 * <p>比如非激活状态，可以设置renderingEnabled=true以节省消耗。</p>
 		 * */
 		public var renderingEnabled:Boolean = true;
 		/**是否启用屏幕适配，可以适配后，在某个时候关闭屏幕适配，防止某些操作导致的屏幕以外改变*/
@@ -142,7 +142,7 @@ package laya.display {
 		/**@private 3D场景*/
 		public var _scenes:Array;
 		/**@private webgl Color*/
-		public static var _wgColor:Array=[0,0,0,1];
+		public static var _wgColor:Array;
 		/**@private */
 		private var _frameRate:String = "fast";
 		/**@private */
@@ -428,12 +428,12 @@ package laya.display {
 			
 			//处理水平对齐
 			if (_alignH === ALIGN_LEFT) offset.x = 0;
-			else if (_alignH === ALIGN_RIGHT) offset.x = (screenWidth - realWidth)/pixelRatio;
+			else if (_alignH === ALIGN_RIGHT) offset.x = screenWidth - realWidth;
 			else offset.x = (screenWidth - realWidth) * 0.5 / pixelRatio;
 			
 			//处理垂直对齐
 			if (_alignV === ALIGN_TOP) offset.y = 0;
-			else if (_alignV === ALIGN_BOTTOM) offset.y = (screenHeight - realHeight)/pixelRatio;
+			else if (_alignV === ALIGN_BOTTOM) offset.y = screenHeight - realHeight;
 			else offset.y = (screenHeight - realHeight) * 0.5 / pixelRatio;
 			
 			//处理用户自行设置的画布偏移
@@ -541,7 +541,7 @@ package laya.display {
 			conchModel && conchModel.bgColor(value);
 			
 			if (Render.isWebGL) {
-				if (value) {
+				if (value && value !== "black" && value !== "#000000") {
 					_wgColor = Color.create(value)._color;
 				} else {
 					if (!Browser.onMiniGame) _wgColor = null;
@@ -700,7 +700,7 @@ package laya.display {
 					//}
 			}
 			if (Render.isConchNode) return;//NATIVE
-			if (renderingEnabled && (isFastMode || !isDoubleLoop || Render.isConchWebGL)) {
+			if (renderingEnabled && (isFastMode || !isDoubleLoop)) {
 				if (Render.isWebGL) {
 					context.clear();
 					super.render(context, x, y);

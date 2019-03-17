@@ -52,15 +52,11 @@ package laya.webgl.utils {
 		
 		override protected function disposeResource():void {
 			super.disposeResource();
-			return;	//下面的处理可能会导致一些闪屏（黑一下）所以先去掉了。如果某个项目因为这个又闪屏了（通常是使用了粒子，导致多开了attribute），就要好好考虑怎么处理了
 			//if (_glBuffer) {
 			var enableAtributes:Array = Buffer._enableAtributes;
-			if (!Render.isConchWebGL)
-			{
-				for (var i:int = 0; i < 10; i++) {
-					WebGL.mainContext.disableVertexAttribArray(i);//临时修复警告和闪屏
-					enableAtributes[i] = null;
-				}
+			for (var i:int = 0; i < 10; i++) {
+				WebGL.mainContext.disableVertexAttribArray(i);//临时修复警告和闪屏
+				enableAtributes[i] = null;
 			}
 		
 			//}

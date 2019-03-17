@@ -46,8 +46,7 @@ package laya.media.h5audio {
 		}
 		
 		private function __resumePlay():void {		
-			if (_audio) _audio.removeEventListener("canplay", _resumePlay);
-			if (isStopped) return;
+			if(_audio) _audio.removeEventListener("canplay", _resumePlay);
 			try {
 				_audio.currentTime = this.startTime;
 				Browser.container.appendChild(_audio);
@@ -63,7 +62,6 @@ package laya.media.h5audio {
 		 */
 		override public function play():void {
 			this.isStopped = false;
-			if (!_audio) return;
 			try {
 				_audio.playbackRate = SoundManager.playbackRate;
 				_audio.currentTime = this.startTime;

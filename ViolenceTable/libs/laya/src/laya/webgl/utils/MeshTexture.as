@@ -34,12 +34,12 @@
 		
 		public function addData(vertices:Float32Array, uvs:Float32Array, idx:Uint16Array, matrix:Matrix, rgba:uint,ctx:WebGLContext2D):void {
 			//vb
-			var vertsz:int = vertices.length / 2;
-			var startpos:int = _vb.needSize(vertsz * const_stride);//vb的起点。			
+			var sz:int = vertices.length / 2;
+			var startpos:int = _vb.needSize(sz * const_stride);//vb的起点。			
 			var f32pos:int = startpos >> 2;
-			var vbdata:Float32Array = _vb.getFloat32Array();
+			var vbdata:Float32Array =  _vb.getFloat32Array();
 			var ci:int = 0;
-			for (var i:int = 0; i < vertsz; i++) {
+			for (var i:int = 0; i < sz; i++) {
 				var x:Number = vertices[ci], y:Number = vertices[ci + 1];
 				var x1:Number = x * matrix.a + y * matrix.c + matrix.tx;
 				var y1:Number = x * matrix.b + y * matrix.d + matrix.ty;
@@ -51,7 +51,7 @@
 			
 			var vertN:int = vertNum;
 			if (vertN > 0) {
-				var sz:int = idx.length;
+				sz = idx.length;
 				if (sz > tmpIdx.length) tmpIdx = new Uint16Array(sz);
 				for (var ii:int = 0; ii < sz; ii++) {
 					tmpIdx[ii] = idx[ii] + vertN;
@@ -62,7 +62,7 @@
 			}
 			_ib.setNeedUpload();
 			
-			vertNum += vertsz;
+			vertNum += sz;
 			indexNum += idx.length;
 		}
 		

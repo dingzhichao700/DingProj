@@ -46,7 +46,7 @@ package laya.utils {
 		
 		public static var createShaderCondition:Function = function(conditionScript:String):Function {
 			var fn:String = "(function() {return " + conditionScript + ";})";
-			return Laya._runScript(fn);
+			return Browser.window.eval(fn);//生成条件判断函数
 		}
 		private static var hanzi:RegExp = new RegExp("^[\u4E00-\u9FA5]$");
 		private static var fontMap:Array = [];

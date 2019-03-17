@@ -87,12 +87,8 @@ package laya.net {
 				}
 				for (var i:int = 0; i < itemCount; i++) {
 					var item:* = items[i];
-					if (item is String) 
-						item = items[i] = {url: item};
+					if (item is String) item = items[i] = {url: item};
 					item.progress = 0;
-				}
-				for (i = 0; i < itemCount; i++) {
-					item = items[i];
 					var progressHandler:Handler = progress ? Handler.create(null, onProgress, [item], false) : null;
 					var completeHandler:Handler = (progress || complete) ? Handler.create(null, onComplete, [item]) : null;
 					_create(item.url, completeHandler, progressHandler, item.clas || clas, item.params || params, item.priority || priority, cache, item.group || group);
@@ -269,7 +265,6 @@ package laya.net {
 			function onLoaded(data:* = null):void {
 				loader.offAll();
 				loader._data = null;
-				loader._customParse = false;
 				_this._loaders.push(loader);
 				_this._endLoad(resInfo, data is Array ? [data] : data);
 				_this._loaderCount--;

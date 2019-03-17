@@ -108,7 +108,7 @@ package laya.events {
 			if (!this._events || !this._events[type]) return this;
 			
 			var listeners:Object = this._events[type];
-			if (listeners != null) {
+			if (listener != null) {
 				if (listeners.run) {
 					if ((!caller || listeners.caller === caller) && listeners.method === listener && (!onceOnly || listeners.once)) {
 						delete this._events[type];
@@ -118,11 +118,6 @@ package laya.events {
 					var count:int = 0;
 					for (var i:int = 0, n:int = listeners.length; i < n; i++) {
 						var item:Handler = listeners[i];
-						if (!item)
-						{
-							count++;
-							continue;
-						}
 						if (item && (!caller || item.caller === caller) && item.method === listener && (!onceOnly || item.once)) {
 							count++;
 							listeners[i] = null;

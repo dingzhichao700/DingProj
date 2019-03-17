@@ -12,11 +12,6 @@ package laya.d3.resource {
 	 */
 	public class BaseTexture extends Resource {
 		
-		
-		/** @private */
-		public static const WARPMODE_REPEAT:int = 0;
-		/** @private */
-		public static const WARPMODE_CLAMP:int = 1;
 		/** @private */
 		protected var _type:int;
 		/** @private */
@@ -39,11 +34,6 @@ package laya.d3.resource {
 		protected var _source:*;
 		/** @private */
 		public var _conchTexture:*//NATIVE
-		
-		/** @private */
-		protected var _wrapModeU:int;
-		/** @private */
-		protected var _wrapModeV:int;
 		
 		/**
 		 * 获取宽度。
@@ -92,21 +82,6 @@ package laya.d3.resource {
 					}
 				}
 			}
-		}
-		
-		
-		/**
-		 * 获取纹理横向循环模式。
-		 */
-		public function get wrapModeU():int {
-			return _wrapModeU;
-		}
-		
-		/**
-		 * 获取纹理纵向循环模式。
-		 */
-		public function get wrapModeV():int {
-			return _wrapModeV;
 		}
 		
 		/**
@@ -186,6 +161,9 @@ package laya.d3.resource {
 		 * 创建一个 <code>BaseTexture</code> 实例。
 		 */
 		public function BaseTexture() {
+			if (Render.isConchNode) {//NATIVE
+				_conchTexture = __JS__("new ConchTexture()");
+			}
 			_repeat = true;
 			mipmap = true;
 			minFifter = -1;

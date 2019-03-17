@@ -245,6 +245,7 @@ package laya.renders {
 		
 		
 		private function _childs(sprite:Sprite, context:RenderContext, x:Number, y:Number):void {
+			//'use strict';
 			var style:* = sprite._style;
 			var tf:*= style._tf;
 			x = x -tf.translateX + style.paddingLeft;
@@ -263,7 +264,7 @@ package laya.renders {
 							context.fillBorderWords(words, x, y, tStyle.font, tStyle.color,tStyle.strokeColor,tStyle.stroke);
 						}else
 						{
-							context.fillWords(words, x, y, tStyle.font, tStyle.color,(tStyle.textDecoration!="none"&&tStyle.underLine)?1:0);
+							context.fillWords(words, x, y, tStyle.font, tStyle.color,tStyle.underLine);
 						}
 					}
 					

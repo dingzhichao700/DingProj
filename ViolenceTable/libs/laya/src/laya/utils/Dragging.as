@@ -65,7 +65,11 @@ package laya.utils {
 			this._disableMouseEvent = disableMouseEvent;
 			this.ratio = ratio;
 			
-			_parent = target.parent as Sprite;
+			if (target.globalScaleX != 1 || target.globalScaleY != 1) {
+				_parent = target.parent as Sprite;
+			} else {
+				_parent = Laya.stage;
+			}
 			
 			_clickOnly = true;
 			_dragging = true;

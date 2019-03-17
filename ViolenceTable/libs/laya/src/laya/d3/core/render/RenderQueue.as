@@ -19,6 +19,10 @@ package laya.d3.core.render {
 	public class RenderQueue {
 		/**唯一标识ID计数器*/
 		private static var _uniqueIDCounter:int = 0;
+		/** 定义非透明渲染队列标记。*/
+		public static const OPAQUE:int = 1;//TODO:从零开始
+		/** 透明混合渲染队列标记。*/
+		public static const TRANSPARENT:int = 2;
 		
 		/** @private */
 		private static var _cameraPosition:Vector3;
@@ -59,27 +63,16 @@ package laya.d3.core.render {
 		}
 		
 		private function _sortOpaqueFunc(a:RenderElement, b:RenderElement):Number {
-			if (a._render && b._render) {//TODO:临时
-				var renderQueue:int = a._material.renderQueue - b._material.renderQueue;
-				if (renderQueue === 0) {
-					return a._render._distanceForSort - b._render._distanceForSort;
-				} else {
-					return renderQueue
-				}
-			} else {
+			if (a._render && b._render)//TODO:临时
+				return a._render._distanceForSort - b._render._distanceForSort;
+			else
 				return 0;
-			}
 		}
 		
 		private function _sortAlphaFunc(a:RenderElement, b:RenderElement):Number {
-			if (a._render && b._render) {//TODO:临时
-				var renderQueue:int = a._material.renderQueue - b._material.renderQueue;
-				if (renderQueue === 0) {
-					return b._render._distanceForSort - a._render._distanceForSort;
-				} else {
-					return renderQueue;
-				}
-			} else
+			if (a._render && b._render)//TODO:临时
+				return b._render._distanceForSort - a._render._distanceForSort;
+			else
 				return 0;
 		}
 		
@@ -170,7 +163,7 @@ package laya.d3.core.render {
 						forceUploadParams = shader.bind() || (loopCount !== shader._uploadLoopCount);
 						if (vbs) {
 							if (shader._uploadVertexBuffer !== vbs || forceUploadParams) {
-								for (var j:int = 0; j < vbs.length; j++) {
+								for (var j:int = 0; j < vbs.length; j++ ){
 									var vb:VertexBuffer3D = vbs[j];
 									shader.uploadAttributesX(vb.vertexDeclaration.shaderValues.data, vb);
 								}

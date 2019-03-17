@@ -158,17 +158,14 @@ package laya.map {
 				_map = null;
 			}
 			this.visible = false;
-			
-			var tAniSprite:TileAniSprite;
-			
-			if (aniSpriteArray != null) {
-				for (var i:int = 0; i < aniSpriteArray.length; i++) {
-					tAniSprite = aniSpriteArray[i];
-					tAniSprite.clearAll();
-				}
+			if (aniSpriteArray == null) {
+				return;
 			}
-			
-			
+			var tAniSprite:TileAniSprite;
+			for (var i:int = 0; i < aniSpriteArray.length; i++) {
+				tAniSprite = aniSpriteArray[i];
+				tAniSprite.clearAll();
+			}
 			this.destroy();
 			relativeX = 0;
 			relativeY = 0;

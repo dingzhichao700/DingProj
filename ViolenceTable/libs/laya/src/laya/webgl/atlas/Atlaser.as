@@ -80,7 +80,7 @@ package laya.webgl.atlas {
 			//if (bitmap is  WebGLSubImage)//临时
 			//_atlasCanvas.texSubImage2DPixel(bitmap, offsetX,/* width, height, AtlasManager.BOARDER_TYPE_ALL, 1, 1*/ offsetY,bitmap.width,bitmap.height, bitmap.imageData);
 			//else
-			_atlasCanvas.texSubImage2D(offsetX,/* width, height, AtlasManager.BOARDER_TYPE_ALL, 1, 1*/ offsetY, __JS__("mergeAtlasBitmap.atlasImgData") ||  mergeAtlasBitmap.atlasSource);
+			_atlasCanvas.texSubImage2D(offsetX,/* width, height, AtlasManager.BOARDER_TYPE_ALL, 1, 1*/ offsetY, mergeAtlasBitmap.atlasSource);
 			mergeAtlasBitmap.clearAtlasSource();
 		}
 		

@@ -52,11 +52,7 @@ package laya.wx.mini {
 				//图片通过miniImage去加载
 				MiniAdpter.EnvConfig.load.call(this, url, type, cache, group, ignoreCache);
 			} else {
-				//如果是子域,并且资源单独的图集列表文件里不存在当前路径的数据信息，这时需要针对url进行一次转义
-				if(MiniAdpter.isZiYu && !MiniFileMgr.ziyuFileData[url])
-				{
-					url = URL.formatURL(url);
-				}
+				//如果是子域就直接去缓存里检出子域
 				if(MiniAdpter.isZiYu && MiniFileMgr.ziyuFileData[url])
 				{
 					var tempData:Object = MiniFileMgr.ziyuFileData[url];
@@ -65,39 +61,14 @@ package laya.wx.mini {
 				}
 				if (!MiniFileMgr.getFileInfo(url)) {
 					if (MiniFileMgr.isLocalNativeFile(url)) {
-						if (MiniAdpter.subNativeFiles && MiniAdpter.subNativeheads.length == 0)
-						{
-							for (var key:* in MiniAdpter.subNativeFiles)
-							{
-								var tempArr:Array = MiniAdpter.subNativeFiles[key];
-								MiniAdpter.subNativeheads = MiniAdpter.subNativeheads.concat(tempArr);
-								for (var aa:int = 0; aa < tempArr.length;aa++)
-								{
-									MiniAdpter.subMaps[tempArr[aa]] = key + "/" + tempArr[aa];
-								}
-							}
-						}
-						//判断当前的url是否为分包映射路径
-						if(MiniAdpter.subNativeFiles && url.indexOf("/") != -1)
-						{
-							var curfileHead:String = url.split("/")[0]  +"/";//文件头
-							if(curfileHead && MiniAdpter.subNativeheads.indexOf(curfileHead) != -1)
-							{
-								var newfileHead:String = MiniAdpter.subMaps[curfileHead];
-								url = url.replace(curfileHead,newfileHead);
-							}
-						}
-						
-						//临时，因为微信不支持以下文件格式
 						//直接读取本地，非网络加载缓存的资源
 						MiniFileMgr.read(url,encoding,new Handler(MiniLoader, onReadNativeCallBack, [encoding, url, type, cache, group, ignoreCache, thisLoader]));
 						return;
 					}
-					var tempUrl:String = url;
 					url = URL.formatURL(url);
 					if (url.indexOf("http://") != -1 || url.indexOf("https://") != -1) {
 						//远端文件加载走xmlhttprequest
-						MiniAdpter.EnvConfig.load.call(thisLoader, tempUrl, type, cache, group, ignoreCache);
+						MiniAdpter.EnvConfig.load.call(thisLoader, url, type, cache, group, ignoreCache);
 					} else {
 						//读取本地磁盘非写入的文件，只是检测文件是否需要本地读取还是外围加载
 						MiniFileMgr.readFile(url, encoding, new Handler(MiniLoader, onReadNativeCallBack, [encoding, url, type, cache, group, ignoreCache, thisLoader]), url);
@@ -106,7 +77,6 @@ package laya.wx.mini {
 					//读取本地磁盘非写入的文件，只是检测文件是否需要本地读取还是外围加载
 					var fileObj:Object = MiniFileMgr.getFileInfo(url);
 					fileObj.encoding = fileObj.encoding == null ? "ascii" : fileObj.encoding;
-					//如果缓存的文件路径跟传入的路径相等，就直接读取本地缓存
 					MiniFileMgr.readFile(url, fileObj.encoding, new Handler(MiniLoader, onReadNativeCallBack, [encoding, url, type, cache, group, ignoreCache, thisLoader]), url);
 				}
 			}
@@ -139,7 +109,6 @@ package laya.wx.mini {
 				thisLoader.onLoaded(tempData);
 			} else if (errorCode == 1) {
 				//远端文件加载走xmlhttprequest
-				trace("-----------本地加载失败，尝试外网加载----");
 				MiniAdpter.EnvConfig.load.call(thisLoader, url, type, cache, group, ignoreCache);
 			}
 		}

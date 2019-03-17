@@ -521,37 +521,6 @@ private function _releaseMem():void
 						}
 						other.height = height;
 						break;
-					case "no-repeat":
-						if (ox < 0) {
-							if (texture.width + ox > width) {
-								other.width = width;
-							} else {
-								other.width = texture.width + ox;
-							}
-						} else {
-							other.ox = ox;
-							if (texture.width + ox > width) {
-								other.width = width - ox;
-							} else {
-								other.width = texture.width;
-							}
-						}
-						
-						if (oy < 0) {
-							if (texture.height + oy > height) {
-								other.height = height;
-							} else {
-								other.height = texture.height + oy;
-							}
-						} else {
-							other.oy = oy;
-							if (texture.height + oy > height) {
-								other.height = height - oy;
-							} else {
-								other.height = texture.height;
-							}
-						}
-						break;
 					default: 
 						other.width = width;
 						other.height = height;
@@ -1295,7 +1264,6 @@ private function _releaseMem():void
 				(tempSubmit.shaderValue as PrimitiveSV).u_pos = tPosArray;
 				tempSubmit.shaderValue.u_mmat2 = RenderState2D.TEMPMAT4_ARRAY;
 				_submits[_submits._length++] = tempSubmit;
-				_renderKey = -1;
 			}
 		}
 		

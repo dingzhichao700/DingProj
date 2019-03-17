@@ -40,24 +40,17 @@ package laya.d3.core.trail.module
 		 */
 		public static const BLACK:Color = new Color(0, 0, 0, 1);
 		
-		public var _r:Number;
-		public var _g:Number;
-		public var _b:Number;
-		public var _a:Number;
+		public var r:Number;
+		public var g:Number;
+		public var b:Number;
+		public var a:Number;
 		
-		public function Color(r:Number = 1, g:Number = 1, b:Number = 1, a:Number = 1) 
+		public function Color(r:Number, g:Number, b:Number, a:Number) 
 		{
-			_r = r;
-			_g = g;
-			_b = b;
-			_a = a;
-		}
-		
-		public function cloneTo(destObject:Color):void {
-			destObject._r = _r;
-			destObject._g = _g;
-			destObject._b = _b;
-			destObject._a = _a;
+			this.r = r;
+			this.g = g;
+			this.b = b;
+			this.a = a;
 		}
 		
 	}

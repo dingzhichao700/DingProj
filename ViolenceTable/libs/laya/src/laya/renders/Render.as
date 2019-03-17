@@ -58,7 +58,7 @@ package laya.renders {
 			_context.ctx.setIsMainContext();
 		   /*[IF-SCRIPT-BEGIN]
 		   Browser.window.requestAnimationFrame(loop);
-		   function loop(stamp):void {
+		   function loop():void {
 		   Laya.stage._loop();
 		   Browser.window.requestAnimationFrame(loop);
 		   }

@@ -326,6 +326,7 @@ package laya.d3.core.particleShuriKen {
 		override protected function _parseCustomProps(rootNode:ComponentNode, innerResouMap:Object, customProps:Object, nodeData:Object):void {
 			const anglelToRad:Number = Math.PI / 180.0;
 			var i:int, n:int;
+			
 			//Render
 			var particleRender:ShurikenParticleRender = this.particleRender;
 			var material:ShurikenParticleMaterial;
@@ -459,8 +460,8 @@ package laya.d3.core.particleShuriKen {
 			
 			//Emission
 			var emissionData:Object = customProps.emission;
-			var emission:Emission = particleSystem.emission;
 			if (emissionData) {
+				var emission:Emission = particleSystem.emission;
 				emission.emissionRate = emissionData.emissionRate;
 				var burstsData:Array = emissionData.bursts;
 				if (burstsData)

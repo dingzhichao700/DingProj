@@ -13,7 +13,6 @@ package {
 	import laya.d3.core.Sprite3D;
 	import laya.d3.core.material.BaseMaterial;
 	import laya.d3.core.material.BlinnPhongMaterial;
-	import laya.d3.core.material.ExtendTerrainMaterial;
 	import laya.d3.core.material.PBRMaterial;
 	import laya.d3.core.material.PBRSpecularMaterial;
 	import laya.d3.core.material.PBRStandardMaterial;
@@ -188,7 +187,6 @@ package {
 		 *@private
 		 */
 		private static function formatRelativePath(base:String, value:String):String {
-			var path:*;
 			var char1:String = value.charAt(0);
 			if (char1 === ".") {
 				var parts:Array = (base + value).split("/");
@@ -201,12 +199,10 @@ package {
 						}
 					}
 				}
-				path = parts.join('/');
+				return parts.join('/');
 			} else {
-				path = base + value;
+				return base + value;
 			}
-			(URL.customFormat != null)&&(path = URL.customFormat(path, null));
-			return path;
 		}
 		
 		/**
@@ -274,13 +270,7 @@ package {
 				(parMeshPath) && (_addHierarchyInnerUrls(firstLevelUrls, urlMap, urlVersion, hierarchyBasePath, parMeshPath, Mesh));
 				var materialData:Object = customProps.material;
 				if (materialData) {
-					clasPaths = materialData.type.split('.');
-					clas= Browser.window;
-					clasPaths.forEach(function(cls:*):void {
-						clas = clas[cls];
-					});
-					
-					_addHierarchyInnerUrls(secondLevelUrls, urlMap, urlVersion, hierarchyBasePath, materialData.path, clas);
+					_addHierarchyInnerUrls(secondLevelUrls, urlMap, urlVersion, hierarchyBasePath, materialData.path, ShurikenParticleMaterial);
 				} else {//兼容代码
 					var materialPath:String = customProps.materialPath;
 					if (materialPath) {//兼容代码
@@ -622,7 +612,6 @@ package {
 				if (version) {
 					switch (version) {
 					case "LAYAMATERIAL:01": 
-					case "LAYAMATERIAL:02": 
 						var textures:Array = lmatData.props.textures;
 						for (var i:int = 0, n:int = textures.length; i < n; i++) {
 							var tex:Object = textures[i];
@@ -781,8 +770,8 @@ package {
 			Config.isAlpha = alpha;
 			Config.premultipliedAlpha = premultipliedAlpha;
 			Config.isStencil = stencil;
-
-			if (!WebGL.enable()) {
+			
+			if (!Render.isConchNode && !WebGL.enable()) {
 				alert("Laya3D init error,must support webGL!");
 				return;
 			}
@@ -804,7 +793,6 @@ package {
 			//WaterMaterial.__init__();
 			//ShurikenParticleMaterial.__init__();
 			//TerrainMaterial.__init__();
-			ExtendTerrainMaterial.__init__();
 			ShaderInit3D.__init__();
 			MeshSprite3D.__init__();
 			AnimationNode.__init__();

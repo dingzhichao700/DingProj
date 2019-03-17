@@ -78,11 +78,6 @@ package laya.media.webaudio {
 		private var __toPlays:Array;
 		
 		/**
-		 * @private
-		 */
-		private var _disposed:Boolean = false;
-		
-		/**
 		 * 解码声音文件
 		 *
 		 */
@@ -143,7 +138,6 @@ package laya.media.webaudio {
 			if (ctx.state == "running") {
 				Browser.document.removeEventListener("mousedown", _unlock, true);
 				Browser.document.removeEventListener("touchend", _unlock, true);
-				Browser.document.removeEventListener("touchstart", _unlock, true);
 				_unlocked = true;
 			}
 		}
@@ -154,7 +148,6 @@ package laya.media.webaudio {
 				_unlock(); // When played inside of a touch event, this will enable audio on iOS immediately.
 				Browser.document.addEventListener("mousedown", _unlock, true);
 				Browser.document.addEventListener("touchend", _unlock, true);
-				Browser.document.addEventListener("touchstart", _unlock, true);
 			}
 		}
 		
@@ -184,11 +177,6 @@ package laya.media.webaudio {
 			request.open("GET", url, true);
 			request.responseType = "arraybuffer";
 			request.onload = function():void {
-				if (me._disposed)
-				{
-					me._removeLoadEvents();
-					return;
-				} 
 				me.data = request.response;
 				buffs.push({"buffer": me.data, "url": me.url});
 				decode();
@@ -203,27 +191,10 @@ package laya.media.webaudio {
 			_removeLoadEvents();
 			__loadingSound[url] = false;
 			this.event(Event.ERROR);
-			if (!__toPlays) return;
-			var i:int, len:int;
-			var toPlays:Array;
-			toPlays = __toPlays;
-			len = toPlays.length;
-			var tParams:Array;
-			for (i = 0; i < len; i++) {
-				tParams = toPlays[i];
-				if (tParams[2] && !(tParams[2] as WebAudioSoundChannel).isStopped) {
-					(tParams[2] as WebAudioSoundChannel).event(Event.ERROR);
-				}
-			}
-			__toPlays.length = 0;
 		}
 		
 		private function _loaded(audioBuffer:*):void {
 			_removeLoadEvents();
-			if (_disposed)
-			{
-				return;
-			}
 			this.audioBuffer = audioBuffer;
 			_dataCache[url] = this.audioBuffer;
 			this.loaded = true;
@@ -287,7 +258,6 @@ package laya.media.webaudio {
 		}
 		
 		public function dispose():void {
-			this._disposed = true;
 			delete _dataCache[url];
 			delete __loadingSound[url];
 			this.audioBuffer = null;

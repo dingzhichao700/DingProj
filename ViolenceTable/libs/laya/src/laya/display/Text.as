@@ -277,7 +277,7 @@ package laya.display {
 		 */
 		override public function get height():Number {
 			if (_height) return _height;
-			return textHeight;
+			return textHeight + padding[0] + padding[2];
 		}
 		
 		override public function set height(value:Number):void {
@@ -666,7 +666,6 @@ package laya.display {
 						word += "●";
 					}
 				}
-				if (word === undefined) word = "";
 				x = startX - (_clipPoint ? _clipPoint.x : 0);
 				y = startY + lineHeight * i - (_clipPoint ? _clipPoint.y : 0);
 				
@@ -822,9 +821,6 @@ package laya.display {
 				_charSize.height = _currBitmapFont.getMaxHeight();
 			} else {
 				var measureResult:* = Browser.context.measureText(_testWord);
-				if (Render.isConchApp && measureResult.width === 0 && measureResult.height === 0) {
-					measureResult = Browser.context.measureText('W');
-				}
 				_charSize.width = measureResult.width;
 				_charSize.height = (measureResult.height || fontSize);
 			}

@@ -1,5 +1,4 @@
 package laya.ui {
-	import laya.display.Node;
 	import laya.display.Sprite;
 	import laya.events.Event;
 	
@@ -203,10 +202,6 @@ package laya.ui {
 		 */
 		protected function changeSize():void {
 			event(Event.RESIZE);
-			if (_layout.enable) {
-				resetLayoutX();
-				resetLayoutY();
-			}
 		}
 		
 		/**
@@ -543,11 +538,6 @@ package laya.ui {
 				this.gray = _disabled = value;
 				this.mouseEnabled = !value;
 			}
-		}
-		
-		override protected function _childChanged(child:Node = null):void {
-			callLater(changeSize);
-			super._childChanged(child);
 		}
 	}
 }

@@ -65,7 +65,7 @@ package laya.resource {
 		 * @param	uv UV 数据信息。
 		 */
 		public function Texture(bitmap:Bitmap = null, uv:Array = null) {
-			if (bitmap && bitmap._addReference!=null) {
+			if (bitmap) {
 				bitmap._addReference();
 				//bitmap._referenceCount++;
 			}

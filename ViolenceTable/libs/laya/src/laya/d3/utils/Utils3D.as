@@ -70,30 +70,30 @@ package laya.d3.utils {
 		private static const _typeToFunO:Object = {"INT16": "writeInt16", "SHORT": "writeInt16", "UINT16": "writeUint16", "UINT32": "writeUint32", "FLOAT32": "writeFloat32", "INT": "writeInt32", "UINT": "writeUint32", "BYTE": "writeByte", "STRING": "writeUTFString"};
 		
 		/** @private */
-		private static var _tempVector3_0:Vector3 = new Vector3();
+		private static var _tempVector3_0:Vector3 = /*[STATIC SAFE]*/ new Vector3();
 		/** @private */
-		private static var _tempVector3_1:Vector3 = new Vector3();
+		private static var _tempVector3_1:Vector3 = /*[STATIC SAFE]*/ new Vector3();
 		/** @private */
-		private static var _tempVector3_2:Vector3 = new Vector3();
+		private static var _tempVector3_2:Vector3 = /*[STATIC SAFE]*/ new Vector3();
 		/** @private */
-		private static var _tempVector3_3:Vector3 = new Vector3();
+		private static var _tempVector3_3:Vector3 = /*[STATIC SAFE]*/ new Vector3();
 		/** @private */
-		private static var _tempVector3_4:Vector3 = new Vector3();
+		private static var _tempVector3_4:Vector3 = /*[STATIC SAFE]*/ new Vector3();
 		/** @private */
-		private static var _tempVector3_5:Vector3 = new Vector3();
+		private static var _tempVector3_5:Vector3 = /*[STATIC SAFE]*/ new Vector3();
 		/** @private */
-		private static var _tempVector3_6:Vector3 = new Vector3();
+		private static var _tempVector3_6:Vector3 = /*[STATIC SAFE]*/ new Vector3();
 		
 		/** @private */
-		private static var _tempArray4_0:Float32Array = new Float32Array(4);
+		private static var _tempArray4_0:Float32Array = /*[STATIC SAFE]*/ new Float32Array(4);
 		/** @private */
-		private static var _tempArray16_0:Float32Array = new Float32Array(16);
+		private static var _tempArray16_0:Float32Array = /*[STATIC SAFE]*/ new Float32Array(16);
 		/** @private */
-		private static var _tempArray16_1:Float32Array = new Float32Array(16);
+		private static var _tempArray16_1:Float32Array = /*[STATIC SAFE]*/ new Float32Array(16);
 		/** @private */
-		private static var _tempArray16_2:Float32Array = new Float32Array(16);
+		private static var _tempArray16_2:Float32Array = /*[STATIC SAFE]*/ new Float32Array(16);
 		/** @private */
-		private static var _tempArray16_3:Float32Array = new Float32Array(16);
+		private static var _tempArray16_3:Float32Array =  /*[STATIC SAFE]*/ new Float32Array(16);
 		
 		/**
 		 *通过数平移、旋转、缩放值计算到结果矩阵数组,骨骼动画专用。
@@ -200,7 +200,6 @@ package laya.d3.utils {
 					break;
 				case "TrailSprite3D":
 					node = new TrailSprite3D();
-					break;
 					break;
 				case "Terrain": 
 					node = new Terrain();
