@@ -2,7 +2,7 @@
     "x":0,
     "type":"View",
     "selectedBox":1,
-    "selecteID":1,
+    "selecteID":2,
     "props":{"width":39,"sceneColor":"#ffffff","height":39},
     "nodeParent":-1,
     "label":"View",
@@ -15,7 +15,7 @@
         {
             "x":15,
             "type":"Image",
-            "props":{"y":1,"x":0,"skin":"pack/ball/img_shadow.png"},
+            "props":{"y":1,"x":0,"skin":"ball/img_shadow.png"},
             "nodeParent":1,
             "label":"Image",
             "isDirectory":false,
@@ -43,7 +43,7 @@
         {
             "x":15,
             "type":"Image",
-            "props":{"y":0,"x":0,"skin":"pack/ball/img_light.png"},
+            "props":{"y":0,"x":0,"skin":"ball/img_light.png"},
             "nodeParent":1,
             "label":"Image",
             "isDirectory":false,
