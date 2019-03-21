@@ -1,10 +1,10 @@
 package module {
 	import laya.maths.Point;
-
+	
 	import module.ball.BallItem;
 	import module.ball.BallManager;
 	import module.ball.BlockItem;
-
+	
 	import ui.TableViewUI;
 
 	public class TableView extends TableViewUI {
@@ -12,8 +12,8 @@ package module {
 		private var ballList:Array;
 		private var blockList:Array;
 		private const WALL_POS:Array = [[0, 0, 490, 22], [481, 20, 26, 880], [0, 880, 490, 22], [0, 0, 26, 880]];
-//		private const WALL_POS2:Array = [[0, 0, 0, 0, 490, 0, 490, 22], [481, 20, 0, 0, 26, 0, 26, 880], [0, 880, 0, 0, 490, 0, 490, 22], [0, 0, 0, 0, 26, 0, 26, 880]];
-		private const WALL_POS2:Array = [[0, 0, 0, 0, 450, 0, 450, 450]];
+		private const WALL_POS2:Array = [[0, 0, 0, 0, 490, 0, 490, 22], [481, 20, 0, 0, 26, 0, 26, 880], [0, 880, 0, 0, 490, 0, 490, 22], [0, 0, 0, 0, 26, 0, 26, 880]];
+//		private const WALL_POS2:Array = [[0, 0, 0, 0, 450, 0, 450, 450]];
 
 		public function TableView() {
 		}
@@ -50,7 +50,7 @@ package module {
 //			for(var i:int = 0 ; i < 1;i++){
 //				addBall(100, 100);
 //			}
-			addBall(100, 300, 0, 0);
+			addBall(100, 700, 0, 0);
 		}
 
 		/**
@@ -85,9 +85,10 @@ package module {
 					/**到小球碰撞边垂线最短的那条垂线的数据*/
 					var shortestApeakData:Array;
 					if (hitTestBlock(item, block)) { //区域碰撞
-						for (var k:int = 0; k < block.lines.length; k++) { //检查每条线垂线数据
+						for (var k:int = 0; k < block.lines.length; k++) { //检查每条线垂线
 							var apeak:Array = getApeakData(item.x, item.y, block, block.lines[k] as Array);
-							/*垂线长度距离小于球的半径的，才会碰撞*/
+							
+							/*垂线长度小于球的半径的，才可能会碰撞*/
 							if (apeak[0] < item.radius) {
 								/*球运动方向与球到碰撞边的垂线形成的夹角，该夹角小于90度才会碰撞*/
 								var clipAngle:int = Math.abs(item.ballRotation - apeak[1]) % 360;
@@ -155,17 +156,17 @@ package module {
 				return [Math.abs(x - block.x - point1.x), x > (block.x + point1.x) ? 180 : 0];
 			}
 
-			var angle1:Number = Math.atan(disY / disX) * 180 / Math.PI;
-			var param1:Number = (block.y + point1.y) - (block.x + point1.x) * Math.tan(angle1 / 180 * Math.PI);
+			var angle1:int = Math.atan(disY / disX) * 180 / Math.PI;
+			var param1:int = (block.y + point2.y) - (block.x + point2.x) * Math.tan(angle1 / 180 * Math.PI);
 
-			var angle2:Number = angle1 - 90;
-			var param2:Number = y - x * Math.tan(angle2 / 180 * Math.PI);
+			var angle2:int = angle1 - 90;
+			var param2:int = y - x * Math.tan(angle2 / 180 * Math.PI);
 
-			var peakX:Number = (param2 - param1) / (Math.tan(angle1 / 180 * Math.PI) - Math.tan(angle2 / 180 * Math.PI));
-			var peakY:Number = Math.tan(angle1 / 180 * Math.PI) + param1;
+			var peakX:int = (param2 - param1) / (Math.tan(angle1 / 180 * Math.PI) - Math.tan(angle2 / 180 * Math.PI));
+			var peakY:int = Math.tan(angle1 / 180 * Math.PI)*peakX + param1;
 			/**垂线长度*/
-			var peakDis:Number = Math.sqrt((peakX - x) * (peakX - x) + (peakY - y) * (peakY - y));
-			var peakRotation:int = Math.asin((peakY - x) / peakDis) * 180 / Math.PI;
+			var peakDis:int = Math.sqrt((peakX - x) * (peakX - x) + (peakY - y) * (peakY - y));
+			var peakRotation:int = Math.asin((peakY - y) / peakDis) * 180 / Math.PI;
 			return [peakDis, peakRotation];
 		}
 
