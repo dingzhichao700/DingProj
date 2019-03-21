@@ -7,7 +7,7 @@ package module.ball {
 
 		private var _type:int;
 		private var _camp:int;
-		private var _speed:Number = 10;
+		private var _speed:Number = 2;
 		private var _radius:int;
 		private var _ballRotation:Number;
 
