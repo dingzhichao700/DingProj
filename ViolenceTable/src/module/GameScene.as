@@ -21,7 +21,7 @@ package module {
 		public function init():void {
 			var table:TableView = new TableView();
 			addChild(table);
-			table.initBalls();
+			table.init();
 
 			Laya.stage.on(Event.RESIZE, this, onResize);
 			onResize();

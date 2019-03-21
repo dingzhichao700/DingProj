@@ -37657,6 +37657,7 @@ var WebGLImage=(function(_super){
 //class ui.BallItemUI extends laya.ui.View
 var BallItemUI=(function(_super){
 	function BallItemUI(){
+		this.boxBottom=null;
 		this.boxBall=null;
 		BallItemUI.__super.call(this);
 	}
@@ -37668,8 +37669,83 @@ var BallItemUI=(function(_super){
 		this.createView(BallItemUI.uiView);
 	}
 
-	BallItemUI.uiView={"type":"View","props":{"width":39,"height":39},"child":[{"type":"Image","props":{"y":1,"x":0,"skin":"ball/img_shadow.png"}},{"type":"Box","props":{"var":"boxBall"}},{"type":"Image","props":{"y":0,"x":0,"skin":"ball/img_light.png"}}]};
+	BallItemUI.uiView={"type":"View","props":{"width":39,"height":39},"child":[{"type":"Box","props":{"y":0,"x":0,"var":"boxBottom"}},{"type":"Image","props":{"y":-20,"x":-20,"skin":"ball/img_shadow.png"}},{"type":"Box","props":{"y":0,"x":0,"var":"boxBall"}},{"type":"Image","props":{"y":-19,"x":-20,"skin":"ball/img_light.png"}}]};
 	return BallItemUI;
+})(View)
+
+
+//class module.ball.BlockItem extends laya.ui.View
+var BlockItem=(function(_super){
+	function BlockItem(){
+		this._data=null;
+		this._lines=null;
+		this._pUp=0;
+		this._pDown=0;
+		this._pLeft=0;
+		this._pRight=0;
+		BlockItem.__super.call(this);
+		this.alpha=0.5;
+	}
+
+	__class(BlockItem,'module.ball.BlockItem',_super);
+	var __proto=BlockItem.prototype;
+	__proto.setRect=function(width,height){
+		this.data=[0,0,width,0,width,height,0,height];
+	}
+
+	__proto.drawBlock=function(){
+		this.graphics.clear();
+		this.graphics.drawPoly(0,0,this._data.slice(2),"#FF0000");
+	}
+
+	__getset(0,__proto,'data',null,function(arr){
+		this._data=arr;
+		this._data.push(0);
+		this._data.push(0);
+		this._pUp=0;
+		this._pDown=0;
+		this._pLeft=0;
+		this._pRight=0;
+		this._lines=[];
+		for (var i=0;i < this._data.length-2;i+=2){
+			var point1=new Point(this._data[i],this._data[i+1]);
+			var point2=new Point(this._data[i+2],this._data[i+3]);
+			this._lines.push([point1,point2]);
+			if (point2.x < this._pLeft){
+				this._pLeft=point2.x;
+				}else if (point2.x > this._pRight){
+				this._pRight=point2.x;
+			}
+			if (point2.y < this._pUp){
+				this._pUp=point2.y;
+				}else if (point2.y > this._pDown){
+				this._pDown=point2.y;
+			}
+		}
+		this.drawBlock();
+	});
+
+	__getset(0,__proto,'lines',function(){
+		return this._lines;
+	});
+
+	__getset(0,__proto,'pUp',function(){
+		return this._pUp;
+	});
+
+	__getset(0,__proto,'pRight',function(){
+		return this._pRight;
+	});
+
+	__getset(0,__proto,'pDown',function(){
+		return this._pDown;
+	});
+
+	__getset(0,__proto,'pLeft',function(){
+		return this._pLeft;
+	});
+
+	return BlockItem;
 })(View)
 
 
@@ -37684,7 +37760,7 @@ var GameScene=(function(_super){
 	__proto.init=function(){
 		var table=new TableView();
 		this.addChild(table);
-		table.initBalls();
+		table.init();
 		Laya.stage.on("resize",this,this.onResize);
 		this.onResize();
 	}
@@ -37714,6 +37790,7 @@ var GameScene=(function(_super){
 var TableViewUI=(function(_super){
 	function TableViewUI(){
 		this.boxCon=null;
+		this.boxTable=null;
 		TableViewUI.__super.call(this);
 	}
 
@@ -37724,7 +37801,7 @@ var TableViewUI=(function(_super){
 		this.createView(TableViewUI.uiView);
 	}
 
-	TableViewUI.uiView={"type":"View","props":{"width":768,"height":1080},"child":[{"type":"Image","props":{"y":-100,"x":0,"skin":"unpack/img_bg.jpg"}},{"type":"Image","props":{"y":34,"x":96,"skin":"unpack/img_table.png"}},{"type":"Box","props":{"y":76,"x":129,"width":508,"var":"boxCon","height":907}}]};
+	TableViewUI.uiView={"type":"View","props":{"width":768,"height":1080},"child":[{"type":"Image","props":{"y":-100,"x":0,"skin":"unpack/img_bg.jpg"}},{"type":"Image","props":{"y":34,"x":96,"skin":"unpack/img_table.png"}},{"type":"Box","props":{"y":76,"x":129,"width":506,"var":"boxCon","height":904},"child":[{"type":"Box","props":{"var":"boxTable"},"child":[{"type":"Image","props":{"y":0,"x":56,"width":401,"skin":"comp/blank.png","height":22}},{"type":"Image","props":{"y":47,"x":0,"width":26,"skin":"comp/blank.png","height":361}},{"type":"Image","props":{"y":493,"x":0,"width":26,"skin":"comp/blank.png","height":361}},{"type":"Image","props":{"y":493,"x":481,"width":26,"skin":"comp/blank.png","height":361}},{"type":"Image","props":{"y":53,"x":481,"width":26,"skin":"comp/blank.png","height":361}},{"type":"Image","props":{"y":880,"x":56,"width":401,"skin":"comp/blank.png","height":22}}]}]}]};
 	return TableViewUI;
 })(View)
 
@@ -38254,10 +38331,65 @@ var TextArea=(function(_super){
 //class module.ball.BallItem extends ui.BallItemUI
 var BallItem=(function(_super){
 	function BallItem(){
+		this._type=0;
+		this._camp=0;
+		this._speed=10;
+		this._radius=0;
+		this._ballRotation=NaN;
 		BallItem.__super.call(this);
+		this.ballRotation=0;
 	}
 
 	__class(BallItem,'module.ball.BallItem',_super);
+	var __proto=BallItem.prototype;
+	__proto.showHitAble=function(){
+		this.boxBottom.graphics.clear();
+		this.boxBottom.scale(0.1,0.1);
+		this.boxBottom.graphics.drawCircle(0,0,40,"#ffff00");
+		Tween.to(this.boxBottom,{scaleX:1,scaleY:1},1200);
+	}
+
+	__getset(0,__proto,'ballRotation',function(){
+		return this._ballRotation;
+		},function(value){
+		this._ballRotation=value;
+	});
+
+	__getset(0,__proto,'type',function(){
+		return this._type;
+		},function(value){
+		this._type=value;
+		this.boxBottom.graphics.clear();
+		this.boxBall.graphics.clear();
+		switch (this._type){
+			case 0:
+				this._radius=20;
+				this.boxBall.graphics.drawCircle(0,0,this._radius,"#ffffff");
+				break ;
+			case 1:
+				this._radius=20;
+				this.boxBall.graphics.drawCircle(0,0,this._radius,"#e06444");
+				break ;
+			}
+	});
+
+	/**球碰撞半径*/
+	__getset(0,__proto,'radius',function(){
+		return this._radius;
+	});
+
+	__getset(0,__proto,'camp',function(){
+		return this._camp;
+		},function(value){
+		this._camp=value;
+	});
+
+	__getset(0,__proto,'speed',function(){
+		return this._speed;
+		},function(value){
+		this._speed=value;
+	});
+
 	return BallItem;
 })(BallItemUI)
 
@@ -38266,24 +38398,154 @@ var BallItem=(function(_super){
 var TableView=(function(_super){
 	function TableView(){
 		this.ballList=null;
+		this.blockList=null;
+		this.WALL_POS=[[0,0,490,22],[481,20,26,880],[0,880,490,22],[0,0,26,880]];
+		this.WALL_POS2=[[0,0,0,0,490,0,490,22],[100,20,0,0,426,0,426,880],[0,880,0,0,490,0,490,22],[0,0,0,0,26,0,26,880]];
 		TableView.__super.call(this);
 	}
 
 	__class(TableView,'module.TableView',_super);
 	var __proto=TableView.prototype;
-	__proto.initBalls=function(){
-		this.ballList=[];
-		for(var i=0;i < 10;i++){
-			var item=BallManager.getInstance().getBall();
-			this.boxCon.addChild(item);
+	__proto.init=function(){
+		this.initTable();
+		this.initBall();
+		Laya.timer.frameLoop(1,this,this.onFrame);
+	}
+
+	__proto.initTable=function(){
+		this.blockList=[];
+		for (var j=0;j < this.WALL_POS2.length;j++){
+			var item=new BlockItem();
+			item.data=(this.WALL_POS2 [j]).slice(2);
+			item.x=this.WALL_POS2[j][0];
+			item.y=this.WALL_POS2[j][1];
+			this.boxTable.addChild(item);
+			this.blockList.push(item);
 		}
+	}
+
+	__proto.initBall=function(){
+		this.ballList=[];
+		this.addBall(250,700,0,0);
+	}
+
+	/**
+	*添加一个球到容器中
+	*@param x
+	*@param y
+	*@param type 球类型
+	*@param camp 阵营，0为玩家球，1为被打球
+	*/
+	__proto.addBall=function(x,y,type,camp){
+		(type===void 0)&& (type=1);
+		(camp===void 0)&& (camp=1);
+		var item=BallManager.getInstance().getBall();
+		item.x=x;
+		item.y=y;
+		item.type=type;
+		item.camp=camp;
+		this.ballList.push(item);
+		this.boxCon.addChild(item);
+	}
+
+	__proto.onFrame=function(){
+		for (var i=0;i < this.ballList.length;i++){
+			var item=this.ballList [i];
+			var hitBlock=false;
+			for (var j=0;j < this.blockList.length;j++){
+				var block=this.blockList [j];
+				var findLine=false;
+				var shortestApeakData;
+				if (this.hitTestBlock(item,block)){
+					for (var k=0;k < block.lines.length;k++){
+						var apeak=this.getApeakData(item.x,item.y,block,block.lines [k]);
+						if (apeak[0] < item.radius){
+							var clipAngle=Math.abs(item.ballRotation-apeak[1])% 360;
+							if (clipAngle > 180){
+								clipAngle=Math.abs(360-clipAngle);
+							}
+							if (clipAngle < 90){
+								if (!findLine){
+									shortestApeakData=apeak;
+									findLine=true;
+								}
+								if (apeak[0] <=shortestApeakData[0]){
+									shortestApeakData=apeak;
+								}
+							}
+						}
+					}
+					if (findLine){
+						var rotationAdd=shortestApeakData[1]-item.ballRotation;
+						item.ballRotation=item.ballRotation-180+rotationAdd *2;
+						while (item.ballRotation <-180){
+							item.ballRotation+=360;
+						}
+						while (item.ballRotation > 180){
+							item.ballRotation-=360;
+						}
+						hitBlock=true;
+					}
+				}
+			};
+			var hitBall=false;
+			if (!hitBlock && !hitBall){
+				var xDis=Math.cos(item.ballRotation / 180 *Math.PI)*item.speed;
+				var yDis=Math.sin(item.ballRotation / 180 *Math.PI)*item.speed;
+				item.x+=xDis;
+				item.y+=yDis;
+			}
+		}
+	}
+
+	/**
+	*获取垂线数据
+	*@param x
+	*@param y
+	*@param block 线数组，包含2个端点Point
+	*@param line block内部的某条线，包含2个端点Point
+	*@return [垂线长度，角度]
+	*/
+	__proto.getApeakData=function(x,y,block,line){
+		var point1=line[0];
+		var point2=line[1];
+		var disX=point2.x-point1.x;
+		var disY=point2.y-point1.y;
+		if (disY==0){
+			return [Math.abs(y-block.y-point1.y),y > (block.y+point1.y)?-90 :90];
+		}
+		if (disX==0){
+			return [Math.abs(x-block.x-point1.x),x > (block.x+point1.x)? 180 :0];
+		};
+		var angle1=Math.atan(disY / disX)*180 / Math.PI;
+		var param1=(block.y+point1.y)-(block.x+point1.x)*Math.tan(angle1 / 180 *Math.PI);
+		var angle2=angle1-90;
+		var param2=y-x *Math.tan(angle2 / 180 *Math.PI);
+		var peakX=(param2-param1)/ (Math.tan(angle1 / 180 *Math.PI)-Math.tan(angle2 / 180 *Math.PI));
+		var peakY=Math.tan(angle1 / 180 *Math.PI)+param1;
+		var peakDis=Math.sqrt((peakX-x)*(peakX-x)+(peakY-y)*(peakY-y));
+		var peakRotation=Math.asin((peakY-x)/ peakDis)*180 / Math.PI;
+		return [peakDis,peakRotation];
+	}
+
+	/**碰撞检测-只检测障碍边界范围*/
+	__proto.hitTestBlock=function(item,block){
+		var radius=item.radius;
+		var finalX=item.x;
+		var finalY=item.y;
+		if ((block.x+block.pLeft-radius)< finalX && finalX < (block.x+block.pRight+radius)){
+			if ((block.y+block.pUp-radius)< finalY && finalY < (block.y+block.pDown+radius)){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	return TableView;
 })(TableViewUI)
 
 
-	Laya.__init([LoaderManager,EventDispatcher,Render,View,Browser,DrawText,WebGLContext2D,ShaderCompile,Timer,GraphicAnimation,LocalStorage,AtlasGrid]);
+	Laya.__init([EventDispatcher,LoaderManager,Render,View,Browser,DrawText,WebGLContext2D,ShaderCompile,Timer,GraphicAnimation,LocalStorage,AtlasGrid]);
 	/**LayaGameStart**/
 	new Main();
 

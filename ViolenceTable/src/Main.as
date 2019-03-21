@@ -8,7 +8,8 @@
 		
 		public function Main() {
 			//初始化引擎
-			Laya.init(1920, 1080,WebGL);
+			Laya.init(1920, 1080, WebGL);
+//			Laya.stage.frameRate = "slow";
 			
 			//激活资源版本控制
 //            ResourceVersion.enable("version.json", Handler.create(this, beginLoad), ResourceVersion.FILENAME_VERSION);
@@ -19,5 +20,6 @@
 			Laya.stage.addChild(GameScene.getInstance());
 			GameScene.getInstance().init();
 		}
+		
 	}
 }
