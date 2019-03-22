@@ -38333,11 +38333,11 @@ var BallItem=(function(_super){
 	function BallItem(){
 		this._type=0;
 		this._camp=0;
-		this._speed=2;
+		this._speed=10;
 		this._radius=0;
 		this._ballRotation=NaN;
 		BallItem.__super.call(this);
-		this.ballRotation=0;
+		this.ballRotation=180;
 	}
 
 	__class(BallItem,'module.ball.BallItem',_super);
@@ -38400,8 +38400,7 @@ var TableView=(function(_super){
 		this.ballList=null;
 		this.blockList=null;
 		this.WALL_POS=[[0,0,490,22],[481,20,26,880],[0,880,490,22],[0,0,26,880]];
-		// private const WALL_POS2:Array=[[0,0,0,0,490,0,490,22],[481,20,0,0,26,0,26,880],[0,880,0,0,490,0,490,22],[0,0,0,0,26,0,26,880]];
-		this.WALL_POS2=[[0,0,0,0,450,0,450,450]];
+		this.WALL_POS2=[[0,0,0,0,490,0,490,22],[481,20,0,0,26,0,26,880],[0,880,0,0,490,0,490,22],[0,0,0,0,26,0,26,880]];
 		TableView.__super.call(this);
 	}
 
@@ -38427,7 +38426,7 @@ var TableView=(function(_super){
 
 	__proto.initBall=function(){
 		this.ballList=[];
-		this.addBall(100,300,0,0);
+		this.addBall(100,700,0,0);
 	}
 
 	/**
@@ -38519,13 +38518,13 @@ var TableView=(function(_super){
 			return [Math.abs(x-block.x-point1.x),x > (block.x+point1.x)? 180 :0];
 		};
 		var angle1=Math.atan(disY / disX)*180 / Math.PI;
-		var param1=(block.y+point1.y)-(block.x+point1.x)*Math.tan(angle1 / 180 *Math.PI);
+		var param1=(block.y+point2.y)-(block.x+point2.x)*Math.tan(angle1 / 180 *Math.PI);
 		var angle2=angle1-90;
 		var param2=y-x *Math.tan(angle2 / 180 *Math.PI);
 		var peakX=(param2-param1)/ (Math.tan(angle1 / 180 *Math.PI)-Math.tan(angle2 / 180 *Math.PI));
-		var peakY=Math.tan(angle1 / 180 *Math.PI)+param1;
+		var peakY=Math.tan(angle1 / 180 *Math.PI)*peakX+param1;
 		var peakDis=Math.sqrt((peakX-x)*(peakX-x)+(peakY-y)*(peakY-y));
-		var peakRotation=Math.asin((peakY-x)/ peakDis)*180 / Math.PI;
+		var peakRotation=Math.asin((peakY-y)/ peakDis)*180 / Math.PI;
 		return [peakDis,peakRotation];
 	}
 
