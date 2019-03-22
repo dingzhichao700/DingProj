@@ -1,2 +1,19 @@
-Project configuration:d:\Documents\myLayaaaaqaaaaaqqsaaaaaaaareqaaaaasaaqq/.actionScriptProperties.
+1,0.00,,0,Project command:e:\DingProj\ViolenceTable/.actionScriptProperties;iflash=false;windowshow=false;chromerun=false;quickcompile=true
+Project configuration:e:\DingProj\ViolenceTable/.actionScriptProperties.
+1,0.00,,0,output path:e:/DingProj/ViolenceTable/bin/h5/
+1,0.00,,0,Main Class:e:/DingProj/ViolenceTable/src/Main.as
+1,0.00,,0,output file:Main
+1,0.00,,0,compilerSourcePath e:/DingProj/ViolenceTable/libs/laya/src/
+
+1,0.00,,0,Compile Path:e:/DingProj/ViolenceTable/src/
+
+1,0.00,,0,Compile Path:e:/DingProj/ViolenceTable/libs/laya/src/
+
+1,0.00,e:/DingProj/ViolenceTable/src,0,Collect
+1,0.00,e:/DingProj/ViolenceTable/libs/laya/src,0,Collect
+1,2.00,,0,read class message
+1,89.95,,0,Disable Flash3D e:/DingProj/ViolenceTable/src/Main.as
+12,89.95,e:/DingProj/ViolenceTable/bin/h5/Main.max.js,1175828,
+11,89.95,e:/DingProj/ViolenceTable/bin/h5/Main.max.html,887,
 ******************************************************************************
+14,89.95,,0,

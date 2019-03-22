@@ -12,7 +12,7 @@ package module.ball {
 		private var _ballRotation:Number;
 
 		public function BallItem() {
-			ballRotation = 180;
+			ballRotation = 0;
 		}
 
 		public function get ballRotation():Number {

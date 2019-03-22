@@ -12,7 +12,8 @@ package module {
 		private var ballList:Array;
 		private var blockList:Array;
 		private const WALL_POS:Array = [[0, 0, 490, 22], [481, 20, 26, 880], [0, 880, 490, 22], [0, 0, 26, 880]];
-		private const WALL_POS2:Array = [[0, 0, 0, 0, 490, 0, 490, 22], [481, 20, 0, 0, 26, 0, 26, 880], [0, 880, 0, 0, 490, 0, 490, 22], [0, 0, 0, 0, 26, 0, 26, 880]];
+//		private const WALL_POS2:Array = [[0, 0, 0, 0, 490, 0, 490, 22], [481, 20, 0, 0, 26, 0, 26, 880], [0, 880, 0, 0, 490, 0, 490, 22], [0, 0, 0, 0, 26, 0, 26, 880]];
+		private const WALL_POS2:Array = [[0, 0, 0, 0, 450, 0, 450, 450], [481, 20, 0, 0, 26, 0, 26, 880], [0, 880, 0, 0, 490, 0, 490, 22], [0, 0, 0, 0, 26, 0, 26, 880]];
 //		private const WALL_POS2:Array = [[0, 0, 0, 0, 450, 0, 450, 450]];
 
 		public function TableView() {
@@ -50,7 +51,7 @@ package module {
 //			for(var i:int = 0 ; i < 1;i++){
 //				addBall(100, 100);
 //			}
-			addBall(100, 700, 0, 0);
+			addBall(100, 300, 0, 0);
 		}
 
 		/**
@@ -166,7 +167,7 @@ package module {
 			var peakY:int = Math.tan(angle1 / 180 * Math.PI)*peakX + param1;
 			/**垂线长度*/
 			var peakDis:int = Math.sqrt((peakX - x) * (peakX - x) + (peakY - y) * (peakY - y));
-			var peakRotation:int = Math.asin((peakY - y) / peakDis) * 180 / Math.PI;
+			var peakRotation:int = Math.atan2(peakY - y, peakX-x) * 180 / Math.PI;
 			return [peakDis, peakRotation];
 		}
 
