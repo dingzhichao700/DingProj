@@ -1,0 +1,40 @@
+module egret{
+    export class HPTweenManager{
+        private static _instance:HPTweenManager;
+        private _textFields:Array<TextField>;
+
+        public constructor(){
+            this._textFields = [];
+        }
+        //
+        public static getInstance():egret.HPTweenManager {
+            return this._instance || (this._instance = new egret.HPTweenManager());
+        }
+        //
+        public tweenUp(container:DisplayObjectContainer,x:number,y:number,tx:number,ty:number,
+                              text:string,color:number = 0xffff00,size:number = 20):void{
+
+            var textField:TextField = this._textFields.pop();
+            if(!textField)
+                textField = new TextField();
+            textField.text = text;
+            textField.height = size;
+            textField.width = 100;
+            textField.textAlign = HorizontalAlign.CENTER;
+            textField.textColor = color;
+            textField.x = x;
+            textField.y = y;
+            container.addChild(textField);
+
+            Tween.removeTweens(textField);
+            Tween.get(textField).to({x:tx,y:ty}).call(this.randomDirComplete,this,[textField]);
+        }
+        //
+        private randomDirComplete(textField:TextField):void{
+            if(textField.parent)
+                textField.parent.removeChild(textField);
+
+            this._textFields.push(textField);
+        }
+    }
+}

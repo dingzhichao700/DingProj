@@ -1,0 +1,24 @@
+var egret;
+(function (egret) {
+    var SceneNetDataItem = (function () {
+        function SceneNetDataItem() {
+            /**
+             * 场景id
+             */
+            this.id = 0;
+            /**
+             * 场景中的传送项目数组 (SceneNetDataItem)
+             */
+            this.entrySceneItems = [];
+            /**
+             * 场景传送点lo数组
+             */
+            this.enterPoints = [];
+        }
+        var __egretProto__ = SceneNetDataItem.prototype;
+        return SceneNetDataItem;
+    })();
+    egret.SceneNetDataItem = SceneNetDataItem;
+    SceneNetDataItem.prototype.__class__ = "egret.SceneNetDataItem";
+})(egret || (egret = {}));
+//# sourceMappingURL=SceneNetDataItem.js.map

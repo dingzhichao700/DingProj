@@ -1,0 +1,28 @@
+var egret;
+(function (egret) {
+    var SceneElementDriver = (function (_super) {
+        __extends(SceneElementDriver, _super);
+        /**
+         * 构造函数
+         */
+        function SceneElementDriver() {
+            _super.call(this);
+        }
+        var __egretProto__ = SceneElementDriver.prototype;
+        //
+        __egretProto__.update = function () {
+            _super.prototype.update.call(this);
+        };
+        /**
+         * 从场景移除时处理
+         *
+         */
+        __egretProto__.removeFromScene = function () {
+            _super.prototype.removeFromScene.call(this);
+        };
+        return SceneElementDriver;
+    })(egret.SceneElementMover);
+    egret.SceneElementDriver = SceneElementDriver;
+    SceneElementDriver.prototype.__class__ = "egret.SceneElementDriver";
+})(egret || (egret = {}));
+//# sourceMappingURL=SceneElementDriver.js.map

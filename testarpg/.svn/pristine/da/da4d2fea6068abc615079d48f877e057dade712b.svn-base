@@ -1,0 +1,23 @@
+
+module egret {
+
+	export class NpcTaskStateType{
+		/**
+		 * 无状态 
+		 */		
+		public static NONE:number = -1;
+		/**
+		 * 未接受状态 
+		 */		
+		public static UNRECEIVED:number = 0;
+		/**
+		 * 未完成状态 
+		 */		
+		public static UNFINISHED:number = 1;
+		/**
+		 * 已完成未领取奖励状态 
+		 */		
+		public static REWARD:number = 2;
+		
+	}
+}

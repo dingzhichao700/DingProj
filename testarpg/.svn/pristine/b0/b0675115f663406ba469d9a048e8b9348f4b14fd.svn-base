@@ -1,0 +1,93 @@
+
+module egret {
+
+	export class ActionMovieClipManager{
+		private static _instance:ActionMovieClipManager = null;
+		
+		//加载中的url
+		private _loadUrlMap:HashMap = null;
+		//回调列表
+		private _callBackMap:HashMap = null;
+		private _callBackTargetMap:HashMap = null;
+
+		/**
+		 * 构造函数
+		 */
+		public constructor(){
+			this._loadUrlMap = new HashMap();
+			this._callBackMap = new HashMap();
+			this._callBackTargetMap = new HashMap();
+		}
+
+		public static getInstance():ActionMovieClipManager{
+			return ActionMovieClipManager._instance || (ActionMovieClipManager._instance = new ActionMovieClipManager());
+		}
+		
+		//
+		/**
+		 * 加载动作影片数据 
+		 * @param url:String 影片地址
+		 * @param callBack:Function = null 加载完成回调 function(){}
+		 * 
+		 */		
+		public loadActionMovieClipVo(url:string,callBack:Function = null,callBackTarget:any = null):void{
+			var array:HashMap = this._callBackMap.get(url);
+			if(!array){
+				array = new egret.HashMap();
+				this._callBackMap.put(url,array);
+			}
+			if(!array.containsKey(callBackTarget.hashCode)){
+				this._callBackTargetMap.put(callBackTarget.hashCode,callBackTarget);
+                array.put(callBackTarget.hashCode,callBack);
+			}
+
+			if(this._loadUrlMap.containsKey(url)) return;
+			if(ActionMovieClipData.getInstance().getActionMovieClipVo(url)) return;
+			
+			this._loadUrlMap.put(url,true);
+			
+			RES.getResByUrl(url,this.loadActionComplete,this);
+		}
+		//
+		/**
+		 * 加载动作资源完成 
+		 * @param loadDataItem
+		 * 
+		 */	
+		private loadActionComplete(data:any,url:string):void{
+			if(data instanceof SpriteSheet){
+				if(data){
+					var jsonUrl:string = ActionMovieClipData.getInstance().getJsonUrl(url);
+					var jsonData:Object = ActionMovieClipData.getInstance().getActionData(jsonUrl);
+					var vo:ActionMovieClipVo = ActionMovieClipUtil.getActionMovieClipVo(jsonData,<SpriteSheet>data);
+
+					if(vo){
+						ActionMovieClipData.getInstance().setActionMoveClipVo(jsonUrl,vo);
+					}else{
+						LogManager.error(this,"无效的ActionMovieClipVo数据:" + vo);
+					}
+				}else{
+					LogManager.error(this,"加载到无效的动作数据:" + data);
+				}
+
+				var array:HashMap = this._callBackMap.remove(jsonUrl);
+
+				for(var i in array.content){
+					var fun:any = array.get(i);
+					if(fun != null){
+						var target:any = this._callBackTargetMap.get(i);
+						fun.apply(target,[jsonUrl]);
+					}
+				}
+			}else if(data instanceof Object){
+				ActionMovieClipData.getInstance().setActionData(url,data);
+
+				url = ActionMovieClipData.getInstance().getSheetUrl(url);
+
+				RES.getResByUrl(url,this.loadActionComplete,this,RES.ResourceItem.TYPE_SHEET);
+			}else{
+				LogManager.error(this,"加载到无效的动作数据:" + data);
+			}
+		}
+	}
+}

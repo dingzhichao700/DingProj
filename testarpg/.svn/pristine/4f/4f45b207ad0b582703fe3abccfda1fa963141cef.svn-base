@@ -1,0 +1,9 @@
+module egret{
+    export class MonsterLo extends SceneElementLo{
+        public type:number;
+
+        public constructor(){
+            super();
+        }
+    }
+}

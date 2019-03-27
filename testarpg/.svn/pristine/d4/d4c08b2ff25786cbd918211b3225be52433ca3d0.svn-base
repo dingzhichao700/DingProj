@@ -1,0 +1,17 @@
+module egret{
+    /**
+     * 场景战斗元素基本数据
+     */
+    export class SceneDriverVo extends SceneElementVo{
+        /**
+         * 当前血量
+         * @type {number}
+         */
+        public hp:number = 20000;
+        /**
+         * 总血量
+         * @type {number}
+         */
+        public hpTotal:number = 20000;
+    }
+}

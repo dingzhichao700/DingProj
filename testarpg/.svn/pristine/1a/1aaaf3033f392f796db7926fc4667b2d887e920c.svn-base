@@ -1,0 +1,172 @@
+var egret;
+(function (egret) {
+    var SceneElementManager = (function () {
+        /**
+         * 构造函数
+         */
+        function SceneElementManager() {
+            //场景元素缓存数量配置
+            this.COUNT_ELEMENT_CACHE = {
+                ElementPlayer: 1000,
+                ElementNpc: 100,
+                ElementPet: 1000,
+                ElementEntryPoint: 20,
+                ElementCity: 50,
+                ElementNpcSiege: 6,
+                ElementNpcBuild: 4,
+                ElementCollectGoods: 10
+            };
+            //场景元素缓存 
+            this._elementCache = null;
+            //标记场景元素是否已回收
+            this._elementFlagMap = null;
+            //场景数据
+            this._sceneData = null;
+            this._elementCache = new egret.HashMap();
+            this._elementFlagMap = new egret.HashMap();
+            this._sceneData = egret.dataManager().sceneData;
+        }
+        var __egretProto__ = SceneElementManager.prototype;
+        SceneElementManager.getInstance = function () {
+            if (!SceneElementManager._instance)
+                SceneElementManager._instance = new SceneElementManager();
+            return SceneElementManager._instance;
+        };
+        //
+        /**
+         * 获取场景元素实例，并缓存
+         * @param cls:Class:Class 场景元素类
+         * @return
+         *
+         */
+        __egretProto__.getElement = function (cls) {
+            var array = this.getElementCacheArray(this.getElementType2(cls));
+            var element = null;
+            if (array.length > 0) {
+                element = array.pop();
+                this._elementFlagMap.remove(element);
+            }
+            else {
+                element = new cls();
+            }
+            return element;
+        };
+        //
+        /**
+         * 回收场景元素
+         * @param element:SceneElement
+         *
+         */
+        __egretProto__.recoverElement = function (element) {
+            if (!element) {
+                egret.LogManager.error(this, "回收场景元素element为空");
+                return;
+            }
+            if (this._elementFlagMap.containsKey(element)) {
+                egret.LogManager.error(this, "重复回收场景元素:element = " + element + ",id = " + element.id);
+                return;
+            }
+            if (element == egret.Role.getInstance()) {
+                //主角，宠物等不用回收
+                return;
+            }
+            var type = this.getElementType(element);
+            var array = this.getElementCacheArray(type);
+            if (!this.COUNT_ELEMENT_CACHE[type]) {
+                egret.LogManager.error(this, "未配置场景元素缓存数量 type = " + type);
+                throw new Error("未配置场景元素缓存数量 type = " + type);
+            }
+            if (array.length < this.COUNT_ELEMENT_CACHE[type]) {
+                array.push(element);
+                this._elementFlagMap.put(element, true);
+            }
+            else {
+                var index = array.indexOf(element);
+                if (index != -1)
+                    array.splice(index, 1);
+                this._elementFlagMap.remove(element);
+                element.destroy();
+            }
+        };
+        //
+        /**
+         * 获取场景元素缓存
+         * @param element:*
+         * @return
+         *
+         */
+        __egretProto__.getElementCacheArray = function (type) {
+            var array = this._elementCache.get(type);
+            if (!array) {
+                array = [];
+                this._elementCache.put(type, array);
+            }
+            return array;
+        };
+        //
+        /**
+         * 根据场景元素实例获取类型
+         * @param target:* 场景元素实例
+         * @return
+         *
+         */
+        __egretProto__.getElementType = function (target) {
+            var type = null;
+            if (target instanceof egret.ElementPlayer) {
+                type = SceneElementManager.ELEMENT_PLAYER;
+            }
+            else if (target instanceof egret.ElementNpc) {
+                type = SceneElementManager.ELEMENT_NPC;
+            }
+            else if (target instanceof egret.ElementPet) {
+                type = SceneElementManager.ELEMENT_PET;
+            }
+            else if (target instanceof egret.ElementEntryPoint) {
+                type = SceneElementManager.ELEMENT_POINT;
+            }
+            else if (target instanceof egret.ElementCollectGoods) {
+                type = SceneElementManager.ELEMENT_COLLECT_GOODS;
+            }
+            return type;
+        };
+        //
+        /**
+         * 根据场景元素类获取类型
+         * @param cls:* 场景元素类
+         * @return
+         *
+         */
+        __egretProto__.getElementType2 = function (cls) {
+            var type = null;
+            if (cls == egret.ElementPlayer) {
+                type = SceneElementManager.ELEMENT_PLAYER;
+            }
+            else if (cls == egret.ElementNpc) {
+                type = SceneElementManager.ELEMENT_NPC;
+            }
+            else if (cls == egret.ElementPet) {
+                type = SceneElementManager.ELEMENT_PET;
+            }
+            else if (cls == egret.ElementEntryPoint) {
+                type = SceneElementManager.ELEMENT_POINT;
+            }
+            else if (cls == egret.ElementCollectGoods) {
+                type = SceneElementManager.ELEMENT_COLLECT_GOODS;
+            }
+            return type;
+        };
+        SceneElementManager._instance = null;
+        SceneElementManager.ELEMENT_PLAYER = "ElementPlayer";
+        SceneElementManager.ELEMENT_NPC = "ElementNpc";
+        SceneElementManager.ELEMENT_PET = "ElementPet";
+        SceneElementManager.ELEMENT_POINT = "ElementEntryPoint";
+        SceneElementManager.ELEMENT_CITY = "ElementCity";
+        SceneElementManager.ELEMENT_NPC_SIEGE = "ElementNpcSiege";
+        SceneElementManager.ELEMENT_NPC_BUILD = "ElementNpcBuild";
+        SceneElementManager.ELEMENT_COLLECT_GOODS = "ElementCollectGoods";
+        return SceneElementManager;
+    })();
+    egret.SceneElementManager = SceneElementManager;
+    SceneElementManager.prototype.__class__ = "egret.SceneElementManager";
+})(egret || (egret = {}));
+//# sourceMappingURL=SceneElementManager.js.map

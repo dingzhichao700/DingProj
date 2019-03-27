@@ -1,0 +1,59 @@
+﻿module egret{
+    /**
+     * 战斗数据层
+     */
+    export class FightData{
+        public constructor(){
+
+        }
+        //
+        public damage(skillType:number,armies:Array<SceneElementDataItem>):Object{
+            var damageValues:Array<number> = this.getDamageBySkillType(skillType,armies);
+            return this.addHp(armies,damageValues);
+        }
+        //
+        public getDamageBySkillType(skillType:number,armies:Array<SceneElementDataItem>):Array<number>{
+            var damageValues:Array<number> = [];
+
+            switch (skillType){
+                case SkillType.WARRIOR_1:
+                    for(var i  in armies){
+                        damageValues.push(-100);
+                    }
+                    break;
+            }
+
+            return damageValues;
+        }
+        //
+        public addHp(armies:Array<SceneElementDataItem>,hpValues:Array<number>):Object{
+            var result:any = {};
+            var deadTargets:Array<SceneElementDataItem>;
+
+            for(var i in armies){
+                var vo:SceneDriverVo = <SceneDriverVo>armies[i].vo;
+                if(vo){
+                    vo.hp += hpValues[i];
+
+                    if(vo.hp < 0){
+                        hpValues[i] -= vo.hp;
+
+                        vo.hp = 0;
+
+                        if(!deadTargets)
+                            deadTargets = [];
+
+                        deadTargets.push(armies[i]);
+                    }
+                }
+            }
+
+            result.hpValues = hpValues;
+            if(deadTargets){
+                result.deadTargets = deadTargets;
+            }
+
+            return result;
+        }
+    }
+}

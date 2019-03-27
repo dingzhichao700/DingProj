@@ -1,0 +1,26 @@
+
+module egret {
+	/**
+	 * 职业枚举
+	 */
+	export class VocationType{
+		/**
+		 * 无职业 
+		 */		
+ 		public static NONE:number = 0;
+		/**
+		 * 女神  1
+		 */
+		public static GODDESS:number = 1;
+		/**
+		 * CEO  2
+		 */
+		public static  CEO:number = 2;
+		/**
+		 * 大学生  3
+		 */
+		public static COLLEGE_STUDENT:number = 3;
+
+		public static TYPES:Array<number> = [VocationType.GODDESS,VocationType.CEO,VocationType.COLLEGE_STUDENT];
+	}
+}

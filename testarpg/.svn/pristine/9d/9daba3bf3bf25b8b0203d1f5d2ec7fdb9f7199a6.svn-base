@@ -1,0 +1,32 @@
+var egret;
+(function (egret) {
+    var SceneType = (function () {
+        function SceneType() {
+        }
+        var __egretProto__ = SceneType.prototype;
+        /**
+         * 城市
+         */
+        SceneType.CITY = 1;
+        /**
+         * 世界地图
+         */
+        SceneType.WORLD_MAP = 2;
+        /**
+         * 监狱
+         */
+        SceneType.PRISON = 3;
+        /**
+         * 一夜墨俣
+         */
+        SceneType.BUILDING = 4;
+        /**
+         * 美浓攻略
+         */
+        SceneType.SIEGE = 5;
+        return SceneType;
+    })();
+    egret.SceneType = SceneType;
+    SceneType.prototype.__class__ = "egret.SceneType";
+})(egret || (egret = {}));
+//# sourceMappingURL=SceneType.js.map

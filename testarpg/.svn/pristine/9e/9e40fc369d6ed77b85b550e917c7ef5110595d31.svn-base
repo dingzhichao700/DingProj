@@ -1,0 +1,47 @@
+﻿module egret{
+    /**
+     * 技能类型
+     */
+    export class SkillType{
+        /**
+         * 战士技能，普攻
+         * @type {number}
+         */
+        public static WARRIOR_NORMAL:number = 11;
+        /**
+         * 战士技能，群攻
+         * @type {number}
+         */
+        public static WARRIOR_GROUP:number = 12;
+        /**
+         * 战士技能，野蛮冲撞
+         * @type {number}
+         */
+        public static WARRIOR_COLLIDE:number = 13;
+        /**
+         * 法师技能，普攻
+         * @type {number}
+         */
+        public static MAGE_NORMAL:number = 21;
+        /**
+         * 法师技能，雷电术
+         * @type {number}
+         */
+        public static MAGE_THUNDER:number = 22;
+        /**
+         * 法师技能，疾光退
+         * @type {number}
+         */
+        public static MAGE_THUNDER_BACK:number = 23;
+        /**
+         * 射手技能，普攻
+         * @type {number}
+         */
+        public static BOWMAN_NORMAL:number = 31;
+        /**
+         * 射手技能，召唤术
+         * @type {number}
+         */
+        public static BOWMAN_CALL:number = 32;
+    }
+}

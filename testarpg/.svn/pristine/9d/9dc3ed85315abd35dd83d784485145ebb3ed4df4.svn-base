@@ -1,0 +1,44 @@
+module egret{
+    export class HPProgressBar extends DisplayObjectContainer{
+        private _bg:Image;
+        private _bar:Image;
+        private _percent:number = 0;
+
+        public constructor(){
+            super();
+
+            this._bg = new egret.Image(null,49,8,false);
+            this.addChild(this._bg);
+            this._bar = new egret.Image(null,0,0,false);
+            this.addChild(this._bar);
+        }
+        //
+        public get percent():number {
+            return this._percent;
+        }
+
+        public set percent(value:number) {
+            if(this._percent == value) return;
+
+            if(value > 1)
+                value = 1;
+            if(value < 0)
+                value = 0;
+
+            this._percent = value;
+            this.updateDisplayList();
+        }
+        //
+        public setStyle(bgUrl:string,barUrl:string):void{
+            this._bg.url = bgUrl;
+            this._bar.url = barUrl;
+
+            this.updateDisplayList();
+        }
+        //
+        private updateDisplayList():void{
+            this._bg.scaleX = this._percent;
+            this._bar.scaleX = this._percent;
+        }
+    }
+}

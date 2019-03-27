@@ -1,0 +1,198 @@
+
+module egret {
+
+	export class ElementNpc extends SceneElementDriver{
+		//任务状态
+		private _taskState:number = -1;
+		//状态mc
+		private _taskStateMc:MovieClip = null;
+		//状态加载器
+		private _loaderMap:HashMap = null;
+		/**
+		 * 构造函数
+		 */
+		public constructor(){
+			super();
+
+			this._loaderMap = new HashMap();
+			
+			this.setTextFormat();
+		}
+		
+		public setTextFormat():void{
+			this._namePad.setNameTextFormat();
+		}
+
+		public get taskState():number{
+			return this._taskState;
+		}
+		/**
+		 * 当前任务状态 
+		 * @param value:int NpcTaskStateType
+		 * 
+		 */
+		public set taskState(value:number){
+			if(this._taskState == value) return;
+			
+			this._taskState = value;
+			
+			this.clearState();
+			
+			//if(this._taskState == NpcTaskStateType.NONE){
+			//	TimerManager.getInstance().addExecute(this.checkStateDestroy,DateUtil.VALUE_MINUTE_10,null,1);
+			//}else{
+			//	TimerManager.getInstance().removeExecute(this.checkStateDestroy);
+			//	this.loadStateMc();
+			//}
+		}
+		//
+		public update():void{
+			super.update();
+			
+			//if(this.enabled){
+			//	this.taskState = dataManager().taskData.getNpcTaskState(parseInt(this.id));
+			//}else{
+			//	this.taskState = NpcTaskStateType.NONE;
+			//}
+		}
+		/**
+		 * 添加至场景时处理 
+		 * 
+		 */		
+		public addToScene():void{
+			super.addToScene();
+			
+			this.update();
+			
+			var lo:NpcLo = <NpcLo><any> (this._data.lo);
+			if(lo){
+				if(lo.type == NpcType.HOME || lo.type == NpcType.SEARCH){
+					this.play(0,ActionType.PREPARE,ActionMovieClipDirectionType.UP);
+				}
+			}
+		}
+		/**
+		 * 从场景移除时处理 
+		 * 
+		 */		
+		public removeFromScene():void{
+			super.removeFromScene();
+			
+			this.taskState = NpcTaskStateType.NONE;
+		}
+		//
+		/**
+		 * 外部加载完成 
+		 * @param loadDataItem
+		 * 
+		 */		
+		//private firstLoadComplete(loadDataItem:LoadDataItem):void{
+		//	this.loadStateMc();
+		//}
+		//
+		/**
+		 * 内存中加载完成 
+		 * @param loader
+		 * 
+		 */		
+		//private loadStateComplete(loader:Loader,...args):void{
+		//	//不能直接用_taskState，因加载过程中此值可能已改变
+		//	this._loaderMap.put(args[0],loader);
+		//	this.showStateMc();
+		//}
+		//
+		/**
+		 * 加载状态资源 
+		 * 
+		 */		
+		private loadStateMc():void{
+			var states:Array<any> = [
+				NpcTaskStateType.UNRECEIVED,
+				NpcTaskStateType.UNFINISHED,
+				NpcTaskStateType.REWARD
+			];
+			//var ids:Array<any> = [
+			//	ResourceId.ID_RESOURCE_NPC_STATE_UNRECEIVED,
+			//	ResourceId.ID_RESOURCE_NPC_STATE_UNFINISHED,
+			//	ResourceId.ID_RESOURCE_NPC_STATE_REWARD
+			//];
+			//
+			//var index:number = states.indexOf(this._taskState);
+			//var id:string = ids[index];
+			//
+			//if(!id) return;
+			//
+			//if(this._loaderMap.get(this._taskState)){
+			//	this.showStateMc();
+			//}else{
+			//	var loader:Loader = ResoureManager.getInstance().getResourceLoader(id);
+			//	if(loader){
+			//		//内存中加载
+			//		ResoureManager.getInstance().loadBytes(loader.contentLoaderInfo.bytes,this.loadStateComplete,[this._taskState]);
+			//	}else{
+			//		//外部加载
+			//		ResoureManager.getInstance().load([id],this.firstLoadComplete,null,null,true);
+			//	}
+			//}
+		}
+		//
+		/**
+		 * 显示状态 
+		 * 
+		 */		
+		private showStateMc():void{
+			this.clearState();
+			
+			if(this._loaderMap.containsKey(this._taskState)){
+				this._taskStateMc = <MovieClip><any> (this._loaderMap.get(this._taskState).content);
+				this._namePad.show(this._taskStateMc,NpcNameLayerType.STATE_LAYER);
+				//MovieClipUtil.playClip(this._taskStateMc,true);
+			}
+		}
+		//
+		/**
+		 * 清空状态 
+		 * 
+		 */		
+		private clearState():void{
+			//MovieClipUtil.playClip(this._taskStateMc,false);
+			this._namePad.hide(this._taskStateMc);
+			this._taskStateMc = null;
+		}
+		//
+		/**
+		 * 检测销毁 
+		 * 
+		 */		
+		private checkStateDestroy():void{
+			var length:number = this._loaderMap.content.length;
+			//for(var i:number = 0;i < length;i++){
+			//	var loader:Loader = this._loaderMap.content[i];
+			//	try{
+			//		loader.close();
+			//	}catch(e){
+			//
+			//	}
+			//	loader.unload();
+			//	loader.unloadAndStop();
+			//}
+			this._loaderMap.clear();
+		}
+		//
+		/**
+		 * 获取部件影片地址 
+		 * @param partType:String ActionPartType 动作影片类型
+		 * @return
+		 */		
+		public getPartUrl(partType:string):string{
+			return super.getPartUrl(partType);
+			//var path:string = PathData.PATH_MOVIES_NPC;
+			//
+			//var movie:string = this._sceneAvatarVo[partType];
+			//
+			//var url:string = this.dataManager().sceneElementData.getActionUrl(path,movie,this._avatar.actionType);
+			//
+			//return url;
+		}
+	}
+}

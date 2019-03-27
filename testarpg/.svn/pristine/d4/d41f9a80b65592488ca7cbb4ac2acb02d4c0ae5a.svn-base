@@ -1,0 +1,12 @@
+
+module egret {
+
+	export class ElementSkill extends ElementEffect{
+		/**
+		 * 构造函数
+		 */
+		public constructor(){
+			super();
+		}
+	}
+}

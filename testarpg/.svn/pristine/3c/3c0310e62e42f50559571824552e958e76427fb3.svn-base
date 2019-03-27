@@ -1,0 +1,43 @@
+
+module egret {
+
+	export class ElementMonster extends SceneElementDriver{
+		/**
+		 * 构造函数
+		 */
+		public constructor(){
+			super();
+		}
+		//
+		/**
+		 * 获取部件影片地址 
+		 * @param partType:String ActionPartType 动作影片类型
+		 * @return
+		 */		
+		public getPartUrl(partType:string):string{
+			var path:string = PathData.PATH_MOVIES_MONSTER;
+			
+			var movie:string = this._sceneAvatarVo[partType];
+			
+			var url:string = dataManager().sceneElementData.getActionUrl(path,movie,this._avatar.actionType);
+			
+			return url;
+		}
+		//
+		/**
+		 * 释放默认技能
+		 */
+		public playSkill():void{
+			if(this._avatar.frameIndex == this._avatar.frameIndexMax){
+				if(this._attackTarget){
+					var radians:Array<number> = [Math.atan2(this._attackTarget.vo.y - this.y,this._attackTarget.vo.x - this.x)];
+					var item:DamageDataItem = new DamageDataItem();
+					item.value = -50;
+					var damage:any = dataManager().fightData.addHp([this._attackTarget],[item]);
+
+					globalUpdateWindows([UpdateType.DAMAGE_HP_CHANGE],[this._attackTarget],damage.hpValues,radians);
+				}
+			}
+		}
+	}
+}

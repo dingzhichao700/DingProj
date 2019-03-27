@@ -1,0 +1,24 @@
+var egret;
+(function (egret) {
+    var NpcNameLayerType = (function () {
+        function NpcNameLayerType() {
+        }
+        var __egretProto__ = NpcNameLayerType.prototype;
+        /**
+         * 名称层
+         */
+        NpcNameLayerType.NAME_LAYER = 0;
+        /**
+         * 图标层
+         */
+        NpcNameLayerType.ICON_LAYER = 1;
+        /**
+         * 任务状态层
+         */
+        NpcNameLayerType.STATE_LAYER = 2;
+        return NpcNameLayerType;
+    })();
+    egret.NpcNameLayerType = NpcNameLayerType;
+    NpcNameLayerType.prototype.__class__ = "egret.NpcNameLayerType";
+})(egret || (egret = {}));
+//# sourceMappingURL=NpcNameLayerType.js.map

@@ -1,0 +1,168 @@
+module egret{
+    /**
+     * 战士
+     */
+    export class PlayerWarrior extends ElementPlayer{
+        //野蛮冲撞目标点
+        private _collidePoint:Point = new Point();
+
+        public constructor(){
+            super();
+        }
+        //
+        /**
+         * 获取攻击范围，不同职业和怪物重写
+         * @returns {number}
+         */
+        public getAttackRange():number{
+            return 150;
+        }
+        //
+        /**
+         * 玩家攻击方法
+         */
+        public attack():void{
+            if(this._isLocked) return;
+            if(this.isSkillStatus) return;
+            if(!this._attackTarget) return;
+            if((<SceneDriverVo>this._attackTarget.vo).hp <= 0) return;
+
+            this.stopMove();
+
+            //野蛮冲撞
+            if(this.getSkillTime(SkillType.WARRIOR_COLLIDE) > dataManager().fightData.getSkillIntervalTime(SkillType.WARRIOR_COLLIDE)){
+                this.setUseSkill(SkillType.WARRIOR_COLLIDE);
+                this.isSkillStatus = true;
+                //目标数据
+                var target:SceneElementDriver = <SceneElementDriver>this.scene.getElement(this._attackTarget.vo.idString);
+                target.lock();
+
+                var width:number = SceneElementMover.MOVER_WIDTH / 2;
+                var height:number = SceneElementMover.MOVER_HEIGHT;
+
+                var radian:number = Math.atan2(this._attackTarget.vo.y - this._y,this._attackTarget.vo.x - this._x);
+                var radius:number = 300;
+                var x:number = this._x + Math.cos(radian) * radius;
+                var y:number = this._y + Math.sin(radian) * radius;
+                x = this.limitValue(x,width,this._maxX - width);
+                y = this.limitValue(y,height,this._maxY);
+
+                var time:number = 500;
+
+                Tween.get(target).to({x:x,y:y},time).call(this.collideComplete,this,[target,x,y]);
+
+                //释放技能对象数据
+                radius -= this.getAttackRange();
+                x = this._x + Math.cos(radian) * radius;
+                y = this._y + Math.sin(radian) * radius;
+                x = this.limitValue(x,width,this._maxX - width);
+                y = this.limitValue(y,height,this._maxY);
+
+                this.play(-1,ActionType.WALK);
+                //释放技能对象增加时间，因时间相同时，释放技能对象会有可能先于被攻击对象调用结束回调函数
+                time += 100;
+                Tween.get(this,{onChange:this.onChangeCollide,onChangeObj:this}).to({x:x,y:y},time).call(this.collideComplete,this,[this,x,y]);
+
+                this.damage(SkillType.WARRIOR_COLLIDE);
+
+                return;
+            }
+
+            //攻击
+            if(this._avatar.actionType != ActionType.ATTACK){
+                var direction:number = ActionMovieClipData.getInstance().calculateDirection(this.x,this.y,this._attackTarget.vo.x,this._attackTarget.vo.y);
+                this.play(0,ActionType.ATTACK,direction);
+                this._avatar.setFrameHandler(this.playSkill,this);
+            }
+        }
+        //
+        /**
+         * 野蛮冲撞移动时
+         */
+        private onChangeCollide():void{
+            if(this.scene){
+                this.setXY(this._x,this._y);
+                this.scene.isoMap.gotoXY2(this._x,this._y);
+            }
+        }
+        //
+        /**
+         * 野蛮冲撞结束
+         * @param element 结束对象
+         * @param x 移动目标点x
+         * @param y 移动目标点y
+         */
+        private collideComplete(element:SceneElementDriver,x:number,y:number):void{
+            element.setXY(x,y);
+
+            if(element == this){
+                this.setUseSkill(SkillType.WARRIOR_COLLIDE);
+                this.isSkillStatus = false;
+
+                if(this._attackTarget && (<SceneDriverVo>this._attackTarget.vo).hp <= 0){
+                    this.checkAutoAttack2();
+                }else{
+                    this.attack();
+                }
+            }else{
+                element.unlock();
+            }
+        }
+        //
+        /**
+         * 检测自动攻击2，玩家在攻击结束时检测，不使用定时器方法checkAutoAttack()
+         */
+        public checkAutoAttack2():void{
+            if(this._isLocked) return;
+            if(this._attackTarget && (<SceneDriverVo>this._attackTarget.vo).hp <= 0){
+                this.chaseArmies(this.armies);
+            }else{
+                this.attack();
+            }
+        }
+        //
+        /**
+         * 释放技能
+         */
+        public playSkill():void {
+            if (!this.scene) return;
+
+            //职业及技能类型处理
+            var playerVo:ScenePlayerVo = <ScenePlayerVo>this.data.vo;
+
+            if(this._avatar.frameIndex == 6){
+                var skill:ElementSkill = <ElementSkill>SceneElementManager.getInstance().getElement(ElementSkill);
+                skill.setAvatarDirectionSplit(false);
+                skill.setMovieName(SceneElementData.getInstance().getSkillMovieName(playerVo.vocation,1));
+                this.scene.addElement(skill,SceneLayerType.BATTLE_EFFECT,this.x,this.y);
+                skill.direction = this.direction;
+
+                this.damage(SkillType.WARRIOR_NORMAL);
+
+            }else if(this._avatar.frameIndex == this._avatar.frameIndexMax){
+                this.chaseArmies(this.armies);
+                //this.checkAutoAttack2();
+            }
+        }
+        //
+        /**
+         * 获取技能伤害敌人数据，不同技能重写，默认为单体伤害敌人数据
+         * @param skillType 技能类型
+         * @returns {Array<SceneElementDataItem>}
+         */
+        public getDamageTargets(skillType:number = 0):Array<SceneElementDataItem>{
+            this._damageTargets.length = 0;
+
+            switch (skillType){
+                case SkillType.WARRIOR_NORMAL:
+                case SkillType.WARRIOR_COLLIDE:
+                    this._damageTargets.push(this._attackTarget);
+                    break;
+                case SkillType.WARRIOR_GROUP:
+                    break;
+            }
+
+            return this._damageTargets;
+        }
+    }
+}

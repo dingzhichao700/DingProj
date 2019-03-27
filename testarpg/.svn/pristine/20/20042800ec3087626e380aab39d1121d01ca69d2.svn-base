@@ -1,0 +1,26 @@
+
+module egret {
+
+	export class SceneType{
+		/**
+		 * 城市
+		 */		
+		public static CITY:number = 1;
+		/**
+		 * 世界地图 
+		 */		
+		public static WORLD_MAP:number = 2;
+		/**
+		 * 监狱 
+		 */		
+		public static PRISON:number = 3;
+		/**
+		 * 一夜墨俣 
+		 */		
+		public static BUILDING:number = 4;
+		/**
+		 * 美浓攻略 
+		 */		
+		public static SIEGE:number = 5;
+	}
+}

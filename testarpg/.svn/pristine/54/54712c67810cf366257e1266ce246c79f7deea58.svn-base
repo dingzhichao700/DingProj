@@ -1,0 +1,22 @@
+
+module egret {
+
+	export class CityType{
+		/**
+		 * 京 
+		 */		
+		public static JING:number = 1;
+		/**
+		 * 居城 
+		 */		
+		public static JU_CHENG:number = 2;
+		/**
+		 * 本城
+		 */		
+		public static BEN_CHENG:number = 3;
+		/**
+		 * 据点 
+		 */		
+		public static JI_DIAN:number = 4;
+	}
+}

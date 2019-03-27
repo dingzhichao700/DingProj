@@ -1,0 +1,337 @@
+
+module egret {
+
+	export class SceneData{
+		/**********************以下为通用场景数据***********************/
+		/**
+		 * 当前场景类型 
+		 */		
+		public sceneType:number = 0;
+		/**
+		 * 当前场景 id，包括所有类型场景 
+		 */		
+		public sceneId:number = 0;
+		/**********************以下为城市场景数据***********************/
+		/**
+		 * 当前城市场景基础 id
+		 */		
+		public cityId:number = 0;
+		/**
+		 * 动态场景元素数据表 
+		 */		
+		public dynamicElementsMap:HashMap = null;
+		/**
+		 * 是否已切换场景 
+		 */		
+		public isChanged:boolean = false;
+		/**
+		 * 玩家是否可视
+		 */		
+		public playerVisible:boolean = true;
+		
+		//元素管理器
+		public _sceneElementManager:SceneElementManager = null;
+		/**
+		 * 普通副本怪物数据
+		 */
+		private _normalMonsterList:Array<SceneElementDataItem>;
+		/**
+		 * Boss副本怪物数据
+		 */
+		private _bossMonsterList:Array<SceneElementDataItem>;
+		/**
+		 * 怪物出生点缓存
+		 */
+		private _bornPoint:Point;
+		//胜利次数
+		private _winCount:number = 0;
+
+		/**
+		 * 构造函数
+		 */
+		public constructor(){
+			this._bornPoint = new egret.Point();
+
+			this.dynamicElementsMap = new HashMap();
+
+			this._normalMonsterList = [];
+			this._bossMonsterList = [];
+
+			this.initMapData();
+		}
+		//
+		/**
+		 * 初始化场景数据
+		 */
+		public initMapData():void{
+			for(var i = 1001; i < 1003; i++){
+				var lo:SceneEditLo = new SceneEditLo();
+				lo.id = i;
+				lo.width = 1280;
+				lo.height = 1800;
+				lo.pieceWidth = 300;
+				lo.pieceHeight = 300;
+
+				IsoMapData.getInstance().setData(i,lo);
+			}
+		}
+		//
+		public addWinCount():void{
+			this._winCount ++;
+
+			if(this._winCount % 2 == 0){
+				globalUpdateWindows([UpdateType.CHANGE_COPY]);
+			}else{
+				globalUpdateWindows([UpdateType.NORMAL_COPY_MONSTER_BORN]);
+			}
+		}
+		//
+		/**
+		 * 获取下一个场景 id
+		 * @returns {number}
+		 */
+		public getNextSceneId():number{
+			var id:number = this.sceneId;
+			id ++;
+			if(id > 1002){
+				id = 1001;
+			}
+
+			return id;
+		}
+		//
+		public checkArmy():boolean{
+			var list:Array<SceneElementDataItem>;
+			switch (this.sceneType){
+				case SceneType.NORMAL_COPY:
+					list = this._normalMonsterList;
+					break;
+				case  SceneType.BOSS_COPY:
+					list = this._bossMonsterList;
+					break;
+			}
+
+			for(var i in list){
+				if(list[i] && list[i].vo && list[i].vo["hp"] > 0){
+					return true;
+				}
+			}
+
+			return false;
+		}
+		//
+		/**
+		 * 获取当前怪物数据
+		 * @returns {Array<SceneElementDataItem>}
+		 */
+		public getArmies():Array<SceneElementDataItem>{
+			var list:Array<SceneElementDataItem>;
+			switch (this.sceneType){
+				case SceneType.NORMAL_COPY:
+					list = this.getNormalMonsterList(1);
+					break;
+				case  SceneType.BOSS_COPY:
+					list = this.getBossMonsterList(1);
+					break;
+			}
+
+			return list;
+		}
+		//
+		public getNormalMonsterList(copyId:number):Array<SceneElementDataItem>{
+			var point:Point = this.getBornPoint();
+
+			for(var i:number = 0; i < 3; i++){
+				var item:SceneElementDataItem = this._normalMonsterList[i];
+
+				if(!item){
+					item = new egret.SceneElementDataItem();
+					this._normalMonsterList[i] = item;
+				}
+
+				if(!item.vo){
+					item.vo = new SceneMonsterVo();
+					item.vo.id = SceneElementData.getInstance().getAutoElementId();
+					item.vo.idString = item.vo.id + "";
+					item.vo.name = "怪物";
+				}
+
+				item.vo.x = point.x + Math.random() * 300 - 150;//605 * (i + 1) * 50;//
+				item.vo.y = point.y +Math.random() * 300 - 150;//1280;//
+				(<SceneMonsterVo>item.vo).hp = 5000;
+				(<SceneMonsterVo>item.vo).hpTotal = 5000;
+
+				if(!item.lo){
+					item.lo = new MonsterLo();
+					item.lo.movieName = "monster_001";
+				}
+			}
+
+			return this._normalMonsterList;
+		}
+		//
+		public getBossMonsterList(copyId:number):Array<SceneElementDataItem>{
+			var point:Point = this.getBornPoint();
+
+			for(var i:number = 0; i < 1; i++){
+				var item:SceneElementDataItem = this._bossMonsterList[i];
+
+				if(!item){
+					item = new egret.SceneElementDataItem();
+					this._bossMonsterList[i] = item;
+				}
+
+				if(!item.vo){
+					item.vo = new SceneMonsterVo();
+					item.vo.id = SceneElementData.getInstance().getAutoElementId();
+					item.vo.idString = item.vo.id + "";
+					item.vo.name = "BOSS";
+				}
+
+				item.vo.x = point.x + Math.random() * 300 - 150;//605 * (i + 1) * 50;//
+				item.vo.y = point.y +Math.random() * 300 - 150;//1280;//
+				(<SceneMonsterVo>item.vo).hp = 20000;
+				(<SceneMonsterVo>item.vo).hpTotal = 20000;
+
+				if(!item.lo){
+					item.lo = new MonsterLo();
+					item.lo.movieName = "boss_001";
+				}
+			}
+
+			return this._bossMonsterList;
+		}
+		//
+		public getBornPoint():Point{
+			var index:number = Math.floor(Math.random() * 8);
+			var radian:number = Math.PI / 4 * index;
+			var cx:number = 1200 / 2;
+			var cy:number = 1800 / 2;
+			var radius:number = cx > cy ? cy : cx;
+			radius *= 2/3;
+
+			this._bornPoint.x = Math.cos(radian) * radius + cx;
+			this._bornPoint.y = Math.sin(radian) * radius + cy;
+
+			return this._bornPoint;
+		}
+		//
+		public resetRoleData():void{
+			//(<SceneDriverVo>Role.getInstance().data.vo).hp = (<SceneDriverVo>Role.getInstance().data.vo).hpTotal = 1000;
+			dataManager().roleSceneData.resetRoleData();
+		}
+		//
+		public getGoodsList(x:number,y:number):Array<SceneElementDataItem>{
+			var array:Array<SceneElementDataItem> = [];
+			var column:number = 4;
+			var length:number = 6;
+			var offsetX:number = 200;
+
+			for(var i = 0; i < length; i++){
+				var item:SceneElementDataItem = new SceneElementDataItem();
+				var vo:SceneElementVo = new SceneElementVo();
+				vo.id = SceneElementData.getInstance().getAutoElementId();
+				vo.idString = vo.id + "";
+				vo.x = x + (i % column) * 100 - offsetX;
+				while(vo.x < 100){
+					offsetX -= 100;
+					vo.x += 100;
+				}
+				vo.y = y - Math.floor(i / column) * 90;
+				vo.name = "降龙戒指" + i;
+
+				item.vo = vo;
+
+				array.push(item);
+			}
+
+			return array;
+		}
+		//
+		/**
+		 * 添加多个动态场景元素数据 
+		 * @param array:Array 场景元素vo数组
+		 * 
+		 */
+		public addElementDataItemByVoArray(array:Array<any>):void{
+			var length:number = array.length;
+			for(var i:number = 0;i < length;i++){
+				var vo:SceneElementVo = array[i];
+				this.addElementDataItemByVo(vo);
+			}
+		}
+		//
+		/**
+		 * 添加动态场景元素数据 
+		 * @param vo:SceneElementVo 场景元素vo
+		 * 
+		 */
+		public addElementDataItemByVo(vo:SceneElementVo):SceneElementDataItem{
+			if(this.dynamicElementsMap.containsKey(vo.id)){
+				LogManager.error(this,"动态场景元素数据重复: id = " + vo.id);
+			}else{
+				var item:SceneElementDataItem = new SceneElementDataItem();
+				item.vo = vo;
+				vo.idString = vo.id + "";
+				this.dynamicElementsMap.put(vo.id,item);
+			}
+			
+			return item;
+		}
+		//
+		/**
+		 * 移除动态元素数据 
+		 * @param item:SceneElementDataItem
+		 * 
+		 */		
+		public removeElementDataItem(item:SceneElementDataItem):void{
+			this.dynamicElementsMap.remove(item.vo.id);
+		}
+		//
+		/**
+		 * 移除动态元素数据 
+		 * @param id:Number
+		 * 
+		 */
+		public removeElementDataItemById(id:number):void{
+			this.dynamicElementsMap.remove(id);
+		}
+		//
+		/**
+		 * 更新场景元素vo 
+		 * @param item:SceneElementDataItem 数据
+		 * @param attr:Array 属性列表
+		 * @param values:Array 值列表
+		 * 
+		 */		
+		public updateSceneElementVo(item:SceneElementDataItem,attr:Array<any>,values:Array<any>):void{
+			if(!item.vo) return;
+			
+			for(var p in attr){
+				item.vo[attr[p]] = values[p];
+			}
+		}
+		//
+		/**
+		 * 获取场景元素类型 
+		 * @param lo:SceneElementLo 元素lo
+		 * @return 
+		 * 
+		 */		
+		public getElementType(lo:SceneElementLo):number{
+			if(lo instanceof NpcLo){
+				return SceneElementType.NPC;
+			}else if(lo instanceof EntryPointLo){
+				return SceneElementType.ENTRY_POINT;
+			}
+			return 0;
+		}
+		/**
+		 * 清空场景数据 
+		 * 
+		 */		
+		public clearData():void{
+			this.dynamicElementsMap.clear();
+		}
+	}
+}

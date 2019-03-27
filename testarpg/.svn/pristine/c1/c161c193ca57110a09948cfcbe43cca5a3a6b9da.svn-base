@@ -1,0 +1,31 @@
+var egret;
+(function (egret) {
+    /**
+     * NpcLo NPC表数据<br/>
+     * @author Dempsey <br/>
+     * 2013-9-29
+     */
+    var NpcLo = (function (_super) {
+        __extends(NpcLo, _super);
+        function NpcLo() {
+            _super.call(this);
+            /**
+             * 默认头像图片名称
+             */
+            this.imageName = null;
+            /**
+             * 默认对话内容
+             */
+            this.dialog = "";
+            /**
+             * npc 类型  NpcType
+             */
+            this.type = 0;
+        }
+        var __egretProto__ = NpcLo.prototype;
+        return NpcLo;
+    })(egret.SceneElementLo);
+    egret.NpcLo = NpcLo;
+    NpcLo.prototype.__class__ = "egret.NpcLo";
+})(egret || (egret = {}));
+//# sourceMappingURL=NpcLo.js.map

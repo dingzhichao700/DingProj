@@ -1,0 +1,22 @@
+
+module egret {
+
+	export class NpcType{
+		/**
+		 * 普通 npc 
+		 */		
+		public static NORMAL:number = 0;
+		/**
+		 * 商人 
+		 */		
+		public static TRADER:number = 1;
+		/**
+		 * 武将宅
+		 */		
+		public static HOME:number = 2;
+		/**
+		 * 寻宝 
+		 */		
+		public static SEARCH:number = 3;
+	}
+}

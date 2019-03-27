@@ -1,0 +1,16 @@
+
+module egret {
+
+	export class ElementScenery extends SceneElement{
+		/**
+		 * 构造函数
+		 */
+		public constructor(){
+			super();
+		}
+		//
+		public update():void{
+			super.update();
+		}
+	}
+}

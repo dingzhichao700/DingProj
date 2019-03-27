@@ -1,0 +1,12 @@
+module egret{
+    /**
+     * 技能类型
+     */
+    export class SkillType{
+        /**
+         * 战士技能1
+         * @type {number}
+         */
+        public static WARRIOR_1:number = 1;
+    }
+}

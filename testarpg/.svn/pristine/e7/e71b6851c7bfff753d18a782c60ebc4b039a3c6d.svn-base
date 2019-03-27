@@ -1,0 +1,469 @@
+
+module egret {
+
+	export class SceneWindow extends SceneDriver{
+		//场景数据
+		public _sceneData:SceneData = null;
+		//场景元素数据
+		public _sceneElementData:SceneElementData = null;
+		//元素管理器
+		public _sceneElementManager:SceneElementManager = null;
+r
+		/**
+		 * 构造函数
+		 */
+		public constructor(){
+			super();
+
+			this._sceneData = dataManager().sceneData;
+			this._sceneElementData = dataManager().sceneElementData;
+			this._sceneElementManager = SceneElementManager.getInstance();
+			
+			this._elementRadius = SceneElementData.ARRIVE_ELEMENT_RADIUS;
+		}
+		
+		public initWindow():void{
+			super.initWindow();
+			
+			this.addUpdateType(
+				UpdateType.PLAYER_EXIT_SCENE,
+				UpdateType.PLAYER_ENTER_SCENE,
+				UpdateType.PLAYER_VO_CHANGED,
+				UpdateType.NORMAL_COPY_MONSTER_BORN
+			);
+		}
+		
+		public initData(data:SceneEditLo):void{
+			super.initData(data);
+			
+			if(this._sceneData.isChanged){
+				this._sceneData.isChanged = false;
+				
+				var sceneLo:SceneLo = LocalData.getInstance().getSceneLo(this._sceneData.cityId);
+				var id:number = sceneLo.bornPoint;
+				var lo:RoleBornPointLo = LocalData.getInstance().getRoleBornPointLo(id);
+				
+				if(lo){
+					this.gotoXY(lo.point.x,lo.point.y);
+				}
+			}else{
+				//this.gotoXY(this._role.x,this._role.y);
+				//测试
+				this.gotoXY(300,300);
+				globalUpdateWindows([UpdateType.NORMAL_COPY_MONSTER_BORN]);
+			}
+		}
+		
+		public addEvents():void{
+			super.addEvents();
+			
+			this.addEventListener(SceneEvent.SCENE_ARRIVE_NAVI_POINT,this.sceneArriveNiviPoint,this);
+		}
+		
+		public remove():void{
+			super.remove();
+			
+			this.removeEventListener(SceneEvent.SCENE_ARRIVE_NAVI_POINT,this.sceneArriveNiviPoint,this);
+		}
+		
+		public globalUpdate(updateType:number, ...parameters):void{
+			switch(updateType){
+				//玩家离开当前场景
+				case UpdateType.PLAYER_EXIT_SCENE:
+					this.removePlayer(parameters[0]);
+					break;
+				//玩家进入当前场景
+				case UpdateType.PLAYER_ENTER_SCENE:
+					this.renderElement(parameters[0]);
+					break;
+				//玩家场景数据改变
+				case UpdateType.PLAYER_VO_CHANGED:
+
+					break;
+				case UpdateType.NORMAL_COPY_MONSTER_BORN:
+					var list:Array<SceneElementDataItem> = this._sceneData.getNormalMonsterList(1);
+					for(var i in list){
+						this.renderMonster(list[i]);
+					}
+					break;
+			}
+		}
+		//
+		/**
+		 * 跨场景导航 
+		 * @param sceneId:Number = -1 场景id，指定此参数时，elementId参数无效，可指定x,y
+		 * @param elementId:Number = -1 目标场景元素id，为场景固定元素id，指定此参数场景id使用-1才有效，已指定此参数时后面的参数无效
+		 * @param x:Number = -1 目标场景x
+		 * @param y:Number = -1 目标场景y
+		 * 
+		 */		
+		public navigate(sceneId:number = -1,elementId:number = -1,x:number = -1,y:number = -1):void{
+			if(sceneId == -1 || sceneId == this._sceneData.cityId){
+				if(elementId > -1){
+					this.navigateToElement(elementId);
+				}else if(x > -1 && y > -1){
+					this.navigateTo(x,y);
+				}
+			}else{
+				//进入下一个场景处理
+			}
+		}
+		//
+		/**
+		 * 移除一个玩家 
+		 * @param id
+		 * 
+		 */		
+		public removePlayer(id:string):void{
+			this.removeElementById(id);
+		}
+		//
+		/**
+		 * 清空场景  
+		 * 
+		 */		
+		public clearScene():void{
+			super.clearScene();
+			
+			if(this._role)
+				(<Role><any> (this._role)).changeScene(this);
+		}
+		/**
+		 * 更新 npc 状态 
+		 * 
+		 */		
+		private updateNpcState():void{
+			var length:number = this._biologyMap.length;
+			for(var i:number = 0;i < length;i++){
+				var ele:SceneElement = this._biologyMap[i];
+				if(ele instanceof ElementNpc){
+					ele.update();
+				}
+			}
+		}
+		
+		/**
+		 * 到达导航点事件处理 
+		 * @param event
+		 * 
+		 */		
+		public sceneArriveNiviPoint(event:SceneEvent):void{
+			var item:SceneNavigatorDataItem = <SceneNavigatorDataItem><any> (event.data);
+			
+			if(item){
+				//固定场景元素
+				if(item.elementId > 0){
+
+				}else if(item.sceneId > 0){
+					//场景坐标
+				}
+			}
+		}
+		//
+		/**
+		 * 获取场景元素坐标点 
+		 * @return 
+		 * 
+		 */		
+		public getElementPoint(id:string):Point{
+			return this._sceneData.getElementPoint(<number><any> id);
+		}
+		//
+		/**
+		 * 获取场景元素速度 
+		 * @return 
+		 * 
+		 */		
+		public getElementSpeed():number{
+			return this._sceneElementData.getElementSpeed();
+		}
+		//
+		/**
+		 * 回收场景元素 
+		 * @param element:SceneElement 场景元素
+		 * 
+		 */		
+		public recoverElement(element:SceneElement):void{
+			if(this._mousePoint && element == this._mousePoint){
+				this.removeElement(this._mousePoint,false);
+			}else{
+				element.visible = true;
+				this._sceneElementManager.recoverElement(element);
+				
+				if(element instanceof ElementNpc){
+					(<ElementNpc><any> element).setTextFormat();
+					element.enabled = true;
+				}
+			}
+		}
+		//
+		/**
+		 * 场景元素移动结束 
+		 * @param target:SceneElement 场景元素
+		 * 
+		 */		
+		public elementMovingEnd(target:SceneElement):void{
+			if(target == this._role){
+				/*var entryLo:EntryPointLo = dataManager().sceneData.checkEntryPoint(_role.x,_role.y);
+				if(entryLo){
+					//改为移动返回后进入传送场景
+					//					sendData(ModuleNumber.SCENE,SceneCommand.ENTER_SCENE,{id:entryLo.entryId},entryLo.roleBornPointId);
+					//					SceneManager.getInstance().enterScene(entryLo.entryId);
+					//					SceneManager.getInstance().gotoRoleBornPoint(entryLo.roleBornPointId);
+				}else */
+				if(this._currentNaviItem){
+					//调度导航事件
+					this.checkArriveNaviPoint();
+				}
+				
+//				sendData(ModuleNumber.SCENE,SceneCommand.MOVING,{x:_role.x,y:_role.y},null,false);
+				
+				this.hideMousePoint();
+			}else{
+				var item:SceneElementDataItem = (<SceneElement><any> target).data;
+				
+				if(!this.isInRenderRect(item.vo.x,item.vo.y)){
+					this.removeElementById(item.vo.idString);
+				}
+			}
+		}
+		//
+		/**
+		 * 静态场景元素渲染 
+		 * @param rect:Rectangle 渲染区域
+		 * 
+		 */	
+		public renderFixedElements(rect:Rectangle):void{
+			var vo:SceneElementVo = null;
+			
+			var eleMap:HashMap = this.getFixedElementMap();
+			var subMap:HashMap = null;
+
+			if(eleMap){
+				for(var type in eleMap.content){
+					subMap = eleMap.get(type);
+
+					var length:number = subMap.size();
+					for(var i:number = 0;i < length;i++){
+						var lo:SceneElementLo = subMap.content[i];
+						if(rect.containsPoint(lo.point)){
+							this.renderElementInternal(type,lo.idString,lo.point.x,lo.point.y,lo);
+						}else{
+							this.removeElementById(lo.idString);
+						}
+					}
+				}
+			}
+		}
+		//
+		/**
+		 * 渲染动态场景元素 
+		 * 
+		 */		
+		public renderDynamicElements(rect:Rectangle):void{
+			var vo:SceneElementVo = null;
+			var lo:SceneElementLo = null;
+			var x:number = 0;
+			var y:number = 0;
+			var id:string = null;
+			var mover:SceneElementMover = null;
+			
+			//动态场景元素渲染
+			var length:number = this._sceneData.dynamicElementsMap.content.length;
+			for(var i:number = 0;i < length;i++){
+				var item:SceneElementDataItem = this._sceneData.dynamicElementsMap.content[i];
+				vo = item.vo;
+				lo = item.lo;
+				x = vo.x;
+				y = vo.y;
+				
+				if(rect.contains(x,y)){
+					this.renderElementInternal(SceneElementType.PLAYER,vo.idString,x,y,lo,vo);
+				}else{
+					id = vo.idString;
+					mover = this._elementsIdMap.get(id);
+				}
+			}
+		}
+		//
+		/**
+		 * 不动的场景元素数据表
+		 * @return 
+		 * 
+		 */		
+		public getFixedElementMap():HashMap{
+			return this._sceneData.getFixedElementMap();
+		}
+		//
+		/**
+		 * 移动场景元素 
+		 * @param id:String 元素id(lo或vo的id)
+		 * @param x:int
+		 * @param y:int
+		 * 
+		 */		
+		public moveElement(id:string,x:number,y:number = 0):void{
+			var item:SceneElementDataItem = this._sceneData.getElementDataItem(<number><any> id);
+			
+			if(!item) return;
+			
+			//暂时处理，此处需要处理，当地图数据未加载完成时有玩家移动的处理
+			if(this._isoMap.mapNodes.length == 0){
+				//未在渲染区域时直接更新数据，实时性不强
+				this._sceneData.updateSceneElementVo(item,["x","y"],[x,y]);
+				return;
+			}
+			
+			if(this.isInRenderRect(x,y) || this.isInRenderRect(item.vo.x,item.vo.y)){
+				this.renderElement(item);
+				super.moveElement(item.vo.idString,x,y);
+			}else{
+				//未在渲染区域时直接更新数据，实时性不强
+				this._sceneData.updateSceneElementVo(item,["x","y"],[x,y]);
+			}
+		}
+		//
+		/**
+		 * 根据数据项目渲染场景元素 
+		 * @param item:SceneElementDataItem 场景元素数据项目
+		 * 
+		 */		
+		public renderElement(item:SceneElementDataItem):void{
+			if(this._elementsIdMap.containsKey(item.vo.idString)) return;
+
+			var vo:SceneElementVo = item.vo;
+			var lo:any = item.lo;
+			
+			this.renderElementInternal(SceneElementType.PLAYER,vo.idString,vo.x,vo.y,lo,vo);
+		}
+		//
+		/**
+		 * 渲染怪物
+		 * @param item  场景元素数据项目
+		 */
+		public renderMonster(item:SceneElementDataItem):void{
+			if(this._elementsIdMap.containsKey(item.vo.idString)) return;
+
+			var vo:SceneElementVo = item.vo;
+			var lo:any = item.lo;
+
+			var monster:ElementMonster = <ElementMonster>this.renderElementInternal(SceneElementType.MONSTER,vo.idString,vo.x,vo.y,lo,vo);
+			monster.play(0,ActionType.ATTACK);
+		}
+		//
+		/**
+		 * 渲染场景元素 
+		 * @param type:int 场景类型 SceneElementType
+		 * @param id:String vo或lo中的id
+		 * @param x:Number = NaN x坐标，不为NaN时设置
+		 * @param y:Number = NaN y坐标，不为NaN时设置
+		 * @param lo:SceneElementLo = null 场景元素 lo
+		 * @param vo:SceneElementVo = null 场景元素 vo
+		 * @return 
+		 * 
+		 */		
+		public renderElementInternal(type:number,id:string,x:number = NaN,y:number = NaN,lo:SceneElementLo = null,vo:SceneElementVo = null):SceneElement{
+			if(this._elementsIdMap.containsKey(id)) return null;
+			
+			var element:SceneElement = null;
+			
+			switch(type){
+				case SceneElementType.NPC:
+					element = this._sceneElementManager.getElement(ElementNpc);
+					break;
+				case SceneElementType.MONSTER:
+					element = this._sceneElementManager.getElement(ElementMonster);
+					break;
+				case SceneElementType.ENTRY_POINT:
+					element = this._sceneElementManager.getElement(ElementEntryPoint);
+					break;
+				case SceneElementType.PLAYER:
+					element = this._sceneElementManager.getElement(ElementPlayer);
+					element.visible = this._sceneData.playerVisible;
+					break;
+			}
+			if(element){
+				element.setData(vo,lo);
+				
+				this.addElement(element,SceneLayerType.BIOLOGY,x,y);
+			}
+			
+			return element;
+		}
+		//
+		/**
+		 * 点击场景元素 
+		 * @param target:SceneElement 场景元素
+		 * 
+		 */		
+		public clickElement(target:SceneElement):void{
+			if(target instanceof ElementPlayer){
+				if(this._role)
+					this.navigateTo(target.x,target.y);
+
+			}else if(target instanceof ElementPet){
+				if(this._role)
+					this.navigateTo(target.x,target.y);
+			}else{
+				var id:number = <number><any> (target.id);
+				this._currentNaviItem = new SceneNavigatorDataItem();
+				this._currentNaviItem.elementId = id;
+
+				if(this.checkArriveNaviPoint(<number><any> (target.id))){
+					return;
+				}else{
+					this.navigateToElement(this._currentNaviItem.elementId);
+				}
+			}
+		}
+		//
+		/**
+		 * 主角移动 
+		 * 
+		 */		
+		public roleMoving():void{
+			super.roleMoving();
+		}
+		/**
+		 * 玩家主动开始移动 
+		 */		
+		public startMove():void{
+			super.startMove();
+			
+			//sendData(ModuleNumber.SCENE,SceneCommand.MOVING,{x:this._role.finalX,y:this._role.finalY},null,false);
+		}
+		//
+		/**
+		 * 导航至当前场景中的坐标 
+		 * @param x:Number
+		 * @param y:Number
+		 * 
+		 */		
+		public navigateTo(x:number,y:number):void{
+			if(this.checkArriveNaviPoint())
+				return;
+
+			super.navigateTo(x,y);
+			
+			//this.sendData(ModuleNumber.SCENE,SceneCommand.MOVING,{x:x,y:y},null,false);
+		}
+		//
+		/**
+		 * 导航至当前场景中的元素，元素可以是非固定场景元素
+		 * @param id:Number 元素lo或vo中的id
+		 * 
+		 */		
+		public navigateToElement(id:number):void{
+			if(!this._currentNaviItem){
+				this._currentNaviItem = new SceneNavigatorDataItem();
+				this._currentNaviItem.elementId = id;
+			}
+			
+			var point:Point = this.getElementPoint(id + "");
+			//使到达元素周围，随机散开
+			var x:number = point.x + Math.random() * SceneElementData.ARRIVE_ELEMENT_RADIUS / 2 - SceneElementData.ARRIVE_ELEMENT_RADIUS / 4;
+			var y:number = point.y + Math.random() * SceneElementData.ARRIVE_ELEMENT_RADIUS / 2 - SceneElementData.ARRIVE_ELEMENT_RADIUS / 4;
+			this.navigateTo(x ,y);
+		}
+	}
+}

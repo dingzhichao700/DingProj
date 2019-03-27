@@ -1,0 +1,27 @@
+var egret;
+(function (egret) {
+    /**
+     * EntryPointLo 传送点lo<br/>
+     * @author Dempsey <br/>
+     * 2013-11-11
+     */
+    var EntryPointLo = (function (_super) {
+        __extends(EntryPointLo, _super);
+        function EntryPointLo() {
+            _super.call(this);
+            /**
+             * 传送场景id
+             */
+            this.entryId = 0;
+            /**
+             * 角色出生点id
+             */
+            this.roleBornPointId = 0;
+        }
+        var __egretProto__ = EntryPointLo.prototype;
+        return EntryPointLo;
+    })(egret.SceneElementLo);
+    egret.EntryPointLo = EntryPointLo;
+    EntryPointLo.prototype.__class__ = "egret.EntryPointLo";
+})(egret || (egret = {}));
+//# sourceMappingURL=EntryPointLo.js.map
