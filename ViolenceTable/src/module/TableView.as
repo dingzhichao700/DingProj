@@ -1,10 +1,10 @@
 package module {
 	import laya.maths.Point;
-	
+
 	import module.ball.BallItem;
 	import module.ball.BallManager;
 	import module.ball.BlockItem;
-	
+
 	import ui.TableViewUI;
 
 	public class TableView extends TableViewUI {
@@ -14,6 +14,7 @@ package module {
 		private const WALL_POS:Array = [[0, 0, 490, 22], [481, 20, 26, 880], [0, 880, 490, 22], [0, 0, 26, 880]];
 //		private const WALL_POS2:Array = [[0, 0, 0, 0, 490, 0, 490, 22], [481, 20, 0, 0, 26, 0, 26, 880], [0, 880, 0, 0, 490, 0, 490, 22], [0, 0, 0, 0, 26, 0, 26, 880]];
 		private const WALL_POS2:Array = [[0, 0, 0, 0, 450, 0, 450, 450], [481, 20, 0, 0, 26, 0, 26, 880], [0, 880, 0, 0, 490, 0, 490, 22], [0, 0, 0, 0, 26, 0, 26, 880]];
+
 //		private const WALL_POS2:Array = [[0, 0, 0, 0, 450, 0, 450, 450]];
 
 		public function TableView() {
@@ -73,7 +74,7 @@ package module {
 
 		private function onFrame():void {
 			for (var i:int = 0; i < ballList.length; i++) {
-				var item:BallItem = ballList[i] as BallItem;
+				var ball:BallItem = ballList[i] as BallItem;
 
 				/**是否撞了障碍*/
 				var hitBlock:Boolean = false;
@@ -85,14 +86,14 @@ package module {
 					var findLine:Boolean = false;
 					/**到小球碰撞边垂线最短的那条垂线的数据*/
 					var shortestApeakData:Array;
-					if (hitTestBlock(item, block)) { //区域碰撞
+					if (hitTestBlock(ball, block)) { //区域碰撞
 						for (var k:int = 0; k < block.lines.length; k++) { //检查每条线垂线
-							var apeak:Array = getApeakData(item.x, item.y, block, block.lines[k] as Array);
-							
+							var apeak:Array = getApeakData(ball.x, ball.y, block, block.lines[k] as Array);
+
 							/*垂线长度小于球的半径的，才可能会碰撞*/
-							if (apeak[0] < item.radius) {
+							if (apeak[0] < ball.radius) {
 								/*球运动方向与球到碰撞边的垂线形成的夹角，该夹角小于90度才会碰撞*/
-								var clipAngle:int = Math.abs(item.ballRotation - apeak[1]) % 360;
+								var clipAngle:int = Math.abs(ball.ballRotation - apeak[1]) % 360;
 								if (clipAngle > 180) {
 									clipAngle = Math.abs(360 - clipAngle);
 								}
@@ -109,15 +110,15 @@ package module {
 						}
 						if (findLine) {
 							/*碰撞*/
-							var rotationAdd:Number = shortestApeakData[1] - item.ballRotation;
-							item.ballRotation = item.ballRotation - 180 + rotationAdd * 2;
+							var rotationAdd:Number = shortestApeakData[1] - ball.ballRotation;
+							ball.ballRotation = ball.ballRotation - 180 + rotationAdd * 2;
 
 							/**角度转化为-180-180范围内*/
-							while (item.ballRotation < -180) {
-								item.ballRotation += 360;
+							while (ball.ballRotation < -180) {
+								ball.ballRotation += 360;
 							}
-							while (item.ballRotation > 180) {
-								item.ballRotation -= 360;
+							while (ball.ballRotation > 180) {
+								ball.ballRotation -= 360;
 							}
 							hitBlock = true;
 						}
@@ -126,11 +127,26 @@ package module {
 
 				/**是否撞了其他球*/
 				var hitBall:Boolean = false;
+				for (j = 0; j < ballList.length; j++) {
+					var ball2:BallItem = ballList[j] as BallItem;
+					if (ball2 != ball) {
+						if (hitTestBall(ball, ball2)) {
+							var hitAngle:int = Math.atan2(ball2.y - ball.y, ball2.x - ball.x) * 180 / Math.PI;
+							var vy:int = ball.speed * Math.sin(ball.ballRotation / 180 * Math.PI) - ball2.speed * Math.sin(ball2.ballRotation / 180 * Math.PI);
+							var vx:int = ball.speed * Math.cos(ball.ballRotation / 180 * Math.PI) - ball2.speed * Math.cos(ball2.ballRotation / 180 * Math.PI);
+							var speedAngle:int = Math.atan2(vy, vx) * 180 / Math.PI;
+							if (Math.abs(speedAngle - hitAngle) < 90) { //相对速度与圆心连线角度小于90度，才会相撞
+								hitBall = true;
+							}
+						}
+					}
+				}
+
 				if (!hitBlock && !hitBall) {
-					var xDis:int = Math.cos(item.ballRotation / 180 * Math.PI) * item.speed;
-					var yDis:int = Math.sin(item.ballRotation / 180 * Math.PI) * item.speed;
-					item.x += xDis;
-					item.y += yDis;
+					var xDis:int = Math.cos(ball.ballRotation / 180 * Math.PI) * ball.speed;
+					var yDis:int = Math.sin(ball.ballRotation / 180 * Math.PI) * ball.speed;
+					ball.x += xDis;
+					ball.y += yDis;
 				}
 			}
 		}
@@ -164,10 +180,10 @@ package module {
 			var param2:int = y - x * Math.tan(angle2 / 180 * Math.PI);
 
 			var peakX:int = (param2 - param1) / (Math.tan(angle1 / 180 * Math.PI) - Math.tan(angle2 / 180 * Math.PI));
-			var peakY:int = Math.tan(angle1 / 180 * Math.PI)*peakX + param1;
+			var peakY:int = Math.tan(angle1 / 180 * Math.PI) * peakX + param1;
 			/**垂线长度*/
 			var peakDis:int = Math.sqrt((peakX - x) * (peakX - x) + (peakY - y) * (peakY - y));
-			var peakRotation:int = Math.atan2(peakY - y, peakX-x) * 180 / Math.PI;
+			var peakRotation:int = Math.atan2(peakY - y, peakX - x) * 180 / Math.PI;
 			return [peakDis, peakRotation];
 		}
 
@@ -182,6 +198,13 @@ package module {
 				}
 			}
 			return false;
+		}
+
+		private function hitTestBall(item:BallItem, item2:BallItem):Boolean {
+			var disX:int = item2.x - item.x;
+			var disY:int = item2.y - item.y;
+			var dis:int = Math.sqrt(disX * disX + disY * disY);
+			return dis <= (item.radius + item2.radius);
 		}
 
 	}
