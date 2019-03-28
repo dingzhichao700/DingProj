@@ -27,7 +27,6 @@ var egret;
             this.align = egret.AlignType.TOP_RIGHT;
             this.recall();
         };
-        //
         __egretProto__.touchTapHandler = function (e) {
             var index = Number(e.target.name);
             switch (index) {

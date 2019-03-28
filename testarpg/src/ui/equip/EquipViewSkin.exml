@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin width="640" height="960" xmlns:e="http://ns.egret-labs.org/egret" xmlns:w="http://ns.egret-labs.org/wing" xmlns:egret="egret.*">
+	<w:HostComponent name="egret.gui.SkinnableComponent"/>
+	<w:Declarations/>
+	<e:states>
+		<e:State name="normal"/>
+		<e:State name="disabled"/>
+	</e:states>
+	<egret:BasePanel id="window" height="200" width="200" skinName="ui.WindowViewSkin"/>
+	<e:UIAsset source="bg_21_png" scale9Grid="3,3,24,24" x="57" y="83" width="515" height="600" locked="true"/>
+	<e:UIAsset source="role_bg_jpg" x="63" y="152"/>
+	<e:Group width="240" height="400" id="boxCon" x="193" y="209"/>
+	<egret:BagItem id="item_1" width="80" height="80" skinName="ui.bag.BagItemSkin" y="130" x="72"/>
+	<egret:BagItem id="item_2" width="80" height="80" skinName="ui.bag.BagItemSkin" y="220" x="72"/>
+	<egret:BagItem id="item_3" width="80" height="80" skinName="ui.bag.BagItemSkin" y="310" x="72"/>
+	<egret:BagItem id="item_4" width="80" height="80" skinName="ui.bag.BagItemSkin" y="400" x="72"/>
+	<egret:BagItem id="item_5" width="80" height="80" skinName="ui.bag.BagItemSkin" y="490" x="72"/>
+	<egret:BagItem id="item_6" width="80" height="80" skinName="ui.bag.BagItemSkin" y="580" x="72"/>
+	<egret:BagItem id="item_7" width="80" height="80" skinName="ui.bag.BagItemSkin" y="130" x="488"/>
+	<egret:BagItem id="item_8" width="80" height="80" skinName="ui.bag.BagItemSkin" y="220" x="488"/>
+	<egret:BagItem id="item_9" width="80" height="80" skinName="ui.bag.BagItemSkin" y="310" x="488"/>
+	<egret:BagItem id="item_10" width="80" height="80" skinName="ui.bag.BagItemSkin" y="400" x="488"/>
+	<egret:BagItem id="item_11" width="80" height="80" skinName="ui.bag.BagItemSkin" y="490" x="488"/>
+	<egret:BagItem id="item_12" width="80" height="80" skinName="ui.bag.BagItemSkin" y="580" x="488"/>
+	<e:UIAsset source="bg__20_png" x="194" y="91"/>
+	<e:UIAsset source="word_zhanli_png" x="195" y="629"/>
+	<e:UIAsset source="attackIcon_png" x="69" y="695"/>
+	<e:UIAsset x="109" width="177" scale9Grid="4,4,24,24" y="695" source="bg_20_png"/>
+	<e:UIAsset x="69" y="735" source="lifeIcon_png"/>
+	<e:UIAsset width="177" scale9Grid="4,4,24,24" x="109" y="735" source="bg_20_png"/>
+	<e:UIAsset x="329" y="695" source="attackSpeedIcon_png"/>
+	<e:UIAsset width="177" scale9Grid="4,4,24,24" x="369" y="695" source="bg_20_png"/>
+	<e:UIAsset x="329" y="735" source="defenceIcon_png"/>
+	<e:UIAsset width="177" scale9Grid="4,4,24,24" x="369" y="735" source="bg_20_png"/>
+	<e:Label id="txtName" fontFamily="Arial" textAlign="center" width="151" size="24" x="236" text="习浩然" y="98"/>
+	<e:Label id="txtScore" fontFamily="Arial" textAlign="center" width="138" textColor="0xFD2323" text="31417" height="31" size="30" x="268" y="637"/>
+	<e:Label id="txtAttack" x="121" fontFamily="Arial" size="24" width="151" textAlign="center" y="700" text="13100"/>
+	<e:Label id="txtSpeed" fontFamily="Arial" textAlign="center" width="151" size="24" x="381" y="700" text="4300"/>
+	<e:Label id="txtLife" fontFamily="Arial" textAlign="center" width="151" size="24" x="121" y="740" text="1530"/>
+	<e:Label id="txtDef" fontFamily="Arial" textAlign="center" width="151" size="24" x="381" y="740" text="490"/>
+	<e:UIAsset source="level9_png" x="272" y="126"/>
+	<e:UIAsset source="title_equip_png" x="280" y="29"/>
+</e:Skin>

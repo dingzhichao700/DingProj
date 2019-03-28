@@ -7,7 +7,15 @@ module egret{
             super();
 
             egret.Profiler.getInstance().run();
-
+            this.loadRes();
+        }
+        
+        private loadRes(): void {
+            var arr: Array<any> = ["main", "equip", "wuhun", "clip", "soulRoad"];
+            LoadManager.getInstance().loadResList(arr, this.startGame);
+        }
+        
+        private startGame():void {
             SceneManager.getInstance().enterScene(SceneType.NORMAL_COPY,1001);
             (<SceneWindow>SceneManager.getInstance().scene).nextTurn();
 

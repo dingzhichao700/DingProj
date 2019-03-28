@@ -23,10 +23,12 @@ var egret;
          */
         __egretProto__.initWindow = function () {
             _super.prototype.initWindow.call(this);
-            if (this.stage)
+            if (this.stage) {
                 egret.ApplicationManager.getInstance().init(this);
-            else
+            }
+            else {
                 egret.LogManager.warn(this, "舞台不存在，主程序有误");
+            }
         };
         //
         __egretProto__.destroy = function () {

@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin width="640" height="960" xmlns:e="http://ns.egret-labs.org/egret" xmlns:w="http://ns.egret-labs.org/wing" xmlns:egret="egret.*">
+	<w:HostComponent name="egret.gui.SkinnableComponent"/>
+	<w:Declarations/>
+	<e:states>
+<e:State name="normal"/>
+<e:State name="disabled"/>
+</e:states>
+	<egret:BasePanel id="window" height="200" width="200" skinName="ui.WindowViewSkin"/>
+	<e:UIAsset source="bg_21_png" scale9Grid="3,3,24,24" width="516" height="675" x="56" y="94"/>
+	<e:Group id="itemCon" height="653" width="495" x="66" y="102">
+	</e:Group>
+	<e:UIAsset source="title_bag_png" x="280" y="29"/>
+</e:Skin>

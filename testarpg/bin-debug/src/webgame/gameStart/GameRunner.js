@@ -8,6 +8,14 @@ var egret;
         function GameRunner() {
             _super.call(this);
             egret.Profiler.getInstance().run();
+            this.loadRes();
+        }
+        var __egretProto__ = GameRunner.prototype;
+        __egretProto__.loadRes = function () {
+            var arr = ["main", "equip", "wuhun", "clip", "soulRoad"];
+            egret.LoadManager.getInstance().loadResList(arr, this.startGame);
+        };
+        __egretProto__.startGame = function () {
             egret.SceneManager.getInstance().enterScene(egret.SceneType.NORMAL_COPY, 1001);
             egret.SceneManager.getInstance().scene.nextTurn();
             var effect = egret.SceneElementManager.getInstance().getElement(egret.ElementEffect);
@@ -16,8 +24,7 @@ var egret;
             effect.y = 200;
             effect.setMovieName(egret.MovieName.EFFECT_01);
             effect.addToScene();
-        }
-        var __egretProto__ = GameRunner.prototype;
+        };
         return GameRunner;
     })(egret.ApplicationRunner);
     egret.GameRunner = GameRunner;

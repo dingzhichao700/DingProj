@@ -1,6 +1,0 @@
-module egret{
-    export class MonsterType{
-        public static ATTACK:number= 1;
-        public static POWER:number= 1;
-    }
-}

@@ -68,7 +68,8 @@ module egret {
 			}else{
 				//this.gotoXY(this._role.x,this._role.y);
 				//测试
-				openWindow(ButtonWindow);
+//				openWindow(ButtonWindow);
+                MainControl.getInstance().openMainView();
 
 				var sceneEditLo:SceneEditLo = IsoMapData.getInstance().getData(this._sceneData.sceneId);
 				this.gotoXY(sceneEditLo.width / 2,sceneEditLo.height / 2);

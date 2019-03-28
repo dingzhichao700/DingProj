@@ -7,6 +7,13 @@ var Main = (function (_super) {
     var __egretProto__ = Main.prototype;
     __egretProto__.onAddToStage = function (event) {
         this.removeEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
+        egret.Injector.mapClass("egret.gui.IAssetAdapter", AssetAdapter);
+        //初始化Resource资源加载库
+        RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
+        RES.loadConfig("resource/resource.json", "resource/");
+    };
+    __egretProto__.onConfigComplete = function (event) {
+        RES.removeEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
         new egret.ApplicationConfig(this, egret.GameRunner);
     };
     return Main;

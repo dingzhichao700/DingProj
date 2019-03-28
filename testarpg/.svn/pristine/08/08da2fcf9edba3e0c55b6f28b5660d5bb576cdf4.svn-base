@@ -1,8 +1,0 @@
-module egret{
-    export class MovieName{
-        public static SCORE_EFF_SHORT:string = "scoreEffShort";
-        public static ATTACK_EFF_01:string = "attackEff01";
-        public static POWER_EFF:string = "powerEff";
-        public static BINDING_EFF:string = "binding";
-    }
-}

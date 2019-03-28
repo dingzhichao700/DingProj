@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin width="640" height="960" xmlns:e="http://ns.egret-labs.org/egret" xmlns:w="http://ns.egret-labs.org/wing" xmlns:egret="egret.*">
+	<w:HostComponent name="egret.gui.SkinnableComponent"/>
+	<w:Declarations/>
+	<e:states>
+		<e:State name="normal"/>
+		<e:State name="disabled"/>
+	</e:states>
+	<e:UIAsset id="imgMask" scale9Grid="4,4,24,24" width="640" height="960" source="bg_19_png"/>
+	<e:UIAsset id="imgBg" source="bg_tips_png" scale9Grid="30,20,14,29" width="400" height="428" y="220" x="112"/>
+	<e:UIAsset width="360" height="100" y="241" x="131" source="bg_20_png" scale9Grid="4,4,4,4"/>
+	<egret:BagItem id="item" height="73" width="73" skinName="ui.bag.BagItemSkin" y="255" x="143">
+	</egret:BagItem>
+	<e:Label id="txtName" text="峨眉刺" size="24" width="205" y="261" x="227" textAlign="left"/>
+	<e:Label id="txtQuality" size="24" text="品质：白色" width="163" y="296" x="227" textAlign="left"/>
+</e:Skin>

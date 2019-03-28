@@ -24,10 +24,11 @@ module egret {
 		public initWindow():void{
 			super.initWindow();
 			
-			if(this.stage)
-				ApplicationManager.getInstance().init(this);
-			else
-				LogManager.warn(this,"舞台不存在，主程序有误");
+			if(this.stage) {
+                ApplicationManager.getInstance().init(this);
+			} else {
+                LogManager.warn(this,"舞台不存在，主程序有误");
+			}
 		}
 		//
 		public destroy():void{

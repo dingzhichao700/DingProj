@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin width="640" height="960" xmlns:e="http://ns.egret-labs.org/egret" xmlns:w="http://ns.egret-labs.org/wing" xmlns:egret="egret.*">
+	<w:HostComponent name="egret.gui.SkinnableComponent"/>
+	<w:Declarations/>
+	<e:states>
+		<e:State name="normal"/>
+		<e:State name="disabled"/>
+	</e:states>
+	<egret:BasePanel id="window" height="200" width="200" skinName="ui.WindowViewSkin" locked="true"/>
+	<e:UIAsset source="wuhun_bg_jpg" x="61" y="203" locked="true"/>
+	<e:UIAsset source="title_bg_png" y="203" x="121"/>
+	<e:Group id="boxCon" height="600" width="550" x="42" y="190"/>
+	<egret:WuhunItem height="84" width="84" skinName="ui.wuhun.WuhunItemSkin" y="496" x="268"/>
+	<egret:WuhunItem width="84" height="84" skinName="ui.wuhun.WuhunItemSkin" x="142" scaleX="0.9" scaleY="0.9" y="486"/>
+	<egret:WuhunItem scaleX="0.7" width="84" scaleY="0.7" height="84" skinName="ui.wuhun.WuhunItemSkin" x="61" y="458"/>
+	<egret:WuhunItem scaleX="0.7" width="84" scaleY="0.7" height="84" skinName="ui.wuhun.WuhunItemSkin" x="505" y="458"/>
+	<egret:WuhunItem scaleX="0.9" width="84" scaleY="0.9" height="84" skinName="ui.wuhun.WuhunItemSkin" x="404" y="486"/>
+	<e:UIAsset source="title_wuhun_png" x="275" y="29"/>
+</e:Skin>

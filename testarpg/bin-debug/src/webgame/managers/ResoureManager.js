@@ -1,21 +1,12 @@
 var egret;
 (function (egret) {
     var ResoureManager = (function () {
-        /**
-         * 构造函数
-         */
         function ResoureManager() {
         }
         var __egretProto__ = ResoureManager.prototype;
-        /**
-         * 单例
-         * @return
-         *
-         */
         ResoureManager.getInstance = function () {
             return ResoureManager._instance || (ResoureManager._instance = new ResoureManager());
         };
-        //
         __egretProto__.loadMapData = function (url, id, callback, target) {
             if (callback === void 0) { callback = null; }
             if (target === void 0) { target = null; }
@@ -29,7 +20,6 @@ var egret;
                 }
             }
         };
-        //单例
         ResoureManager._instance = null;
         return ResoureManager;
     })();

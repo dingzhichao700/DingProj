@@ -2,14 +2,19 @@
 module egret {
 
 	export class ApplicationManager extends EventDispatcher{
-		/**
-		 * 主应用程序，程序启动后设置 
-		 */		
+    	
+		/**主应用程序，程序启动后设置*/		
 		public application:Application = null;
-		/**
-		 * 应用程序舞台 
-		 */		
+		/** 应用程序舞台 */		
 		public stage:Stage = null;
+
+		/**窗口的容器*/
+        private gameCon: Sprite = null;
+        private layer_ui: Sprite = null;
+        private layer_window_1: Sprite = null;
+        private layer_window_2: Sprite = null;
+        private layer_tip: Sprite = null;
+        private layer_guide: Sprite = null;
 		
 		//单例
 		private static _instance:ApplicationManager = null;
@@ -24,9 +29,7 @@ module egret {
 		private _alignHashMap:HashMap = null;
 		//计时回调id
 		private _timerId:number;
-		/**
-		 * 构造函数
-		 */
+
 		public constructor(){
 			super();
 			this._layerHashMap = new HashMap();
@@ -34,20 +37,12 @@ module egret {
 			this._timeHashMap = new HashMap();
 			this._alignHashMap = new HashMap();
 		}
-		/**
-		 * 单例 
-		 * @return 
-		 * 
-		 */
+
 		public static getInstance():ApplicationManager{
 			return ApplicationManager._instance || (ApplicationManager._instance = new ApplicationManager());
 		}
-		//
-		/**
-		 * 当前是否处于全屏窗口状态 
-		 * @return 
-		 * 
-		 */		
+
+		/**当前是否处于全屏窗口状态 */		
 		public get isFullScreen():boolean{
 			var array:Array<any> = [ApplicationLayerType.FULL_SCREEN,ApplicationLayerType.FULL_SCREEN_TOP];
 			
@@ -76,16 +71,7 @@ module egret {
 			
 			if(!this.stage){
 				this.stage = application.stage;
-				
-				//this.stage.scaleMode = StageScaleMode.NO_SCALE;
-				//this.stage.align = StageAlign.TOP_LEFT;
-				
-				//PopupManager.getInstance().init(this.stage);
-				
-				this.stage.addEventListener(Event.RESIZE,this.stageResize,this);
-				//this.stage.addEventListener(ThrottleEvent.THROTTLE,this.throttleHandler,this);
-				
-				//TimerManager.getInstance().addExecute(this.gcHandler,this,DateUtil.VALUE_MINUTE_10);
+				this.stage.addEventListener(Event.RESIZE,this.onResize,this);
 			}
 			
 			//以下为重置数据
@@ -113,7 +99,27 @@ module egret {
 			
 			this.removeTimer();
 		}
-		//
+
+        /**舞台尺寸更改理 */		
+        private onResize(e: Event): void {
+			for(var key in this._layerHashMap.content){
+				this.setModel(this._layerHashMap.get(key),key);
+			}
+			for(key in this._alignHashMap.content){
+				this.layout(key);
+			}
+
+            /*var contentW: number = 640;
+            var contentH: number = 960;
+            var windowW: number = document.documentElement.clientWidth;
+            var windowH: number = document.documentElement.clientHeight;
+            var scale: number = contentH / windowH;
+            
+            this.gameCon.scaleX = this.gameCon.scaleY = scale;
+            this.gameCon.x = (windowW - contentW * scale) / 2;
+            this.gameCon.y = (windowH - contentH * scale) / 2;*/
+        }
+        
 		/**
 		 * 获取应用程序中的层级容器，容器层级会自动调整到层级所在位置 
 		 * @param layerType:int 层级
@@ -142,6 +148,20 @@ module egret {
 					this.application.setChildIndex(this._layerHashMap.get(keys[i]),i);
 				}
 			}
+			if(!this.gameCon){
+                this.gameCon = new Sprite(); 
+                this.layer_ui = new Sprite();
+                this.gameCon.addChild(this.layer_ui);
+                this.layer_window_1 = new Sprite();
+                this.gameCon.addChild(this.layer_window_1);
+                this.layer_window_2 = new Sprite();
+                this.gameCon.addChild(this.layer_window_2);
+                this.layer_tip = new Sprite();
+                this.gameCon.addChild(this.layer_tip);
+                this.layer_guide = new Sprite();
+                this.gameCon.addChild(this.layer_guide);
+            }
+            this.application.addChild(this.gameCon);
 
 			return container;
 		}
@@ -585,21 +605,13 @@ module egret {
 			if(win)
 				this.show(win,layerType,win.align);
 		}
-		//
-		/**
-		 * 获取舞台中心点 
-		 * @return 
-		 * 
-		 */		
+
+		/**获取舞台中心点 */		
 		public get centerPoint():Point{
 			return new Point(this.stage.stageWidth / 2,this.stage.stageHeight / 2);
 		}
-		//
-		/**
-		 * 计时器处理 
-		 * @param e
-		 * 
-		 */		
+
+		/**计时器处理 */		
 		private timerHandler():void{
 			this._timeHashMap.eachKey(this.checkDestroy,this);
 			
@@ -627,15 +639,10 @@ module egret {
 				}
 			}
 		}
-		//
-		/**
-		 * 显示对象存在时间处理 
-		 * @param key
-		 * 
-		 */		
+
+		/**显示对象存在时间处理*/		
 		private checkDestroy(key:any):void{
 			var time:number = this._timeHashMap.get(key);
-			
 			time += DateUtil.VALUE_MINUTE;
 			var isDestroy:boolean = false;
 			
@@ -679,27 +686,13 @@ module egret {
 					this._timeHashMap.remove(key);
 					isDestroy = true;
 				}
-				
 				time = 0;
 			}
 			
 			if(!isDestroy)
 				this._timeHashMap.put(key,time);
 		}	
-		//
-		/**
-		 * 舞台尺寸更改时处理 
-		 * @param e
-		 * 
-		 */		
-		private stageResize(e:Event):void{
-			for(var key in this._layerHashMap.content){
-				this.setModel(this._layerHashMap.get(key),key);
-			}
-			for(key in this._alignHashMap.content){
-				this.layout(key);
-			}
-		}
+		
 		/**
 		 * 节流事件处理 
 		 * @param event
@@ -724,15 +717,12 @@ module egret {
 			//SystemManager.gc();
 			//LogManager.debug(this,"After gc total memory:" + (System.totalMemory * value).toFixed(2) + "M");
 		//}
-		//
-		/**
-		 * 删除计时回调
-		 * 
-		 */		
+
+		/**删除计时回调*/		
 		private removeTimer():void{
 			TimerManager.getInstance().removeExecute(this._timerId);
 		}
-		//
+
 		/**
 		 * 设置是否绘制下层交互遮罩
 		 * @param container
@@ -750,12 +740,8 @@ module egret {
 				container.graphics.endFill();
 			}
 		}
-		//
-		/**
-		 * 检测模态是否显示 
-		 * @param container
-		 * 
-		 */		
+
+		/**检测模态是否显示 */		
 		private checkModel(container:Sprite):void{
 			//处理下层交互遮罩
 			if(container)
@@ -766,7 +752,7 @@ module egret {
 					}
 				}
 		}
-		//
+
 		/**
 		 * 调度 recall() 事件 
 		 * @param win:IWindow 当前调用 recall() 的窗口
@@ -776,5 +762,53 @@ module egret {
 			if(this.hasEventListener(ApplicationEvent.WINDOW_RECALL))
 				this.dispatchEvent(new ApplicationEvent(ApplicationEvent.WINDOW_RECALL,false,false,win));
 		}
+		
+        public openView(view: BasePanel):void {
+    		var targetLayer:Sprite = null;
+    		switch(view.layerType){
+    		    case BasePanel.LAYER_UI:
+                    targetLayer = this.layer_ui;
+                    break;
+                case BasePanel.LAYER_WINDOW_1:
+                    targetLayer = this.layer_window_1;
+                    break;
+                case BasePanel.LAYER_WINDOW_2:
+                    targetLayer = this.layer_window_2;
+                    break;
+                case BasePanel.LAYER_TIP:
+                    targetLayer = this.layer_tip;
+                    break;
+                case BasePanel.LAYER_GUIDE:
+                    targetLayer = this.layer_guide;
+                    break;
+    		}
+            targetLayer.addChild(view);
+		}
+
+        public closeView(view: BasePanel): void {
+            var targetLayer: Sprite = null;
+            switch(view.layerType) {
+                case BasePanel.LAYER_UI:
+                    targetLayer = this.layer_ui;
+                    break;
+                case BasePanel.LAYER_WINDOW_1:
+                    targetLayer = this.layer_window_1;
+                    break;
+                case BasePanel.LAYER_WINDOW_2:
+                    targetLayer = this.layer_window_2;
+                    break;
+                case BasePanel.LAYER_TIP:
+                    targetLayer = this.layer_tip;
+                    break;
+                case BasePanel.LAYER_GUIDE:
+                    targetLayer = this.layer_guide;
+                    break;
+            }
+            if(targetLayer.contains(view)){
+                targetLayer.removeChild(view);   
+            }
+            view.onClose();
+        }
+        
 	}
 }

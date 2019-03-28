@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin width="640" height="960" xmlns:e="http://ns.egret-labs.org/egret" xmlns:w="http://ns.egret-labs.org/wing">
+	<w:HostComponent name="egret.gui.SkinnableComponent"/>
+	<w:Declarations/>
+	<e:states>
+		<e:State name="normal"/>
+		<e:State name="disabled"/>
+	</e:states>
+	<e:UIAsset width="640" source="bg_top_4_png" scale9Grid="237,5,32,32"/>
+	<e:UIAsset source="namebg_png" y="1"/>
+	<e:UIAsset source="frame_head_2_bg_png" x="5" y="10"/>
+	<e:UIAsset source="head_1_png" x="7" y="12"/>
+	<e:UIAsset source="frame_head_0_png" x="-1" y="2"/>
+	<e:Label id="txtName" y="79" size="20" text="习浩然" width="70" textAlign="center" x="3"/>
+	<e:Label id="txtScore" width="161" textColor="0xFFE97C" text="31417" fontFamily="Arial" italic="true" textAlign="left" x="138" y="10" size="24"/>
+	<e:UIAsset source="level9_png" x="-1" y="104"/>
+	<e:UIAsset source="word_zhandouli_png" x="83" y="5"/>
+	<e:UIAsset source="bg_mainbottom_png" x="55" y="877" width="531"/>
+	<e:UIAsset source="main_bottomBar_png" scale9Grid="11,1,68,7" x="67" y="951" width="499"/>
+	<e:UIAsset source="lock_exppool_png" x="527" y="834"/>
+	<e:UIAsset id="btnSoulRoad" source="soulRoad_gray_png" y="834"/>
+	<e:UIAsset id="btnBag" source="btn_beibao_png" x="277" y="875"/>
+	<e:UIAsset id="btnWuhun" source="btn_jineng_png" x="157" y="876"/>
+	<e:UIAsset id="btnEquip" source="btn_renwu_png" x="408" y="878"/>
+</e:Skin>

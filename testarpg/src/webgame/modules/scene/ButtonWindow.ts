@@ -21,12 +21,10 @@ module egret{
                 //textField.
                 this.addChild(textField);
             }
-
             this.align = AlignType.TOP_RIGHT;
-
             this.recall();
         }
-        //
+        
         private touchTapHandler(e:TouchEvent):void{
             var index:number = Number(e.target.name);
             switch (index){
