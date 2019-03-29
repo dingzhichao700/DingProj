@@ -38,7 +38,7 @@ var egret;
         __egretProto__.getQuaByType = function (index) {
             return ItemManager.ITEM_QUALITY[index];
         };
-        ItemManager.ITEM_QUALITY = ["白色", "橙色", "紫色", "红色", "幻彩"];
+        ItemManager.ITEM_QUALITY = ["", "白色", "橙色", "紫色", "红色", "幻彩"];
         ItemManager.ITEM_CONFIG = [
             "1,千钧,2",
             "2,回旋刃,1",
@@ -48,8 +48,8 @@ var egret;
             "6,峨眉刺,1",
             "7,峨眉刺,1",
             "8,峨眉刺,1",
-            "9,峨眉刺,1",
-            "10,峨眉刺,1",
+            "9,双股剑,5",
+            "10,乾坤宝珠,4",
             "11,峨眉刺,1",
             "12,峨眉刺,1",
             "13,峨眉刺,3",
@@ -72,4 +72,3 @@ var egret;
     egret.ItemManager = ItemManager;
     ItemManager.prototype.__class__ = "egret.ItemManager";
 })(egret || (egret = {}));
-//# sourceMappingURL=ItemManager.js.map

@@ -48,4 +48,3 @@ var egret;
     egret.LoadManager = LoadManager;
     LoadManager.prototype.__class__ = "egret.LoadManager";
 })(egret || (egret = {}));
-//# sourceMappingURL=LoadManager.js.map

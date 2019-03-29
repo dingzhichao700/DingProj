@@ -772,4 +772,3 @@ var egret;
     egret.ApplicationManager = ApplicationManager;
     ApplicationManager.prototype.__class__ = "egret.ApplicationManager";
 })(egret || (egret = {}));
-//# sourceMappingURL=ApplicationManager.js.map

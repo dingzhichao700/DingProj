@@ -402,4 +402,3 @@ var egret;
     egret.RoleManager = RoleManager;
     RoleManager.prototype.__class__ = "egret.RoleManager";
 })(egret || (egret = {}));
-//# sourceMappingURL=RoleManager.js.map

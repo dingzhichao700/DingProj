@@ -36,4 +36,3 @@ var ui;
         WuhunItemSkin.prototype.__class__ = "ui.wuhun.WuhunItemSkin";
     })(wuhun = ui.wuhun || (ui.wuhun = {}));
 })(ui || (ui = {}));
-//# sourceMappingURL=WuhunItemSkin.js.map

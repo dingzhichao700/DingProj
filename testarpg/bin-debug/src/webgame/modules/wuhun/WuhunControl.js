@@ -21,4 +21,3 @@ var egret;
     egret.WuhunControl = WuhunControl;
     WuhunControl.prototype.__class__ = "egret.WuhunControl";
 })(egret || (egret = {}));
-//# sourceMappingURL=WuhunControl.js.map

@@ -64,4 +64,3 @@ var ui;
         ItemTipsSkin.prototype.__class__ = "ui.item.ItemTipsSkin";
     })(item = ui.item || (ui.item = {}));
 })(ui || (ui = {}));
-//# sourceMappingURL=ItemTipsSkin.js.map

@@ -51,4 +51,3 @@ var egret;
     egret.Application = Application;
     Application.prototype.__class__ = "egret.Application";
 })(egret || (egret = {}));
-//# sourceMappingURL=Application.js.map

@@ -28,4 +28,3 @@ var egret;
     egret.PassingPoint = PassingPoint;
     PassingPoint.prototype.__class__ = "egret.PassingPoint";
 })(egret || (egret = {}));
-//# sourceMappingURL=PassingPoint.js.map

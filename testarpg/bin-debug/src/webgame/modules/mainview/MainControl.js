@@ -21,4 +21,3 @@ var egret;
     egret.MainControl = MainControl;
     MainControl.prototype.__class__ = "egret.MainControl";
 })(egret || (egret = {}));
-//# sourceMappingURL=MainControl.js.map

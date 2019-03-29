@@ -1,9 +1,7 @@
 module egret{
-    /**
-     * 主角多角色管理器
-     */
+    
+    /**主角多角色管理器*/
     export class RoleManager{
-        private static _instance:RoleManager;
         //主角角色
         private _roles:Array<ElementPlayer> = [];
         //当前场景
@@ -13,50 +11,41 @@ module egret{
         //神兽
         private _animal:PlayerAnimal;
 
-        public constructor(){
-            this.addRole();
-            this.addRole(2);
-            this.addRole(3);
-            //this.addRole();
-            //this.addRole();
-        }
-        //
+        private static _instance: RoleManager;
+        
         public static  getInstance():egret.RoleManager {
             return this._instance || (this._instance = new egret.RoleManager());
         }
-        //
-        /**
-         * 主角角色数组
-         * @returns {Array<ElementPlayer>}
-         */
+
+        public constructor() {
+            this.addRole(1);
+            this.addRole(2);
+            this.addRole(3);
+        }
+
+        /**主角角色数组*/
         public get roles():Array<ElementPlayer>{
             return this._roles;
         }
-        //
-        /**
-         * 主角色
-         * @returns {ElementPlayer}
-         */
+
+        /**主角色*/
         public get role():ElementPlayer{
             return this._roles[0];
         }
-        //
-        /**
-         * 主角色是否死亡
-         * @returns {boolean}
-         */
+
+        /**主角色是否死亡*/
         public get isDead():boolean{
             return (<ScenePlayerVo>this.role.data.vo).hp <= 0;
         }
-        //
+
         /**
          * 是否有神兽
          * @returns {PlayerAnimal|SceneElementDataItem|boolean}
          */
-        public get hasAnimal():boolean{
+        public get hasAnimal():boolean {
             return this._animal && this._animal.data && (<SceneDriverVo>this._animal.data.vo).hp > 0;
         }
-        //
+
         /**
          * 增加角色数据
          * @param vocation
@@ -96,7 +85,7 @@ module egret{
                 globalUpdateWindows([UpdateType.ADD_ROLE]);
             }
         }
-        //
+
         /**
          * 删除角色
          * @param id 角色数据 id
@@ -126,7 +115,7 @@ module egret{
                 }
             }
         }
-        //
+
         /**
          * 增加神兽
          * @returns {SceneElementDataItem}
@@ -153,22 +142,19 @@ module egret{
 
             globalUpdateWindows([UpdateType.ADD_ROLE]);
         }
-        //
-        /**
-         * 复活主角色
-         */
+
+        /**复活主角色*/
         public revive():void{
             dataManager().roleSceneData.resetRoleData();
             RoleManager.getInstance().updateHp();
             if(this._scene)
                 this._scene.addElement(this.role,SceneLayerType.BIOLOGY,this.role.x,this.role.y);
         }
-        //
+
         /**
          * 设置主角坐标数据
          * @param x:int x坐标
          * @param y:int y坐标
-         *
          */
         public setElementPlayerXY(x:number,y:number = 0):void{
             var points:Array<Point> = this.getElementPlayersPoints(x,y);
@@ -180,7 +166,7 @@ module egret{
                 //LogManager.debug(this,"setElementPlayerXY() vocation = " + this._roles[i].data.vo["vocation"],points[i].x,points[i].y,this._roles[i].x,this._roles[i].y);
             }
         }
-        //
+
         /**
          * 获取所有角色目标点
          * @param x 主角色目标点x
@@ -207,34 +193,31 @@ module egret{
 
                     radian += Math.PI / 2;
                 }
-
                 point.x = rx;
                 point.y = ry;
             }
-
             return this._rolePoints;
         }
-        //
+
         /**
          * 主角移动至坐标
          * @param x:Number
          * @param y:Number
-         *
          */
         public moveTo(x:number,y:number,isCheckPart:boolean = true):void{
-            if(!this._scene) return;
+            if(!this._scene) 
+                return;
 
             var points:Array<Point> = this.getElementPlayersPoints(x,y);
             for(var i in this._roles){
                 this._roles[i].moveTo(points[i].x,points[i].y,isCheckPart);
             }
         }
-        //
+
         /**
          * 主角移动至坐标，不寻路，移动到节点
          * @param x:Number
          * @param y:Number
-         *
          */
         public moveTo2(x:number,y:number):void{
             if(!this._scene) return;
@@ -244,12 +227,11 @@ module egret{
                 this._roles[i].moveTo2(points[i].x,points[i].y);
             }
         }
-        //
+
         /**
          * 移动至目标位置，不寻路，忽略节点数据
          * @param x:Number x坐标
          * @param y:Number y坐标
-         *
          */
         public moveTo3(x:number,y:number):void{
             if(!this._scene) return;
@@ -259,24 +241,21 @@ module egret{
                 this._roles[i].moveTo3(points[i].x,points[i].y);
             }
         }
-        //
-        /**
-         * 所有角色停止移动
-         */
+
+        /**所有角色停止移动*/
         public stopMove():void{
             for(var i in this._roles){
                 this._roles[i].stopMove();
             }
         }
-        //
-        /**
-         * 所有角色停止所有战斗行为
-         */
+        
+        /**所有角色停止所有战斗行为*/
         public stopAll():void{
             for(var i in this._roles){
                 this._roles[i].stopAll();
             }
         }
+        
         /**
          * 按指定动作类型和方向播放影片
          * @param frameIndex:int = -1 开始播放的帧索引，-1时不设置开始播放的帧索引，从当前帧开始播放或从第0帧开始播放
@@ -293,13 +272,12 @@ module egret{
                 this._roles[i].play.apply(this._roles[i],arguments);
             }
         }
-        //
+
         /**
          * 显示主角
          * @param scene:SceneDriver 场景
          * @param x:Number x 坐标
          * @param y:Number y 坐标
-         *
          */
         public showPlayer(scene:SceneDriver,x:number,y:number):void{
             if(scene && this._scene != scene){
@@ -314,11 +292,8 @@ module egret{
             this.stopMove();
             this.play(-1,ActionType.PREPARE,ActionMovieClipDirectionType.DOWN);
         }
-        //
-        /**
-         * 移除主角
-         *
-         */
+        
+        /**移除主角*/
         public hidePlayer():void{
             if(this._scene){
                 this.stopMove();
@@ -328,11 +303,8 @@ module egret{
                 this._scene = null;
             }
         }
-        //
-        /**
-         * 场景切换
-         *
-         */
+
+        /**场景切换*/
         public changeScene(scene:SceneDriver):void{
             if(scene != this._scene) return;
 
@@ -341,16 +313,13 @@ module egret{
                 this._roles[i].stopMove();
             }
         }
-        //
-        /**
-         * 更新血量显示
-         */
+
+        /**更新血量显示*/
         public updateHp():void{
             for(var i in this._roles){
                 this._roles[i].updateHp();
             }
         }
-        //
         /**
          * 换装更新
          * @param id 角色 id
@@ -363,6 +332,7 @@ module egret{
                 }
             }
         }
+        
         /**
          * 追击敌人
          * @param armies 敌人数据
@@ -372,7 +342,7 @@ module egret{
                 this._roles[i].chaseArmies(armies);
             }
         }
-        //
+
         /**
          * 是否为主角角色
          * @param element 角色
@@ -381,23 +351,20 @@ module egret{
         public isRoleInstance(element:any):boolean{
             return this._roles.indexOf(element) > -1;
         }
-        //
-        /**
-         * 切换场景特效
-         */
+
+        /**切换场景特效*/
         public changeSceneEffect():void{
             for(var i in this._roles){
                 this._roles[i].changeSceneEffect();
             }
         }
-        //
-        /**
-         * 进入场景特效
-         */
+
+        /**进入场景特效*/
         public enterSceneEffect():void{
             for(var i in this._roles){
                 this._roles[i].enterSceneEffect();
             }
         }
+        
     }
 }

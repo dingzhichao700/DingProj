@@ -167,4 +167,3 @@ var egret;
     egret.SceneElementManager = SceneElementManager;
     SceneElementManager.prototype.__class__ = "egret.SceneElementManager";
 })(egret || (egret = {}));
-//# sourceMappingURL=SceneElementManager.js.map

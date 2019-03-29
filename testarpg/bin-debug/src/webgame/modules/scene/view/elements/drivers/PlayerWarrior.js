@@ -243,4 +243,3 @@ var egret;
     egret.PlayerWarrior = PlayerWarrior;
     PlayerWarrior.prototype.__class__ = "egret.PlayerWarrior";
 })(egret || (egret = {}));
-//# sourceMappingURL=PlayerWarrior.js.map

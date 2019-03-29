@@ -18,4 +18,3 @@ var egret;
     }
     egret.closeWindow = closeWindow;
 })(egret || (egret = {}));
-//# sourceMappingURL=closeWindow.js.map

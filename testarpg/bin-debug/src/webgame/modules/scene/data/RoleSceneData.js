@@ -94,4 +94,3 @@ var egret;
     egret.RoleSceneData = RoleSceneData;
     RoleSceneData.prototype.__class__ = "egret.RoleSceneData";
 })(egret || (egret = {}));
-//# sourceMappingURL=RoleSceneData.js.map

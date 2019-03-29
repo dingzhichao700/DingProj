@@ -229,4 +229,3 @@ var egret;
     egret.ActionMovieClipManager = ActionMovieClipManager;
     ActionMovieClipManager.prototype.__class__ = "egret.ActionMovieClipManager";
 })(egret || (egret = {}));
-//# sourceMappingURL=ActionMovieClipManager.js.map

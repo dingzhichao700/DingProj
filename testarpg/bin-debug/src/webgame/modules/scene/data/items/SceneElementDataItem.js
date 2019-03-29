@@ -32,4 +32,3 @@ var egret;
     egret.SceneElementDataItem = SceneElementDataItem;
     SceneElementDataItem.prototype.__class__ = "egret.SceneElementDataItem";
 })(egret || (egret = {}));
-//# sourceMappingURL=SceneElementDataItem.js.map

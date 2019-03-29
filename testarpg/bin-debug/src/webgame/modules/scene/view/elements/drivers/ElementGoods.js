@@ -26,4 +26,3 @@ var egret;
     egret.ElementGoods = ElementGoods;
     ElementGoods.prototype.__class__ = "egret.ElementGoods";
 })(egret || (egret = {}));
-//# sourceMappingURL=ElementGoods.js.map

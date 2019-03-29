@@ -49,4 +49,3 @@ var egret;
     egret.AlignType = AlignType;
     AlignType.prototype.__class__ = "egret.AlignType";
 })(egret || (egret = {}));
-//# sourceMappingURL=AlignType.js.map

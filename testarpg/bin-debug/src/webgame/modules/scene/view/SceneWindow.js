@@ -508,4 +508,3 @@ var egret;
     egret.SceneWindow = SceneWindow;
     SceneWindow.prototype.__class__ = "egret.SceneWindow";
 })(egret || (egret = {}));
-//# sourceMappingURL=SceneWindow.js.map

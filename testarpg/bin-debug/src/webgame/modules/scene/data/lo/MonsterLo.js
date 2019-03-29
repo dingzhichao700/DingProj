@@ -11,4 +11,3 @@ var egret;
     egret.MonsterLo = MonsterLo;
     MonsterLo.prototype.__class__ = "egret.MonsterLo";
 })(egret || (egret = {}));
-//# sourceMappingURL=MonsterLo.js.map

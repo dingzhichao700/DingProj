@@ -4,7 +4,7 @@ module egret {
     export class ItemManager {
 
         private itemCfgs: Array<ItemConfig>;
-        private static ITEM_QUALITY: Array<any> = ["白色","橙色","紫色","红色","幻彩"];
+        private static ITEM_QUALITY: Array<any> = ["", "白色","橙色","紫色","红色","幻彩"];
 
         private static ITEM_CONFIG: Array<any> = [
             "1,千钧,2",
@@ -15,8 +15,8 @@ module egret {
             "6,峨眉刺,1",
             "7,峨眉刺,1",
             "8,峨眉刺,1",
-            "9,峨眉刺,1",
-            "10,峨眉刺,1",
+            "9,双股剑,5",
+            "10,乾坤宝珠,4",
             "11,峨眉刺,1",
             "12,峨眉刺,1",
             "13,峨眉刺,3",

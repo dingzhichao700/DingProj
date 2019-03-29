@@ -192,4 +192,3 @@ var egret;
     egret.SceneElementNamePad = SceneElementNamePad;
     SceneElementNamePad.prototype.__class__ = "egret.SceneElementNamePad";
 })(egret || (egret = {}));
-//# sourceMappingURL=SceneElementNamePad.js.map

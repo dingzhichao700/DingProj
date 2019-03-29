@@ -17,4 +17,3 @@ var egret;
     egret.WindowView = WindowView;
     WindowView.prototype.__class__ = "egret.WindowView";
 })(egret || (egret = {}));
-//# sourceMappingURL=WindowView.js.map

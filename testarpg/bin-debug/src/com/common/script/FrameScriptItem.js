@@ -71,4 +71,3 @@ var egret;
     egret.FrameScriptItem = FrameScriptItem;
     FrameScriptItem.prototype.__class__ = "egret.FrameScriptItem";
 })(egret || (egret = {}));
-//# sourceMappingURL=FrameScriptItem.js.map

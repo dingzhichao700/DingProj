@@ -6,20 +6,33 @@
 		<e:State name="normal"/>
 		<e:State name="disabled"/>
 	</e:states>
-	<e:UIAsset width="640" source="bg_top_4_png" scale9Grid="237,5,32,32"/>
-	<e:UIAsset source="namebg_png" y="1"/>
-	<e:UIAsset source="frame_head_2_bg_png" x="5" y="10"/>
-	<e:UIAsset source="head_1_png" x="7" y="12"/>
-	<e:UIAsset source="frame_head_0_png" x="-1" y="2"/>
-	<e:Label id="txtName" y="79" size="20" text="习浩然" width="70" textAlign="center" x="3"/>
-	<e:Label id="txtScore" width="161" textColor="0xFFE97C" text="31417" fontFamily="Arial" italic="true" textAlign="left" x="138" y="10" size="24"/>
-	<e:UIAsset source="level9_png" x="-1" y="104"/>
-	<e:UIAsset source="word_zhandouli_png" x="83" y="5"/>
-	<e:UIAsset source="bg_mainbottom_png" x="55" y="877" width="531"/>
-	<e:UIAsset source="main_bottomBar_png" scale9Grid="11,1,68,7" x="67" y="951" width="499"/>
-	<e:UIAsset source="lock_exppool_png" x="527" y="834"/>
-	<e:UIAsset id="btnSoulRoad" source="soulRoad_gray_png" y="834"/>
-	<e:UIAsset id="btnBag" source="btn_beibao_png" x="277" y="875"/>
-	<e:UIAsset id="btnWuhun" source="btn_jineng_png" x="157" y="876"/>
-	<e:UIAsset id="btnEquip" source="btn_renwu_png" x="408" y="878"/>
+	<e:Group id="boxTop" x="-1" y="0">
+		<e:UIAsset width="640" source="bg_top_4_png" scale9Grid="237,5,32,32" x="1" y="0"/>
+		<e:UIAsset source="namebg_png" y="1" x="1"/>
+		<e:UIAsset source="frame_head_2_bg_png" x="6" y="10"/>
+		<e:UIAsset source="head_1_png" x="8" y="12"/>
+		<e:UIAsset source="frame_head_0_png" x="0" y="2"/>
+		<e:Label id="txtName" size="20" text="习浩然" width="70" textAlign="center" x="4" y="79"/>
+		<e:Label id="txtScore" width="161" textColor="0xFFE97C" text="31417" fontFamily="Arial" italic="true" textAlign="left" size="24" x="139" y="10"/>
+		<e:UIAsset source="level9_png" x="0" y="104"/>
+		<e:UIAsset source="word_zhandouli_png" x="84" y="5"/>
+		<e:UIAsset source="bg_18_png" x="522" y="9" width="102" scale9Grid="9,2,3,18"/>
+		<e:UIAsset source="icon_coin_png" x="507" y="6"/>
+		<e:UIAsset source="bg_18_png" width="102" scale9Grid="9,2,3,18" x="392" y="9"/>
+		<e:UIAsset x="377" y="6" source="icon_achi_png"/>
+		<e:Label id="txtCoin" text="10311" x="537" y="13" fontFamily="Arial" size="15" width="82"/>
+		<e:Label id="txtAchi" fontFamily="Arial" width="82" size="15" x="406" y="13" text="410"/>
+	</e:Group>
+	<e:Group id="boxBottom" x="0" y="817">
+		<e:UIAsset source="bg_mainbottom_png" width="531" x="55" y="60"/>
+		<e:UIAsset source="main_bottomBar_png" scale9Grid="11,1,68,7" width="499" x="67" y="134"/>
+		<e:UIAsset source="lock_exppool_png" x="527" y="0"/>
+		<e:UIAsset id="btnSoulRoad" source="soulRoad_gray_png" y="3" x="0"/>
+		<e:UIAsset id="btnWuhun" source="btn_jineng_png" y="59" x="145"/>
+		<e:UIAsset id="btnBag" source="btn_beibao_png" y="58" x="247"/>
+		<e:UIAsset id="btnEquip" y="61" source="btn_renwu_png" x="338"/>
+		<e:UIAsset id="btnSkill" source="btn_skill_png" x="427" y="62"/>
+		<e:UIAsset source="bg_5_png" x="537" y="27"/>
+		<e:UIAsset source="label_exppool_png" x="526" y="111"/>
+	</e:Group>
 </e:Skin>

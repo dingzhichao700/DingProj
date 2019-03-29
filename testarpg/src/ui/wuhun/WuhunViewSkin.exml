@@ -6,14 +6,25 @@
 		<e:State name="normal"/>
 		<e:State name="disabled"/>
 	</e:states>
-	<egret:BasePanel id="window" height="200" width="200" skinName="ui.WindowViewSkin" locked="true"/>
-	<e:UIAsset source="wuhun_bg_jpg" x="61" y="203" locked="true"/>
-	<e:UIAsset source="title_bg_png" y="203" x="121"/>
-	<e:Group id="boxCon" height="600" width="550" x="42" y="190"/>
-	<egret:WuhunItem height="84" width="84" skinName="ui.wuhun.WuhunItemSkin" y="496" x="268"/>
-	<egret:WuhunItem width="84" height="84" skinName="ui.wuhun.WuhunItemSkin" x="142" scaleX="0.9" scaleY="0.9" y="486"/>
-	<egret:WuhunItem scaleX="0.7" width="84" scaleY="0.7" height="84" skinName="ui.wuhun.WuhunItemSkin" x="61" y="458"/>
-	<egret:WuhunItem scaleX="0.7" width="84" scaleY="0.7" height="84" skinName="ui.wuhun.WuhunItemSkin" x="505" y="458"/>
-	<egret:WuhunItem scaleX="0.9" width="84" scaleY="0.9" height="84" skinName="ui.wuhun.WuhunItemSkin" x="404" y="486"/>
-	<e:UIAsset source="title_wuhun_png" x="275" y="29"/>
+	<egret:WindowView id="window" height="200" width="200" skinName="ui.WindowViewSkin" locked="true">
+	</egret:WindowView>
+	<e:UIAsset source="title_wuhun_png" y="29" x="280"/>
+	<e:UIAsset source="wuhun_bg_jpg" x="61" y="173"/>
+	<e:UIAsset source="title_bg_png" x="121" y="173"/>
+	<egret:BaseView height="80" width="479" skinName="ui.main.HeadListSkin" x="77" y="83"/>
+	<e:Group id="boxCon" height="209" width="253" x="62" y="175">
+	</e:Group>
+	<e:UIAsset source="baihu_png" x="284" y="182"/>
+	<e:UIAsset source="hunhuanstar_png" x="397" y="601"/>
+	<e:UIAsset source="hunhuanmaster_png" x="478" y="601"/>
+	<e:Label text="白虎，攻守兼备的上级武魂" textColor="0x3B3A3A" fontFamily="微软雅黑" size="24" x="179" y="714"/>
+	<e:UIAsset source="btn_tipicon_png" x="135" y="710"/>
+	<egret:WuhunItem height="84" width="84" skinName="ui.wuhun.WuhunItemSkin" x="268" y="466"/>
+	<egret:WuhunItem width="84" height="84" skinName="ui.wuhun.WuhunItemSkin" x="142" scaleX="0.9" scaleY="0.9" y="456"/>
+	<egret:WuhunItem scaleX="0.7" width="84" scaleY="0.7" height="84" skinName="ui.wuhun.WuhunItemSkin" x="61" y="428"/>
+	<egret:WuhunItem scaleX="0.7" width="84" scaleY="0.7" height="84" skinName="ui.wuhun.WuhunItemSkin" x="505" y="428"/>
+	<egret:WuhunItem scaleX="0.9" width="84" scaleY="0.9" height="84" skinName="ui.wuhun.WuhunItemSkin" x="404" y="456"/>
+	<e:UIAsset source="genius_114_png" width="62" height="62" x="280" y="477"/>
+	<e:UIAsset source="genius_116_png" x="153" width="53" height="53" y="467"/>
+	<e:UIAsset source="genius_12_png" x="69" width="42" height="42" y="437"/>
 </e:Skin>

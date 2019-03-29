@@ -6,7 +6,7 @@ var ui;
             _super.call(this);
             this.__s = egret.gui.setProperties;
             this.__s(this, ["height", "width"], [960, 640]);
-            this.elementsContent = [this.__8_i()];
+            this.elementsContent = [this.__9_i()];
             this.states = [
                 new egret.gui.State("normal", []),
                 new egret.gui.State("disabled", [])
@@ -41,9 +41,20 @@ var ui;
             return t;
         };
         __egretProto__.__8_i = function () {
+            var t = new egret.gui.UIAsset();
+            this.__s(t, ["source", "x", "y"], ["img_backSide_png", 137, 807]);
+            return t;
+        };
+        __egretProto__.__9_i = function () {
             var t = new egret.gui.Group();
             this.__s(t, ["height", "width", "x"], [960, 640, 0]);
-            t.elementsContent = [this.__3_i(), this.__4_i(), this.__5_i(), this.__6_i(), this.__7_i(), this.btnClose_i()];
+            t.elementsContent = [this.__3_i(), this.__4_i(), this.__5_i(), this.__6_i(), this.__7_i(), this.__8_i(), this.btnClose_i(), this.btnBack_i()];
+            return t;
+        };
+        __egretProto__.btnBack_i = function () {
+            var t = new egret.gui.UIAsset();
+            this.btnBack = t;
+            this.__s(t, ["source", "x", "y"], ["btnBack_png", 68, 827]);
             return t;
         };
         __egretProto__.btnClose_i = function () {
@@ -57,10 +68,9 @@ var ui;
             this.__s(t, ["height", "scale9Grid", "source", "width", "x", "y"], [960, egret.gui.getScale9Grid("4,4,24,24"), "bg_19_png", 640, 0, 0]);
             return t;
         };
-        WindowViewSkin._skinParts = ["btnClose"];
+        WindowViewSkin._skinParts = ["btnClose", "btnBack"];
         return WindowViewSkin;
     })(egret.gui.Skin);
     ui.WindowViewSkin = WindowViewSkin;
     WindowViewSkin.prototype.__class__ = "ui.WindowViewSkin";
 })(ui || (ui = {}));
-//# sourceMappingURL=WindowViewSkin.js.map

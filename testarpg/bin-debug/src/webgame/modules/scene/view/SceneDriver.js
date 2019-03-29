@@ -453,4 +453,3 @@ var egret;
     egret.SceneDriver = SceneDriver;
     SceneDriver.prototype.__class__ = "egret.SceneDriver";
 })(egret || (egret = {}));
-//# sourceMappingURL=SceneDriver.js.map

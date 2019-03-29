@@ -3,6 +3,7 @@ module egret{
      * 射手
      */
     export class PlayerBowman extends ElementPlayer{
+        
         //神兽
         private _animal:PlayerAnimal;
 

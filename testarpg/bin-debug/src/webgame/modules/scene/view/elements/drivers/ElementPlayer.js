@@ -175,4 +175,3 @@ var egret;
     egret.ElementPlayer = ElementPlayer;
     ElementPlayer.prototype.__class__ = "egret.ElementPlayer";
 })(egret || (egret = {}));
-//# sourceMappingURL=ElementPlayer.js.map

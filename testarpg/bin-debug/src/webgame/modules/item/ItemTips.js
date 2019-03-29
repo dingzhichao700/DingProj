@@ -39,4 +39,3 @@ var egret;
     egret.ItemTips = ItemTips;
     ItemTips.prototype.__class__ = "egret.ItemTips";
 })(egret || (egret = {}));
-//# sourceMappingURL=ItemTips.js.map

@@ -172,4 +172,3 @@ var egret;
     egret.ScriptModel = ScriptModel;
     ScriptModel.prototype.__class__ = "egret.ScriptModel";
 })(egret || (egret = {}));
-//# sourceMappingURL=ScriptModel.js.map

@@ -177,4 +177,3 @@ var egret;
     egret.HPTweenManager = HPTweenManager;
     HPTweenManager.prototype.__class__ = "egret.HPTweenManager";
 })(egret || (egret = {}));
-//# sourceMappingURL=HPTweenManager.js.map

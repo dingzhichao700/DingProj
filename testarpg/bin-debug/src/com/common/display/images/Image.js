@@ -360,4 +360,3 @@ var egret;
     egret.Image = Image;
     Image.prototype.__class__ = "egret.Image";
 })(egret || (egret = {}));
-//# sourceMappingURL=Image.js.map

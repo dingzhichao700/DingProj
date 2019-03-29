@@ -11,6 +11,7 @@ var egret;
         __egretProto__.onOpen = function () {
             _super.prototype.onOpen.call(this);
             this.window.btnClose.addEventListener(egret.TouchEvent.TOUCH_END, this.close, this);
+            this.window.btnBack.addEventListener(egret.TouchEvent.TOUCH_END, this.close, this);
             if (!this.clip) {
                 this.clip = new egret.AnimeClip();
                 this.clip.loadUrl("tiger", true);
@@ -22,4 +23,3 @@ var egret;
     egret.WuhunView = WuhunView;
     WuhunView.prototype.__class__ = "egret.WuhunView";
 })(egret || (egret = {}));
-//# sourceMappingURL=WuhunView.js.map

@@ -89,4 +89,3 @@ var egret;
     egret.ApplicationLayerType = ApplicationLayerType;
     ApplicationLayerType.prototype.__class__ = "egret.ApplicationLayerType";
 })(egret || (egret = {}));
-//# sourceMappingURL=ApplicationLayerType.js.map

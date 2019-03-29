@@ -30,4 +30,3 @@ var egret;
     egret.GameRunner = GameRunner;
     GameRunner.prototype.__class__ = "egret.GameRunner";
 })(egret || (egret = {}));
-//# sourceMappingURL=GameRunner.js.map

@@ -72,4 +72,3 @@ var egret;
     egret.SkillType = SkillType;
     SkillType.prototype.__class__ = "egret.SkillType";
 })(egret || (egret = {}));
-//# sourceMappingURL=SkillType.js.map

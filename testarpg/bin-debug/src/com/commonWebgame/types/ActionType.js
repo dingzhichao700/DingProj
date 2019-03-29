@@ -41,4 +41,3 @@ var egret;
     egret.ActionType = ActionType;
     ActionType.prototype.__class__ = "egret.ActionType";
 })(egret || (egret = {}));
-//# sourceMappingURL=ActionType.js.map

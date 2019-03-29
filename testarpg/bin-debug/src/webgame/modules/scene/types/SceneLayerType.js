@@ -54,4 +54,3 @@ var egret;
     egret.SceneLayerType = SceneLayerType;
     SceneLayerType.prototype.__class__ = "egret.SceneLayerType";
 })(egret || (egret = {}));
-//# sourceMappingURL=SceneLayerType.js.map

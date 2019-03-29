@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin width="500" height="80" xmlns:e="http://ns.egret-labs.org/egret" xmlns:w="http://ns.egret-labs.org/wing">
+	<w:HostComponent name="egret.gui.SkinnableComponent"/>
+	<w:Declarations/>
+	<e:states>
+		<e:State name="normal"/>
+		<e:State name="disabled"/>
+	</e:states>
+	<e:Group x="-1" y="-1">
+		<e:UIAsset source="frame_head_2_bg_png" x="7" y="8"/>
+		<e:UIAsset source="icon_wuhun_12_png" y="10" width="64" height="64" x="7"/>
+		<e:UIAsset source="frame_head_0_png" x="0" y="0"/>
+	</e:Group>
+	<e:Group y="-1" x="96">
+		<e:UIAsset source="frame_head_2_bg_png" y="8" x="7"/>
+		<e:UIAsset source="icon_lock_4_png" x="17" y="15"/>
+		<e:UIAsset source="frame_head_0_png" y="0" x="0"/>
+	</e:Group>
+	<e:Group y="-1" x="196">
+		<e:UIAsset source="frame_head_2_bg_png" y="8" x="7"/>
+		<e:UIAsset source="icon_lock_4_png" y="15" x="17"/>
+		<e:UIAsset source="frame_head_0_png" y="0" x="0"/>
+	</e:Group>
+	<e:Group y="-1" x="286">
+		<e:UIAsset source="frame_head_2_bg_png" y="8" x="17"/>
+		<e:UIAsset source="icon_lock_4_png" y="15" x="27"/>
+		<e:UIAsset source="frame_head_0_png" y="0" x="10"/>
+	</e:Group>
+	<e:Group y="-1" x="386">
+		<e:UIAsset source="frame_head_2_bg_png" y="8" x="17"/>
+		<e:UIAsset source="icon_lock_4_png" y="15" x="27"/>
+		<e:UIAsset source="frame_head_0_png" y="0" x="10"/>
+	</e:Group>
+</e:Skin>

@@ -2,9 +2,8 @@
 module egret {
 
 	export class SceneElement extends CoreContainer implements ISceneElement{
-		/**
-		 * 场景对象
-		 */
+		
+    	/**场景对象*/
 		public scene:SceneDriver;
 		//场景元素数据
 		public _data:SceneElementDataItem = null;
@@ -27,9 +26,7 @@ module egret {
 		private _depthPoint3D:Point3D = null;
 		//是否启用
 		public _enabled:boolean = true;
-		/**
-		 * 构造函数
-		 */
+
 		public constructor(){
 			super();
 			
@@ -38,8 +35,6 @@ module egret {
 			
 			this._namePad = new SceneElementNamePad();
 			this.addChild(this._namePad);
-			
-			//this._data = new SceneElementDataItem();
 			
 			this._depthPoint = new Point();
 			this._depthPoint3D = new egret.Point3D();
@@ -50,13 +45,11 @@ module egret {
 		public get enabled():boolean{
 			return this._enabled;
 		}
-		/**
-		 * 是否启用此对象的鼠标响应 
-		 * @param value
-		 * 
-		 */
+		
+		/**是否启用此对象的鼠标响应 */
 		public set enabled(value:boolean){
-			if(this._enabled == value) return;
+			if(this._enabled == value) 
+    			return;
 			
 			this._enabled = value;
 			
@@ -68,7 +61,8 @@ module egret {
 		}
 
 		public set alpha(value:number){
-			if(this._alpha == value) return;
+			if(this._alpha == value) 
+    			return;
 			
 			this._alpha = value;
 			
@@ -80,7 +74,8 @@ module egret {
 		}
 
 		public set y(value:number){
-			if(this._y == value) return;
+			if(this._y == value)
+    			return;
 			
 			this._y = value;
 			
@@ -92,35 +87,25 @@ module egret {
 		}
 
 		public set x(value:number){
-			if(this._x == value) return;
+			if(this._x == value) 
+    			return;
 			
 			this._x = value;
 			
 			super._setX(value);
 		}
 
-		/**
-		 * 名称面板 
-		 * @return 
-		 * 
-		 */
+		/**名称面板*/
 		public get namePad():SceneElementNamePad{
 			return this._namePad;
 		}
 
-		/**
-		 * 获取元素深度 
-		 * @return 
-		 * 
-		 */		
+		/**获取元素深度*/		
 		public get depth():number{
 			return this.getDepth();
 		}
-		/**
-		 * 获取元素深度
-		 * @return
-		 *
-		 */
+		
+		/**获取元素深度*/
 		public getDepth(): number {
 			if(this._lastX != this._x || this._lastY != this._y){
 				this._lastX = this._x;
@@ -138,11 +123,8 @@ module egret {
 		public get id():string{
 			return this._id || this.name;
 		}
-		/**
-		 * 场景元素显示对象id 
-		 * @param value:String
-		 * 
-		 */		
+		
+		/**场景元素显示对象id*/		
 		public set id(value:string){
 			this._id = value;
 		}
@@ -150,15 +132,12 @@ module egret {
 		public get data():SceneElementDataItem{
 			return this._data;
 		}
-		/**
-		 * 场景元素数据 
-		 * @param value
-		 * 
-		 */		
+		
+		/**场景元素数据*/		
 		public set data(value:SceneElementDataItem){
 			this.setData(value);
 		}
-		//
+
 		/**
 		 * 设置场景元素数据
 		 * @param value:SceneElementDataItem
@@ -177,11 +156,8 @@ module egret {
 					throw new Error("无效的场景元素数据，id 不能为 0");
 			}
 		}
-		//
-		/**
-		 * 更新名称面板 
-		 * 
-		 */		
+
+		/**更新名称面板*/		
 		public updateName():void{
 			var name:string = null;
 			
@@ -195,50 +171,32 @@ module egret {
 				this._namePad.setName(name);
 			}
 		}
-		//
-		/**
-		 * 场景元素刷新
-		 * 
-		 */		
+
+		/**场景元素刷新*/		
 		public updateXY():void{
 			var vo:SceneElementVo = this._data.vo;
 			if(vo){
 				this.x = vo.x;
 				this.y = vo.y;
 			}
-//			var lo:SceneElementLo = _data.lo;
-//			if(lo){
-//				this.x = lo.point.x;
-//				this.y = lo.point.y;
-//			}
 		}
-		/**
-		 * 添加至场景时处理 
-		 * 
-		 */		
+		
+		/**添加至场景时处理*/		
 		public addToScene():void{
 			this.updateName();
 			this.updateXY();
 			
 			this.addListeners();
 		}
-		/**
-		 * 从场景移除时处理 
-		 * 
-		 */		
+		
+		/**从场景移除时处理*/		
 		public removeFromScene():void{
-			
-		}
-		//
-		/**
-		 * 添加内部事件 
-		 * 
-		 */		
-		public addListeners():void{
-			
 		}
 
-		//
+		/**添加内部事件 */		
+		public addListeners():void{
+		}
+
 		/**
 		 * 设置名称文本格式
 		 * @param format:TextFormat = null 参数为 null 时重置为原格式
@@ -247,16 +205,15 @@ module egret {
 		public setNameTextFormat(size:number = 20,color:number = 0xffffff):void{
 			this._namePad.setNameTextFormat(size,color);
 		}
-		//
-		/**
-		 * 销毁对象，将删除所有事件侦听(包括非组件内部调用addEventListener注册的事件侦听)及变量引用并从显示列表删除，无法重新使用，释放内存资源
-		 */
+
+		/**销毁对象，将删除所有事件侦听(包括非组件内部调用addEventListener注册的事件侦听)及变量引用并从显示列表删除，无法重新使用，释放内存资源*/
 		public destroy():void{
-			if(this._isDestroy) return;
+			if(this._isDestroy) 
+    			return;
 			
 			this._namePad.destroy();
-			
 			super.destroy();
 		}
+		
 	}
 }

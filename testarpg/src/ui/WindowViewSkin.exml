@@ -12,6 +12,8 @@
 		<e:UIAsset source="bg_14_png" scale9Grid="55,14,4,87" width="566" x="31" y="815"/>
 		<e:UIAsset source="bg_7_png" scale9Grid="76,9,99,57" width="564" x="32" y="21"/>
 		<e:UIAsset source="bg_13_png" x="31" y="775"/>
+		<e:UIAsset source="img_backSide_png" x="137" y="807"/>
 		<e:UIAsset source="btn_close1_png" id="btnClose" x="538" y="26"/>
+		<e:UIAsset id="btnBack" source="btnBack_png" y="827" x="68"/>
 	</e:Group>
 </e:Skin>

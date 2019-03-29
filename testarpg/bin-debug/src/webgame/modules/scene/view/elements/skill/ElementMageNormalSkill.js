@@ -100,4 +100,3 @@ var egret;
     egret.ElementMageNormalSkill = ElementMageNormalSkill;
     ElementMageNormalSkill.prototype.__class__ = "egret.ElementMageNormalSkill";
 })(egret || (egret = {}));
-//# sourceMappingURL=ElementMageNormalSkill.js.map

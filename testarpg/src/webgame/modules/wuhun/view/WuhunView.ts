@@ -17,6 +17,7 @@ module egret {
         public onOpen():void {
             super.onOpen();
             this.window.btnClose.addEventListener(egret.TouchEvent.TOUCH_END,this.close,this);
+            this.window.btnBack.addEventListener(egret.TouchEvent.TOUCH_END,this.close,this);
 
             if(!this.clip) {
                 this.clip = new AnimeClip();

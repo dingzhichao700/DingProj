@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin width="640" height="960" xmlns:e="http://ns.egret-labs.org/egret" xmlns:w="http://ns.egret-labs.org/wing">
+	<w:HostComponent name="egret.gui.SkinnableComponent"/>
+	<w:Declarations/>
+	<e:states>
+		<e:State name="normal"/>
+		<e:State name="disabled"/>
+	</e:states>
+	<e:UIAsset source="bg_19_png" scale9Grid="4,4,24,24" width="640" height="960" x="0" y="0" locked="true"/>
+	<e:UIAsset id="imgRole" source="img_guideRole_png" x="102" y="52"/>
+</e:Skin>

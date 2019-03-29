@@ -48,4 +48,3 @@ var egret;
     egret.IDGenerator = IDGenerator;
     IDGenerator.prototype.__class__ = "egret.IDGenerator";
 })(egret || (egret = {}));
-//# sourceMappingURL=IDGenerator.js.map

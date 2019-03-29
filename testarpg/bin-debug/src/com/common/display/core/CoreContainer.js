@@ -200,4 +200,3 @@ var egret;
     egret.CoreContainer = CoreContainer;
     CoreContainer.prototype.__class__ = "egret.CoreContainer";
 })(egret || (egret = {}));
-//# sourceMappingURL=CoreContainer.js.map

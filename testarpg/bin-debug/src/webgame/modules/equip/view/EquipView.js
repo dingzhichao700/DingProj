@@ -1,8 +1,3 @@
-/**
- *
- * @author
- *
- */
 var egret;
 (function (egret) {
     var EquipView = (function (_super) {
@@ -16,6 +11,7 @@ var egret;
         __egretProto__.onOpen = function () {
             _super.prototype.onOpen.call(this);
             this.window.btnClose.addEventListener(egret.TouchEvent.TOUCH_END, this.close, this);
+            this.window.btnBack.addEventListener(egret.TouchEvent.TOUCH_END, this.close, this);
             this.item_1.itemId = 23;
             this.item_2.itemId = 12;
             this.item_3.itemId = 11;
@@ -39,4 +35,3 @@ var egret;
     egret.EquipView = EquipView;
     EquipView.prototype.__class__ = "egret.EquipView";
 })(egret || (egret = {}));
-//# sourceMappingURL=EquipView.js.map

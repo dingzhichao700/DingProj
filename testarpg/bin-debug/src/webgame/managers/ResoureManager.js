@@ -26,4 +26,3 @@ var egret;
     egret.ResoureManager = ResoureManager;
     ResoureManager.prototype.__class__ = "egret.ResoureManager";
 })(egret || (egret = {}));
-//# sourceMappingURL=ResoureManager.js.map

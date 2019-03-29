@@ -11,6 +11,7 @@ var egret;
         __egretProto__.onOpen = function () {
             _super.prototype.onOpen.call(this);
             this.window.btnClose.addEventListener(egret.TouchEvent.TOUCH_END, this.close, this);
+            this.window.btnBack.addEventListener(egret.TouchEvent.TOUCH_END, this.close, this);
             this.update();
         };
         __egretProto__.update = function () {
@@ -34,4 +35,3 @@ var egret;
     egret.BagView = BagView;
     BagView.prototype.__class__ = "egret.BagView";
 })(egret || (egret = {}));
-//# sourceMappingURL=BagView.js.map

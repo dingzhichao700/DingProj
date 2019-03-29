@@ -29,4 +29,3 @@ var egret;
     egret.VocationType = VocationType;
     VocationType.prototype.__class__ = "egret.VocationType";
 })(egret || (egret = {}));
-//# sourceMappingURL=VocationType.js.map

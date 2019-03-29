@@ -387,4 +387,3 @@ var egret;
     egret.TooltipManager = TooltipManager;
     TooltipManager.prototype.__class__ = "egret.TooltipManager";
 })(egret || (egret = {}));
-//# sourceMappingURL=TooltipManager.js.map

@@ -12,4 +12,3 @@ var egret;
     egret.ItemConfig = ItemConfig;
     ItemConfig.prototype.__class__ = "egret.ItemConfig";
 })(egret || (egret = {}));
-//# sourceMappingURL=ItemConfig.js.map

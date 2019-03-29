@@ -141,4 +141,3 @@ var egret;
     egret.CoreSprite = CoreSprite;
     CoreSprite.prototype.__class__ = "egret.CoreSprite";
 })(egret || (egret = {}));
-//# sourceMappingURL=CoreSprite.js.map

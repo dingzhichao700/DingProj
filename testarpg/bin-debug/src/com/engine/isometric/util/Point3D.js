@@ -19,4 +19,3 @@ var egret;
     egret.Point3D = Point3D;
     Point3D.prototype.__class__ = "egret.Point3D";
 })(egret || (egret = {}));
-//# sourceMappingURL=Point3D.js.map

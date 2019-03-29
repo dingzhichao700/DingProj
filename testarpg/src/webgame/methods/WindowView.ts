@@ -6,7 +6,8 @@
 module egret {
     export class WindowView extends BaseView {
         
-        public btnClose:egret.gui.UIAsset;
+        public btnClose: egret.gui.UIAsset;
+        public btnBack: egret.gui.UIAsset;
         
         public constructor() {
             super();

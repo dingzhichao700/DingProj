@@ -39,4 +39,3 @@ var egret;
     egret.BasePanel = BasePanel;
     BasePanel.prototype.__class__ = "egret.BasePanel";
 })(egret || (egret = {}));
-//# sourceMappingURL=BasePanel.js.map

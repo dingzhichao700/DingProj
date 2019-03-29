@@ -28,4 +28,3 @@ var egret;
     egret.SceneElementEvent = SceneElementEvent;
     SceneElementEvent.prototype.__class__ = "egret.SceneElementEvent";
 })(egret || (egret = {}));
-//# sourceMappingURL=SceneElementEvent.js.map

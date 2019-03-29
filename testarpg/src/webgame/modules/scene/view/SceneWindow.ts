@@ -96,10 +96,8 @@ module egret {
 
 			this.nextTurn();
 		}
-		//
-		/**
-		 * 下一波怪物
-		 */
+
+		/**下一波怪物*/
 		public nextTurn():void{
 			TimerManager.getInstance().addExecute(function():void{
 				globalUpdateWindows([UpdateType.COPY_MONSTER_BORN]);

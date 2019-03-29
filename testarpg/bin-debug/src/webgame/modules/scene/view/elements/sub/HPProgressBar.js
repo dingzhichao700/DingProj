@@ -91,4 +91,3 @@ var egret;
     egret.HPProgressBar = HPProgressBar;
     HPProgressBar.prototype.__class__ = "egret.HPProgressBar";
 })(egret || (egret = {}));
-//# sourceMappingURL=HPProgressBar.js.map

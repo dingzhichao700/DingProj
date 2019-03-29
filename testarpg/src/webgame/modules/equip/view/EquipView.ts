@@ -1,8 +1,4 @@
-/**
- *
- * @author 
- *
- */
+
 module egret {
     
     export class EquipView extends BasePanel {
@@ -38,6 +34,7 @@ module egret {
         public onOpen():void {
             super.onOpen();
             this.window.btnClose.addEventListener(egret.TouchEvent.TOUCH_END,this.close,this);
+            this.window.btnBack.addEventListener(egret.TouchEvent.TOUCH_END,this.close,this);
             
             this.item_1.itemId = 23;
             this.item_2.itemId = 12;

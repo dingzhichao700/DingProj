@@ -32,4 +32,3 @@ var egret;
     egret.MainView = MainView;
     MainView.prototype.__class__ = "egret.MainView";
 })(egret || (egret = {}));
-//# sourceMappingURL=MainView.js.map

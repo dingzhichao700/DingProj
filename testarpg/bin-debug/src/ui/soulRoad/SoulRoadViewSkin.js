@@ -110,4 +110,3 @@ var ui;
         SoulRoadViewSkin.prototype.__class__ = "ui.soulRoad.SoulRoadViewSkin";
     })(soulRoad = ui.soulRoad || (ui.soulRoad = {}));
 })(ui || (ui = {}));
-//# sourceMappingURL=SoulRoadViewSkin.js.map

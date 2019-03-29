@@ -108,4 +108,3 @@ var egret;
     egret.UpdateType = UpdateType;
     UpdateType.prototype.__class__ = "egret.UpdateType";
 })(egret || (egret = {}));
-//# sourceMappingURL=UpdateType.js.map

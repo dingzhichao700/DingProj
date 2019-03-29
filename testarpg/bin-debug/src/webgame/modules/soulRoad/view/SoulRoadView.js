@@ -47,4 +47,3 @@ var egret;
     egret.SoulRoadView = SoulRoadView;
     SoulRoadView.prototype.__class__ = "egret.SoulRoadView";
 })(egret || (egret = {}));
-//# sourceMappingURL=SoulRoadView.js.map

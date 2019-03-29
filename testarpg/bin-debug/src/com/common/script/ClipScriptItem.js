@@ -52,4 +52,3 @@ var egret;
     egret.ClipScriptItem = ClipScriptItem;
     ClipScriptItem.prototype.__class__ = "egret.ClipScriptItem";
 })(egret || (egret = {}));
-//# sourceMappingURL=ClipScriptItem.js.map

@@ -91,4 +91,3 @@ var egret;
     egret.PlayerAnimal = PlayerAnimal;
     PlayerAnimal.prototype.__class__ = "egret.PlayerAnimal";
 })(egret || (egret = {}));
-//# sourceMappingURL=PlayerAnimal.js.map

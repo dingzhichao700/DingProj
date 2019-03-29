@@ -17,4 +17,3 @@ var egret;
     egret.UserData = UserData;
     UserData.prototype.__class__ = "egret.UserData";
 })(egret || (egret = {}));
-//# sourceMappingURL=UserData.js.map

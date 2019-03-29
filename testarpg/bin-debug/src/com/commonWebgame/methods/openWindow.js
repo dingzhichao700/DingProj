@@ -26,4 +26,3 @@ var egret;
     }
     egret.openWindow = openWindow;
 })(egret || (egret = {}));
-//# sourceMappingURL=openWindow.js.map

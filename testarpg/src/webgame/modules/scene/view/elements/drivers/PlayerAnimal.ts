@@ -1,17 +1,14 @@
 module egret{
-    /**
-     * 召唤兽
-     */
+    /**召唤兽*/
     export class PlayerAnimal extends ElementPlayer{
-        /**
-         * 所属主人
-         */
+        
+        /**所属主人*/
         public master:PlayerBowman;
-        //
+
         public constructor(){
             super();
         }
-        //
+
         /**
          * 设置场景元素数据
          * @param value:SceneElementDataItem
@@ -22,6 +19,7 @@ module egret{
 
             SceneElementData.getInstance().setSceneAvatarVo(this._sceneAvatarVo,value.lo);
         }
+        
         /**
          * 按指定动作类型和方向播放影片
          * @param frameIndex:int = -1 开始播放的帧索引，-1时不设置开始播放的帧索引，从当前帧开始播放或从第0帧开始播放
@@ -50,15 +48,12 @@ module egret{
 
             this.clearAttack();
         }
-        //
-        /**
-         * 获取优先攻击对象，各职业重写
-         * @returns {null}
-         */
+
+        /**获取优先攻击对象，各职业重写*/
         public getPriorityTarget():SceneElementDataItem{
             return null;
         }
-        //
+
         /**
          * 获取部件影片地址
          * @param partType:String ActionPartType 动作影片类型
@@ -66,17 +61,12 @@ module egret{
          */
         public getPartUrl(partType:string):string{
             var path:string = PathData.PATH_MOVIES_MONSTER;
-
             var movie:string = this._sceneAvatarVo[partType];
-
             var url:string = dataManager().sceneElementData.getActionUrl(path,movie,this._avatar.actionType);
-
             return url;
         }
-        //
-        /**
-         * 释放默认技能
-         */
+
+        /**释放默认技能*/
         public playSkill():void{
             if(this._avatar.frameIndex == 1){
                 this.damage();
@@ -84,5 +74,6 @@ module egret{
                 this.chaseArmies(this.armies);
             }
         }
+        
     }
 }

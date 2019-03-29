@@ -40,4 +40,3 @@ var egret;
     egret.AlignItem = AlignItem;
     AlignItem.prototype.__class__ = "egret.AlignItem";
 })(egret || (egret = {}));
-//# sourceMappingURL=AlignItem.js.map

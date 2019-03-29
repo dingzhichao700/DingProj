@@ -122,4 +122,3 @@ var egret;
     egret.PlayerBowman = PlayerBowman;
     PlayerBowman.prototype.__class__ = "egret.PlayerBowman";
 })(egret || (egret = {}));
-//# sourceMappingURL=PlayerBowman.js.map

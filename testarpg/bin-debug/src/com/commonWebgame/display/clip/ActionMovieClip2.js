@@ -179,4 +179,3 @@ var egret;
     egret.ActionMovieClip2 = ActionMovieClip2;
     ActionMovieClip2.prototype.__class__ = "egret.ActionMovieClip2";
 })(egret || (egret = {}));
-//# sourceMappingURL=ActionMovieClip2.js.map

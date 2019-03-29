@@ -36,4 +36,3 @@ var egret;
     egret.ElementMonster = ElementMonster;
     ElementMonster.prototype.__class__ = "egret.ElementMonster";
 })(egret || (egret = {}));
-//# sourceMappingURL=ElementMonster.js.map

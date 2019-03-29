@@ -41,4 +41,3 @@ var egret;
     egret.ExtensionType = ExtensionType;
     ExtensionType.prototype.__class__ = "egret.ExtensionType";
 })(egret || (egret = {}));
-//# sourceMappingURL=ExtensionType.js.map

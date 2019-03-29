@@ -159,4 +159,3 @@ var egret;
     egret.ScriptItemManager = ScriptItemManager;
     ScriptItemManager.prototype.__class__ = "egret.ScriptItemManager";
 })(egret || (egret = {}));
-//# sourceMappingURL=ScriptItemManager.js.map

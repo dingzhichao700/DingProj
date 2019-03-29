@@ -194,4 +194,3 @@ var egret;
     egret.LocalData = LocalData;
     LocalData.prototype.__class__ = "egret.LocalData";
 })(egret || (egret = {}));
-//# sourceMappingURL=LocalData.js.map

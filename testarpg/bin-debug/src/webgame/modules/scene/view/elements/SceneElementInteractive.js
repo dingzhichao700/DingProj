@@ -374,4 +374,3 @@ var egret;
     egret.SceneElementInteractive = SceneElementInteractive;
     SceneElementInteractive.prototype.__class__ = "egret.SceneElementInteractive";
 })(egret || (egret = {}));
-//# sourceMappingURL=SceneElementInteractive.js.map

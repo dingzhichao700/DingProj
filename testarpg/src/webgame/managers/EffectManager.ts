@@ -1,15 +1,15 @@
-﻿module egret{
+module egret{
     export class EffectManager{
-        private static _instance:EffectManager = null;
         
-        public constructor(){
-            
-        }
-        //
-        public static getInstance():EffectManager{
+        private static _instance: EffectManager = null;
+
+        public static getInstance(): EffectManager {
             return EffectManager._instance || (EffectManager._instance = new EffectManager());
         }
-        //
+        
+        public constructor(){
+        }
+
         /**
          * 播放非场景特效
          * @param name 特效名称
@@ -33,23 +33,6 @@
 
             if(fun){
                 effect.setHitHandler.apply(effect,[fun,target,frameIndex].concat(args));
-            }
-
-            var soundName;
-//            switch (name){
-//                case MovieName.ATTACK_EFF_01:
-//                    soundName = SoundName.ATTACK;
-//                    break;
-//                case MovieName.POWER_EFF:
-//                    soundName = SoundName.POWER;
-//                    break;
-//                case MovieName.SCORE_EFF_SHORT:
-//                    soundName = SoundName.SCORE
-//                    break;
-//            }
-
-            if(soundName){
-//                SoundManager.getInstance().model.playSound(Sound.EFFECT,soundName);
             }
 
             return effect;

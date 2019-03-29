@@ -1333,4 +1333,3 @@ var egret;
     egret.SceneElementMover = SceneElementMover;
     SceneElementMover.prototype.__class__ = "egret.SceneElementMover";
 })(egret || (egret = {}));
-//# sourceMappingURL=SceneElementMover.js.map

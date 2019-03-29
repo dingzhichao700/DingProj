@@ -939,4 +939,3 @@ var egret;
     egret.Avatar = Avatar;
     Avatar.prototype.__class__ = "egret.Avatar";
 })(egret || (egret = {}));
-//# sourceMappingURL=Avatar.js.map

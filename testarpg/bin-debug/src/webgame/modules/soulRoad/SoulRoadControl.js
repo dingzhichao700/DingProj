@@ -21,4 +21,3 @@ var egret;
     egret.SoulRoadControl = SoulRoadControl;
     SoulRoadControl.prototype.__class__ = "egret.SoulRoadControl";
 })(egret || (egret = {}));
-//# sourceMappingURL=SoulRoadControl.js.map

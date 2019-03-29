@@ -51,4 +51,3 @@ var egret;
     egret.BagItem = BagItem;
     BagItem.prototype.__class__ = "egret.BagItem";
 })(egret || (egret = {}));
-//# sourceMappingURL=BagItem.js.map

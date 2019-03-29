@@ -69,4 +69,3 @@ var egret;
     egret.ActionMovieClipVo = ActionMovieClipVo;
     ActionMovieClipVo.prototype.__class__ = "egret.ActionMovieClipVo";
 })(egret || (egret = {}));
-//# sourceMappingURL=ActionMovieClipVo.js.map

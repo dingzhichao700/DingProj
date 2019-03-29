@@ -29,4 +29,3 @@ var egret;
     egret.ElementSkill = ElementSkill;
     ElementSkill.prototype.__class__ = "egret.ElementSkill";
 })(egret || (egret = {}));
-//# sourceMappingURL=ElementSkill.js.map

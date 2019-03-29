@@ -17,4 +17,3 @@ var egret;
     egret.WuhunItem = WuhunItem;
     WuhunItem.prototype.__class__ = "egret.WuhunItem";
 })(egret || (egret = {}));
-//# sourceMappingURL=WuhunItem.js.map

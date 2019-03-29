@@ -27,4 +27,3 @@ var egret;
     egret.ItemTipsControl = ItemTipsControl;
     ItemTipsControl.prototype.__class__ = "egret.ItemTipsControl";
 })(egret || (egret = {}));
-//# sourceMappingURL=ItemTipsControl.js.map

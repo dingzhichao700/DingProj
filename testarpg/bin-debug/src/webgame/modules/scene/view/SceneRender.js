@@ -499,4 +499,3 @@ var egret;
     egret.SceneRender = SceneRender;
     SceneRender.prototype.__class__ = "egret.SceneRender";
 })(egret || (egret = {}));
-//# sourceMappingURL=SceneRender.js.map
