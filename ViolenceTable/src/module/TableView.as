@@ -12,9 +12,9 @@ package module {
 		private var ballList:Array;
 		private var blockList:Array;
 		private const WALL_POS:Array = [[0, 0, 490, 22], [481, 20, 26, 880], [0, 880, 490, 22], [0, 0, 26, 880]];
-//		private const WALL_POS2:Array = [[0, 0, 0, 0, 490, 0, 490, 22], [481, 20, 0, 0, 26, 0, 26, 880], [0, 880, 0, 0, 490, 0, 490, 22], [0, 0, 0, 0, 26, 0, 26, 880]];
-		private const WALL_POS2:Array = [[0, 0, 0, 0, 450, 0, 450, 450], [481, 20, 0, 0, 26, 0, 26, 880], [0, 880, 0, 0, 490, 0, 490, 22], [0, 0, 0, 0, 26, 0, 26, 880]];
+		private const WALL_POS2:Array = [[0, 0, 0, 0, 490, 0, 490, 22], [481, 20, 0, 0, 26, 0, 26, 880], [0, 880, 0, 0, 490, 0, 490, 22], [0, 0, 0, 0, 26, 0, 26, 880]];
 
+//		private const WALL_POS2:Array = [[0, 0, 0, 0, 450, 0, 450, 450], [481, 20, 0, 0, 26, 0, 26, 880], [0, 880, 0, 0, 490, 0, 490, 22], [0, 0, 0, 0, 26, 0, 26, 880]];
 //		private const WALL_POS2:Array = [[0, 0, 0, 0, 450, 0, 450, 450]];
 
 		public function TableView() {
@@ -29,22 +29,22 @@ package module {
 
 		private function initTable():void {
 			blockList = [];
-			/*for (var i:int = 0; i < WALL_POS.length; i++) {
+			for (var i:int = 0; i < WALL_POS.length; i++) {
 				var item:BlockItem = new BlockItem();
 				item.setRect(WALL_POS[i][2], WALL_POS[i][3]);
 				item.x = WALL_POS[i][0];
 				item.y = WALL_POS[i][1];
 				boxTable.addChild(item);
 				blockList.push(item);
-			}*/
-			for (var j:int = 0; j < WALL_POS2.length; j++) {
-				var item:BlockItem = new BlockItem();
-				item.data = (WALL_POS2[j] as Array).slice(2);
-				item.x = WALL_POS2[j][0];
-				item.y = WALL_POS2[j][1];
-				boxTable.addChild(item);
-				blockList.push(item);
 			}
+		/*for (var j:int = 0; j < WALL_POS2.length; j++) {
+			var item:BlockItem = new BlockItem();
+			item.data = (WALL_POS2[j] as Array).slice(2);
+			item.x = WALL_POS2[j][0];
+			item.y = WALL_POS2[j][1];
+			boxTable.addChild(item);
+			blockList.push(item);
+		}*/
 		}
 
 		private function initBall():void {
@@ -52,7 +52,25 @@ package module {
 //			for(var i:int = 0 ; i < 1;i++){
 //				addBall(100, 100);
 //			}
-			addBall(100, 300, 0, 0);
+			var ball1:BallItem = addBall(100, 300, 0, 0);
+			ball1.ballRotation = 45;
+			ball1.speed = 10;
+
+			var ball2:BallItem = addBall(300, 500, 0, 0);
+			ball2.ballRotation = 0;
+			ball2.speed = 0;
+			
+			var ball3:BallItem = addBall(300, 400, 0, 0);
+			ball3.ballRotation = 0;
+			ball3.speed = 0;
+
+			/*var ball1:BallItem = addBall(200, 300, 0, 0);
+			ball1.ballRotation = 90;
+			ball1.speed = 6;
+
+			var ball2:BallItem = addBall(200, 400, 0, 0);
+			ball2.ballRotation = 90;
+			ball2.speed = 5;*/
 		}
 
 		/**
@@ -62,7 +80,7 @@ package module {
 		 * @param type 球类型
 		 * @param camp 阵营，0为玩家球，1为被打球
 		 */
-		private function addBall(x:int, y:int, type:int = 1, camp:int = 1):void {
+		private function addBall(x:int, y:int, type:int = 1, camp:int = 1):BallItem {
 			var item:BallItem = BallManager.getInstance().getBall();
 			item.x = x;
 			item.y = y;
@@ -70,6 +88,7 @@ package module {
 			item.camp = camp;
 			ballList.push(item);
 			boxCon.addChild(item);
+			return item;
 		}
 
 		private function onFrame():void {
@@ -131,12 +150,46 @@ package module {
 					var ball2:BallItem = ballList[j] as BallItem;
 					if (ball2 != ball) {
 						if (hitTestBall(ball, ball2)) {
-							var hitAngle:int = Math.atan2(ball2.y - ball.y, ball2.x - ball.x) * 180 / Math.PI;
-							var vy:int = ball.speed * Math.sin(ball.ballRotation / 180 * Math.PI) - ball2.speed * Math.sin(ball2.ballRotation / 180 * Math.PI);
-							var vx:int = ball.speed * Math.cos(ball.ballRotation / 180 * Math.PI) - ball2.speed * Math.cos(ball2.ballRotation / 180 * Math.PI);
-							var speedAngle:int = Math.atan2(vy, vx) * 180 / Math.PI;
-							if (Math.abs(speedAngle - hitAngle) < 90) { //相对速度与圆心连线角度小于90度，才会相撞
+							/**碰撞切线角度*/
+							var hitAngle:int = parseInt(Math.atan2(ball2.y - ball.y, ball2.x - ball.x) * 180 / Math.PI + "");
+
+							/*与碰撞切线的夹角*/
+							var angleHit1:int = ball.ballRotation - hitAngle;
+							var angleHit2:int = ball2.ballRotation - hitAngle;
+
+							/*碰撞方向上，撞前的速度*/
+							var speedHit1:int = ball.speed * Math.cos(angleHit1 / 180 * Math.PI);
+							var speedHit2:int = ball2.speed * Math.cos(angleHit2 / 180 * Math.PI);
+
+							/**碰撞方向上，球2相对于球1的速度，此速度小于0才会相撞，否则不会*/
+							var speedHitCombine:int = speedHit2 - speedHit1;
+
+							if (speedHitCombine < 0) {
 								hitBall = true;
+								/*碰撞方向上，撞后的角度*/
+								var angleHitSpit1:int = hitAngle + 180;
+								var angleHitSpit2:int = hitAngle;
+
+								/*碰撞方向上，撞后的速度*/
+								var speedHitSpit1:int = (Math.abs(speedHit1) + Math.abs(speedHit2)) / 2;
+								var speedHitSpit2:int = (Math.abs(speedHit1) + Math.abs(speedHit2)) / 2;
+
+								/*碰撞切线方向上，撞后的角度，根据夹角angleHit1、angleHit2来判断*/
+								var angleSide1:int = hitAngle + (angleHit1 > 0 ? 90 : -90);
+								var angleSide2:int = hitAngle + (angleHit2 > 0 ? 90 : -90);
+
+								/*碰撞切线方向上，撞后的速度*/
+								var speedSide1:int = ball.speed * Math.abs(angleHit1 % 180 == 0 ? Math.round(Math.sin(angleHit1 / 180 * Math.PI)) : Math.sin(angleHit1 / 180 * Math.PI));
+								var speedSide2:int = ball2.speed * Math.abs(angleHit1 % 180 == 0 ? Math.round(Math.sin(angleHit2 / 180 * Math.PI)) : Math.sin(angleHit2 / 180 * Math.PI));
+
+								var result:Array = [];
+								result = getSpeedCombine([[speedHitSpit1, angleHitSpit1], [speedSide1, angleSide1]]);
+								ball.speed = result[0];
+								ball.ballRotation = result[1];
+
+								result = getSpeedCombine([[speedHitSpit2, angleHitSpit2], [speedSide2, angleSide2]]);
+								ball2.speed = result[0];
+								ball2.ballRotation = result[1];
 							}
 						}
 					}
@@ -187,7 +240,25 @@ package module {
 			return [peakDis, peakRotation];
 		}
 
-		/**碰撞检测-只检测障碍边界范围*/
+		/**
+		 * 求和速度
+		 * @param speedList 分速度列表[[速度1，角度1],[速度2，角度2]...]
+		 * @return [合速度，角度]
+		 *
+		 */
+		private function getSpeedCombine(speedList:Array):Array {
+			var speedX:int = 0;
+			var speedY:int = 0;
+			for (var i:int = 0; i < speedList.length; i++) {
+				speedX += speedList[i][0] * Math.cos(speedList[i][1] / 180 * Math.PI);
+				speedY += speedList[i][0] * Math.sin(speedList[i][1] / 180 * Math.PI);
+			}
+			var speedCombine:int = Math.sqrt(speedX * speedX + speedY * speedY);
+			var angleCombine:int = Math.atan2(speedY, speedX) * 180 / Math.PI;
+			return [speedCombine, angleCombine];
+		}
+
+		/**碰撞检测(球对障碍)-只检测障碍边界范围*/
 		private function hitTestBlock(item:BallItem, block:BlockItem):Boolean {
 			var radius:int = item.radius;
 			var finalX:int = item.x;
@@ -200,11 +271,12 @@ package module {
 			return false;
 		}
 
+		/**碰撞检测(球对球)-根据球心距离和半径和来检测*/
 		private function hitTestBall(item:BallItem, item2:BallItem):Boolean {
 			var disX:int = item2.x - item.x;
 			var disY:int = item2.y - item.y;
 			var dis:int = Math.sqrt(disX * disX + disY * disY);
-			return dis <= (item.radius + item2.radius);
+			return dis < (item.radius + item2.radius);
 		}
 
 	}

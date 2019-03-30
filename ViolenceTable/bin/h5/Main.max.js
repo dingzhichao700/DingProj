@@ -38400,8 +38400,7 @@ var TableView=(function(_super){
 		this.ballList=null;
 		this.blockList=null;
 		this.WALL_POS=[[0,0,490,22],[481,20,26,880],[0,880,490,22],[0,0,26,880]];
-		// private const WALL_POS2:Array=[[0,0,0,0,490,0,490,22],[481,20,0,0,26,0,26,880],[0,880,0,0,490,0,490,22],[0,0,0,0,26,0,26,880]];
-		this.WALL_POS2=[[0,0,0,0,450,0,450,450],[481,20,0,0,26,0,26,880],[0,880,0,0,490,0,490,22],[0,0,0,0,26,0,26,880]];
+		this.WALL_POS2=[[0,0,0,0,490,0,490,22],[481,20,0,0,26,0,26,880],[0,880,0,0,490,0,490,22],[0,0,0,0,26,0,26,880]];
 		TableView.__super.call(this);
 	}
 
@@ -38415,134 +38414,222 @@ var TableView=(function(_super){
 
 	__proto.initTable=function(){
 		this.blockList=[];
-		for (var j=0;j < this.WALL_POS2.length;j++){
+		for (var i=0;i < this.WALL_POS.length;i++){
 			var item=new BlockItem();
-			item.data=(this.WALL_POS2 [j]).slice(2);
-			item.x=this.WALL_POS2[j][0];
-			item.y=this.WALL_POS2[j][1];
+			item.setRect(this.WALL_POS[i][2],this.WALL_POS[i][3]);
+			item.x=this.WALL_POS[i][0];
+			item.y=this.WALL_POS[i][1];
 			this.boxTable.addChild(item);
 			this.blockList.push(item);
 		}
 	}
 
-	__proto.initBall=function(){
-		this.ballList=[];
-		this.addBall(100,300,0,0);
-	}
+	/*for (var j:int=0;j < WALL_POS2.length;j++){
+	var item:BlockItem=new BlockItem();
+	item.data=(WALL_POS2[j] as Array).slice(2);
+	item.x=WALL_POS2[j][0];
+	item.y=WALL_POS2[j][1];
+	boxTable.addChild(item);
+	blockList.push(item);
+}*/
 
-	/**
-	*添加一个球到容器中
-	*@param x
-	*@param y
-	*@param type 球类型
-	*@param camp 阵营，0为玩家球，1为被打球
-	*/
-	__proto.addBall=function(x,y,type,camp){
-		(type===void 0)&& (type=1);
-		(camp===void 0)&& (camp=1);
-		var item=BallManager.getInstance().getBall();
-		item.x=x;
-		item.y=y;
-		item.type=type;
-		item.camp=camp;
-		this.ballList.push(item);
-		this.boxCon.addChild(item);
-	}
 
-	__proto.onFrame=function(){
-		for (var i=0;i < this.ballList.length;i++){
-			var item=this.ballList [i];
-			var hitBlock=false;
-			for (var j=0;j < this.blockList.length;j++){
-				var block=this.blockList [j];
-				var findLine=false;
-				var shortestApeakData;
-				if (this.hitTestBlock(item,block)){
-					for (var k=0;k < block.lines.length;k++){
-						var apeak=this.getApeakData(item.x,item.y,block,block.lines [k]);
-						if (apeak[0] < item.radius){
-							var clipAngle=Math.abs(item.ballRotation-apeak[1])% 360;
-							if (clipAngle > 180){
-								clipAngle=Math.abs(360-clipAngle);
+__proto.initBall=function(){
+	this.ballList=[];
+	var ball1=this.addBall(100,300,0,0);
+	ball1.ballRotation=45;
+	ball1.speed=10;
+	var ball2=this.addBall(300,500,0,0);
+	ball2.ballRotation=0;
+	ball2.speed=0;
+	var ball3=this.addBall(300,400,0,0);
+	ball3.ballRotation=0;
+	ball3.speed=0;
+}
+
+
+/**
+*添加一个球到容器中
+*@param x
+*@param y
+*@param type 球类型
+*@param camp 阵营，0为玩家球，1为被打球
+*/
+__proto.addBall=function(x,y,type,camp){
+	(type===void 0)&& (type=1);
+	(camp===void 0)&& (camp=1);
+	var item=BallManager.getInstance().getBall();
+	item.x=x;
+	item.y=y;
+	item.type=type;
+	item.camp=camp;
+	this.ballList.push(item);
+	this.boxCon.addChild(item);
+	return item;
+}
+
+
+__proto.onFrame=function(){
+	for (var i=0;i < this.ballList.length;i++){
+		var ball=this.ballList [i];
+		var hitBlock=false;
+		for (var j=0;j < this.blockList.length;j++){
+			var block=this.blockList [j];
+			var findLine=false;
+			var shortestApeakData;
+			if (this.hitTestBlock(ball,block)){
+				for (var k=0;k < block.lines.length;k++){
+					var apeak=this.getApeakData(ball.x,ball.y,block,block.lines [k]);
+					if (apeak[0] < ball.radius){
+						var clipAngle=Math.abs(ball.ballRotation-apeak[1])% 360;
+						if (clipAngle > 180){
+							clipAngle=Math.abs(360-clipAngle);
+						}
+						if (clipAngle < 90){
+							if (!findLine){
+								shortestApeakData=apeak;
+								findLine=true;
 							}
-							if (clipAngle < 90){
-								if (!findLine){
-									shortestApeakData=apeak;
-									findLine=true;
-								}
-								if (apeak[0] <=shortestApeakData[0]){
-									shortestApeakData=apeak;
-								}
+							if (apeak[0] <=shortestApeakData[0]){
+								shortestApeakData=apeak;
 							}
 						}
-					}
-					if (findLine){
-						var rotationAdd=shortestApeakData[1]-item.ballRotation;
-						item.ballRotation=item.ballRotation-180+rotationAdd *2;
-						while (item.ballRotation <-180){
-							item.ballRotation+=360;
-						}
-						while (item.ballRotation > 180){
-							item.ballRotation-=360;
-						}
-						hitBlock=true;
 					}
 				}
-			};
-			var hitBall=false;
-			if (!hitBlock && !hitBall){
-				var xDis=Math.cos(item.ballRotation / 180 *Math.PI)*item.speed;
-				var yDis=Math.sin(item.ballRotation / 180 *Math.PI)*item.speed;
-				item.x+=xDis;
-				item.y+=yDis;
+				if (findLine){
+					var rotationAdd=shortestApeakData[1]-ball.ballRotation;
+					ball.ballRotation=ball.ballRotation-180+rotationAdd *2;
+					while (ball.ballRotation <-180){
+						ball.ballRotation+=360;
+					}
+					while (ball.ballRotation > 180){
+						ball.ballRotation-=360;
+					}
+					hitBlock=true;
+				}
 			}
-		}
-	}
-
-	/**
-	*获取垂线数据
-	*@param x
-	*@param y
-	*@param block 线数组，包含2个端点Point
-	*@param line block内部的某条线，包含2个端点Point
-	*@return [垂线长度，角度]
-	*/
-	__proto.getApeakData=function(x,y,block,line){
-		var point1=line[0];
-		var point2=line[1];
-		var disX=point2.x-point1.x;
-		var disY=point2.y-point1.y;
-		if (disY==0){
-			return [Math.abs(y-block.y-point1.y),y > (block.y+point1.y)?-90 :90];
-		}
-		if (disX==0){
-			return [Math.abs(x-block.x-point1.x),x > (block.x+point1.x)? 180 :0];
 		};
-		var angle1=Math.atan(disY / disX)*180 / Math.PI;
-		var param1=(block.y+point2.y)-(block.x+point2.x)*Math.tan(angle1 / 180 *Math.PI);
-		var angle2=angle1-90;
-		var param2=y-x *Math.tan(angle2 / 180 *Math.PI);
-		var peakX=(param2-param1)/ (Math.tan(angle1 / 180 *Math.PI)-Math.tan(angle2 / 180 *Math.PI));
-		var peakY=Math.tan(angle1 / 180 *Math.PI)*peakX+param1;
-		var peakDis=Math.sqrt((peakX-x)*(peakX-x)+(peakY-y)*(peakY-y));
-		var peakRotation=Math.atan2(peakY-y,peakX-x)*180 / Math.PI;
-		return [peakDis,peakRotation];
-	}
-
-	/**碰撞检测-只检测障碍边界范围*/
-	__proto.hitTestBlock=function(item,block){
-		var radius=item.radius;
-		var finalX=item.x;
-		var finalY=item.y;
-		if ((block.x+block.pLeft-radius)< finalX && finalX < (block.x+block.pRight+radius)){
-			if ((block.y+block.pUp-radius)< finalY && finalY < (block.y+block.pDown+radius)){
-				return true;
+		var hitBall=false;
+		for (j=0;j < this.ballList.length;j++){
+			var ball2=this.ballList [j];
+			if (ball2 !=ball){
+				if (this.hitTestBall(ball,ball2)){
+					var hitAngle=parseInt(Math.atan2(ball2.y-ball.y,ball2.x-ball.x)*180 / Math.PI+"");
+					var angleHit1=ball.ballRotation-hitAngle;
+					var angleHit2=ball2.ballRotation-hitAngle;
+					var speedHit1=ball.speed *Math.cos(angleHit1 / 180 *Math.PI);
+					var speedHit2=ball2.speed *Math.cos(angleHit2 / 180 *Math.PI);
+					var speedHitCombine=speedHit2-speedHit1;
+					if (speedHitCombine < 0){
+						hitBall=true;
+						var angleHitSpit1=hitAngle+180;
+						var angleHitSpit2=hitAngle;
+						var speedHitSpit1=(Math.abs(speedHit1)+Math.abs(speedHit2))/ 2;
+						var speedHitSpit2=(Math.abs(speedHit1)+Math.abs(speedHit2))/ 2;
+						var angleSide1=hitAngle+(angleHit1 > 0 ? 90 :-90);
+						var angleSide2=hitAngle+(angleHit2 > 0 ? 90 :-90);
+						var speedSide1=ball.speed *Math.abs(angleHit1 % 180==0 ? Math.round(Math.sin(angleHit1 / 180 *Math.PI)):Math.sin(angleHit1 / 180 *Math.PI));
+						var speedSide2=ball2.speed *Math.abs(angleHit1 % 180==0 ? Math.round(Math.sin(angleHit2 / 180 *Math.PI)):Math.sin(angleHit2 / 180 *Math.PI));
+						var result=[];
+						result=this.getSpeedCombine([[speedHitSpit1,angleHitSpit1],[speedSide1,angleSide1]]);
+						ball.speed=result[0];
+						ball.ballRotation=result[1];
+						result=this.getSpeedCombine([[speedHitSpit2,angleHitSpit2],[speedSide2,angleSide2]]);
+						ball2.speed=result[0];
+						ball2.ballRotation=result[1];
+					}
+				}
 			}
 		}
-		return false;
+		if (!hitBlock && !hitBall){
+			var xDis=Math.cos(ball.ballRotation / 180 *Math.PI)*ball.speed;
+			var yDis=Math.sin(ball.ballRotation / 180 *Math.PI)*ball.speed;
+			ball.x+=xDis;
+			ball.y+=yDis;
+		}
 	}
 
-	return TableView;
+}
+
+
+/**
+*获取垂线数据
+*@param x
+*@param y
+*@param block 线数组，包含2个端点Point
+*@param line block内部的某条线，包含2个端点Point
+*@return [垂线长度，角度]
+*/
+__proto.getApeakData=function(x,y,block,line){
+	var point1=line[0];
+	var point2=line[1];
+	var disX=point2.x-point1.x;
+	var disY=point2.y-point1.y;
+	if (disY==0){
+		return [Math.abs(y-block.y-point1.y),y > (block.y+point1.y)?-90 :90];
+	}
+
+	if (disX==0){
+		return [Math.abs(x-block.x-point1.x),x > (block.x+point1.x)? 180 :0];
+	};
+
+	var angle1=Math.atan(disY / disX)*180 / Math.PI;
+	var param1=(block.y+point2.y)-(block.x+point2.x)*Math.tan(angle1 / 180 *Math.PI);
+	var angle2=angle1-90;
+	var param2=y-x *Math.tan(angle2 / 180 *Math.PI);
+	var peakX=(param2-param1)/ (Math.tan(angle1 / 180 *Math.PI)-Math.tan(angle2 / 180 *Math.PI));
+	var peakY=Math.tan(angle1 / 180 *Math.PI)*peakX+param1;
+	var peakDis=Math.sqrt((peakX-x)*(peakX-x)+(peakY-y)*(peakY-y));
+	var peakRotation=Math.atan2(peakY-y,peakX-x)*180 / Math.PI;
+	return [peakDis,peakRotation];
+}
+
+
+/**
+*求和速度
+*@param speedList 分速度列表[[速度1，角度1],[速度2，角度2]...]
+*@return [合速度，角度]
+*
+*/
+__proto.getSpeedCombine=function(speedList){
+	var speedX=0;
+	var speedY=0;
+	for (var i=0;i < speedList.length;i++){
+		speedX+=speedList[i][0] *Math.cos(speedList[i][1] / 180 *Math.PI);
+		speedY+=speedList[i][0] *Math.sin(speedList[i][1] / 180 *Math.PI);
+	};
+
+	var speedCombine=Math.sqrt(speedX *speedX+speedY *speedY);
+	var angleCombine=Math.atan2(speedY,speedX)*180 / Math.PI;
+	return [speedCombine,angleCombine];
+}
+
+
+/**碰撞检测(球对障碍)-只检测障碍边界范围*/
+__proto.hitTestBlock=function(item,block){
+	var radius=item.radius;
+	var finalX=item.x;
+	var finalY=item.y;
+	if ((block.x+block.pLeft-radius)< finalX && finalX < (block.x+block.pRight+radius)){
+		if ((block.y+block.pUp-radius)< finalY && finalY < (block.y+block.pDown+radius)){
+			return true;
+		}
+	}
+
+	return false;
+}
+
+
+/**碰撞检测(球对球)-根据球心距离和半径和来检测*/
+__proto.hitTestBall=function(item,item2){
+	var disX=item2.x-item.x;
+	var disY=item2.y-item.y;
+	var dis=Math.sqrt(disX *disX+disY *disY);
+	return dis < (item.radius+item2.radius);
+}
+
+
+return TableView;
 })(TableViewUI)
 
 
