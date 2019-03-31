@@ -1,10 +1,10 @@
 package module {
 	import laya.maths.Point;
-
+	
 	import module.ball.BallItem;
 	import module.ball.BallManager;
 	import module.ball.BlockItem;
-
+	
 	import ui.TableViewUI;
 
 	public class TableView extends TableViewUI {
@@ -24,6 +24,8 @@ package module {
 			initTable();
 			initBall();
 
+			txtSpeed.style.font = "wryh";
+			txtSpeed.style.fontSize = 20;
 			Laya.timer.frameLoop(1, this, onFrame);
 		}
 
@@ -49,28 +51,23 @@ package module {
 
 		private function initBall():void {
 			ballList = new Array();
-//			for(var i:int = 0 ; i < 1;i++){
-//				addBall(100, 100);
-//			}
-			var ball1:BallItem = addBall(100, 300, 0, 0);
-			ball1.ballRotation = 45;
-			ball1.speed = 10;
+			for (var i:int = 0; i < 15; i++) {
+				var ball:BallItem = addBall(200 + 100 * Math.floor(i / 5), 200 + 100 * (i % 5), 0, 0);
+				ball.ballRotation = 0;
+				ball.speed = 0;
+			}
 
-			var ball2:BallItem = addBall(300, 500, 0, 0);
-			ball2.ballRotation = 0;
-			ball2.speed = 0;
+			var ball0:BallItem = addBall(100, 100, 0, 0);
+			ball0.ballRotation = 45;
+			ball0.speed = 15;
 			
-			var ball3:BallItem = addBall(300, 400, 0, 0);
-			ball3.ballRotation = 0;
-			ball3.speed = 0;
-
-			/*var ball1:BallItem = addBall(200, 300, 0, 0);
-			ball1.ballRotation = 90;
-			ball1.speed = 6;
-
-			var ball2:BallItem = addBall(200, 400, 0, 0);
-			ball2.ballRotation = 90;
-			ball2.speed = 5;*/
+//			var ball1:BallItem = addBall(300, 300, 0, 0);
+//			ball1.ballRotation = 180;
+//			ball1.speed = 1;
+//
+//			var ball2:BallItem = addBall(260, 400, 0, 0);
+//			ball2.ballRotation = -135;
+//			ball2.speed = 1;
 		}
 
 		/**
@@ -92,6 +89,7 @@ package module {
 		}
 
 		private function onFrame():void {
+			var totalSpeed:Number = 0;
 			for (var i:int = 0; i < ballList.length; i++) {
 				var ball:BallItem = ballList[i] as BallItem;
 
@@ -154,17 +152,15 @@ package module {
 							var hitAngle:int = parseInt(Math.atan2(ball2.y - ball.y, ball2.x - ball.x) * 180 / Math.PI + "");
 
 							/*与碰撞切线的夹角*/
-							var angleHit1:int = ball.ballRotation - hitAngle;
-							var angleHit2:int = ball2.ballRotation - hitAngle;
+							var angleHit1:int = (ball.ballRotation - hitAngle) % 360;
+							var angleHit2:int = (ball2.ballRotation - hitAngle) % 360;
 
 							/*碰撞方向上，撞前的速度*/
 							var speedHit1:int = ball.speed * Math.cos(angleHit1 / 180 * Math.PI);
 							var speedHit2:int = ball2.speed * Math.cos(angleHit2 / 180 * Math.PI);
 
-							/**碰撞方向上，球2相对于球1的速度，此速度小于0才会相撞，否则不会*/
-							var speedHitCombine:int = speedHit2 - speedHit1;
-
-							if (speedHitCombine < 0) {
+							/**碰撞方向上，球2对球1的相对速度小于0才会相撞，否则不会*/
+							if (speedHit2 < speedHit1) {
 								hitBall = true;
 								/*碰撞方向上，撞后的角度*/
 								var angleHitSpit1:int = hitAngle + 180;
@@ -175,8 +171,20 @@ package module {
 								var speedHitSpit2:int = (Math.abs(speedHit1) + Math.abs(speedHit2)) / 2;
 
 								/*碰撞切线方向上，撞后的角度，根据夹角angleHit1、angleHit2来判断*/
-								var angleSide1:int = hitAngle + (angleHit1 > 0 ? 90 : -90);
-								var angleSide2:int = hitAngle + (angleHit2 > 0 ? 90 : -90);
+								while(angleHit1 < 0){
+									angleHit1 +=360;
+								}
+								while(angleHit1 > 360){
+									angleHit1 -=360;
+								}
+								var angleSide1:int = hitAngle + ((0 < angleHit1 && angleHit1 < 180) ? 90 : -90);
+								while(angleHit2 < 0){
+									angleHit2 +=360;
+								}
+								while(angleHit2 > 360){
+									angleHit2 -=360;
+								}
+								var angleSide2:int = hitAngle + ((0 < angleHit2 && angleHit2 < 180) ? 90 : -90);
 
 								/*碰撞切线方向上，撞后的速度*/
 								var speedSide1:int = ball.speed * Math.abs(angleHit1 % 180 == 0 ? Math.round(Math.sin(angleHit1 / 180 * Math.PI)) : Math.sin(angleHit1 / 180 * Math.PI));
@@ -201,7 +209,10 @@ package module {
 					ball.x += xDis;
 					ball.y += yDis;
 				}
+				
+				totalSpeed += ball.speed;
 			}
+			txtSpeed.innerHTML = totalSpeed + "";
 		}
 
 		/**
