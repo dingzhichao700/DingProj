@@ -15,11 +15,23 @@ package module.ball {
 			ballPool = new Vector.<BallItem>;
 		}
 
-		public function getBall():BallItem {
+		public function getBall(type:int):BallItem {
 			if (ballPool.length > 0) {
-				return ballPool.pop();
+				for (var i:int = 0; i < ballPool.length; i++) {
+					if ((ballPool[i] as BallItem).type == type) {
+						return ballPool.slice(i, 1) as BallItem;
+					}
+				}
 			}
-			return new BallItem();
+			switch (type) {
+				case 0:
+					return new HitBall();
+					break;
+				case 1:
+					return new BallItem();
+					break;
+			}
+			return null;
 		}
 
 		public function returnBall(item:BallItem):void {

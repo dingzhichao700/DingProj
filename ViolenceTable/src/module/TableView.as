@@ -51,15 +51,13 @@ package module {
 
 		private function initBall():void {
 			ballList = new Array();
-			for (var i:int = 0; i < 15; i++) {
-				var ball:BallItem = addBall(200 + 100 * Math.floor(i / 5), 200 + 100 * (i % 5), 0, 0);
+			for (var i:int = 0; i < 1; i++) {
+				var ball:BallItem = addBall(200 + 100 * Math.floor(i / 5), 300 + 100 * (i % 5), 1, 1);
 				ball.ballRotation = 0;
-				ball.speed = 0;
 			}
 
-			var ball0:BallItem = addBall(100, 100, 0, 0);
-			ball0.ballRotation = 45;
-			ball0.speed = 15;
+			var ball0:BallItem = addBall(200, 100, 0, 0);
+//			ball0.addSpeed(90, 15);
 			
 //			var ball1:BallItem = addBall(300, 300, 0, 0);
 //			ball1.ballRotation = 180;
@@ -78,7 +76,7 @@ package module {
 		 * @param camp 阵营，0为玩家球，1为被打球
 		 */
 		private function addBall(x:int, y:int, type:int = 1, camp:int = 1):BallItem {
-			var item:BallItem = BallManager.getInstance().getBall();
+			var item:BallItem = BallManager.getInstance().getBall(type);
 			item.x = x;
 			item.y = y;
 			item.type = type;
@@ -203,7 +201,8 @@ package module {
 					}
 				}
 
-				if (!hitBlock && !hitBall) {
+				if (!hitBlock && !hitBall && ball.speed != 0) {
+					ball.speed = ball.speed * ball.speedCost;
 					var xDis:int = Math.cos(ball.ballRotation / 180 * Math.PI) * ball.speed;
 					var yDis:int = Math.sin(ball.ballRotation / 180 * Math.PI) * ball.speed;
 					ball.x += xDis;
