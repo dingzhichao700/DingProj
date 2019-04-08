@@ -433,6 +433,7 @@ var ___Laya=(function(){
 //class Main
 var Main=(function(){
 	function Main(){
+		Laya.Config.isAntialias=true;
 		Laya.init(1920,1080,WebGL);
 		Laya.loader.load("res/ball.atlas",Handler.create(this,this.onLoaded));
 	}
@@ -756,11 +757,23 @@ var BallManager=(function(){
 
 	__class(BallManager,'module.ball.BallManager');
 	var __proto=BallManager.prototype;
-	__proto.getBall=function(){
+	__proto.getBall=function(type){
 		if (this.ballPool.length > 0){
-			return this.ballPool.pop();
+			for (var i=0;i < this.ballPool.length;i++){
+				if ((this.ballPool [i]).type==type){
+					return this.ballPool.slice(i,1);
+				}
+			}
 		}
-		return new BallItem();
+		switch (type){
+			case 0:
+				return new HitBall();
+				break ;
+			case 1:
+				return new BallItem();
+				break ;
+			}
+		return null;
 	}
 
 	__proto.returnBall=function(item){
@@ -38649,7 +38662,7 @@ var BallItemUI=(function(_super){
 		this.createView(BallItemUI.uiView);
 	}
 
-	BallItemUI.uiView={"type":"View","props":{"width":39,"height":39},"child":[{"type":"Box","props":{"y":0,"x":0,"var":"boxBottom"}},{"type":"Image","props":{"y":-20,"x":-20,"skin":"ball/img_shadow.png"}},{"type":"Box","props":{"y":0,"x":0,"var":"boxBall"}},{"type":"Image","props":{"y":-19,"x":-20,"skin":"ball/img_light.png"}}]};
+	BallItemUI.uiView={"type":"View","props":{"width":39,"mouseEnabled":true,"height":39},"child":[{"type":"Box","props":{"y":0,"x":0,"var":"boxBottom","mouseThrough":true,"mouseEnabled":true}},{"type":"Image","props":{"y":-20,"x":-20,"skin":"ball/img_shadow.png","mouseThrough":true,"mouseEnabled":true}},{"type":"Box","props":{"y":0,"x":0,"var":"boxBall","mouseThrough":true,"mouseEnabled":true}},{"type":"Image","props":{"y":-19,"x":-20,"skin":"ball/img_light.png","mouseEnabled":false}}]};
 	return BallItemUI;
 })(View)
 
@@ -39318,17 +39331,21 @@ var BallItem=(function(_super){
 		this._speed=0;
 		this._radius=0;
 		this._ballRotation=NaN;
+		this._speedCost=0.991;
 		BallItem.__super.call(this);
 		this.ballRotation=0;
+		this.boxBall.cacheAsBitmap=true;
 	}
 
 	__class(BallItem,'module.ball.BallItem',_super);
 	var __proto=BallItem.prototype;
-	__proto.showHitAble=function(){
-		this.boxBottom.graphics.clear();
-		this.boxBottom.scale(0.1,0.1);
-		this.boxBottom.graphics.drawCircle(0,0,40,"#ffff00");
-		Tween.to(this.boxBottom,{scaleX:1,scaleY:1},1200);
+	/**速度被设置后调度*/
+	__proto.speedSetHandler=function(){}
+	__proto.addSpeed=function(rotation,addSpeed){
+		var speedTotalX=addSpeed *Math.cos(rotation / 180 *Math.PI)+this.speed *Math.cos(this.ballRotation / 180 *Math.PI);
+		var speedTotalY=addSpeed *Math.sin(rotation / 180 *Math.PI)+this.speed *Math.sin(this.ballRotation / 180 *Math.PI);
+		this.speed=Math.sqrt(speedTotalX *speedTotalX+speedTotalY *speedTotalY);
+		this.ballRotation=Math.atan2(speedTotalY,speedTotalX)*180 / Math.PI;
 	}
 
 	__getset(0,__proto,'ballRotation',function(){
@@ -39337,22 +39354,28 @@ var BallItem=(function(_super){
 		this._ballRotation=value;
 	});
 
+	__getset(0,__proto,'speedCost',function(){
+		return this._speedCost;
+		},function(value){
+		this._speedCost=value;
+	});
+
 	__getset(0,__proto,'type',function(){
 		return this._type;
 		},function(value){
 		this._type=value;
-		this.boxBottom.graphics.clear();
 		this.boxBall.graphics.clear();
 		switch (this._type){
 			case 0:
-				this._radius=20;
+				this._radius=22;
 				this.boxBall.graphics.drawCircle(0,0,this._radius,"#ffffff");
 				break ;
 			case 1:
-				this._radius=20;
+				this._radius=22;
 				this.boxBall.graphics.drawCircle(0,0,this._radius,"#e06444");
 				break ;
 			}
+		this.speedSetHandler();
 	});
 
 	/**球碰撞半径*/
@@ -39369,7 +39392,12 @@ var BallItem=(function(_super){
 	__getset(0,__proto,'speed',function(){
 		return this._speed;
 		},function(value){
+		if (value < 0.1){
+			value=0;
+		}
+		this._speed=Math.min(this.radius,value);
 		this._speed=value;
+		this.speedSetHandler();
 	});
 
 	return BallItem;
@@ -39420,15 +39448,12 @@ var TableView=(function(_super){
 
 __proto.initBall=function(){
 	this.ballList=[];
-	for (var i=0;i < 15;i++){
-		var ball=this.addBall(200+100 *Math.floor(i / 5),200+100 *(i % 5),0,0);
+	for (var i=0;i < 1;i++){
+		var ball=this.addBall(200+100 *Math.floor(i / 5),300+100 *(i % 5),1,1);
 		ball.ballRotation=0;
-		ball.speed=0;
 	};
 
-	var ball0=this.addBall(100,100,0,0);
-	ball0.ballRotation=45;
-	ball0.speed=15;
+	var ball0=this.addBall(200,100,0,0);
 }
 
 
@@ -39442,7 +39467,7 @@ __proto.initBall=function(){
 __proto.addBall=function(x,y,type,camp){
 	(type===void 0)&& (type=1);
 	(camp===void 0)&& (camp=1);
-	var item=BallManager.getInstance().getBall();
+	var item=BallManager.getInstance().getBall(type);
 	item.x=x;
 	item.y=y;
 	item.type=type;
@@ -39537,7 +39562,8 @@ __proto.onFrame=function(){
 				}
 			}
 		}
-		if (!hitBlock && !hitBall){
+		if (!hitBlock && !hitBall && ball.speed !=0){
+			ball.speed=ball.speed *ball.speedCost;
 			var xDis=Math.cos(ball.ballRotation / 180 *Math.PI)*ball.speed;
 			var yDis=Math.sin(ball.ballRotation / 180 *Math.PI)*ball.speed;
 			ball.x+=xDis;
@@ -39629,6 +39655,56 @@ __proto.hitTestBall=function(item,item2){
 
 return TableView;
 })(TableViewUI)
+
+
+//class module.ball.HitBall extends module.ball.BallItem
+var HitBall=(function(_super){
+	function HitBall(){
+		HitBall.__super.call(this);
+		this.boxBottom.alpha=0.5;
+		this._speedCost=1;
+	}
+
+	__class(HitBall,'module.ball.HitBall',_super);
+	var __proto=HitBall.prototype;
+	__proto.speedSetHandler=function(){
+		var hitarea=new HitArea();
+		hitarea.hit=this.boxBottom.graphics;
+		this.hitArea=hitarea;
+		if (this.speed==0){
+			this.showHitAble();
+			}else {
+			this.boxBottom.graphics.clear();
+		}
+	}
+
+	__proto.showHitAble=function(){
+		this.boxBottom.scale(0.1,0.1);
+		this.boxBottom.graphics.clear();
+		this.boxBottom.graphics.drawCircle(0,0,this.radius+20,"#ffff00");
+		Tween.to(this.boxBottom,{scaleX:1,scaleY:1},1000,null,Handler.create(this,this.showComp));
+	}
+
+	__proto.showComp=function(){
+		this.on("mousedown",this,this.onDown);
+	}
+
+	__proto.onDown=function(){
+		Tween.to(this.boxBottom,{scaleX:0.1,scaleY:0.1},1000);
+		this.off("mousedown",this,this.onDown);
+		this.stage.on("mouseup",this,this.onUp);
+		this.stage.on("mouseout",this,this.onUp);
+	}
+
+	__proto.onUp=function(e){
+		this.stage.off("mouseout",this,this.onUp);
+		this.stage.off("mouseup",this,this.onUp);
+		var rotationAdd=Math.atan2(this.mouseY,this.mouseX)*180 / Math.PI;
+		this.addSpeed(rotationAdd+180,20);
+	}
+
+	return HitBall;
+})(BallItem)
 
 
 	Laya.__init([EventDispatcher,LoaderManager,Render,View,Browser,DrawText,WebGLContext2D,ShaderCompile,Timer,GraphicAnimation,LocalStorage,AtlasGrid]);
