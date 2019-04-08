@@ -2,27 +2,23 @@
 module egret {
 
 	export class SceneManager{
-		/**
-		 * 当前场景对象 
-		 */		
+    	
+		/**当前场景对象*/		
 		public scene:SceneDriver = null;
-		
-		private static _instance:SceneManager = null;
-		//场景数据
-		private _sceneData:SceneData = null;
 
-		
-		/**
-		 * 构造函数
-		 */
+        //场景数据
+        private _sceneData: SceneData = null;
+        
+		private static _instance:SceneManager = null;
+
+        public static getInstance(): SceneManager {
+            return SceneManager._instance || (SceneManager._instance = new SceneManager());
+        }
+
 		public constructor(){
 			this._sceneData = dataManager().sceneData;
 		}
-		
-		public static getInstance():SceneManager{
-			return SceneManager._instance || (SceneManager._instance = new SceneManager());
-		}
-		//
+
 		/**
 		 * 请求成功后进入场景 
 		 * @param id:Number 场景id
@@ -70,11 +66,14 @@ module egret {
 			
 			id = mapId > 0 ? mapId : id;
 			
-			if(!this.scene)
-				this.scene = <SceneDriver><any> (openWindow(cls,false));
+            if(!this.scene) {
+                this.scene = <SceneDriver><any> (openWindow(cls,false));
+                this.scene.scaleX = this.scene.scaleY = 1.2;
+                this.scene.y = -200;
+			}
 			this.scene.loadData(id);
 		}
-		//
+
 		/**
 		 * 退出场景 
 		 * @param isClear:Boolean = true 是否清理场景数据
@@ -99,7 +98,7 @@ module egret {
 				//	break;
 			}
 		}
-		//
+
 		/**
 		 * 清空场景 
 		 * @param isClear:Boolean = true 是否清理场景数据
@@ -117,7 +116,7 @@ module egret {
 				//	break;
 			}
 		}
-		//
+
 		/**
 		 * 移动场景元素 
 		 * @param id:String 场景元素id
@@ -126,11 +125,11 @@ module egret {
 		 * 
 		 */		
 		public moveElement(id:number,x:number,y:number = 0):void{
-			if(!this.scene) return;
-			
+			if(!this.scene) 
+    			return;
 			this.scene.moveElement(id + "",x,y);
 		}
-		//
+
 		/**
 		 * 主角跳转至场景x,y处 
 		 * @param x
@@ -138,9 +137,10 @@ module egret {
 		 * 
 		 */
 		public gotoXY(x:number,y:number = 0):void{
-			if(!this.scene) return;
-			
+			if(!this.scene) 
+    			return;
 			this.scene.gotoXY(x,y);
 		}
+		
 	}
 }

@@ -1,8 +1,6 @@
 var egret;
 (function (egret) {
-    /**
-     * 主角多角色管理器
-     */
+    /**主角多角色管理器*/
     var RoleManager = (function () {
         function RoleManager() {
             //主角角色
@@ -11,23 +9,16 @@ var egret;
             this._scene = null;
             //角色目标点
             this._rolePoints = [];
-            this.addRole();
+            this.addRole(1);
             this.addRole(2);
             this.addRole(3);
-            //this.addRole();
-            //this.addRole();
         }
         var __egretProto__ = RoleManager.prototype;
-        //
         RoleManager.getInstance = function () {
             return this._instance || (this._instance = new egret.RoleManager());
         };
         Object.defineProperty(__egretProto__, "roles", {
-            //
-            /**
-             * 主角角色数组
-             * @returns {Array<ElementPlayer>}
-             */
+            /**主角角色数组*/
             get: function () {
                 return this._roles;
             },
@@ -35,11 +26,7 @@ var egret;
             configurable: true
         });
         Object.defineProperty(__egretProto__, "role", {
-            //
-            /**
-             * 主角色
-             * @returns {ElementPlayer}
-             */
+            /**主角色*/
             get: function () {
                 return this._roles[0];
             },
@@ -47,11 +34,7 @@ var egret;
             configurable: true
         });
         Object.defineProperty(__egretProto__, "isDead", {
-            //
-            /**
-             * 主角色是否死亡
-             * @returns {boolean}
-             */
+            /**主角色是否死亡*/
             get: function () {
                 return this.role.data.vo.hp <= 0;
             },
@@ -59,7 +42,6 @@ var egret;
             configurable: true
         });
         Object.defineProperty(__egretProto__, "hasAnimal", {
-            //
             /**
              * 是否有神兽
              * @returns {PlayerAnimal|SceneElementDataItem|boolean}
@@ -70,7 +52,6 @@ var egret;
             enumerable: true,
             configurable: true
         });
-        //
         /**
          * 增加角色数据
          * @param vocation
@@ -93,21 +74,18 @@ var egret;
             role.setHPStyle(egret.dataManager().pathData.getResourceUrl(egret.PathData.PATH_IMAGES_SCENE, "hp_green_bg.png"), egret.dataManager().pathData.getResourceUrl(egret.PathData.PATH_IMAGES_SCENE, "hp_green.png"), 49, 8);
             this._roles.push(role);
             if (this._roles.length > 1) {
-                var radius = 150;
-                var radian = Math.PI * 2 * Math.random();
-                var x = Math.cos(radian) * radius + this.role.x;
-                var y = Math.sin(radian) * radius + this.role.y;
-                if (this._scene)
+                if (this._scene) {
+                    var radius = 150;
+                    var radian = Math.PI * 2 * Math.random();
+                    var x = Math.cos(radian) * radius + this.role.x;
+                    var y = Math.sin(radian) * radius + this.role.y;
                     this._scene.addElement(role, egret.SceneLayerType.BIOLOGY, x, y);
+                }
                 role.chaseArmies(this.role.armies);
                 egret.globalUpdateWindows([egret.UpdateType.ADD_ROLE]);
             }
         };
-        //
-        /**
-         * 删除角色
-         * @param id 角色数据 id
-         */
+        /**删除角色*/
         __egretProto__.removeRole = function (id) {
             //主角色不回收，次角色可回收
             if (id == this.role.data.vo.id) {
@@ -129,7 +107,6 @@ var egret;
                 }
             }
         };
-        //
         /**
          * 增加神兽
          * @returns {SceneElementDataItem}
@@ -149,22 +126,17 @@ var egret;
             this._animal.chaseArmies(master.armies);
             egret.globalUpdateWindows([egret.UpdateType.ADD_ROLE]);
         };
-        //
-        /**
-         * 复活主角色
-         */
+        /**复活主角色*/
         __egretProto__.revive = function () {
             egret.dataManager().roleSceneData.resetRoleData();
             RoleManager.getInstance().updateHp();
             if (this._scene)
                 this._scene.addElement(this.role, egret.SceneLayerType.BIOLOGY, this.role.x, this.role.y);
         };
-        //
         /**
          * 设置主角坐标数据
          * @param x:int x坐标
          * @param y:int y坐标
-         *
          */
         __egretProto__.setElementPlayerXY = function (x, y) {
             if (y === void 0) { y = 0; }
@@ -175,7 +147,6 @@ var egret;
                 this._roles[i].updateXY();
             }
         };
-        //
         /**
          * 获取所有角色目标点
          * @param x 主角色目标点x
@@ -205,12 +176,10 @@ var egret;
             }
             return this._rolePoints;
         };
-        //
         /**
          * 主角移动至坐标
          * @param x:Number
          * @param y:Number
-         *
          */
         __egretProto__.moveTo = function (x, y, isCheckPart) {
             if (isCheckPart === void 0) { isCheckPart = true; }
@@ -221,12 +190,10 @@ var egret;
                 this._roles[i].moveTo(points[i].x, points[i].y, isCheckPart);
             }
         };
-        //
         /**
          * 主角移动至坐标，不寻路，移动到节点
          * @param x:Number
          * @param y:Number
-         *
          */
         __egretProto__.moveTo2 = function (x, y) {
             if (!this._scene)
@@ -236,12 +203,10 @@ var egret;
                 this._roles[i].moveTo2(points[i].x, points[i].y);
             }
         };
-        //
         /**
          * 移动至目标位置，不寻路，忽略节点数据
          * @param x:Number x坐标
          * @param y:Number y坐标
-         *
          */
         __egretProto__.moveTo3 = function (x, y) {
             if (!this._scene)
@@ -251,19 +216,13 @@ var egret;
                 this._roles[i].moveTo3(points[i].x, points[i].y);
             }
         };
-        //
-        /**
-         * 所有角色停止移动
-         */
+        /**所有角色停止移动*/
         __egretProto__.stopMove = function () {
             for (var i in this._roles) {
                 this._roles[i].stopMove();
             }
         };
-        //
-        /**
-         * 所有角色停止所有战斗行为
-         */
+        /**所有角色停止所有战斗行为*/
         __egretProto__.stopAll = function () {
             for (var i in this._roles) {
                 this._roles[i].stopAll();
@@ -293,13 +252,11 @@ var egret;
                 this._roles[i].play.apply(this._roles[i], arguments);
             }
         };
-        //
         /**
          * 显示主角
          * @param scene:SceneDriver 场景
          * @param x:Number x 坐标
          * @param y:Number y 坐标
-         *
          */
         __egretProto__.showPlayer = function (scene, x, y) {
             if (scene && this._scene != scene) {
@@ -312,11 +269,7 @@ var egret;
             this.stopMove();
             this.play(-1, egret.ActionType.PREPARE, egret.ActionMovieClipDirectionType.DOWN);
         };
-        //
-        /**
-         * 移除主角
-         *
-         */
+        /**移除主角*/
         __egretProto__.hidePlayer = function () {
             if (this._scene) {
                 this.stopMove();
@@ -326,11 +279,7 @@ var egret;
                 this._scene = null;
             }
         };
-        //
-        /**
-         * 场景切换
-         *
-         */
+        /**场景切换*/
         __egretProto__.changeScene = function (scene) {
             if (scene != this._scene)
                 return;
@@ -339,16 +288,12 @@ var egret;
                 this._roles[i].stopMove();
             }
         };
-        //
-        /**
-         * 更新血量显示
-         */
+        /**更新血量显示*/
         __egretProto__.updateHp = function () {
             for (var i in this._roles) {
                 this._roles[i].updateHp();
             }
         };
-        //
         /**
          * 换装更新
          * @param id 角色 id
@@ -370,7 +315,6 @@ var egret;
                 this._roles[i].chaseArmies(armies);
             }
         };
-        //
         /**
          * 是否为主角角色
          * @param element 角色
@@ -379,19 +323,13 @@ var egret;
         __egretProto__.isRoleInstance = function (element) {
             return this._roles.indexOf(element) > -1;
         };
-        //
-        /**
-         * 切换场景特效
-         */
+        /**切换场景特效*/
         __egretProto__.changeSceneEffect = function () {
             for (var i in this._roles) {
                 this._roles[i].changeSceneEffect();
             }
         };
-        //
-        /**
-         * 进入场景特效
-         */
+        /**进入场景特效*/
         __egretProto__.enterSceneEffect = function () {
             for (var i in this._roles) {
                 this._roles[i].enterSceneEffect();
@@ -402,3 +340,4 @@ var egret;
     egret.RoleManager = RoleManager;
     RoleManager.prototype.__class__ = "egret.RoleManager";
 })(egret || (egret = {}));
+//# sourceMappingURL=RoleManager.js.map

@@ -2,13 +2,9 @@ var egret;
 (function (egret) {
     var SceneElementDataItem = (function () {
         function SceneElementDataItem() {
-            /**
-             * 场景元素表数据
-             */
+            /**场景元素表数据 */
             this.lo = null;
-            /**
-             * 场景元素服务端数据
-             */
+            /**场景元素服务端数据 */
             this.vo = null;
         }
         var __egretProto__ = SceneElementDataItem.prototype;
@@ -32,3 +28,4 @@ var egret;
     egret.SceneElementDataItem = SceneElementDataItem;
     SceneElementDataItem.prototype.__class__ = "egret.SceneElementDataItem";
 })(egret || (egret = {}));
+//# sourceMappingURL=SceneElementDataItem.js.map

@@ -49,3 +49,4 @@ var egret;
     egret.SceneEditLo = SceneEditLo;
     SceneEditLo.prototype.__class__ = "egret.SceneEditLo";
 })(egret || (egret = {}));
+//# sourceMappingURL=SceneEditLo.js.map

@@ -2,50 +2,33 @@
 module egret {
 
 	export class SceneData{
+    	
 		/**********************以下为通用场景数据***********************/
-		/**
-		 * 当前场景类型 
-		 */		
+		/**当前场景类型 */		
 		public sceneType:number = 0;
-		/**
-		 * 当前场景 id，包括所有类型场景 
-		 */		
+		/**当前场景 id，包括所有类型场景 */		
 		public sceneId:number = 0;
+		
 		/**********************以下为城市场景数据***********************/
-		/**
-		 * 当前城市场景基础 id
-		 */		
+		/**当前城市场景基础 id*/		
 		public cityId:number = 0;
-		/**
-		 * 是否已切换场景 
-		 */		
+		/**是否已切换场景 */		
 		public isChanged:boolean = false;
 
 		//元素管理器
 		public _sceneElementManager:SceneElementManager = null;
-		/**
-		 * 普通副本怪物数据
-		 */
+		/**普通副本怪物数据*/
 		private _normalMonsterList:Array<SceneElementDataItem>;
-		/**
-		 * Boss副本怪物数据
-		 */
+		/**Boss副本怪物数据*/
 		private _bossMonsterList:Array<SceneElementDataItem>;
-		/**
-		 * 竞技场怪物数据
-		 */
+		/**竞技场怪物数据*/
 		private _arenaMonsterList:Array<SceneElementDataItem>;
-		/**
-		 * 怪物出生点缓存
-		 */
+		/**怪物出生点缓存*/
 		private _bornPoint:Point;
 		private _monsterPoint:Point;
 		//胜利次数
 		private _winCount:number = 0;
 
-		/**
-		 * 构造函数
-		 */
 		public constructor(){
 			this._bornPoint = new egret.Point();
 			this._monsterPoint = new egret.Point();
@@ -56,10 +39,8 @@ module egret {
 
 			this.initMapData();
 		}
-		//
-		/**
-		 * 初始化场景数据
-		 */
+
+		/**初始化场景数据*/
 		public initMapData():void{
 			for(var i = 1001; i < 1003; i++){
 				var lo:SceneEditLo = new SceneEditLo();
@@ -72,10 +53,8 @@ module egret {
 				IsoMapData.getInstance().setData(i,lo);
 			}
 		}
-		//
-		/**
-		 * 增加胜利次数
-		 */
+
+		/**增加胜利次数*/
 		public addWinCount():void{
 			this._winCount ++;
 
@@ -85,7 +64,7 @@ module egret {
 				globalUpdateWindows([UpdateType.COPY_MONSTER_BORN]);
 			}
 		}
-		//
+
 		/**
 		 * 获取下一个场景 id
 		 * @returns {number}
@@ -96,10 +75,9 @@ module egret {
 			if(id > 1002){
 				id = 1001;
 			}
-
 			return id;
 		}
-		//
+
 		/**
 		 * 检测是否还有敌人存在
 		 * @returns {boolean}
@@ -112,10 +90,9 @@ module egret {
 					return true;
 				}
 			}
-
 			return false;
 		}
-		//
+
 		/**
 		 * 获取当前怪物数据
 		 * @param isNew 是否生成新数据
@@ -135,10 +112,9 @@ module egret {
 					list = this.getArenaMonsterList(isNew);
 					break;
 			}
-
 			return list;
 		}
-		//
+
 		/**
 		 * 获取野外副本怪物数据
 		 * @param isNew 是否生成新数据
@@ -158,25 +134,21 @@ module egret {
 					vo.id = SceneElementData.getInstance().getAutoElementId();
 					vo.idString = vo.id + "";
 					vo.name = "怪物" + i;
-
 					vo.x = monsterPoint.x;
 					vo.y = monsterPoint.y;
-
 					vo.hp = 10000;
 					vo.hpTotal = 10000;
 
 					item.vo = vo;
-
 					item.lo = new MonsterLo();
 					item.lo.movieName = "monster_001";
 
 					this._normalMonsterList[i] = item;
 				}
 			}
-
 			return this._normalMonsterList;
 		}
-		//
+
 		/**
 		 * 获取Boss副本怪物数据
 		 * @param isNew 是否生成新数据
@@ -211,10 +183,9 @@ module egret {
 					this._bossMonsterList[i] = item;
 				}
 			}
-
 			return this._bossMonsterList;
 		}
-		//
+
 		/**
 		 * 获取怪物随机8个方向的出生坐标
 		 * @returns {Point}
@@ -222,19 +193,21 @@ module egret {
 		public getBornPoint():Point{
 			var sceneLo:SceneEditLo = IsoMapData.getInstance().getData(this.sceneId);
 
-			var index:number = Math.floor(Math.random() * 8);
+			/*var index:number = Math.floor(Math.random() * 8);
 			var radian:number = Math.PI / 4 * index;
-			var cx:number = sceneLo.width / 2;
+			var cx:number = sceneLo.width / 4;
 			var cy:number = sceneLo.height / 2;
 			var radius:number = cx > cy ? cy : cx;
 			radius *= 2/3;
 
 			this._bornPoint.x = Math.cos(radian) * radius + cx;
-			this._bornPoint.y = Math.sin(radian) * radius + cy;
+			this._bornPoint.y = Math.sin(radian) * radius + cy;*/
+            this._bornPoint.x = 200 + Math.random() * 50;
+            this._bornPoint.y = 100 + Math.random() * 200;
 
 			return this._bornPoint;
 		}
-		//
+
 		/**
 		 * 获取怪物坐标
 		 * @param point 出生坐标中心点
@@ -253,7 +226,7 @@ module egret {
 
 			return this._monsterPoint;
 		}
-		//
+
 		/**
 		 * 限制数值大小
 		 * @param min 最小值
@@ -268,10 +241,9 @@ module egret {
 			if(value > max){
 				value = max;
 			}
-
 			return value;
 		}
-		//
+
 		/**
 		 * 获取竞技场怪物数据
 		 * @param isNew
@@ -319,10 +291,9 @@ module egret {
 					this._arenaMonsterList[i] = item;
 				}
 			}
-
 			return this._arenaMonsterList;
 		}
-		//
+
 		/**
 		 * 增加神兽数据
 		 * @param skillLevel 射手神兽技能等级
@@ -340,10 +311,9 @@ module egret {
 
 			item.lo = new MonsterLo();
 			item.lo.movieName = "animal_001";
-
 			return item;
 		}
-		//
+
 		/**
 		 * 获取物品数据
 		 * @param x 物品掉落点x
@@ -389,27 +359,25 @@ module egret {
 					vo.y += gap;
 				}
 
-				vo.name = "王者戒指" + i;
+				vo.name = "金币";
 
 				item.vo = vo;
 
 				var lo:GoodsLo = new GoodsLo();
-				lo.iconId = "icon_1.jpg";
+				lo.iconId = "27";
 
 				item.lo = lo;
 
 				array.push(item);
 			}
-
 			return array;
 		}
-		//
+
 		/**
 		 * 更新场景元素vo 
 		 * @param item:SceneElementDataItem 数据
 		 * @param attr:Array 属性列表
 		 * @param values:Array 值列表
-		 * 
 		 */		
 		public updateSceneElementVo(item:SceneElementDataItem,attr:Array<any>,values:Array<any>):void{
 			if(!item.vo) return;
@@ -418,5 +386,6 @@ module egret {
 				item.vo[attr[p]] = values[p];
 			}
 		}
+		
 	}
 }

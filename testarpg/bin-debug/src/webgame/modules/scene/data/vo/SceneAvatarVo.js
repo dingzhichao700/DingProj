@@ -32,3 +32,4 @@ var egret;
     egret.SceneAvatarVo = SceneAvatarVo;
     SceneAvatarVo.prototype.__class__ = "egret.SceneAvatarVo";
 })(egret || (egret = {}));
+//# sourceMappingURL=SceneAvatarVo.js.map

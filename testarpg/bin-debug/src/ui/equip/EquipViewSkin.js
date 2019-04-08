@@ -219,3 +219,4 @@ var ui;
         EquipViewSkin.prototype.__class__ = "ui.equip.EquipViewSkin";
     })(equip = ui.equip || (ui.equip = {}));
 })(ui || (ui = {}));
+//# sourceMappingURL=EquipViewSkin.js.map

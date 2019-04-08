@@ -21,3 +21,4 @@ var egret;
     egret.BagControl = BagControl;
     BagControl.prototype.__class__ = "egret.BagControl";
 })(egret || (egret = {}));
+//# sourceMappingURL=BagControl.js.map

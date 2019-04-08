@@ -51,3 +51,4 @@ var ui;
         BagViewSkin.prototype.__class__ = "ui.bag.BagViewSkin";
     })(bag = ui.bag || (ui.bag = {}));
 })(ui || (ui = {}));
+//# sourceMappingURL=BagViewSkin.js.map

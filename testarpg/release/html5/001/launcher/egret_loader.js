@@ -33,10 +33,11 @@ egret_h5.startGame = function () {
     context.deviceContext = new egret.HTML5DeviceContext();
     context.netContext = new egret.HTML5NetContext();
 
-    egret.StageDelegate.getInstance().setDesignSize(640, 960);
+    egret.StageDelegate.getInstance().setDesignSize(1920, 1080);
     var stage = new egret.Stage();
-    //var scaleMode = egret.MainContext.deviceType == egret.MainContext.DEVICE_MOBILE ? egret.StageScaleMode.SHOW_ALL : egret.StageScaleMode.NO_SCALE;
-    stage.scaleMode = egret.StageScaleMode.SHOW_ALL;
+    //var scaleMode = egret.MainContext.deviceType == egret.MainContext.DEVICE_MOBILE ? egret.StageScaleMode.`_ALL : egret.StageScaleMode.NO_SCALE;
+//    stage.scaleMode = egret.StageScaleMode.SHOW_ALL;
+    stage.scaleMode = egret.StageScaleMode.NO_SCALE;
     stage.frameRate = 60;
     context.stage = stage;
 

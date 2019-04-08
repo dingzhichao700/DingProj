@@ -7,10 +7,12 @@
 		<e:State name="disabled"/>
 	</e:states>
 	<e:UIAsset id="imgMask" scale9Grid="4,4,24,24" width="640" height="960" source="bg_19_png"/>
-	<e:UIAsset id="imgBg" source="bg_tips_png" scale9Grid="30,20,14,29" width="400" height="428" y="220" x="112"/>
+	<e:UIAsset id="imgBg" source="bg_tips_png" scale9Grid="30,20,14,29" width="400" height="246" y="220" x="112"/>
 	<e:UIAsset width="360" height="100" y="241" x="131" source="bg_20_png" scale9Grid="4,4,4,4"/>
 	<egret:BagItem id="item" height="73" width="73" skinName="ui.bag.BagItemSkin" y="255" x="143">
 	</egret:BagItem>
 	<e:Label id="txtName" text="峨眉刺" size="24" width="205" y="261" x="227" textAlign="left"/>
 	<e:Label id="txtQuality" size="24" text="品质：白色" width="163" y="296" x="227" textAlign="left"/>
+	<e:Label id="txtDesc" textAlign="left" width="354" size="24" height="83" text="道具描述" x="135" y="364"/>
+	<e:UIAsset source="img_line1_png" scale9Grid="57,0,100,5" width="350" y="349" x="134"/>
 </e:Skin>

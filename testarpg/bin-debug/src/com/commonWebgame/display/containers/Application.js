@@ -16,11 +16,7 @@ var egret;
                 this.addEventListener(egret.Event.ADDED_TO_STAGE, this.thisAddedToStage, this);
         }
         var __egretProto__ = Application.prototype;
-        //
-        /**
-         * 应用程序添加至舞台后自动调用此方法
-         *
-         */
+        /**应用程序添加至舞台后自动调用此方法*/
         __egretProto__.initWindow = function () {
             _super.prototype.initWindow.call(this);
             if (this.stage) {
@@ -30,18 +26,12 @@ var egret;
                 egret.LogManager.warn(this, "舞台不存在，主程序有误");
             }
         };
-        //
         __egretProto__.destroy = function () {
             if (this._isDestroy)
                 return;
             _super.prototype.destroy.call(this);
         };
-        //
-        /**
-         * 添加到舞台
-         * @param e
-         *
-         */
+        /**添加到舞台*/
         __egretProto__.thisAddedToStage = function (e) {
             this.removeEventListener(egret.Event.ADDED_TO_STAGE, this.thisAddedToStage, this);
             this.initWindow();
@@ -51,3 +41,4 @@ var egret;
     egret.Application = Application;
     Application.prototype.__class__ = "egret.Application";
 })(egret || (egret = {}));
+//# sourceMappingURL=Application.js.map

@@ -35,3 +35,4 @@ var egret;
     egret.BagView = BagView;
     BagView.prototype.__class__ = "egret.BagView";
 })(egret || (egret = {}));
+//# sourceMappingURL=BagView.js.map

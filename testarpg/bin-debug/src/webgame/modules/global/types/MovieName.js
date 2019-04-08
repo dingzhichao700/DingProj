@@ -22,3 +22,4 @@ var egret;
     egret.MovieName = MovieName;
     MovieName.prototype.__class__ = "egret.MovieName";
 })(egret || (egret = {}));
+//# sourceMappingURL=MovieName.js.map

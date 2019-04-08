@@ -35,8 +35,8 @@ module egret{
          * @param color 文本颜色
          * @param size 文本大小
          */
-        public tween(container:DisplayObjectContainer,x:number,y:number,radian:number,radius:number,
-                              text:string,color:number = 0xffff00,size:number = 20):void{
+        public tween(container:DisplayObjectContainer,x:number,y:number,radian:number,radius:number, 
+            text:string,color:number = 0xffff00,size:number = 20):void{
 
             this._count ++;
 

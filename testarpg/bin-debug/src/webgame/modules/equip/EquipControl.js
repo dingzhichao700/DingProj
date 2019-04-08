@@ -21,3 +21,4 @@ var egret;
     egret.EquipControl = EquipControl;
     EquipControl.prototype.__class__ = "egret.EquipControl";
 })(egret || (egret = {}));
+//# sourceMappingURL=EquipControl.js.map

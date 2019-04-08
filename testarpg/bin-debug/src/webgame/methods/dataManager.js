@@ -9,3 +9,4 @@ var egret;
     }
     egret.dataManager = dataManager;
 })(egret || (egret = {}));
+//# sourceMappingURL=dataManager.js.map

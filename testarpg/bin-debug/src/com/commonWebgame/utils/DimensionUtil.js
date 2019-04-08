@@ -50,3 +50,4 @@ var egret;
     egret.DimensionUtil = DimensionUtil;
     DimensionUtil.prototype.__class__ = "egret.DimensionUtil";
 })(egret || (egret = {}));
+//# sourceMappingURL=DimensionUtil.js.map

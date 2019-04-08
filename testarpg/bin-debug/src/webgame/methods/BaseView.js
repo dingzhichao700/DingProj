@@ -26,3 +26,4 @@ var egret;
     egret.BaseView = BaseView;
     BaseView.prototype.__class__ = "egret.BaseView";
 })(egret || (egret = {}));
+//# sourceMappingURL=BaseView.js.map

@@ -19,10 +19,7 @@ var egret;
             if (skillType === void 0) { skillType = 0; }
             return 300;
         };
-        //
-        /**
-         * 玩家攻击方法
-         */
+        /**玩家攻击方法*/
         __egretProto__.attack = function () {
             if (this._isLocked)
                 return;
@@ -122,3 +119,4 @@ var egret;
     egret.PlayerBowman = PlayerBowman;
     PlayerBowman.prototype.__class__ = "egret.PlayerBowman";
 })(egret || (egret = {}));
+//# sourceMappingURL=PlayerBowman.js.map

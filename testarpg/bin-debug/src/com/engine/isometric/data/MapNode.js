@@ -27,3 +27,4 @@ var egret;
     egret.MapNode = MapNode;
     MapNode.prototype.__class__ = "egret.MapNode";
 })(egret || (egret = {}));
+//# sourceMappingURL=MapNode.js.map

@@ -11,3 +11,4 @@ var egret;
     }
     egret.getRes = getRes;
 })(egret || (egret = {}));
+//# sourceMappingURL=getRes.js.map

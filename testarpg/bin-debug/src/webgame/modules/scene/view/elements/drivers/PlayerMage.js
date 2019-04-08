@@ -191,3 +191,4 @@ var egret;
     egret.PlayerMage = PlayerMage;
     PlayerMage.prototype.__class__ = "egret.PlayerMage";
 })(egret || (egret = {}));
+//# sourceMappingURL=PlayerMage.js.map

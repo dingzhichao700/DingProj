@@ -133,7 +133,7 @@ module egret {
 			return this._data;
 		}
 		
-		/**场景元素数据*/		
+		/**场景元素数据*/
 		public set data(value:SceneElementDataItem){
 			this.setData(value);
 		}

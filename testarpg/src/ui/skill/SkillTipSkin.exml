@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin width="640" height="960" xmlns:e="http://ns.egret-labs.org/egret" xmlns:w="http://ns.egret-labs.org/wing" xmlns:egret="egret.*">
+	<w:HostComponent name="egret.gui.SkinnableComponent"/>
+	<w:Declarations/>
+	<e:states>
+		<e:State name="normal"/>
+		<e:State name="disabled"/>
+	</e:states>
+	<e:UIAsset scale9Grid="4,4,24,24" width="640" source="bg_19_png" height="960" id="imgMask" x="0" y="0"/>
+	<e:UIAsset source="bg_tips_png" id="imgBg" scale9Grid="30,20,14,29" width="400" height="246" x="112" y="220"/>
+	<e:Label textAlign="left" width="205" size="24" id="txtName" x="227" text="技能名" y="262"/>
+	<e:UIAsset source="img_line1_png" scale9Grid="57,0,100,5" width="350" x="134" y="327"/>
+	<e:Label id="txtDesc" size="24" textAlign="left" width="340" height="83" y="354" x="143" text="技能描述"/>
+	<egret:WuhunItem id="item" height="80" width="80" x="139" skinName="ui.wuhun.WuhunItemSkin" y="234"/>
+</e:Skin>

@@ -57,3 +57,4 @@ var egret;
     egret.TimerScriptItem = TimerScriptItem;
     TimerScriptItem.prototype.__class__ = "egret.TimerScriptItem";
 })(egret || (egret = {}));
+//# sourceMappingURL=TimerScriptItem.js.map

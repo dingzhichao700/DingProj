@@ -234,3 +234,4 @@ var egret;
     egret.QueueLoader = QueueLoader;
     QueueLoader.prototype.__class__ = "egret.QueueLoader";
 })(egret || (egret = {}));
+//# sourceMappingURL=QueueLoader.js.map

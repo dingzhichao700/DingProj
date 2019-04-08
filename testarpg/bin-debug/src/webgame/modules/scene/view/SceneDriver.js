@@ -2,9 +2,6 @@ var egret;
 (function (egret) {
     var SceneDriver = (function (_super) {
         __extends(SceneDriver, _super);
-        /**
-         * 构造函数
-         */
         function SceneDriver() {
             _super.call(this);
             //导航数据
@@ -25,11 +22,7 @@ var egret;
             this._navigatorItems = [];
         }
         var __egretProto__ = SceneDriver.prototype;
-        //
-        /**
-         * 加载场景地图数据
-         *
-         */
+        /**加载场景地图数据*/
         __egretProto__.loadData = function (id) {
             this._mapId = id;
             var lo = egret.IsoMapData.getInstance().getData(id);
@@ -44,7 +37,6 @@ var egret;
                 egret.ResoureManager.getInstance().loadMapData(url, id, this.loadCompleteData, this);
             }
         };
-        //
         /**
          * 主角跳转至场景x,y处
          * @param x
@@ -57,16 +49,10 @@ var egret;
             //(<Role><any> (this._role)).showPlayer(this,x,y);
             egret.RoleManager.getInstance().showPlayer(this, x, y);
         };
-        //
-        /**
-         * 加载场景地图数据完成
-         * @param loadDataItem
-         *
-         */
+        /**加载场景地图数据完成 */
         __egretProto__.loadCompleteData = function () {
             this.loadData(this._mapId);
         };
-        //
         __egretProto__.initData = function (data) {
             _super.prototype.initData.call(this, data);
             //Role.getInstance().hidePlayer();
@@ -75,7 +61,6 @@ var egret;
             this.setRole(egret.RoleManager.getInstance().role);
             egret.TimerManager.getInstance().addExecute(this.changeScene, this, 1000, null, 1);
         };
-        //
         /**
          * 设置主角场景元素，应在初始化数据后设置
          * @param role:ElementPlayer 主角场景元素
@@ -91,7 +76,6 @@ var egret;
         /**
          * 调用 stopMove() 时回调函数
          * @param target
-         *
          */
         __egretProto__.onStopMove = function (target) {
         };
@@ -103,13 +87,11 @@ var egret;
         __egretProto__.nodeChanged = function (target) {
             return true;
         };
-        //
         /**
          * 移动场景元素
          * @param id:String 元素id(lo或vo的id)
          * @param x:int
          * @param y:int
-         *
          */
         __egretProto__.moveElement = function (id, x, y) {
             if (y === void 0) { y = 0; }
@@ -119,11 +101,9 @@ var egret;
                 mover.moveTo(x, y);
             }
         };
-        //
         /**
          * 导航至当前场景中的元素，元素可以是非固定场景元素
          * @param id:Number 元素lo或vo中的id
-         *
          */
         __egretProto__.navigateToElement = function (id) {
             if (!this._currentNaviItem) {
@@ -133,12 +113,10 @@ var egret;
             var point = this.getElementPoint(id + "");
             this.navigateTo(point.x, point.y);
         };
-        //
         /**
          * 导航至当前场景中的坐标
          * @param x:Number
          * @param y:Number
-         *
          */
         __egretProto__.navigateTo = function (x, y) {
             if (this.checkArriveNaviPoint())
@@ -154,7 +132,6 @@ var egret;
             egret.RoleManager.getInstance().moveTo3(x, y);
             this._isoMap.setCurrentMapXY(x, y);
         };
-        //
         /**
          * 跨场景导航
          * @param sceneId:Number = -1 场景id，指定此参数时，elementId参数无效，可指定x,y
@@ -169,23 +146,14 @@ var egret;
             if (x === void 0) { x = -1; }
             if (y === void 0) { y = -1; }
         };
-        //
         __egretProto__.navigateToItem = function (naviItem) {
             this.navigate(naviItem.sceneId, naviItem.elementId, naviItem.x, naviItem.y);
         };
-        //
-        /**
-         * 主角移动
-         *
-         */
+        /**主角移动*/
         __egretProto__.roleMoving = function () {
             this._isoMap.setMapXY(this._roleOffsetX - this._role.x, this._roleOffsetY - this._role.y);
         };
-        //
-        /**
-         * 清空场景
-         *
-         */
+        /**清空场景*/
         __egretProto__.clearScene = function () {
             _super.prototype.clearScene.call(this);
             this._currentNaviItem = null;
@@ -193,11 +161,9 @@ var egret;
             //	(<Role><any> (this._role)).changeScene(this);
             egret.RoleManager.getInstance().changeScene(this);
         };
-        //
         /**
          * 根据导航数据进行导航
          * @param items:Array 导航数据数组
-         *
          */
         __egretProto__.navigateByItems = function (items) {
             if (!items) {
@@ -208,11 +174,7 @@ var egret;
             this._navigateIndex = -1;
             this.navigateToNextItem();
         };
-        //
-        /**
-         * 进行下一个导航点
-         *
-         */
+        /**进行下一个导航点*/
         __egretProto__.navigateToNextItem = function () {
             this._navigateIndex++;
             if (this._navigateIndex >= this._navigatorItems.length) {
@@ -236,7 +198,6 @@ var egret;
                 egret.LogManager.error(this, "导航数据有误");
             }
         };
-        //
         __egretProto__.addEvents = function () {
             _super.prototype.addEvents.call(this);
             var container = this._isoMap.getLayerContainer(egret.SceneLayerType.BIOLOGY);
@@ -244,7 +205,6 @@ var egret;
             //按下即走，点击不处理
             this._isoMap.addEventListener(egret.IsoMapEvent.ISO_MAP_MOVING_START, this.isoMapTileMovingStart, this);
         };
-        //
         __egretProto__.remove = function () {
             _super.prototype.remove.call(this);
             var container = this._isoMap.getLayerContainer(egret.SceneLayerType.BIOLOGY);
@@ -256,11 +216,9 @@ var egret;
                 this._role.onStopMove = null;
             }
         };
-        //
         /**
          * 更新动态场景元素坐标为数据中的坐标，若未渲染则渲染此元素，若坐标已不在渲染区域，则移除此元素
          * @param item:SceneElementDataItem 场景元素数据
-         *
          */
         __egretProto__.updateElement = function (item) {
             var rect = this._isoMap.renderRect;
@@ -277,7 +235,6 @@ var egret;
             else {
             }
         };
-        //
         /**
          * 添加场景元素
          * @param target:DisplayObject 场景元素
@@ -299,7 +256,6 @@ var egret;
             }
             return mover;
         };
-        //
         /**
          * 移除场景元素
          * @param target:DisplayObject 场景元素
@@ -319,7 +275,6 @@ var egret;
             }
             return mover;
         };
-        //
         /**
          * 点击场景元素
          * @param target:SceneElement 场景元素
@@ -335,7 +290,6 @@ var egret;
          */
         __egretProto__.elementMovingEnd = function (target) {
         };
-        //
         /**
          * 获取场景元素坐标点
          * @return
@@ -344,33 +298,18 @@ var egret;
         __egretProto__.getElementPoint = function (id) {
             return null;
         };
-        //
-        /**
-         * 生物层点击
-         * @param e
-         *
-         */
+        /**生物层点击 */
         __egretProto__.biologyContainerClick = function (e) {
             var target = (e.target);
             if (target)
                 this.clickElement(target);
         };
-        //
-        /**
-         * 持续按下鼠标
-         * @param event
-         *
-         */
+        /**持续按下鼠标 */
         __egretProto__.isoMapTileMovingStart = function (event) {
             return;
             this.startMove();
         };
-        //
-        /**
-         * 检测是否已到达导航点
-         * @return
-         *
-         */
+        /**检测是否已到达导航点*/
         __egretProto__.checkArriveNaviPoint = function (elementId) {
             if (elementId === void 0) { elementId = 0; }
             if (elementId != 0) {
@@ -402,11 +341,7 @@ var egret;
             }
             return false;
         };
-        //
-        /**
-         * 玩家主动开始移动
-         *
-         */
+        /** 玩家主动开始移动 */
         __egretProto__.startMove = function () {
             this._currentNaviItem = null;
             this._lastNaviPoint.x = 0;
@@ -418,7 +353,6 @@ var egret;
                 egret.RoleManager.getInstance().moveTo3(this._isoMap.currentMapX, this._isoMap.currentMapY);
             }
         };
-        //
         /**
          * 主角线路改变
          * @param event
@@ -427,24 +361,15 @@ var egret;
         __egretProto__.sceneElementPathChanged = function (event) {
             _super.prototype.sceneElementPathChanged.call(this, event);
         };
-        //
-        /**
-         * 场景改变时处理
-         *
-         */
+        /**场景改变时处理 */
         __egretProto__.changeScene = function () {
         };
-        /**
-         * 检测鼠标点击影片加载完成时
-         *
-         */
+        /**检测鼠标点击影片加载完成时 */
         __egretProto__.checkMousePoint = function () {
         };
-        //
         /**
          * 移除一个玩家
          * @param id
-         *
          */
         __egretProto__.removePlayer = function (id) {
         };
@@ -453,3 +378,4 @@ var egret;
     egret.SceneDriver = SceneDriver;
     SceneDriver.prototype.__class__ = "egret.SceneDriver";
 })(egret || (egret = {}));
+//# sourceMappingURL=SceneDriver.js.map

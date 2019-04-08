@@ -7,7 +7,7 @@
 		<e:State name="disabled"/>
 	</e:states>
 	<egret:BasePanel id="window" height="200" width="200" skinName="ui.WindowViewSkin"/>
-	<e:UIAsset source="bg_21_png" scale9Grid="3,3,24,24" x="57" y="83" width="515" height="600" locked="true"/>
+	<e:UIAsset source="bg_21_png" scale9Grid="3,3,24,24" x="57" y="83" width="515" height="600"/>
 	<e:UIAsset source="role_bg_jpg" x="63" y="152"/>
 	<e:Group width="240" height="400" id="boxCon" x="193" y="209"/>
 	<egret:BagItem id="item_1" width="80" height="80" skinName="ui.bag.BagItemSkin" y="130" x="72"/>

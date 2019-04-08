@@ -21,3 +21,4 @@ var egret;
     egret.PathType = PathType;
     PathType.prototype.__class__ = "egret.PathType";
 })(egret || (egret = {}));
+//# sourceMappingURL=PathType.js.map

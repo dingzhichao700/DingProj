@@ -32,3 +32,4 @@ var egret;
     egret.DataManager = DataManager;
     DataManager.prototype.__class__ = "egret.DataManager";
 })(egret || (egret = {}));
+//# sourceMappingURL=DataManager.js.map

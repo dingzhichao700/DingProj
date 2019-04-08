@@ -9,7 +9,8 @@ module egret {
         private imgMask:egret.gui.UIAsset;
         private item:BagItem;
         private txtName: egret.gui.Label;
-        private txtQuality: egret.gui.Label;
+        private txtQuality: egret.gui.Label; 
+        private txtDesc: egret.gui.Label; 
         private _id:number;
         
         public constructor() {
@@ -39,6 +40,7 @@ module egret {
                 this.item.itemId = this._id;
                 this.txtName.text = cfg.name;
                 this.txtQuality.text = "品质：" + ItemManager.getInstance().getQuaByType(cfg.quality);
+                this.txtDesc.text = cfg.desc;
             }
         }
         

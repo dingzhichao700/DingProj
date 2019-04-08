@@ -243,3 +243,4 @@ var egret;
     egret.FightData = FightData;
     FightData.prototype.__class__ = "egret.FightData";
 })(egret || (egret = {}));
+//# sourceMappingURL=FightData.js.map

@@ -25,3 +25,4 @@ var egret;
     egret.SceneNavigatorDataItem = SceneNavigatorDataItem;
     SceneNavigatorDataItem.prototype.__class__ = "egret.SceneNavigatorDataItem";
 })(egret || (egret = {}));
+//# sourceMappingURL=SceneNavigatorDataItem.js.map

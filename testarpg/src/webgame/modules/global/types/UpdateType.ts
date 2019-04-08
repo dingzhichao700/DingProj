@@ -78,7 +78,12 @@ module egret{
          * 伤害生命变化
          * @type {number}
          */
-        public static DAMAGE_HP_CHANGE:number = 705;
+        public static DAMAGE_HP_CHANGE: number = 705;
+        /**
+         * 切换斗罗之路副本
+         * @type {number}
+         */
+        public static CHANGE_SOULROAD: number = 706;
         /**
          * 切换副本
          * @type {number}

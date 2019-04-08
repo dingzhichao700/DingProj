@@ -21,3 +21,4 @@ var egret;
     egret.MountedType = MountedType;
     MountedType.prototype.__class__ = "egret.MountedType";
 })(egret || (egret = {}));
+//# sourceMappingURL=MountedType.js.map

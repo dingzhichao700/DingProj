@@ -39,27 +39,27 @@ var ui;
             };
             __egretProto__.__14_i = function () {
                 var t = new egret.gui.UIAsset();
-                this.__s(t, ["source", "width", "x", "y"], ["bg_mainbottom_png", 531, 55, 60]);
+                this.__s(t, ["source", "width", "x", "y"], ["bg_mainbottom_png", 531, 55, -83]);
                 return t;
             };
             __egretProto__.__15_i = function () {
                 var t = new egret.gui.UIAsset();
-                this.__s(t, ["scale9Grid", "source", "width", "x", "y"], [egret.gui.getScale9Grid("11,1,68,7"), "main_bottomBar_png", 499, 67, 134]);
+                this.__s(t, ["scale9Grid", "source", "width", "x", "y"], [egret.gui.getScale9Grid("11,1,68,7"), "main_bottomBar_png", 499, 67, -9]);
                 return t;
             };
             __egretProto__.__16_i = function () {
                 var t = new egret.gui.UIAsset();
-                this.__s(t, ["source", "x", "y"], ["lock_exppool_png", 527, 0]);
+                this.__s(t, ["source", "x", "y"], ["lock_exppool_png", 527, -143]);
                 return t;
             };
             __egretProto__.__17_i = function () {
                 var t = new egret.gui.UIAsset();
-                this.__s(t, ["source", "x", "y"], ["bg_5_png", 537, 27]);
+                this.__s(t, ["source", "x", "y"], ["bg_5_png", 537, -116]);
                 return t;
             };
             __egretProto__.__18_i = function () {
                 var t = new egret.gui.UIAsset();
-                this.__s(t, ["source", "x", "y"], ["label_exppool_png", 526, 111]);
+                this.__s(t, ["source", "x", "y"], ["label_exppool_png", 526, -32]);
                 return t;
             };
             __egretProto__.__3_i = function () {
@@ -100,8 +100,14 @@ var ui;
             __egretProto__.boxBottom_i = function () {
                 var t = new egret.gui.Group();
                 this.boxBottom = t;
-                this.__s(t, ["x", "y"], [0, 817]);
-                t.elementsContent = [this.__14_i(), this.__15_i(), this.__16_i(), this.btnSoulRoad_i(), this.btnWuhun_i(), this.btnBag_i(), this.btnEquip_i(), this.btnSkill_i(), this.__17_i(), this.__18_i()];
+                this.__s(t, ["x", "y"], [0, 960]);
+                t.elementsContent = [this.__14_i(), this.__15_i(), this.__16_i(), this.btnSoulRoad_i(), this.btnWuhun_i(), this.btnBag_i(), this.btnEquip_i(), this.btnSkill_i(), this.__17_i(), this.__18_i(), this.boxCon_i(), this.txtExp_i()];
+                return t;
+            };
+            __egretProto__.boxCon_i = function () {
+                var t = new egret.gui.Group();
+                this.boxCon = t;
+                this.__s(t, ["height", "width", "x", "y"], [200, 200, 507, -149]);
                 return t;
             };
             __egretProto__.boxTop_i = function () {
@@ -114,31 +120,31 @@ var ui;
             __egretProto__.btnBag_i = function () {
                 var t = new egret.gui.UIAsset();
                 this.btnBag = t;
-                this.__s(t, ["source", "x", "y"], ["btn_beibao_png", 247, 58]);
+                this.__s(t, ["source", "x", "y"], ["btn_beibao_png", 247, -85]);
                 return t;
             };
             __egretProto__.btnEquip_i = function () {
                 var t = new egret.gui.UIAsset();
                 this.btnEquip = t;
-                this.__s(t, ["source", "x", "y"], ["btn_renwu_png", 338, 61]);
+                this.__s(t, ["source", "x", "y"], ["btn_renwu_png", 338, -82]);
                 return t;
             };
             __egretProto__.btnSkill_i = function () {
                 var t = new egret.gui.UIAsset();
                 this.btnSkill = t;
-                this.__s(t, ["source", "x", "y"], ["btn_skill_png", 427, 62]);
+                this.__s(t, ["source", "x", "y"], ["btn_skill_png", 427, -81]);
                 return t;
             };
             __egretProto__.btnSoulRoad_i = function () {
                 var t = new egret.gui.UIAsset();
                 this.btnSoulRoad = t;
-                this.__s(t, ["source", "x", "y"], ["soulRoad_gray_png", 0, 3]);
+                this.__s(t, ["source", "x", "y"], ["soulRoad_gray_png", 0, -140]);
                 return t;
             };
             __egretProto__.btnWuhun_i = function () {
                 var t = new egret.gui.UIAsset();
                 this.btnWuhun = t;
-                this.__s(t, ["source", "x", "y"], ["btn_jineng_png", 145, 59]);
+                this.__s(t, ["source", "x", "y"], ["btn_jineng_png", 145, -84]);
                 return t;
             };
             __egretProto__.__10_i = function () {
@@ -158,6 +164,12 @@ var ui;
                 this.__s(t, ["fontFamily", "size", "text", "width", "x", "y"], ["Arial", 15, "10311", 82, 537, 13]);
                 return t;
             };
+            __egretProto__.txtExp_i = function () {
+                var t = new egret.gui.Label();
+                this.txtExp = t;
+                this.__s(t, ["fontFamily", "text", "textAlign", "width", "x", "y"], ["宋体", "3%", "center", 87, 541, -85]);
+                return t;
+            };
             __egretProto__.txtName_i = function () {
                 var t = new egret.gui.Label();
                 this.txtName = t;
@@ -170,10 +182,11 @@ var ui;
                 this.__s(t, ["fontFamily", "italic", "size", "text", "textAlign", "textColor", "width", "x", "y"], ["Arial", true, 24, "31417", "left", 0xFFE97C, 161, 139, 10]);
                 return t;
             };
-            MainViewSkin._skinParts = ["txtName", "txtScore", "txtCoin", "txtAchi", "boxTop", "btnSoulRoad", "btnWuhun", "btnBag", "btnEquip", "btnSkill", "boxBottom"];
+            MainViewSkin._skinParts = ["txtName", "txtScore", "txtCoin", "txtAchi", "boxTop", "btnSoulRoad", "btnWuhun", "btnBag", "btnEquip", "btnSkill", "boxCon", "txtExp", "boxBottom"];
             return MainViewSkin;
         })(egret.gui.Skin);
         main.MainViewSkin = MainViewSkin;
         MainViewSkin.prototype.__class__ = "ui.main.MainViewSkin";
     })(main = ui.main || (ui.main = {}));
 })(ui || (ui = {}));
+//# sourceMappingURL=MainViewSkin.js.map

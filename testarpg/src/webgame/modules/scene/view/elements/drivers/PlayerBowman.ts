@@ -19,10 +19,8 @@ module egret{
         public getAttackRange(skillType:number = 0):number{
             return 300;
         }
-        //
-        /**
-         * 玩家攻击方法
-         */
+        
+        /**玩家攻击方法*/
         public attack():void{
             if(this._isLocked) return;
             if(this.isSkillStatus) return;

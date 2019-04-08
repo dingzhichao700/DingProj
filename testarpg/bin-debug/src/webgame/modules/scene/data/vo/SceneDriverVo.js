@@ -24,3 +24,4 @@ var egret;
     egret.SceneDriverVo = SceneDriverVo;
     SceneDriverVo.prototype.__class__ = "egret.SceneDriverVo";
 })(egret || (egret = {}));
+//# sourceMappingURL=SceneDriverVo.js.map

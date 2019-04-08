@@ -260,3 +260,4 @@ var egret;
     egret.Window = Window;
     Window.prototype.__class__ = "egret.Window";
 })(egret || (egret = {}));
+//# sourceMappingURL=Window.js.map

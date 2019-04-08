@@ -47,3 +47,4 @@ var egret;
     egret.NumberUtil = NumberUtil;
     NumberUtil.prototype.__class__ = "egret.NumberUtil";
 })(egret || (egret = {}));
+//# sourceMappingURL=NumberUtil.js.map

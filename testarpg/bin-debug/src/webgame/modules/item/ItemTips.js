@@ -32,6 +32,7 @@ var egret;
                 this.item.itemId = this._id;
                 this.txtName.text = cfg.name;
                 this.txtQuality.text = "品质：" + egret.ItemManager.getInstance().getQuaByType(cfg.quality);
+                this.txtDesc.text = cfg.desc;
             }
         };
         return ItemTips;
@@ -39,3 +40,4 @@ var egret;
     egret.ItemTips = ItemTips;
     ItemTips.prototype.__class__ = "egret.ItemTips";
 })(egret || (egret = {}));
+//# sourceMappingURL=ItemTips.js.map

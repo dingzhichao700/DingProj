@@ -570,3 +570,4 @@ var egret;
     egret.PieceMap2 = PieceMap2;
     PieceMap2.prototype.__class__ = "egret.PieceMap2";
 })(egret || (egret = {}));
+//# sourceMappingURL=PieceMap2.js.map

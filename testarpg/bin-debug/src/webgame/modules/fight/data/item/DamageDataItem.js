@@ -35,3 +35,4 @@ var egret;
     egret.DamageDataItem = DamageDataItem;
     DamageDataItem.prototype.__class__ = "egret.DamageDataItem";
 })(egret || (egret = {}));
+//# sourceMappingURL=DamageDataItem.js.map

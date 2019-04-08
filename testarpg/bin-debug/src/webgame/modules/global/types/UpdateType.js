@@ -84,6 +84,11 @@ var egret;
          */
         UpdateType.DAMAGE_HP_CHANGE = 705;
         /**
+         * 切换斗罗之路副本
+         * @type {number}
+         */
+        UpdateType.CHANGE_SOULROAD = 706;
+        /**
          * 切换副本
          * @type {number}
          */
@@ -108,3 +113,4 @@ var egret;
     egret.UpdateType = UpdateType;
     UpdateType.prototype.__class__ = "egret.UpdateType";
 })(egret || (egret = {}));
+//# sourceMappingURL=UpdateType.js.map

@@ -11,6 +11,7 @@ var egret;
             /**窗口的容器*/
             this.gameCon = null;
             this.layer_ui = null;
+            this.layer_mask = null;
             this.layer_window_1 = null;
             this.layer_window_2 = null;
             this.layer_tip = null;
@@ -48,7 +49,6 @@ var egret;
             enumerable: true,
             configurable: true
         });
-        //
         /**
          * 初始化主程序和舞台，若多次调用，上次调用时已存在的相关数据将清空，如已保存的而未销毁的窗口
          * @param application:Application 应用程序
@@ -61,7 +61,8 @@ var egret;
             this.application = application;
             if (!this.stage) {
                 this.stage = application.stage;
-                this.stage.addEventListener(egret.Event.RESIZE, this.onResize, this);
+                this.stage.addEventListener(egret.Event.RESIZE, this.resizeHandler, this);
+                this.onResize();
             }
             //以下为重置数据
             //点击某个对象时，对象成为舞台焦点，当焦点一直不变时此属性将一直引用之前的对象，有可能导致内存泄漏
@@ -86,22 +87,33 @@ var egret;
             this.removeTimer();
         };
         /**舞台尺寸更改理 */
-        __egretProto__.onResize = function (e) {
-            for (var key in this._layerHashMap.content) {
-                this.setModel(this._layerHashMap.get(key), key);
+        __egretProto__.resizeHandler = function (e) {
+            this.onResize();
+        };
+        __egretProto__.onResize = function () {
+            /*for(var key in this._layerHashMap.content){
+                this.setModel(this._layerHashMap.get(key),key);
             }
-            for (key in this._alignHashMap.content) {
+            for(key in this._alignHashMap.content){
                 this.layout(key);
+            }*/
+            var contentW = ApplicationManager.CONTENT_W;
+            var contentH = ApplicationManager.CONTENT_H;
+            var windowW = document.documentElement.clientWidth;
+            var windowH = document.documentElement.clientHeight;
+            var ratioContent = contentH / contentW;
+            var ratioWindow = windowH / windowW;
+            var scale;
+            if (ratioWindow >= ratioContent) {
+                scale = windowW / contentW;
             }
-            /*var contentW: number = 640;
-            var contentH: number = 960;
-            var windowW: number = document.documentElement.clientWidth;
-            var windowH: number = document.documentElement.clientHeight;
-            var scale: number = contentH / windowH;
-            
-            this.gameCon.scaleX = this.gameCon.scaleY = scale;
-            this.gameCon.x = (windowW - contentW * scale) / 2;
-            this.gameCon.y = (windowH - contentH * scale) / 2;*/
+            else {
+                scale = windowH / contentH;
+            }
+            this.globalScale = scale;
+            this.application.scaleX = this.application.scaleY = scale;
+            this.application.x = (windowW - contentW * scale) / 2;
+            this.application.y = (windowH - contentH * scale) / 2;
         };
         /**
          * 获取应用程序中的层级容器，容器层级会自动调整到层级所在位置
@@ -128,10 +140,15 @@ var egret;
                     this.application.setChildIndex(this._layerHashMap.get(keys[i]), i);
                 }
             }
+            return container;
+        };
+        __egretProto__.initLayer = function () {
             if (!this.gameCon) {
                 this.gameCon = new egret.Sprite();
                 this.layer_ui = new egret.Sprite();
                 this.gameCon.addChild(this.layer_ui);
+                this.layer_mask = new egret.Sprite();
+                this.gameCon.addChild(this.layer_mask);
                 this.layer_window_1 = new egret.Sprite();
                 this.gameCon.addChild(this.layer_window_1);
                 this.layer_window_2 = new egret.Sprite();
@@ -142,9 +159,7 @@ var egret;
                 this.gameCon.addChild(this.layer_guide);
             }
             this.application.addChild(this.gameCon);
-            return container;
         };
-        //
         /**
          * 打开显示对象类，并显示在舞台上，并返回显示对象实例 ，如果是IWindow对象将自动调用initWindow()或recall()方法
          * @param targetClass:Class 显示对象类名称
@@ -227,7 +242,6 @@ var egret;
                 this.dispatchEvent(new egret.ApplicationEvent(egret.ApplicationEvent.WINDOW_OPEN, false, false, win));
             return win;
         };
-        //
         /**
          * 将显示对象从舞台上移除，若存在remove()将自动调用此方法
          * @param target:* 值为实例时，只对当前实例做处理，值为类时将对此类的所有实例进行处理
@@ -257,14 +271,12 @@ var egret;
                     this.dispatchEvent(new egret.ApplicationEvent(egret.ApplicationEvent.WINDOW_CLOSE, false, false, target));
             }
         };
-        //
         /**
          * 获取显示对象类的实例，不存在时返回null
          * @param targetClass:Class 显示对象类
          * @param addedToStage:Boolean = false 是否已添加到舞台
          * @param name:String = null 实例名称，使用默认值时不检测名称
          * @return
-         *
          */
         __egretProto__.getTargetInstance = function (targetClass, addedToStage, name) {
             if (addedToStage === void 0) { addedToStage = false; }
@@ -302,12 +314,9 @@ var egret;
             }
             return result;
         };
-        //
         /**
          * 打开的窗口中是否存在类实例，仅能获知通过open()打开的窗口对象
          * @param args 类列表
-         * @return
-         *
          */
         __egretProto__.hasInstance = function () {
             var args = [];
@@ -324,7 +333,6 @@ var egret;
             }
             return false;
         };
-        //
         /**
          * 全局更新，调用已注册相关全局更新类型的IWindow的globalUpdate()方法，对象不在舞台时忽略
          * @param updateTypes:Array 全局更新类型
@@ -361,7 +369,6 @@ var egret;
                 }
             }
         };
-        //
         /**
          * 局部更新，调用目标对象的update()方法 ,对象不在舞台时忽略
          * @param targets:Array 类对象数组或实例对象数组
@@ -391,7 +398,6 @@ var egret;
                 }
             }
         };
-        //
         /**
          * 设置显示对象对齐方式 ，取消对齐方式或取删除相关对齐方式引用align使用AlignType.NON，
          * 用此方法设置对齐的并且不是IWindow对象或子类对象，对象不使用时要主动删除相关引用，否则会导致内存泄漏
@@ -432,7 +438,6 @@ var egret;
             this._alignHashMap.put(target.hashCode, data);
             this.layout(target);
         };
-        //
         /**
          * 布局显示对象
          * @param target:DisplayObject 显示对象
@@ -498,7 +503,6 @@ var egret;
             target.x = x;
             target.y = y;
         };
-        //
         /**
          * 设置显示对象在舞台上的层级并添加到显示列表中，
          * 用此方法显示而非用open()打开的并且不是IWindow对象或子类对象，要用hide()方法删除相关引用，否则会导致内存泄漏
@@ -527,7 +531,6 @@ var egret;
             this.setAlign(target, align, top, bottom, left, right);
             this.setModel(container, layerType);
         };
-        //
         /**
          * 从舞台上移除显示对象
          * @param target:DisplayObject 已呈现在舞台上的显示对象
@@ -726,6 +729,9 @@ var egret;
                 case egret.BasePanel.LAYER_UI:
                     targetLayer = this.layer_ui;
                     break;
+                case egret.BasePanel.LAYER_MASK:
+                    targetLayer = this.layer_mask;
+                    break;
                 case egret.BasePanel.LAYER_WINDOW_1:
                     targetLayer = this.layer_window_1;
                     break;
@@ -740,12 +746,16 @@ var egret;
                     break;
             }
             targetLayer.addChild(view);
+            view.openEnd();
         };
         __egretProto__.closeView = function (view) {
             var targetLayer = null;
             switch (view.layerType) {
                 case egret.BasePanel.LAYER_UI:
                     targetLayer = this.layer_ui;
+                    break;
+                case egret.BasePanel.LAYER_MASK:
+                    targetLayer = this.layer_mask;
                     break;
                 case egret.BasePanel.LAYER_WINDOW_1:
                     targetLayer = this.layer_window_1;
@@ -763,12 +773,15 @@ var egret;
             if (targetLayer.contains(view)) {
                 targetLayer.removeChild(view);
             }
+            view.isOpen = false;
             view.onClose();
         };
-        //单例
+        ApplicationManager.CONTENT_W = 640;
+        ApplicationManager.CONTENT_H = 960;
         ApplicationManager._instance = null;
         return ApplicationManager;
     })(egret.EventDispatcher);
     egret.ApplicationManager = ApplicationManager;
     ApplicationManager.prototype.__class__ = "egret.ApplicationManager";
 })(egret || (egret = {}));
+//# sourceMappingURL=ApplicationManager.js.map

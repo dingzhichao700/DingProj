@@ -1,8 +1,3 @@
-/**
- *
- * @author
- *
- */
 var egret;
 (function (egret) {
     var SoulRoadView = (function (_super) {
@@ -25,19 +20,19 @@ var egret;
         __egretProto__.openFight = function (e) {
             switch (e.currentTarget) {
                 case this.img_1:
-                    egret.globalUpdateWindows([egret.UpdateType.CHANGE_COPY]);
+                    egret.globalUpdateWindows([egret.UpdateType.CHANGE_SOULROAD]);
                     break;
                 case this.img_2:
-                    egret.globalUpdateWindows([egret.UpdateType.CHANGE_COPY]);
+                    egret.globalUpdateWindows([egret.UpdateType.CHANGE_SOULROAD]);
                     break;
                 case this.img_3:
-                    egret.globalUpdateWindows([egret.UpdateType.CHANGE_COPY]);
+                    egret.globalUpdateWindows([egret.UpdateType.CHANGE_SOULROAD]);
                     break;
                 case this.img_4:
-                    egret.globalUpdateWindows([egret.UpdateType.CHANGE_COPY]);
+                    egret.globalUpdateWindows([egret.UpdateType.CHANGE_SOULROAD]);
                     break;
                 case this.img_5:
-                    egret.globalUpdateWindows([egret.UpdateType.CHANGE_COPY]);
+                    egret.globalUpdateWindows([egret.UpdateType.CHANGE_SOULROAD]);
                     break;
             }
             this.close();
@@ -47,3 +42,4 @@ var egret;
     egret.SoulRoadView = SoulRoadView;
     SoulRoadView.prototype.__class__ = "egret.SoulRoadView";
 })(egret || (egret = {}));
+//# sourceMappingURL=SoulRoadView.js.map

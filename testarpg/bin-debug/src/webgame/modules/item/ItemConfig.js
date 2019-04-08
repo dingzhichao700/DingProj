@@ -5,6 +5,7 @@ var egret;
             this.id = 0;
             this.name = "";
             this.quality = 0;
+            this.desc = "";
         }
         var __egretProto__ = ItemConfig.prototype;
         return ItemConfig;
@@ -12,3 +13,4 @@ var egret;
     egret.ItemConfig = ItemConfig;
     ItemConfig.prototype.__class__ = "egret.ItemConfig";
 })(egret || (egret = {}));
+//# sourceMappingURL=ItemConfig.js.map

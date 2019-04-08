@@ -138,3 +138,4 @@ var egret;
     egret.SceneElementData = SceneElementData;
     SceneElementData.prototype.__class__ = "egret.SceneElementData";
 })(egret || (egret = {}));
+//# sourceMappingURL=SceneElementData.js.map

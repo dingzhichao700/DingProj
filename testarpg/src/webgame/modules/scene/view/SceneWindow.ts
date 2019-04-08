@@ -24,16 +24,12 @@ module egret {
 		//是否已掉落物品
 		private _hasGoods:boolean;
 
-		/**
-		 * 构造函数
-		 */
 		public constructor(){
 			super();
 
 			this._sceneData = dataManager().sceneData;
 			this._sceneElementData = dataManager().sceneElementData;
 			this._sceneElementManager = SceneElementManager.getInstance();
-			
 			this._elementRadius = SceneElementData.ARRIVE_ELEMENT_RADIUS;
 		}
 		
@@ -45,10 +41,10 @@ module egret {
 				UpdateType.PLAYER_ENTER_SCENE,
 				UpdateType.PLAYER_VO_CHANGED,
 				UpdateType.COPY_MONSTER_BORN,
-				UpdateType.DAMAGE_HP_CHANGE,
+                UpdateType.DAMAGE_HP_CHANGE,
+                UpdateType.CHANGE_SOULROAD,
 				UpdateType.CHANGE_COPY,
 				UpdateType.ADD_MONSTER
-
 			);
 		}
 		
@@ -69,26 +65,21 @@ module egret {
 				//this.gotoXY(this._role.x,this._role.y);
 				//测试
 //				openWindow(ButtonWindow);
-                MainControl.getInstance().openMainView();
 
 				var sceneEditLo:SceneEditLo = IsoMapData.getInstance().getData(this._sceneData.sceneId);
-				this.gotoXY(sceneEditLo.width / 2,sceneEditLo.height / 2);
+				this.gotoXY(sceneEditLo.width / 4,sceneEditLo.height * 3 / 4);
 			}
 		}
-		//
-		/**
-		 * 切换副本
-		 */
-		public changeCopy():void{
+
+		/**切换副本*/
+		public changeCopy(title:string):void{
 			this.clearCopy();
 			RoleManager.getInstance().changeSceneEffect();
-
 			TimerManager.getInstance().addExecute(this.nextCopy,this,3000,null,1);
+			MainControl.getInstance().openLoading(title);
 		}
-		//
-		/**
-		 * 进入下一个副本
-		 */
+
+		/**进入下一个副本*/
 		public nextCopy():void{
 			SceneManager.getInstance().enterScene(this._sceneData.sceneType,this._sceneData.getNextSceneId());
 
@@ -101,7 +92,6 @@ module egret {
 		public nextTurn():void{
 			TimerManager.getInstance().addExecute(function():void{
 				globalUpdateWindows([UpdateType.COPY_MONSTER_BORN]);
-
 				//Role.getInstance().moveTo2(0,0);
 				//RoleManager.getInstance().play(0,-1,ActionMovieClipDirectionType.DOWN_LEFT);
 			},null,3000,null,1);
@@ -109,14 +99,12 @@ module egret {
 		
 		public addEvents():void{
 			super.addEvents();
-			
 			//this.addEventListener(SceneEvent.SCENE_ARRIVE_NAVI_POINT,this.sceneArriveNiviPoint,this);
 			this.arriveNaviPointHandler = this.sceneArriveNiviPoint;
 		}
 		
 		public remove():void{
 			super.remove();
-			
 			//this.removeEventListener(SceneEvent.SCENE_ARRIVE_NAVI_POINT,this.sceneArriveNiviPoint,this);
 			this.arriveNaviPointHandler = null;
 		}
@@ -133,7 +121,6 @@ module egret {
 					break;
 				//玩家场景数据改变
 				case UpdateType.PLAYER_VO_CHANGED:
-
 					break;
 				//怪物出生
 				case UpdateType.COPY_MONSTER_BORN:
@@ -224,11 +211,15 @@ module egret {
 
 						dataManager().fightData.recoverDamage(damageValues);
 					}
-					break;
+                    break;
+				//斗罗副本
+                case UpdateType.CHANGE_SOULROAD:
+                    this.changeCopy("斗罗之路");
+                    break;
 				//进入下一个副本
 				case UpdateType.CHANGE_COPY:
-					this.changeCopy();
-					break;
+					this.changeCopy("历练副本");
+                    break;
 				//增加角色
 				case UpdateType.ADD_ROLE:
 					for(var i in this._monsters){
@@ -244,6 +235,7 @@ module egret {
 					break;
 			}
 		}
+		
 		/**
 		 * 物品掉落
 		 * @param x 掉落点x
@@ -266,10 +258,8 @@ module egret {
 			if(!EnterFrameManager.getInstance().hasExecute(this._showGoodsId))
 				this._showGoodsId = EnterFrameManager.getInstance().addExecute(this.showNextGoods,this,2);
 		}
-		//
-		/**
-		 * 显示下一个物品，为提高性能，逐帧显示物品
-		 */
+
+		/**显示下一个物品，为提高性能，逐帧显示物品*/
 		private showNextGoods():void{
 			var goods:ElementGoods = <ElementGoods>this.renderElementInternal(SceneElementType.GOODS,this._goodsDataList[this._goodsIndex],SceneLayerType.GOODS);
 
@@ -290,10 +280,8 @@ module egret {
 				}
 			}
 		}
-		//
-		/**
-		 * 检测捡物品，因角色技能状态可能未结束，需要通过循环检测
-		 */
+
+		/**检测捡物品，因角色技能状态可能未结束，需要通过循环检测*/
 		private checkTakeGoods():boolean{
 			if(!RoleManager.getInstance().role.isSkillStatus && !RoleManager.getInstance().role.isMoving){
 				//LogManager.debug(this,"checkTakeGoods");
@@ -304,10 +292,9 @@ module egret {
 
 				return true;
 			}
-
 			return false;
 		}
-		//
+
 		/**
 		 * 清空指定的元素
 		 * @param list
@@ -325,31 +312,21 @@ module egret {
 				this._hasGoods = false;
 			}
 		}
-		//
-		/**
-		 * 清空副本相关元素
-		 */
+
+		/**清空副本相关元素*/
 		public clearCopy():void{
 			this.clearTargets(this._goodsList);
 			this.clearTargets(this._monsters);
 		}
 
-		/**
-		 * 移除一个玩家 
-		 * @param id
-		 * 
-		 */		
+		/**移除一个玩家 */		
 		public removePlayer(id:string):void{
 			this.removeElementById(id);
 		}
-		//
-		/**
-		 * 清空场景  
-		 * 
-		 */		
+
+		/**清空场景*/		
 		public clearScene():void{
 			super.clearScene();
-
 			this.clearCopy();
 
 			EnterFrameManager.getInstance().removeExecute(this._goodsLoopId);
@@ -363,9 +340,7 @@ module egret {
 		 */		
 		public sceneArriveNiviPoint(item:SceneNavigatorDataItem):void{
 			//var item:SceneNavigatorDataItem = <SceneNavigatorDataItem><any> (event.data);
-
 			//LogManager.debug(this,"sceneArriveNiviPoint , item = " + item);
-			
 			if(item){
 				//LogManager.debug(this,"sceneArriveNiviPoint ,item.elementId = " + item.elementId);
 
@@ -380,42 +355,36 @@ module egret {
 						this._hasGoods = false;
 						this._sceneData.addWinCount();
 					}
-				}else if(item.sceneId > 0){
+				} else if(item.sceneId > 0) {
 					//场景坐标
 				}
 			}
 		}
-		//
-		/**
-		 * 获取场景元素速度 
-		 * @return 
-		 * 
-		 */		
+
+		/**获取场景元素速度 */		
 		public getElementSpeed():number{
 			return this._sceneElementData.getElementSpeed();
 		}
-		//
+
 		/**
 		 * 回收场景元素 
 		 * @param element:SceneElement 场景元素
-		 * 
 		 */		
 		public recoverElement(element:SceneElement):void{
 			this._sceneElementManager.recoverElement(element);
 		}
-		//
+
 		/**
 		 * 场景元素移动结束 
 		 * @param target:SceneElement 场景元素
-		 * 
 		 */		
 		public elementMovingEnd(target:SceneElement):void{
-			if(target == this._role){
+			if (target == this._role) {
 				if(this._currentNaviItem){
 					//调度导航事件
 					this.checkArriveNaviPoint();
 				}
-			}else{
+			} else {
 				//var item:SceneElementDataItem = (<SceneElement><any> target).data;
 				//
 				//if(!this.isInRenderRect(item.vo.x,item.vo.y)){
@@ -423,28 +392,22 @@ module egret {
 				//}
 			}
 		}
-		//
-		/**
-		 * 渲染动态场景元素 
-		 * 
-		 */		
-		public renderDynamicElements(rect:Rectangle):void{
 
+		/**渲染动态场景元素 */		
+		public renderDynamicElements(rect:Rectangle):void{
 		}
-		//
+
 		/**
 		 * 根据数据项目渲染场景元素 
 		 * @param item:SceneElementDataItem 场景元素数据项目
-		 * 
 		 */		
 		public renderElement(item:SceneElementDataItem):void{
-			if(this._elementsIdMap.containsKey(item.vo.idString)) return;
-
+			if(this._elementsIdMap.containsKey(item.vo.idString)) 
+    			return;
 			var vo:SceneElementVo = item.vo;
-
 			this.renderElementInternal(SceneElementType.PLAYER_WARRIOR,item,SceneLayerType.BIOLOGY);
 		}
-		//
+
 		/**
 		 * 渲染怪物
 		 * @param item  场景元素数据项目
@@ -480,16 +443,14 @@ module egret {
 				)
 				monster.play(0,ActionType.PREPARE,ActionMovieClipDirectionType.DOWN);
 			}
-
 			return monster;
 		}
-		//
+
 		/**
 		 * 渲染场景元素
 		 * @param type:int 场景类型 SceneElementType
 		 * @param data:SceneElementDataItem 场景元素数据
 		 * @return
-		 *
 		 */
 		public renderElementInternal(type:number,data:SceneElementDataItem,layerType:number):SceneElement{
 			if(this._elementsIdMap.containsKey(data.id)) return null;
@@ -518,28 +479,22 @@ module egret {
 
 				this.addElement(element,layerType);
 			}
-
 			return element;
 		}
-		//
-		/**
-		 * 主角移动 
-		 * 
-		 */		
+
+		/**主角移动*/		
 		public roleMoving():void{
 			super.roleMoving();
 		}
-		/**
-		 * 玩家主动开始移动 
-		 */		
+		
+		/**玩家主动开始移动*/		
 		public startMove():void{
 			super.startMove();
 		}
-		//
+
 		/**
 		 * 导航至当前场景中的元素，元素可以是非固定场景元素
 		 * @param id:Number 元素lo或vo中的id
-		 *
 		 */
 		public navigateToElement(id:number):void{
 			if(!this._currentNaviItem){
@@ -551,27 +506,20 @@ module egret {
 			if(element)
 				this.navigateTo(element.x,element.y);
 		}
-		//
+
 		/**
 		 * 导航至当前场景中的坐标
 		 * @param x:Number
 		 * @param y:Number
-		 *
 		 */
 		public navigateTo(x:number,y:number):void{
 			if(this.checkArriveNaviPoint())
 				return;
 
 			super.navigateTo(x,y);
-
-			//this.sendData(ModuleNumber.SCENE,SceneCommand.MOVING,{x:x,y:y},null,false);
 		}
-		//
-		/**
-		 * 获取场景元素坐标点
-		 * @return
-		 *
-		 */
+
+		/**获取场景元素坐标点*/
 		public getElementPoint(id:string):Point{
 			var element:SceneElement = this.getElement(id);
 			if(element)
@@ -579,6 +527,7 @@ module egret {
 
 			return new Point();
 		}
+		
 		/**
 		 * 节点改变时
 		 * @param target 节点改变的目标对象
@@ -594,8 +543,8 @@ module egret {
 			if(lastNode){
 				this._isoMap.setMapNodeType(lastNode.row,lastNode.column,PathType.WALKABLE);
 			}
-
 			return true;
 		}
+		
 	}
 }

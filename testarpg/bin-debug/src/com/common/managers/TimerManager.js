@@ -302,3 +302,4 @@ var egret;
     egret.TimerManager = TimerManager;
     TimerManager.prototype.__class__ = "egret.TimerManager";
 })(egret || (egret = {}));
+//# sourceMappingURL=TimerManager.js.map

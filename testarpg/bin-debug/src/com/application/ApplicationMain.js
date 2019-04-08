@@ -20,3 +20,4 @@ var egret;
     egret.ApplicationMain = ApplicationMain;
     ApplicationMain.prototype.__class__ = "egret.ApplicationMain";
 })(egret || (egret = {}));
+//# sourceMappingURL=ApplicationMain.js.map

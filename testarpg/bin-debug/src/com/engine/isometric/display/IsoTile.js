@@ -102,3 +102,4 @@ var egret;
     egret.IsoTile = IsoTile;
     IsoTile.prototype.__class__ = "egret.IsoTile";
 })(egret || (egret = {}));
+//# sourceMappingURL=IsoTile.js.map

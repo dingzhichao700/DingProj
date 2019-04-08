@@ -35,3 +35,4 @@ var egret;
     egret.EquipView = EquipView;
     EquipView.prototype.__class__ = "egret.EquipView";
 })(egret || (egret = {}));
+//# sourceMappingURL=EquipView.js.map

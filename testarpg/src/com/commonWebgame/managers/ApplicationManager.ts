@@ -3,6 +3,9 @@ module egret {
 
 	export class ApplicationManager extends EventDispatcher{
     	
+        public static CONTENT_W: number = 640;
+        public static CONTENT_H: number = 960;
+        
 		/**主应用程序，程序启动后设置*/		
 		public application:Application = null;
 		/** 应用程序舞台 */		
@@ -10,14 +13,12 @@ module egret {
 
 		/**窗口的容器*/
         private gameCon: Sprite = null;
-        private layer_ui: Sprite = null;
+        private layer_ui: Sprite = null; 
+        private layer_mask: Sprite = null;
         private layer_window_1: Sprite = null;
         private layer_window_2: Sprite = null;
         private layer_tip: Sprite = null;
         private layer_guide: Sprite = null;
-		
-		//单例
-		private static _instance:ApplicationManager = null;
 		
 		//层级列表
 		private _layerHashMap:HashMap = null;
@@ -29,6 +30,8 @@ module egret {
 		private _alignHashMap:HashMap = null;
 		//计时回调id
 		private _timerId:number;
+        /**游戏内容缩放比*/		
+		public globalScale:number;
 
 		public constructor(){
 			super();
@@ -38,6 +41,8 @@ module egret {
 			this._alignHashMap = new HashMap();
 		}
 
+        private static _instance: ApplicationManager = null;
+        
 		public static getInstance():ApplicationManager{
 			return ApplicationManager._instance || (ApplicationManager._instance = new ApplicationManager());
 		}
@@ -53,10 +58,9 @@ module egret {
 				if(container && container.numChildren > 0) 
 					return true;
 			}
-			
 			return false;
 		}
-		//
+
 		/**
 		 * 初始化主程序和舞台，若多次调用，上次调用时已存在的相关数据将清空，如已保存的而未销毁的窗口
 		 * @param application:Application 应用程序
@@ -71,7 +75,8 @@ module egret {
 			
 			if(!this.stage){
 				this.stage = application.stage;
-				this.stage.addEventListener(Event.RESIZE,this.onResize,this);
+                this.stage.addEventListener(Event.RESIZE,this.resizeHandler,this);
+                this.onResize();
 			}
 			
 			//以下为重置数据
@@ -100,24 +105,37 @@ module egret {
 			this.removeTimer();
 		}
 
-        /**舞台尺寸更改理 */		
-        private onResize(e: Event): void {
-			for(var key in this._layerHashMap.content){
+        /**舞台尺寸更改理 */
+        private resizeHandler(e: Event): void {
+            this.onResize();
+        }
+        
+        private onResize(): void {
+			/*for(var key in this._layerHashMap.content){
 				this.setModel(this._layerHashMap.get(key),key);
 			}
 			for(key in this._alignHashMap.content){
 				this.layout(key);
-			}
+			}*/
 
-            /*var contentW: number = 640;
-            var contentH: number = 960;
+            var contentW: number = ApplicationManager.CONTENT_W;
+            var contentH: number = ApplicationManager.CONTENT_H;
             var windowW: number = document.documentElement.clientWidth;
             var windowH: number = document.documentElement.clientHeight;
-            var scale: number = contentH / windowH;
+            var ratioContent: number = contentH / contentW;
+            var ratioWindow:number = windowH/windowW;
+
+            var scale: number;
+            if(ratioWindow >= ratioContent){
+                scale = windowW / contentW;
+            } else {
+                scale = windowH / contentH;
+            }
+            this.globalScale = scale;
             
-            this.gameCon.scaleX = this.gameCon.scaleY = scale;
-            this.gameCon.x = (windowW - contentW * scale) / 2;
-            this.gameCon.y = (windowH - contentH * scale) / 2;*/
+            this.application.scaleX = this.application.scaleY = scale;
+            this.application.x = (windowW - contentW * scale) / 2;
+            this.application.y = (windowH - contentH * scale) / 2;
         }
         
 		/**
@@ -148,10 +166,16 @@ module egret {
 					this.application.setChildIndex(this._layerHashMap.get(keys[i]),i);
 				}
 			}
-			if(!this.gameCon){
-                this.gameCon = new Sprite(); 
+			return container;
+		}
+		
+		public initLayer():void {
+            if(!this.gameCon) {
+                this.gameCon = new Sprite();
                 this.layer_ui = new Sprite();
                 this.gameCon.addChild(this.layer_ui);
+                this.layer_mask = new Sprite();
+                this.gameCon.addChild(this.layer_mask);
                 this.layer_window_1 = new Sprite();
                 this.gameCon.addChild(this.layer_window_1);
                 this.layer_window_2 = new Sprite();
@@ -162,10 +186,8 @@ module egret {
                 this.gameCon.addChild(this.layer_guide);
             }
             this.application.addChild(this.gameCon);
-
-			return container;
 		}
-		//
+
 		/**
 		 * 打开显示对象类，并显示在舞台上，并返回显示对象实例 ，如果是IWindow对象将自动调用initWindow()或recall()方法
 		 * @param targetClass:Class 显示对象类名称
@@ -252,7 +274,7 @@ module egret {
 			
 			return win;
 		}
-		//
+
 		/**
 		 * 将显示对象从舞台上移除，若存在remove()将自动调用此方法 
 		 * @param target:* 值为实例时，只对当前实例做处理，值为类时将对此类的所有实例进行处理
@@ -283,14 +305,13 @@ module egret {
 					this.dispatchEvent(new ApplicationEvent(ApplicationEvent.WINDOW_CLOSE,false,false,target));
 			}
 		}
-		//
+
 		/**
 		 * 获取显示对象类的实例，不存在时返回null 
 		 * @param targetClass:Class 显示对象类
 		 * @param addedToStage:Boolean = false 是否已添加到舞台
 		 * @param name:String = null 实例名称，使用默认值时不检测名称
 		 * @return 
-		 * 
 		 */		
 		public getTargetInstance(targetClass:any,addedToStage:boolean = false,name:string = null):DisplayObject{
 			var className:string = getQualifiedClassName(targetClass);
@@ -322,15 +343,12 @@ module egret {
 					}
 				}
 			}
-			
 			return result;
 		}
-		//
+
 		/**
 		 * 打开的窗口中是否存在类实例，仅能获知通过open()打开的窗口对象
 		 * @param args 类列表
-		 * @return 
-		 * 
 		 */		
 		public hasInstance(...args):boolean{
 			var length:number = args.length;
@@ -341,10 +359,9 @@ module egret {
 				if(array && array.length > 0)
 					return true;
 			}
-			
 			return false;
 		}
-		//
+
 		/**
 		 * 全局更新，调用已注册相关全局更新类型的IWindow的globalUpdate()方法，对象不在舞台时忽略
 		 * @param updateTypes:Array 全局更新类型
@@ -379,7 +396,7 @@ module egret {
 				}
 			}
 		}
-		//
+
 		/**
 		 * 局部更新，调用目标对象的update()方法 ,对象不在舞台时忽略
 		 * @param targets:Array 类对象数组或实例对象数组
@@ -408,7 +425,7 @@ module egret {
 				}
 			}
 		}
-		//
+
 		/**
 		 * 设置显示对象对齐方式 ，取消对齐方式或取删除相关对齐方式引用align使用AlignType.NON，
 		 * 用此方法设置对齐的并且不是IWindow对象或子类对象，对象不使用时要主动删除相关引用，否则会导致内存泄漏 
@@ -449,7 +466,7 @@ module egret {
 			
 			this.layout(target);
 		}
-		//
+
 		/**
 		 * 布局显示对象 
 		 * @param target:DisplayObject 显示对象
@@ -528,7 +545,7 @@ module egret {
 			target.x = x;
 			target.y = y;
 		}
-		//
+
 		/**
 		 * 设置显示对象在舞台上的层级并添加到显示列表中，
 		 * 用此方法显示而非用open()打开的并且不是IWindow对象或子类对象，要用hide()方法删除相关引用，否则会导致内存泄漏
@@ -550,10 +567,9 @@ module egret {
 				this.checkModel(lastParent);
 			}
 			this.setAlign(target,align,top,bottom,left,right);
-			
 			this.setModel(container,layerType);
 		}
-		//
+
 		/**
 		 * 从舞台上移除显示对象 
 		 * @param target:DisplayObject 已呈现在舞台上的显示对象
@@ -769,6 +785,9 @@ module egret {
     		    case BasePanel.LAYER_UI:
                     targetLayer = this.layer_ui;
                     break;
+                case BasePanel.LAYER_MASK:
+                    targetLayer = this.layer_mask;
+                    break;
                 case BasePanel.LAYER_WINDOW_1:
                     targetLayer = this.layer_window_1;
                     break;
@@ -783,6 +802,7 @@ module egret {
                     break;
     		}
             targetLayer.addChild(view);
+            view.openEnd();
 		}
 
         public closeView(view: BasePanel): void {
@@ -790,6 +810,9 @@ module egret {
             switch(view.layerType) {
                 case BasePanel.LAYER_UI:
                     targetLayer = this.layer_ui;
+                    break;
+                case BasePanel.LAYER_MASK:
+                    targetLayer = this.layer_mask;
                     break;
                 case BasePanel.LAYER_WINDOW_1:
                     targetLayer = this.layer_window_1;
@@ -807,6 +830,7 @@ module egret {
             if(targetLayer.contains(view)){
                 targetLayer.removeChild(view);   
             }
+            view.isOpen = false;
             view.onClose();
         }
         

@@ -33,3 +33,4 @@ var egret;
     egret.ApplicationRunner = ApplicationRunner;
     ApplicationRunner.prototype.__class__ = "egret.ApplicationRunner";
 })(egret || (egret = {}));
+//# sourceMappingURL=ApplicationRunner.js.map

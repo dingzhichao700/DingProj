@@ -80,3 +80,4 @@ var egret;
     egret.SceneLo = SceneLo;
     SceneLo.prototype.__class__ = "egret.SceneLo";
 })(egret || (egret = {}));
+//# sourceMappingURL=SceneLo.js.map

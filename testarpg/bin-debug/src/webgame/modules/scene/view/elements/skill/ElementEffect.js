@@ -178,3 +178,4 @@ var egret;
     egret.ElementEffect = ElementEffect;
     ElementEffect.prototype.__class__ = "egret.ElementEffect";
 })(egret || (egret = {}));
+//# sourceMappingURL=ElementEffect.js.map

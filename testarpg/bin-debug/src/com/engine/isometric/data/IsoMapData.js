@@ -44,3 +44,4 @@ var egret;
     egret.IsoMapData = IsoMapData;
     IsoMapData.prototype.__class__ = "egret.IsoMapData";
 })(egret || (egret = {}));
+//# sourceMappingURL=IsoMapData.js.map
