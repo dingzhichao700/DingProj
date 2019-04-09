@@ -207,7 +207,7 @@ var ui;
                 return t;
             };
             __egretProto__.window_i = function () {
-                var t = new egret.BasePanel();
+                var t = new egret.WindowView();
                 this.window = t;
                 this.__s(t, ["height", "skinName", "width"], [200, ui.WindowViewSkin, 200]);
                 return t;

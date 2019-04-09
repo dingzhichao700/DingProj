@@ -25,13 +25,13 @@ var ui;
             __egretProto__.imgGuide_i = function () {
                 var t = new egret.gui.UIAsset();
                 this.imgGuide = t;
-                this.__s(t, ["source", "x", "y"], ["guideArrow_png", 35, 842]);
+                this.__s(t, ["height", "source", "width", "x", "y"], [125, "guideArrow_png", 89, 15, 820]);
                 return t;
             };
             __egretProto__.imgRole_i = function () {
                 var t = new egret.gui.UIAsset();
                 this.imgRole = t;
-                this.__s(t, ["source", "x", "y"], ["img_guideRole_png", 103, 65]);
+                this.__s(t, ["source", "x", "y"], ["img_guideRole_png", 68, 65]);
                 return t;
             };
             __egretProto__.imgBg_i = function () {

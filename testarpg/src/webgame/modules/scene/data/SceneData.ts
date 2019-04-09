@@ -203,7 +203,7 @@ module egret {
 			this._bornPoint.x = Math.cos(radian) * radius + cx;
 			this._bornPoint.y = Math.sin(radian) * radius + cy;*/
             this._bornPoint.x = 200 + Math.random() * 50;
-            this._bornPoint.y = 100 + Math.random() * 200;
+            this._bornPoint.y = 500 + Math.random() * 200;
 
 			return this._bornPoint;
 		}

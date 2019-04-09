@@ -7,6 +7,6 @@
 		<e:State name="disabled"/>
 	</e:states>
 	<e:UIAsset id="imgBg" source="bg_19_png" scale9Grid="4,4,24,24" width="640" height="960" x="0" y="0"/>
-	<e:UIAsset id="imgRole" source="img_guideRole_png" x="103" y="65"/>
-	<e:UIAsset id="imgGuide" source="guideArrow_png" y="842" x="35"/>
+	<e:UIAsset id="imgRole" source="img_guideRole_png" y="65" x="68"/>
+	<e:UIAsset id="imgGuide" source="guideArrow_png" width="89" height="125" y="820" x="15"/>
 </e:Skin>

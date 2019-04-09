@@ -28,6 +28,7 @@ module egret {
             this.item.skillId = this._vo.id;
             this.txtName.text = this._vo.name + " Lv.1";
             this.txtDesc.text = this._vo.desc;
+            this.txtDesc.lineSpacing = 10;
         }
 
         private onTouchHandler(e: egret.TouchEvent): void {

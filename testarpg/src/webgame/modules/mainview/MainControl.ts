@@ -3,7 +3,7 @@ module egret {
     export class MainControl {
         
         public totalExp: number = 1.7;
-        public coin: number;
+        public coin: number = 10311;
         public achi: number;
 
         private loginView: LoginView;

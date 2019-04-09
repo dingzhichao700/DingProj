@@ -5,7 +5,8 @@ module egret {
         private boxCon: egret.gui.Group;
         private boxTop: egret.gui.Group;
         private boxBottom: egret.gui.Group;
-        private txtName: egret.gui.Label;
+        private txtName: egret.gui.Label; 
+        private txtCoin: egret.gui.Label; 
         private txtScore: egret.gui.Label; 
         private txtExp: egret.gui.Label;
         private btnSoulRoad: egret.gui.UIAsset;
@@ -38,6 +39,7 @@ module egret {
         public update():void {
             if(this.isCreate){
                 this.txtExp.text = MainControl.getInstance().totalExp.toFixed(2) + "%";
+                this.txtCoin.text = MainControl.getInstance().coin + "";
 
                 if(!this.clip1) {
                     this.clip1 = new AnimeClip();

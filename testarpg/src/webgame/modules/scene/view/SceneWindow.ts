@@ -162,11 +162,10 @@ module egret {
 								LogManager.debug(this,"damageValues[i]为空 i = " + i);
 							}
 
+                            var color: number = 0x00ff00;
 							if(damageValues[i].isDodge){
-								var color:number = 0x00ff00;
 								var size:number = 20;
 								var value:string = "闪避";
-
 								HPTweenManager.getInstance().tweenLine(container,vo.x,vo.y - 50,-100,value,color,size);
 							}else{
 								if(damageValues[i].isCritical){
@@ -178,7 +177,6 @@ module egret {
 									size = 16;
 									value = damageValues[i].value + "";
 								}
-
 								HPTweenManager.getInstance().tween(container,vo.x,vo.y - 50,radians[i],200,value,color,size);
 							}
 
@@ -200,11 +198,7 @@ module egret {
 
 								if(!this._sceneData.checkArmy()){
 									this.showGoods(vo.x,vo.y);
-
-									//if(Math.random() > 0.3)
-									//	this._sceneData.sceneType = SceneType.ARENA;
-									//else
-                                        this._sceneData.sceneType = SceneType.NORMAL_COPY;
+                                    this._sceneData.sceneType = SceneType.NORMAL_COPY;
 								}
 							}
 						}
@@ -267,7 +261,9 @@ module egret {
 				this._goodsList.push(goods);
 			}
 
-			this._goodsIndex ++;
+            this._goodsIndex++;
+            MainControl.getInstance().coin += Math.floor(Math.random() * 3) + 1;
+            MainControl.getInstance().updateMainView();
 
 			if(this._goodsList.length == this._goodsDataList.length){
 				EnterFrameManager.getInstance().removeExecute(this._showGoodsId);
@@ -289,7 +285,7 @@ module egret {
 				EnterFrameManager.getInstance().removeExecute(this._goodsLoopId);
 
 				this.navigateToElement(this._goodsList[this._goodsIndex].data.vo.id);
-
+				
 				return true;
 			}
 			return false;

@@ -21,7 +21,7 @@ module egret {
         
         private update():void {
             this.itemCon.removeAllElements();
-            var skillList:Array<number> = [1,2,3,4];
+            var skillList:Array<number> = [1,2,3,4,5];
             for(var i:number = 0; i < skillList.length;i++){
                 var vo:SkillVo = new SkillVo();
                 vo.id = i+1;

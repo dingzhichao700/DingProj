@@ -6,6 +6,7 @@ module egret {
         public name:string = "";
         public quality:number = 0;
         public desc:string = "";
+        public attrs:Object;
         
         public constructor() {
         }

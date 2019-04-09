@@ -41,7 +41,7 @@ var ui;
             __egretProto__.txtDesc_i = function () {
                 var t = new egret.gui.Label();
                 this.txtDesc = t;
-                this.__s(t, ["fontFamily", "height", "size", "text", "textColor", "width", "x", "y"], ["等线", 57, 22, "技能描述", 0x525558, 347, 125, 53]);
+                this.__s(t, ["fontFamily", "height", "size", "text", "textColor", "width", "x", "y"], ["等线", 57, 22, "技能描述", 0x080809, 347, 125, 53]);
                 return t;
             };
             __egretProto__.txtName_i = function () {

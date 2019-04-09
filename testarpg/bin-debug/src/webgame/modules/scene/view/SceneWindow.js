@@ -121,8 +121,8 @@ var egret;
                             if (!damageValues[i]) {
                                 egret.LogManager.debug(this, "damageValues[i]为空 i = " + i);
                             }
+                            var color = 0x00ff00;
                             if (damageValues[i].isDodge) {
-                                var color = 0x00ff00;
                                 var size = 20;
                                 var value = "闪避";
                                 egret.HPTweenManager.getInstance().tweenLine(container, vo.x, vo.y - 50, -100, value, color, size);
@@ -156,9 +156,6 @@ var egret;
                                 }
                                 if (!this._sceneData.checkArmy()) {
                                     this.showGoods(vo.x, vo.y);
-                                    //if(Math.random() > 0.3)
-                                    //	this._sceneData.sceneType = SceneType.ARENA;
-                                    //else
                                     this._sceneData.sceneType = egret.SceneType.NORMAL_COPY;
                                 }
                             }
@@ -208,6 +205,8 @@ var egret;
                 this._goodsList.push(goods);
             }
             this._goodsIndex++;
+            egret.MainControl.getInstance().coin += Math.floor(Math.random() * 3) + 1;
+            egret.MainControl.getInstance().updateMainView();
             if (this._goodsList.length == this._goodsDataList.length) {
                 egret.EnterFrameManager.getInstance().removeExecute(this._showGoodsId);
                 if (this._goodsList.length > 0) {

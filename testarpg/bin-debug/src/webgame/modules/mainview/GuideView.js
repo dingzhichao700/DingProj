@@ -26,14 +26,14 @@ var egret;
             var windowH = document.documentElement.clientHeight;
             var globalScale = egret.ApplicationManager.getInstance().globalScale;
             var targetY = windowH / globalScale;
-            egret.Tween.get(this.imgGuide).to({ y: targetY - 400 }, 1000).call(this.reSet, this);
+            egret.Tween.get(this.imgGuide).to({ y: targetY - 500 }, 1000).call(this.reSet, this);
         };
         __egretProto__.reSet = function () {
             var contentH = egret.ApplicationManager.CONTENT_H;
             var windowH = document.documentElement.clientHeight;
             var globalScale = egret.ApplicationManager.getInstance().globalScale;
             var targetY = windowH / globalScale;
-            egret.Tween.get(this.imgGuide).to({ y: targetY - 350 }, 1000).call(this.showTween, this);
+            egret.Tween.get(this.imgGuide).to({ y: targetY - 450 }, 1000).call(this.showTween, this);
         };
         __egretProto__.openSoulRoad = function () {
             this.close();

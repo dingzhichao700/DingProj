@@ -1,7 +1,7 @@
 {
 	"groups":[
 		{
-			"keys":"word_zhandouli_png,soulRoad_gray_png,namebg_png,main_bottomBar_png,lock_exppool_png,label_exppool_png,img_block_png,icon_wuhun_12_png,icon_lock_4_png,icon_coin_png,icon_achi_png,head_1_png,genius_bg_png,frame_head_2_bg_png,frame_head_0_png,frame_circle_2_png,btn_renwu_png,btn_jineng_png,btn_close1_png,btn_beibao_png,btnBack_png,bg_top_4_png,bg_tips_png,bg_mainbottom_png,bg_95_png,bg_7_png,bg_6_png,bg_5_png,bg_21_png,bg_20_png,bg_19_png,bg_18_png,bg_14_png,bg_13_png,btn_skill_png,guideArrow_png,img_backSide_png,img_line1_png",
+			"keys":"word_zhandouli_png,soulRoad_gray_png,namebg_png,main_bottomBar_png,lock_exppool_png,label_exppool_png,img_block_png,icon_wuhun_12_png,icon_lock_4_png,icon_coin_png,icon_achi_png,head_1_png,genius_bg_png,frame_head_2_bg_png,frame_head_0_png,frame_circle_2_png,btn_renwu_png,btn_jineng_png,btn_close1_png,btn_beibao_png,btnBack_png,bg_top_4_png,bg_tips_png,bg_mainbottom_png,bg_95_png,bg_7_png,bg_6_png,bg_5_png,bg_21_png,bg_20_png,bg_19_png,bg_18_png,bg_14_png,bg_13_png,btn_skill_png,guideArrow_png,img_backSide_png,img_line1_png,dodge_png,critical_png,damage_9_png,damage_8_png,damage_7_png,damage_6_png,damage_5_png,damage_4_png,damage_3_png,damage_2_png,damage_1_png,damage_0_png,mark_minus_png",
 			"name":"main"
 		},
 		{
@@ -727,6 +727,71 @@
 			"name":"expBubble_json",
 			"type":"json",
 			"url":"clip/expBubble.json"
+		},
+		{
+			"name":"dodge_png",
+			"type":"image",
+			"url":"main/dodge.png"
+		},
+		{
+			"name":"critical_png",
+			"type":"image",
+			"url":"main/critical.png"
+		},
+		{
+			"name":"damage_9_png",
+			"type":"image",
+			"url":"main/damage_9.png"
+		},
+		{
+			"name":"damage_8_png",
+			"type":"image",
+			"url":"main/damage_8.png"
+		},
+		{
+			"name":"damage_7_png",
+			"type":"image",
+			"url":"main/damage_7.png"
+		},
+		{
+			"name":"damage_6_png",
+			"type":"image",
+			"url":"main/damage_6.png"
+		},
+		{
+			"name":"damage_5_png",
+			"type":"image",
+			"url":"main/damage_5.png"
+		},
+		{
+			"name":"damage_4_png",
+			"type":"image",
+			"url":"main/damage_4.png"
+		},
+		{
+			"name":"damage_3_png",
+			"type":"image",
+			"url":"main/damage_3.png"
+		},
+		{
+			"name":"damage_2_png",
+			"type":"image",
+			"url":"main/damage_2.png"
+		},
+		{
+			"name":"damage_1_png",
+			"type":"image",
+			"url":"main/damage_1.png"
+		},
+		{
+			"name":"damage_0_png",
+			"type":"image",
+			"url":"main/damage_0.png"
+		},
+		{
+			"name":"mark_minus_png",
+			"type":"image",
+			"url":"main/mark_minus.png"
 		}
 	]
 }

@@ -13,6 +13,8 @@
 	</egret:BagItem>
 	<e:Label id="txtName" text="峨眉刺" size="24" width="205" y="261" x="227" textAlign="left"/>
 	<e:Label id="txtQuality" size="24" text="品质：白色" width="163" y="296" x="227" textAlign="left"/>
-	<e:Label id="txtDesc" textAlign="left" width="354" size="24" height="83" text="道具描述" x="135" y="364"/>
-	<e:UIAsset source="img_line1_png" scale9Grid="57,0,100,5" width="350" y="349" x="134"/>
+	<e:Label id="txtDesc" textAlign="left" width="354" size="24" height="83" text="道具描述" x="135" y="370"/>
+	<e:Label id="txtAttr" size="24" textAlign="left" width="354" height="165" y="472" textColor="0x3EBF4B" text="道具属性" x="140"/>
+	<e:UIAsset scale9Grid="57,0,100,5" width="350" y="349" x="134" source="img_line1_png"/>
+	<e:UIAsset id="lineAttr" scale9Grid="57,0,100,5" width="350" source="img_line1_png" x="134" y="449"/>
 </e:Skin>

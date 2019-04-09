@@ -16,7 +16,7 @@ var egret;
         };
         __egretProto__.update = function () {
             this.itemCon.removeAllElements();
-            var skillList = [1, 2, 3, 4];
+            var skillList = [1, 2, 3, 4, 5];
             for (var i = 0; i < skillList.length; i++) {
                 var vo = new egret.SkillVo();
                 vo.id = i + 1;

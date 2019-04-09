@@ -36,7 +36,7 @@ module egret {
             var windowH: number = document.documentElement.clientHeight;
             var globalScale: number = ApplicationManager.getInstance().globalScale;
             var targetY:number = windowH  / globalScale;
-            Tween.get(this.imgGuide).to({ y: targetY-400},1000).call(this.reSet, this);
+            Tween.get(this.imgGuide).to({ y: targetY-500},1000).call(this.reSet, this);
         }
 
         private reSet(): void {
@@ -44,7 +44,7 @@ module egret {
             var windowH: number = document.documentElement.clientHeight;
             var globalScale: number = ApplicationManager.getInstance().globalScale;
             var targetY: number = windowH / globalScale;
-            Tween.get(this.imgGuide).to({ y: targetY - 350},1000).call(this.showTween,this);
+            Tween.get(this.imgGuide).to({ y: targetY - 450},1000).call(this.showTween,this);
         }
 
         private openSoulRoad(): void {

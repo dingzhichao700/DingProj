@@ -28,6 +28,7 @@ var egret;
                 this.item.skillId = this._id;
                 this.txtName.text = cfg.name;
                 this.txtDesc.text = cfg.desc;
+                this.txtDesc.lineSpacing = 15;
             }
         };
         return SkillTips;

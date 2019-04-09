@@ -22,6 +22,7 @@ var egret;
         __egretProto__.update = function () {
             if (this.isCreate) {
                 this.txtExp.text = egret.MainControl.getInstance().totalExp.toFixed(2) + "%";
+                this.txtCoin.text = egret.MainControl.getInstance().coin + "";
                 if (!this.clip1) {
                     this.clip1 = new egret.AnimeClip();
                     this.clip1.loadUrl("expLight", true);

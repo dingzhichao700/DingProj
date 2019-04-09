@@ -29,18 +29,11 @@ module egret {
         private openFight(e:egret.TouchEvent):void {
             switch(e.currentTarget){
                 case this.img_1:
-                    globalUpdateWindows([UpdateType.CHANGE_SOULROAD]);
-                    break;
                 case this.img_2:
-                    globalUpdateWindows([UpdateType.CHANGE_SOULROAD]);
-                    break;
                 case this.img_3:
-                    globalUpdateWindows([UpdateType.CHANGE_SOULROAD]);
-                    break;
                 case this.img_4:
-                    globalUpdateWindows([UpdateType.CHANGE_SOULROAD]);
-                    break;
                 case this.img_5:
+                    dataManager().sceneData.sceneType = SceneType.BOSS_COPY;
                     globalUpdateWindows([UpdateType.CHANGE_SOULROAD]);
                     break;
             }

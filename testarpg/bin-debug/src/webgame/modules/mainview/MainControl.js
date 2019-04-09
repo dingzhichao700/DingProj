@@ -3,6 +3,7 @@ var egret;
     var MainControl = (function () {
         function MainControl() {
             this.totalExp = 1.7;
+            this.coin = 10311;
         }
         var __egretProto__ = MainControl.prototype;
         MainControl.getInstance = function () {
