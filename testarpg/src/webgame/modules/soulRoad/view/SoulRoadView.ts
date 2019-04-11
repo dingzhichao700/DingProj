@@ -33,7 +33,8 @@ module egret {
                 case this.img_3:
                 case this.img_4:
                 case this.img_5:
-                    dataManager().sceneData.sceneType = SceneType.BOSS_COPY;
+//                    dataManager().sceneData.sceneType = SceneType.BOSS_COPY; 
+                    dataManager().sceneData.sceneType = SceneType.ARENA;
                     globalUpdateWindows([UpdateType.CHANGE_SOULROAD]);
                     break;
             }

@@ -10,8 +10,8 @@ var egret;
             //角色目标点
             this._rolePoints = [];
             this.addRole(1);
-            this.addRole(2);
-            this.addRole(3);
+            //            this.addRole(2);
+            //            this.addRole(3);
         }
         var __egretProto__ = RoleManager.prototype;
         RoleManager.getInstance = function () {

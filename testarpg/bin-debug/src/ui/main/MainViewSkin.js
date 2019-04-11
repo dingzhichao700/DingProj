@@ -155,13 +155,13 @@ var ui;
             __egretProto__.txtAchi_i = function () {
                 var t = new egret.gui.Label();
                 this.txtAchi = t;
-                this.__s(t, ["fontFamily", "size", "text", "width", "x", "y"], ["Arial", 15, "410", 82, 406, 13]);
+                this.__s(t, ["fontFamily", "size", "text", "width", "x", "y"], ["Arial", 18, "410", 82, 416, 13]);
                 return t;
             };
             __egretProto__.txtCoin_i = function () {
                 var t = new egret.gui.Label();
                 this.txtCoin = t;
-                this.__s(t, ["fontFamily", "size", "text", "width", "x", "y"], ["Arial", 15, "10311", 82, 537, 13]);
+                this.__s(t, ["fontFamily", "size", "text", "width", "x", "y"], ["Arial", 18, "10311", 82, 542, 13]);
                 return t;
             };
             __egretProto__.txtExp_i = function () {

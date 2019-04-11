@@ -75,7 +75,6 @@ module egret {
 		/**
 		 * 设置主角场景元素，应在初始化数据后设置 
 		 * @param role:ElementPlayer 主角场景元素
-		 * 
 		 */		
 		public setRole(role:ElementPlayer):void{
 			super.setRole(role);
@@ -159,7 +158,6 @@ module egret {
 		 * @param elementId:Number = -1 目标场景元素id，为场景固定元素id，指定此参数场景id使用-1才有效，已指定此参数时后面的参数无效
 		 * @param x:Number = -1 目标场景x
 		 * @param y:Number = -1 目标场景y
-		 * 
 		 */		
 		public navigate(sceneId:number = -1,elementId:number = -1,x:number = -1,y:number = -1):void{
 		}
@@ -299,8 +297,6 @@ module egret {
 		 * 移除场景元素 
 		 * @param target:DisplayObject 场景元素 
 		 * @param isRecover:Boolean = true 是否自动回收，特殊元素不回收，直接移除，如鼠标点击影片
-		 * @return 
-		 * 
 		 */		
 		public removeElement(target:DisplayObject,isRecover:boolean = true):DisplayObject{
 			var mover:SceneElementMover = <SceneElementMover><any> (super.removeElement(target,isRecover));
@@ -319,26 +315,18 @@ module egret {
 		/**
 		 * 点击场景元素 
 		 * @param target:SceneElement 场景元素
-		 * 
 		 */		
 		public clickElement(target:SceneElement):void{
-			
-		}
-		//
-		/**
-		 * 场景元素移动结束 
-		 * @param target:SceneElement 场景元素
-		 * 
-		 */		
-		public elementMovingEnd(target:SceneElement):void{
-			
 		}
 
 		/**
-		 * 获取场景元素坐标点 
-		 * @return 
-		 * 
+		 * 场景元素移动结束 
+		 * @param target:SceneElement 场景元素
 		 */		
+		public elementMovingEnd(target:SceneElement):void{
+		}
+
+		/**获取场景元素坐标点 */		
 		public getElementPoint(id:string):Point{
 			return null;
 		}
@@ -411,11 +399,7 @@ module egret {
 			}
 		}
 
-		/**
-		 * 主角线路改变 
-		 * @param event
-		 * 
-		 */		
+		/**主角线路改变 */		
 		public sceneElementPathChanged(event:Event):void{
 			super.sceneElementPathChanged(event);
 		}
@@ -426,7 +410,6 @@ module egret {
 		
 		/**检测鼠标点击影片加载完成时 */		
 		public checkMousePoint():void{
-
 		}
 
 		/**

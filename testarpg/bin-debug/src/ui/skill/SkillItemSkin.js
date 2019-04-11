@@ -7,7 +7,7 @@ var ui;
             function SkillItemSkin() {
                 _super.call(this);
                 this.__s = egret.gui.setProperties;
-                this.__s(this, ["height", "width"], [118, 495]);
+                this.__s(this, ["height", "width"], [114, 495]);
                 this.elementsContent = [this.__3_i(), this.__4_i(), this.txtName_i(), this.txtDesc_i(), this.item_i()];
                 this.states = [
                     new egret.gui.State("normal", []),
@@ -24,24 +24,24 @@ var ui;
             });
             __egretProto__.__4_i = function () {
                 var t = new egret.gui.UIAsset();
-                this.__s(t, ["source", "x", "y"], ["genius_bg_png", 8, 2]);
+                this.__s(t, ["source", "x", "y"], ["genius_bg_png", 8, -1]);
                 return t;
             };
             __egretProto__.item_i = function () {
                 var t = new egret.WuhunItem();
                 this.item = t;
-                this.__s(t, ["height", "skinName", "width", "x", "y"], [80, ui.wuhun.WuhunItemSkin, 80, 20, 18]);
+                this.__s(t, ["height", "skinName", "width", "x", "y"], [80, ui.wuhun.WuhunItemSkin, 80, 20, 15]);
                 return t;
             };
             __egretProto__.__3_i = function () {
                 var t = new egret.gui.UIAsset();
-                this.__s(t, ["height", "scale9Grid", "source", "width", "x", "y"], [118, egret.gui.getScale9Grid("3,3,24,24"), "bg_21_png", 495, 0, 0]);
+                this.__s(t, ["height", "scale9Grid", "source", "width", "x", "y"], [113, egret.gui.getScale9Grid("3,3,24,24"), "bg_21_png", 495, 0, 0]);
                 return t;
             };
             __egretProto__.txtDesc_i = function () {
                 var t = new egret.gui.Label();
                 this.txtDesc = t;
-                this.__s(t, ["fontFamily", "height", "size", "text", "textColor", "width", "x", "y"], ["等线", 57, 22, "技能描述", 0x080809, 347, 125, 53]);
+                this.__s(t, ["fontFamily", "height", "size", "text", "textColor", "width", "x", "y"], ["等线", 57, 22, "技能描述", 0x080809, 291, 125, 53]);
                 return t;
             };
             __egretProto__.txtName_i = function () {

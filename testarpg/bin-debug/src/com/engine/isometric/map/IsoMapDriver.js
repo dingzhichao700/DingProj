@@ -11,7 +11,6 @@ var egret;
          * @param viewHeight:Number = 160 视口高度
          * @param renderOffsetWidth:Number = 0 视口宽度向两边扩展的偏移量，使渲染区域大于或等于视口区域，渲染区域宽度为:viewWidth + renderOffsetWidth x 2
          * @param renderOffsetHeight:Number = 0 视口高度向两边扩展的偏移量，使渲染区域大于或等于视口区域，渲染区域高度为:viewHeight + renderOffsetHeight x 2
-         *
          */
         function IsoMapDriver(mapWidth, mapHeight, isoSize, viewWidth, viewHeight, renderOffsetWidth, renderOffsetHeight) {
             if (mapWidth === void 0) { mapWidth = 1000; }
@@ -112,11 +111,7 @@ var egret;
             configurable: true
         });
         Object.defineProperty(__egretProto__, "currentMapY", {
-            /**
-             * 当前目标点地图坐标y
-             * @return
-             *
-             */
+            /**当前目标点地图坐标y*/
             get: function () {
                 return this._currentMapY;
             },
@@ -124,11 +119,7 @@ var egret;
             configurable: true
         });
         Object.defineProperty(__egretProto__, "currentMapX", {
-            /**
-             * 当前目标点地图坐标x
-             * @return
-             *
-             */
+            /**当前目标点地图坐标x*/
             get: function () {
                 return this._currentMapX;
             },
@@ -142,7 +133,6 @@ var egret;
             /**
              * 地图移动速度，与角色移动速度不同，此字段为控制地图单独平滑移动至某一坐标的速度
              * @param value:Number 默认值:2px，也是最小值
-             *
              */
             set: function (value) {
                 if (this._speed == value)
@@ -154,18 +144,7 @@ var egret;
             configurable: true
         });
         Object.defineProperty(__egretProto__, "centerNode", {
-            //
-            /**
-             * 当前地图视口的中心点所在的节点
-             * @return
-             *
-             */
-            //
-            /**
-             * 元素的原点所在的节点 ，适用于只访问节点数据的场合，不适合用于改变节点数据场合
-             * @return
-             *
-             */
+            /**当前地图视口的中心点所在的节点*/
             get: function () {
                 var mPoint = this.centerPoint;
                 this._centerNode.copyBy(this.getIsoNode(mPoint.x, mPoint.y));
@@ -175,12 +154,7 @@ var egret;
             configurable: true
         });
         Object.defineProperty(__egretProto__, "mapMouseX", {
-            //
-            /**
-             * 地图鼠标x坐标
-             * @return
-             *
-             */
+            /**地图鼠标x坐标*/
             get: function () {
                 return this._mapTileContainer.anchorX;
             },
@@ -188,12 +162,7 @@ var egret;
             configurable: true
         });
         Object.defineProperty(__egretProto__, "mapMouseY", {
-            //
-            /**
-             * 地图鼠标y坐标
-             * @return
-             *
-             */
+            /**地图鼠标y坐标*/
             get: function () {
                 return this._mapTileContainer.anchorY;
             },
@@ -230,25 +199,20 @@ var egret;
             this._mapTileContainer.removeEventListener(egret.TouchEvent.TOUCH_END, this.tileContainerMouseUp, this);
             _super.prototype.destroy.call(this);
         };
-        //
         /**
          * 外部更新当前目标点地图坐标xy
          * @param x:int
          * @param y:int
-         *
          */
         __egretProto__.setCurrentMapXY = function (x, y) {
             if (y === void 0) { y = 0; }
             this._currentMapX = x;
             this._currentMapY = y;
         };
-        //
         /**
          * 获取目标点的节点数据， 适用于只访问节点数据的场合，不适合用于改变节点数据场合
          * @param x:Number x坐标
          * @param y:Number y坐标
-         * @return
-         *
          */
         __egretProto__.getIsoNode = function (x, y) {
             var line = Math.round(y / this._halfSize);
@@ -265,12 +229,10 @@ var egret;
             //计算3D空间中最靠近坐标的节点
             return this.getNeerNode(this._isoNodePoint, this._nodeLines, this._nodeColumns);
         };
-        //
         /**
          * 地图跳至目标坐标位置，如果坐标不是节点的坐标，将自动计算并跳至最近的节点
          * @param x:Number x坐标
          * @param y:Number y坐标
-         *
          */
         __egretProto__.gotoXY = function (x, y) {
             var node = this.getIsoNode(x, y);
@@ -283,12 +245,10 @@ var egret;
             this.setMapContainerXY(tx, ty);
             this.checkRenderRect(true);
         };
-        //
         /**
          * 地图跳至目标坐标位置，忽略节点数据
          * @param x:Number x坐标
          * @param y:Number y坐标
-         *
          */
         __egretProto__.gotoXY2 = function (x, y) {
             this._currentMapX = x;
@@ -299,12 +259,10 @@ var egret;
             this.setMapContainerXY(tx, ty);
             this.checkRenderRect(true);
         };
-        //
         /**
          * 地图中心移动至目标位置，此方法为控制地图单独平滑移动至某一坐标的速度，与角色无关
          * @param x:Number x坐标
          * @param y:Number y坐标
-         *
          */
         __egretProto__.moveTo = function (x, y) {
             this._isMapMoved = true;
@@ -312,13 +270,10 @@ var egret;
             if (!this.checkDistance())
                 this.addMoveEngine(true);
         };
-        //
         /**
          * 获取目标位置的距离数据
          * @param x:Number
          * @param y:Number
-         * @return
-         *
          */
         __egretProto__.getPointDistance = function (x, y) {
             var data = new egret.Point();
@@ -326,7 +281,6 @@ var egret;
             data.y = Math.floor(this.limitValue(y, this._minMapY, 0));
             return data;
         };
-        //
         /**
          * 停止地图自身的移动
          * @see moveTo()
@@ -339,49 +293,32 @@ var egret;
             if (this.stopMoveHandler != null)
                 this.stopMoveHandler();
         };
-        //
         /**
          * 设置角色在地图上的坐标，自动校正边界坐标
          * @param x:Number
          * @param y:Number
-         *
          */
         __egretProto__.setMapXY = function (x, y) {
             this.setMapContainerXY(x, y);
             this.checkRenderRect();
         };
-        //
         __egretProto__.addListeners = function () {
             this._mapTileContainer.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.tileContainerMouseDown, this);
         };
-        //
-        /**
-         * 鼠标按下地图
-         * @param e
-         *
-         */
+        /**鼠标按下地图 */
         __egretProto__.tileContainerMouseDown = function (e) {
             this.addEngine(true);
             this._stage.addEventListener(egret.TouchEvent.TOUCH_END, this.tileContainerMouseUp, this);
             egret.TimeRecordManager.getInstance().resetRelativeTime("checkStartMove");
         };
-        //
-        /**
-         * 鼠标弹起
-         * @param e
-         *
-         */
+        /**鼠标弹起*/
         __egretProto__.tileContainerMouseUp = function (e) {
             this._stage.removeEventListener(egret.TouchEvent.TOUCH_END, this.tileContainerMouseUp, this);
             this.addEngine(false);
         };
-        /**
-         * 初始化地图，如当前点数据等
-         *
-         */
+        /**初始化地图，如当前点数据等*/
         __egretProto__.initMap = function () {
         };
-        //
         /**
          * 计算3D空间中以一个节点为中心的5个节点与目标点的最近节点，优点在于独立性强，不依赖地图节点数据，
          * 缺点在于 此方法频繁使用时需要分配很多内存，IsoMap 覆盖优化此方法,
@@ -389,8 +326,6 @@ var egret;
          * @param target:Point 2D目标点
          * @param lines:Array 连续的3行
          * @param columns:Array 连续的3列
-         * @return
-         *
          */
         __egretProto__.getNeerNode = function (target, lines, columns) {
             var distance = Number.POSITIVE_INFINITY;
@@ -456,13 +391,10 @@ var egret;
             this._neerNode.column = (this._neerPoint.x / this._isoSize2) | 0;
             return this._neerNode;
         };
-        //
         /**
          * 获取节点数据
          * @param row:Number 行索引
          * @param column:Number 列索引
-         * @return
-         *
          */
         __egretProto__.getIsoNodeByRow = function (row, column) {
             var node = new egret.IsoNode();
@@ -471,11 +403,7 @@ var egret;
             node.point2D = this.getIsoPoint(row, column);
             return node;
         };
-        //
-        /**
-         * 移动地图
-         *
-         */
+        /**移动地图*/
         __egretProto__.moveMap = function () {
             if (!this._isMapMoved)
                 return;
@@ -487,12 +415,10 @@ var egret;
             if (this.checkDistance())
                 this.stopMove();
         };
-        //
         /**
          * 计算移动距离
          * @param x:Number
          * @param y:Number
-         *
          */
         __egretProto__.calcDistance = function (x, y) {
             var cPoint = this.centerPoint;
@@ -509,11 +435,7 @@ var egret;
             this._speedX = Math.cos(radians) * this._speed;
             this._speedY = Math.sin(radians) * this._speed;
         };
-        //
-        /**
-         * 更新地图坐标
-         *
-         */
+        /**更新地图坐标*/
         __egretProto__.updateMap = function () {
             var mx = this._mapContainer.x;
             var my = this._mapContainer.y;
@@ -562,7 +484,6 @@ var egret;
             }
             this.setMapXY(x, y);
         };
-        //
         /**
          * 设置地图坐标
          * @param x
@@ -587,11 +508,7 @@ var egret;
             //			trace("offset xy:",x - _lastX,y - _lastY);
             //			trace();
         };
-        //
-        /**
-         * 检测渲染区域位置是否改变
-         *
-         */
+        /**检测渲染区域位置是否改变*/
         __egretProto__.checkRenderRect = function (flag) {
             if (flag === void 0) { flag = false; }
             if (!flag) {
@@ -636,7 +553,6 @@ var egret;
                     this._renderChangeItem.apply();
             }
         };
-        //
         /**
          *  设置等角投影地图渲染区域矩形位置改变回调
          * @param handler function(isoMap:IsoMapDriver):void{}
@@ -658,20 +574,13 @@ var egret;
             this._renderChangeItem.target = target;
             this._renderChangeItem.params = params;
         };
-        //
-        /**
-         * 检测可移动距离是否为0
-         * @return
-         *
-         */
+        /**检测可移动距离是否为0*/
         __egretProto__.checkDistance = function () {
             return this._mapContainer.x == this._targetX && this._mapContainer.y == this._targetY;
         };
-        //
         /**
          * 添加或删除按下地图引擎
          * @param isAdded
-         *
          */
         __egretProto__.addEngine = function (isAdded) {
             if (isAdded) {
@@ -687,7 +596,6 @@ var egret;
                 }
             }
         };
-        //
         /**
          * 添加或删除地图移动引擎
          * @param isAdded
@@ -707,21 +615,11 @@ var egret;
                 }
             }
         };
-        //
-        /**
-         * 地图移动帧处理
-         * @param e
-         *
-         */
+        /**地图移动帧处理*/
         __egretProto__.moveEnterFrame = function (e) {
             this.moveMap();
         };
-        //
-        /**
-         * 帧处理
-         * @param e
-         *
-         */
+        /**帧处理*/
         __egretProto__.mapContainerEnterFrame = function (e) {
         };
         return IsoMapDriver;

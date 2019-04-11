@@ -42,11 +42,11 @@ module egret {
 
 		/**初始化场景数据*/
 		public initMapData():void{
-			for(var i = 1001; i < 1003; i++){
+			for(var i = 1001; i < 1004; i++){
 				var lo:SceneEditLo = new SceneEditLo();
 				lo.id = i;
-				lo.width = 960;
-				lo.height = 1140;
+				lo.width = 1280;
+				lo.height = 1800;
 				lo.pieceWidth = 300;
 				lo.pieceHeight = 300;
 
@@ -65,10 +65,7 @@ module egret {
 			}
 		}
 
-		/**
-		 * 获取下一个场景 id
-		 * @returns {number}
-		 */
+		/**获取下一个场景 id*/
 		public getNextSceneId():number{
 			var id:number = this.sceneId;
 			id ++;
@@ -78,10 +75,7 @@ module egret {
 			return id;
 		}
 
-		/**
-		 * 检测是否还有敌人存在
-		 * @returns {boolean}
-		 */
+		/**检测是否还有敌人存在*/
 		public checkArmy():boolean{
 			var list:Array<SceneElementDataItem> = this.getArmies(false);
 
@@ -168,15 +162,12 @@ module egret {
 					vo.id = SceneElementData.getInstance().getAutoElementId();
 					vo.idString = vo.id + "";
 					vo.name = "BOSS";
-
 					vo.x = monsterPoint.x;
 					vo.y = monsterPoint.y;
-
 					vo.hp = 20000;
 					vo.hpTotal = 20000;
 
 					item.vo = vo;
-
 					item.lo = new MonsterLo();
 					item.lo.movieName = "boss_001";
 
@@ -202,7 +193,7 @@ module egret {
 
 			this._bornPoint.x = Math.cos(radian) * radius + cx;
 			this._bornPoint.y = Math.sin(radian) * radius + cy;*/
-            this._bornPoint.x = 200 + Math.random() * 50;
+            this._bornPoint.x = 640;
             this._bornPoint.y = 500 + Math.random() * 200;
 
 			return this._bornPoint;
@@ -358,9 +349,7 @@ module egret {
 					offsetY += gap;
 					vo.y += gap;
 				}
-
 				vo.name = "金币";
-
 				item.vo = vo;
 
 				var lo:GoodsLo = new GoodsLo();

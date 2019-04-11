@@ -1,9 +1,6 @@
 var egret;
 (function (egret) {
     var IsoMapData = (function () {
-        /**
-         * 构造函数
-         */
         function IsoMapData() {
             //地图数据
             this._hashMap = null;
@@ -13,12 +10,10 @@ var egret;
         IsoMapData.getInstance = function () {
             return IsoMapData._instance || (IsoMapData._instance = new IsoMapData());
         };
-        //
         /**
          * 设置地图数据
          * @param id:* 数据  id
          * @param data:* 数据对象
-         *
          */
         __egretProto__.setData = function (id, data) {
             if (this._hashMap.containsKey(id)) {
@@ -28,12 +23,9 @@ var egret;
                 this._hashMap.put(id, data);
             }
         };
-        //
         /**
          * 获取地图数据
          * @param id:* 数据  id
-         * @return
-         *
          */
         __egretProto__.getData = function (id) {
             return this._hashMap.get(id);

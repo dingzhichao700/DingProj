@@ -64,7 +64,6 @@ var egret;
         /**
          * 设置主角场景元素，应在初始化数据后设置
          * @param role:ElementPlayer 主角场景元素
-         *
          */
         __egretProto__.setRole = function (role) {
             _super.prototype.setRole.call(this, role);
@@ -138,7 +137,6 @@ var egret;
          * @param elementId:Number = -1 目标场景元素id，为场景固定元素id，指定此参数场景id使用-1才有效，已指定此参数时后面的参数无效
          * @param x:Number = -1 目标场景x
          * @param y:Number = -1 目标场景y
-         *
          */
         __egretProto__.navigate = function (sceneId, elementId, x, y) {
             if (sceneId === void 0) { sceneId = -1; }
@@ -260,8 +258,6 @@ var egret;
          * 移除场景元素
          * @param target:DisplayObject 场景元素
          * @param isRecover:Boolean = true 是否自动回收，特殊元素不回收，直接移除，如鼠标点击影片
-         * @return
-         *
          */
         __egretProto__.removeElement = function (target, isRecover) {
             if (isRecover === void 0) { isRecover = true; }
@@ -278,23 +274,16 @@ var egret;
         /**
          * 点击场景元素
          * @param target:SceneElement 场景元素
-         *
          */
         __egretProto__.clickElement = function (target) {
         };
-        //
         /**
          * 场景元素移动结束
          * @param target:SceneElement 场景元素
-         *
          */
         __egretProto__.elementMovingEnd = function (target) {
         };
-        /**
-         * 获取场景元素坐标点
-         * @return
-         *
-         */
+        /**获取场景元素坐标点 */
         __egretProto__.getElementPoint = function (id) {
             return null;
         };
@@ -353,11 +342,7 @@ var egret;
                 egret.RoleManager.getInstance().moveTo3(this._isoMap.currentMapX, this._isoMap.currentMapY);
             }
         };
-        /**
-         * 主角线路改变
-         * @param event
-         *
-         */
+        /**主角线路改变 */
         __egretProto__.sceneElementPathChanged = function (event) {
             _super.prototype.sceneElementPathChanged.call(this, event);
         };

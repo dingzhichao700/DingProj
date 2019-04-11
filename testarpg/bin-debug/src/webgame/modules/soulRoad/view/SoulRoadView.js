@@ -24,7 +24,8 @@ var egret;
                 case this.img_3:
                 case this.img_4:
                 case this.img_5:
-                    egret.dataManager().sceneData.sceneType = egret.SceneType.BOSS_COPY;
+                    //                    dataManager().sceneData.sceneType = SceneType.BOSS_COPY; 
+                    egret.dataManager().sceneData.sceneType = egret.SceneType.ARENA;
                     egret.globalUpdateWindows([egret.UpdateType.CHANGE_SOULROAD]);
                     break;
             }

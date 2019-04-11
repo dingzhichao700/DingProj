@@ -43,7 +43,8 @@ var egret;
                 //测试
                 //				openWindow(ButtonWindow);
                 var sceneEditLo = egret.IsoMapData.getInstance().getData(this._sceneData.sceneId);
-                this.gotoXY(sceneEditLo.width / 4, sceneEditLo.height * 3 / 4);
+                //				this.gotoXY(sceneEditLo.width / 4,sceneEditLo.height * 3 / 4);
+                this.gotoXY(640, 1400);
             }
         };
         /**切换副本*/

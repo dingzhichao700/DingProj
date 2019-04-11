@@ -540,8 +540,7 @@ var egret;
             if (!target)
                 return;
             var container = (target.parent);
-            //			try{
-            //因容器destroy()有调用remove(),有可能发生，Error #2094: 事件调度递归溢出
+            //			try{ //因容器destroy()有调用remove(),有可能发生，Error #2094: 事件调度递归溢出
             if (target.parent)
                 target.parent.removeChild(target);
             //			}catch(e:Error){}
@@ -562,7 +561,6 @@ var egret;
                 this._alignHashMap.remove(target.hashCode);
             }
         };
-        //
         /**
          * 将窗口切换至指定层
          * @param target:Class 窗口类或实例

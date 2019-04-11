@@ -16,13 +16,16 @@ module egret {
         public onOpen(): void {
             this.imgGuide.visible = false;
             
-            this.imgRole.addEventListener(egret.TouchEvent.TOUCH_END,this.guideNext,this);
+            this.imgRole.addEventListener(egret.TouchEvent.TOUCH_END,this.guideNext,this); 
 
             ApplicationManager.getInstance().stage.addEventListener(Event.RESIZE,this.resizeHandler,this);
             this.onResize();
         }
 
         private guideNext(): void {
+            this.close();
+            return;
+            
             this.imgRole.visible = false;
             this.imgGuide.visible = true;
             this.imgBg.alpha = 0.5;

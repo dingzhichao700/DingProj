@@ -27,7 +27,7 @@ module egret {
                 vo.id = i+1;
                 
                 var item:SkillItem = new SkillItem();
-                item.y = i * 120;
+                item.y = i * 115;
                 item.data = vo;
                 this.itemCon.addElement(item);
             }

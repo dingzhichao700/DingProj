@@ -15,6 +15,8 @@ var egret;
             this.onResize();
         };
         __egretProto__.guideNext = function () {
+            this.close();
+            return;
             this.imgRole.visible = false;
             this.imgGuide.visible = true;
             this.imgBg.alpha = 0.5;

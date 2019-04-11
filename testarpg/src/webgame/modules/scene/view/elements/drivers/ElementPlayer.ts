@@ -12,7 +12,6 @@ module egret {
 		/**
 		 * 更新动作影片显示
 		 * @param value:SceneElementDataItem
-		 * 
 		 */		
 		public updateAvatar(value:SceneElementDataItem):void{
 			this.setData(value);
@@ -120,13 +119,11 @@ module egret {
 					}
 				}
 			}
-
 			return null;
 		}
 
 		/**检测自动攻击*/
 		public checkAutoAttack():void{
-
 		}
 
 		/**检测自动攻击2，玩家在攻击结束时检测，不使用定时器方法checkAutoAttack()*/

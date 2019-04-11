@@ -1,15 +1,12 @@
 var egret;
 (function (egret) {
-    /**
-     * 射手
-     */
+    /**射手*/
     var PlayerBowman = (function (_super) {
         __extends(PlayerBowman, _super);
         function PlayerBowman() {
             _super.call(this);
         }
         var __egretProto__ = PlayerBowman.prototype;
-        //
         /**
          * 获取攻击范围，不同职业和怪物重写
          * @param skillType 技能类型
@@ -55,7 +52,6 @@ var egret;
                 this._avatar.setFrameHandler(this.playSkill, this);
             }
         };
-        //
         /**
          * 增加神兽
          * @returns {SceneElementDataItem}
@@ -75,15 +71,11 @@ var egret;
             this._animal.chaseArmies(master.armies);
             egret.globalUpdateWindows([egret.UpdateType.ADD_MONSTER], item);
         };
-        //
-        /**
-         * 清空神兽
-         */
+        /**清空神兽*/
         __egretProto__.removeAnimal = function () {
             this._animal = null;
         };
         Object.defineProperty(__egretProto__, "hasAnimal", {
-            //
             /**
              * 是否已有神兽
              * @returns {PlayerAnimal|boolean}
@@ -94,10 +86,7 @@ var egret;
             enumerable: true,
             configurable: true
         });
-        //
-        /**
-         * 释放技能
-         */
+        /**释放技能*/
         __egretProto__.playSkill = function () {
             if (!this.scene)
                 return;

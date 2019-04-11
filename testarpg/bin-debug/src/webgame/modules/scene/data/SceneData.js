@@ -26,11 +26,11 @@ var egret;
         var __egretProto__ = SceneData.prototype;
         /**初始化场景数据*/
         __egretProto__.initMapData = function () {
-            for (var i = 1001; i < 1003; i++) {
+            for (var i = 1001; i < 1004; i++) {
                 var lo = new egret.SceneEditLo();
                 lo.id = i;
-                lo.width = 960;
-                lo.height = 1140;
+                lo.width = 1280;
+                lo.height = 1800;
                 lo.pieceWidth = 300;
                 lo.pieceHeight = 300;
                 egret.IsoMapData.getInstance().setData(i, lo);
@@ -46,10 +46,7 @@ var egret;
                 egret.globalUpdateWindows([egret.UpdateType.COPY_MONSTER_BORN]);
             }
         };
-        /**
-         * 获取下一个场景 id
-         * @returns {number}
-         */
+        /**获取下一个场景 id*/
         __egretProto__.getNextSceneId = function () {
             var id = this.sceneId;
             id++;
@@ -58,10 +55,7 @@ var egret;
             }
             return id;
         };
-        /**
-         * 检测是否还有敌人存在
-         * @returns {boolean}
-         */
+        /**检测是否还有敌人存在*/
         __egretProto__.checkArmy = function () {
             var list = this.getArmies(false);
             for (var i in list) {
@@ -165,7 +159,7 @@ var egret;
 
             this._bornPoint.x = Math.cos(radian) * radius + cx;
             this._bornPoint.y = Math.sin(radian) * radius + cy;*/
-            this._bornPoint.x = 200 + Math.random() * 50;
+            this._bornPoint.x = 640;
             this._bornPoint.y = 500 + Math.random() * 200;
             return this._bornPoint;
         };

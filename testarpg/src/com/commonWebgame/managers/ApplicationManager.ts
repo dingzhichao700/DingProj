@@ -380,7 +380,8 @@ module egret {
 				var length1:number = wins.length;
 				for(var i1:number = 0;i1 < length1;i1++){
 					var win:IWindow = wins[i1];
-					if(!win["stage"]) continue;
+					if(!win["stage"]) 
+    					continue;
 					
 					var length2:number = updateTypes.length;
 					for(var i2:number = 0;i2 < length2;i2++){
@@ -576,12 +577,12 @@ module egret {
 		 * @see #show()
 		 */		
 		public hide(target:DisplayObject):void{
-			if(!target) return;
+			if(!target) 
+    			return;
 			
 			var container:Sprite = <Sprite> (target.parent);
 			
-//			try{
-				//因容器destroy()有调用remove(),有可能发生，Error #2094: 事件调度递归溢出
+//			try{ //因容器destroy()有调用remove(),有可能发生，Error #2094: 事件调度递归溢出
 				if(target.parent)
 					target.parent.removeChild(target);
 //			}catch(e:Error){}
@@ -604,7 +605,7 @@ module egret {
 				this._alignHashMap.remove(target.hashCode);
 			}
 		}
-		//
+
 		/**
 		 * 将窗口切换至指定层  
 		 * @param target:Class 窗口类或实例

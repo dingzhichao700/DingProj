@@ -2,6 +2,7 @@ module egret{
     
     /**主角多角色管理器*/
     export class RoleManager{
+        
         //主角角色
         private _roles:Array<ElementPlayer> = [];
         //当前场景
@@ -19,8 +20,8 @@ module egret{
 
         public constructor() {
             this.addRole(1);
-            this.addRole(2);
-            this.addRole(3);
+//            this.addRole(2);
+//            this.addRole(3);
         }
 
         /**主角角色数组*/
@@ -159,7 +160,6 @@ module egret{
                 this._roles[i].data.vo.x = points[i].x;
                 this._roles[i].data.vo.y = points[i].y;
                 this._roles[i].updateXY();
-
                 //LogManager.debug(this,"setElementPlayerXY() vocation = " + this._roles[i].data.vo["vocation"],points[i].x,points[i].y,this._roles[i].x,this._roles[i].y);
             }
         }

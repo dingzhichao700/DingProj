@@ -67,7 +67,8 @@ module egret {
 //				openWindow(ButtonWindow);
 
 				var sceneEditLo:SceneEditLo = IsoMapData.getInstance().getData(this._sceneData.sceneId);
-				this.gotoXY(sceneEditLo.width / 4,sceneEditLo.height * 3 / 4);
+//				this.gotoXY(sceneEditLo.width / 4,sceneEditLo.height * 3 / 4);
+                this.gotoXY(640, 1400);
 			}
 		}
 
@@ -82,9 +83,7 @@ module egret {
 		/**进入下一个副本*/
 		public nextCopy():void{
 			SceneManager.getInstance().enterScene(this._sceneData.sceneType,this._sceneData.getNextSceneId());
-
 			RoleManager.getInstance().enterSceneEffect();
-
 			this.nextTurn();
 		}
 

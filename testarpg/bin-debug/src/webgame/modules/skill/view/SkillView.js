@@ -21,7 +21,7 @@ var egret;
                 var vo = new egret.SkillVo();
                 vo.id = i + 1;
                 var item = new egret.SkillItem();
-                item.y = i * 120;
+                item.y = i * 115;
                 item.data = vo;
                 this.itemCon.addElement(item);
             }

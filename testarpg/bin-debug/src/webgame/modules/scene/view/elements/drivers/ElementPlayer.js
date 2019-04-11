@@ -10,7 +10,6 @@ var egret;
         /**
          * 更新动作影片显示
          * @param value:SceneElementDataItem
-         *
          */
         __egretProto__.updateAvatar = function (value) {
             this.setData(value);

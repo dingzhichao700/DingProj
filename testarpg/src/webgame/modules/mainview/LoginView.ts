@@ -18,8 +18,10 @@ module egret {
         private onStart(): void {
             this.close();
             
-            SceneManager.getInstance().enterScene(SceneType.NORMAL_COPY,1001);
+            SceneManager.getInstance().enterScene(SceneType.CITY, 1003);
             (<SceneWindow>SceneManager.getInstance().scene).nextTurn();
+
+            TimerManager.getInstance().addExecute(this.cityMove,this,3000,[],1);
             
             var effect: ElementEffect = <ElementEffect>SceneElementManager.getInstance().getElement(ElementEffect);
             effect.setIsCheckResource(false);
@@ -30,6 +32,10 @@ module egret {
             
             MainControl.getInstance().openMainView();
             MainControl.getInstance().openGuideView();
+        }
+        
+        private cityMove():void {
+            RoleManager.getInstance().moveTo3(450, 900);
         }
         
     }

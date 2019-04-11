@@ -20,8 +20,8 @@
 		<e:UIAsset source="icon_coin_png" x="507" y="6"/>
 		<e:UIAsset source="bg_18_png" width="102" scale9Grid="9,2,3,18" x="392" y="9"/>
 		<e:UIAsset x="377" y="6" source="icon_achi_png"/>
-		<e:Label id="txtCoin" text="10311" x="537" y="13" fontFamily="Arial" size="15" width="82"/>
-		<e:Label id="txtAchi" fontFamily="Arial" width="82" size="15" x="406" y="13" text="410"/>
+		<e:Label id="txtCoin" text="10311" y="13" fontFamily="Arial" width="82" size="18" x="542"/>
+		<e:Label id="txtAchi" fontFamily="Arial" width="82" y="13" text="410" size="18" x="416"/>
 	</e:Group>
 	<e:Group id="boxBottom" x="0" y="960">
 		<e:UIAsset source="bg_mainbottom_png" width="531" x="55" y="-83"/>

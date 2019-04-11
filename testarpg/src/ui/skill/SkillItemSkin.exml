@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding='utf-8'?>
-<e:Skin width="495" height="118" xmlns:e="http://ns.egret-labs.org/egret" xmlns:w="http://ns.egret-labs.org/wing" xmlns:egret="egret.*">
+<e:Skin width="495" height="114" xmlns:e="http://ns.egret-labs.org/egret" xmlns:w="http://ns.egret-labs.org/wing" xmlns:egret="egret.*">
 	<w:HostComponent name="egret.gui.SkinnableComponent"/>
 	<w:Declarations/>
 	<e:states>
 		<e:State name="normal"/>
 		<e:State name="disabled"/>
 	</e:states>
-	<e:UIAsset source="bg_21_png" scale9Grid="3,3,24,24" x="0" width="495" height="118" y="0"/>
-	<e:UIAsset source="genius_bg_png" x="8" y="2"/>
+	<e:UIAsset source="bg_21_png" scale9Grid="3,3,24,24" x="0" width="495" height="113" y="0"/>
+	<e:UIAsset source="genius_bg_png" x="8" y="-1"/>
 	<e:Label id="txtName" x="121" textColor="0x3F3F3F" fontFamily="等线" text="七伤拳 Lv.3" y="16" bold="true"/>
-	<e:Label id="txtDesc" fontFamily="等线" size="22" width="347" height="57" text="技能描述" y="53" x="125" textColor="0x080809"/>
-	<egret:WuhunItem id="item" height="80" width="80" x="20" y="18" skinName="ui.wuhun.WuhunItemSkin"/>
+	<e:Label id="txtDesc" fontFamily="等线" size="22" width="291" height="57" text="技能描述" y="53" x="125" textColor="0x080809"/>
+	<egret:WuhunItem id="item" height="80" width="80" x="20" skinName="ui.wuhun.WuhunItemSkin" y="15"/>
 </e:Skin>
