@@ -4,9 +4,9 @@ module egret {
     export class ItemManager {
 
         private itemCfgs: Array<ItemConfig>;
-        private static ITEM_QUALITY: Array<any> = ["", "白色","橙色","紫色","红色","幻彩"];
+        private static ITEM_QUALITY: Array<string> = ["", "白色","橙色","紫色","红色","幻彩"];
 
-        private static ITEM_CONFIG: Array<any> = [
+        private static ITEM_CONFIG: Array<string> = [
             "1,暴雨梨花针,1,唐门特制暗器之一，是镇门至宝，只有门中高人才配使用,atk:70|agili:20",
             "2,血刃,1,刃边阴冷无比，会吸收敌人的血液，是种十分阴邪的武器,atk:50|agili:30",
             "3,血滴子,1,杀人利器，杀人于无形之中，造成创口面积小，但是威力巨大,atk:90",
@@ -32,7 +32,7 @@ module egret {
             "23,修罗头盔,4,传说战场战神佩戴的头盔，煞气浓厚，常有佩戴者被此盔吞噬灵魂,str:100|agili:100|def:80|hp:150",
             "24,紫水晶,3,战斗时可镇定人心神，大大提升士气，长期使用会使人精神疲惫,str:100|agili:100|hp:100",
             "25,蓝水晶,2,战斗时可提升使用者防御，常镶嵌在盔甲上，对盔甲进行防御加成,intel:30|hp:150",
-            "26,紫神核,3,神界遗落的残骸，修复后可使用，使用后提升友军攻击,atk:50|hp:300"];
+            "26,强化石,2,用于装备强化，使用后提升装备属性"];
         
         private static _instance: ItemManager;
 

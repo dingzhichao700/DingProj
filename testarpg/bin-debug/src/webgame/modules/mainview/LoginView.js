@@ -14,8 +14,7 @@ var egret;
         __egretProto__.onStart = function () {
             this.close();
             egret.SceneManager.getInstance().enterScene(egret.SceneType.CITY, 1003);
-            egret.SceneManager.getInstance().scene.nextTurn();
-            egret.TimerManager.getInstance().addExecute(this.cityMove, this, 3000, [], 1);
+            egret.globalUpdateWindows([egret.UpdateType.ENTER_CITY]);
             var effect = egret.SceneElementManager.getInstance().getElement(egret.ElementEffect);
             effect.setIsCheckResource(false);
             effect.x = 200;
@@ -23,10 +22,8 @@ var egret;
             effect.setMovieName(egret.MovieName.EFFECT_01);
             effect.addToScene();
             egret.MainControl.getInstance().openMainView();
+            egret.MainControl.getInstance().openWarnView();
             egret.MainControl.getInstance().openGuideView();
-        };
-        __egretProto__.cityMove = function () {
-            egret.RoleManager.getInstance().moveTo3(450, 900);
         };
         return LoginView;
     })(egret.BasePanel);

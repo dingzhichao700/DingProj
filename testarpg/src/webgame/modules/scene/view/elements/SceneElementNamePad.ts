@@ -14,9 +14,6 @@ module egret {
 		private _defaultColor:number = 0xffffff;
 		private _defaultSize:number = 20;
 
-		/**
-		 * 构造函数
-		 */
 		public constructor(){
 			super();
 //			this.graphics.lineStyle(1,0xff0000,1);
@@ -39,15 +36,12 @@ module egret {
 			this.setName("Name");
 			this.setNameTextFormat(this._defaultSize,this._defaultColor);
 		}
-		//
-		/**
-		 * 名称文本对象 
-		 * @return 
-		 * 
-		 */		
+
+		/**名称文本对象*/		
 		public get nameText():TextField{
 			return this._nameText;
 		}
+		
 		/**
 		 * 获取指定层容器 ，没有时自动创建
 		 * @param index:int 0为最底层
@@ -81,17 +75,13 @@ module egret {
 			
 			return container;
 		}
-		//
-		/**
-		 * 设置名称 
-		 * @param name:String 
-		 * 
-		 */		
+
+		/**设置名称 */		
 		public setName(name:string):void{
-			if(name == this._nameValue) return;
+			if(name == this._nameValue) 
+    			return;
 			
 			this._nameValue = name;
-			
 			this._nameText.text = this._nameValue;
 			
 			this.updateLayout();
@@ -147,7 +137,7 @@ module egret {
 			
 			this.updateLayout();
 		}
-		//
+
 		/**
 		 * 移除元素 
 		 * @param target
@@ -160,11 +150,8 @@ module egret {
 				this.updateLayout();
 			}
 		}
-		//
-		/**
-		 * 更新布局 
-		 * 
-		 */		
+
+		/**更新布局 */		
 		public updateLayout():void{
 			var length:number = this.numChildren;
 			var height:number = 0;

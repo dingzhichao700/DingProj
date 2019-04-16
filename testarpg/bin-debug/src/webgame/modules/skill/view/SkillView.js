@@ -12,6 +12,7 @@ var egret;
             _super.prototype.onOpen.call(this);
             this.window.btnClose.addEventListener(egret.TouchEvent.TOUCH_END, this.close, this);
             this.window.btnBack.addEventListener(egret.TouchEvent.TOUCH_END, this.close, this);
+            this.imgSucc.alpha = 0;
             this.update();
         };
         __egretProto__.update = function () {
@@ -25,6 +26,18 @@ var egret;
                 item.data = vo;
                 this.itemCon.addElement(item);
             }
+        };
+        __egretProto__.playSucc = function () {
+            this.imgSucc.alpha = 0;
+            this.imgSucc.y = 350;
+            egret.Tween.removeTweens(this.imgSucc);
+            egret.TimerManager.getInstance().removeExecute(this.delayKey); //隐藏
+            egret.Tween.get(this.imgSucc).to({ y: 100 }, 1000);
+            egret.Tween.get(this.imgSucc).to({ alpha: 1 }, 300);
+            this.delayKey = egret.TimerManager.getInstance().addExecute(this.playSucc2, this, 1000, [], 1); //隐藏
+        };
+        __egretProto__.playSucc2 = function () {
+            egret.Tween.get(this.imgSucc).to({ alpha: 0 }, 200);
         };
         return SkillView;
     })(egret.BasePanel);

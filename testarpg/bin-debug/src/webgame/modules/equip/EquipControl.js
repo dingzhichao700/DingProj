@@ -16,6 +16,12 @@ var egret;
             }
             this.equipView.open();
         };
+        __egretProto__.openStrengthView = function () {
+            if (!this.strengthView) {
+                this.strengthView = new egret.EquipStrengthView();
+            }
+            this.strengthView.open();
+        };
         return EquipControl;
     })();
     egret.EquipControl = EquipControl;

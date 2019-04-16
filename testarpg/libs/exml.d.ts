@@ -10,6 +10,10 @@ declare module ui.equip{
 	class EquipViewSkin extends egret.gui.Skin{
 	}
 }
+declare module ui.equip{
+	class StrengthViewSkin extends egret.gui.Skin{
+	}
+}
 declare module ui.item{
 	class ItemTipsSkin extends egret.gui.Skin{
 	}
@@ -34,6 +38,14 @@ declare module ui.main{
 	class MainViewSkin extends egret.gui.Skin{
 	}
 }
+declare module ui.main{
+	class StoryProcessViewSkin extends egret.gui.Skin{
+	}
+}
+declare module ui.main{
+	class WarningViewSkin extends egret.gui.Skin{
+	}
+}
 declare module ui{
 	class MaskViewSkin extends egret.gui.Skin{
 	}
@@ -52,6 +64,14 @@ declare module ui.skill{
 }
 declare module ui.soulRoad{
 	class SoulRoadViewSkin extends egret.gui.Skin{
+	}
+}
+declare module ui.story{
+	class StoryMissionViewSkin extends egret.gui.Skin{
+	}
+}
+declare module ui.story{
+	class StoryTalkViewSkin extends egret.gui.Skin{
 	}
 }
 declare module ui{

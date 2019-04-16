@@ -9,6 +9,9 @@
 	<e:UIAsset source="bg_21_png" scale9Grid="3,3,24,24" x="0" width="495" height="113" y="0"/>
 	<e:UIAsset source="genius_bg_png" x="8" y="-1"/>
 	<e:Label id="txtName" x="121" textColor="0x3F3F3F" fontFamily="等线" text="七伤拳 Lv.3" y="16" bold="true"/>
-	<e:Label id="txtDesc" fontFamily="等线" size="22" width="291" height="57" text="技能描述" y="53" x="125" textColor="0x080809"/>
+	<e:Label id="txtDesc" fontFamily="等线" width="235" height="57" text="技能描述" y="53" x="125" textColor="0x080809" size="20"/>
+	<e:Label id="txtCost" textColor="0x080809" height="26" width="90" size="20" x="398" text="1700" fontFamily="微软雅黑" y="22"/>
 	<egret:WuhunItem id="item" height="80" width="80" x="20" skinName="ui.wuhun.WuhunItemSkin" y="15"/>
+	<e:UIAsset id="btnUp" source="btnUp_png" x="365" y="52"/>
+	<e:UIAsset id="imgCoin" source="icon_coin_png" x="368" y="15"/>
 </e:Skin>

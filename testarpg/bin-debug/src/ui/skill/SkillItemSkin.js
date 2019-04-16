@@ -8,7 +8,7 @@ var ui;
                 _super.call(this);
                 this.__s = egret.gui.setProperties;
                 this.__s(this, ["height", "width"], [114, 495]);
-                this.elementsContent = [this.__3_i(), this.__4_i(), this.txtName_i(), this.txtDesc_i(), this.item_i()];
+                this.elementsContent = [this.__3_i(), this.__4_i(), this.txtName_i(), this.txtDesc_i(), this.txtCost_i(), this.item_i(), this.btnUp_i(), this.imgCoin_i()];
                 this.states = [
                     new egret.gui.State("normal", []),
                     new egret.gui.State("disabled", [])
@@ -27,6 +27,18 @@ var ui;
                 this.__s(t, ["source", "x", "y"], ["genius_bg_png", 8, -1]);
                 return t;
             };
+            __egretProto__.btnUp_i = function () {
+                var t = new egret.gui.UIAsset();
+                this.btnUp = t;
+                this.__s(t, ["source", "x", "y"], ["btnUp_png", 365, 52]);
+                return t;
+            };
+            __egretProto__.imgCoin_i = function () {
+                var t = new egret.gui.UIAsset();
+                this.imgCoin = t;
+                this.__s(t, ["source", "x", "y"], ["icon_coin_png", 368, 15]);
+                return t;
+            };
             __egretProto__.item_i = function () {
                 var t = new egret.WuhunItem();
                 this.item = t;
@@ -38,10 +50,16 @@ var ui;
                 this.__s(t, ["height", "scale9Grid", "source", "width", "x", "y"], [113, egret.gui.getScale9Grid("3,3,24,24"), "bg_21_png", 495, 0, 0]);
                 return t;
             };
+            __egretProto__.txtCost_i = function () {
+                var t = new egret.gui.Label();
+                this.txtCost = t;
+                this.__s(t, ["fontFamily", "height", "size", "text", "textColor", "width", "x", "y"], ["微软雅黑", 26, 20, "1700", 0x080809, 90, 398, 22]);
+                return t;
+            };
             __egretProto__.txtDesc_i = function () {
                 var t = new egret.gui.Label();
                 this.txtDesc = t;
-                this.__s(t, ["fontFamily", "height", "size", "text", "textColor", "width", "x", "y"], ["等线", 57, 22, "技能描述", 0x080809, 291, 125, 53]);
+                this.__s(t, ["fontFamily", "height", "size", "text", "textColor", "width", "x", "y"], ["等线", 57, 20, "技能描述", 0x080809, 235, 125, 53]);
                 return t;
             };
             __egretProto__.txtName_i = function () {
@@ -50,7 +68,7 @@ var ui;
                 this.__s(t, ["bold", "fontFamily", "text", "textColor", "x", "y"], [true, "等线", "七伤拳 Lv.3", 0x3F3F3F, 121, 16]);
                 return t;
             };
-            SkillItemSkin._skinParts = ["txtName", "txtDesc", "item"];
+            SkillItemSkin._skinParts = ["txtName", "txtDesc", "txtCost", "item", "btnUp", "imgCoin"];
             return SkillItemSkin;
         })(egret.gui.Skin);
         skill.SkillItemSkin = SkillItemSkin;

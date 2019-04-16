@@ -1,6 +1,8 @@
 
 module egret{
     export class SoulRoadControl {
+        
+        private _curIndex:number = 0;
 
         private soulRoad: SoulRoadView;
 
@@ -22,5 +24,18 @@ module egret{
             }
             this.soulRoad.open();
         }
+        
+        public get curIndex():number {
+            return this._curIndex
+        }
+        
+        /**增加斗罗关卡数*/
+        public addIndex(): void {
+            this._curIndex++;
+            if(this._curIndex > 4){
+                this._curIndex = 0;
+            }
+        }
+        
     }
 }

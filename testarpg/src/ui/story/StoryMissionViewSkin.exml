@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin width="640" height="960" xmlns:e="http://ns.egret-labs.org/egret" xmlns:w="http://ns.egret-labs.org/wing">
+	<w:HostComponent name="egret.gui.SkinnableComponent"/>
+	<w:Declarations/>
+	<e:states>
+		<e:State name="normal"/>
+		<e:State name="disabled"/>
+	</e:states>
+	<e:UIAsset source="bgCopyWin_png" y="248" x="32"/>
+	<e:Label id="txtTitle" width="372" height="40" fontFamily="微软雅黑" size="24" textAlign="center" y="405" x="131" text="恭喜您战胜山贼首领"/>
+	<e:UIAsset id="btnGo" source="btnOk_png" y="482" x="242"/>
+</e:Skin>

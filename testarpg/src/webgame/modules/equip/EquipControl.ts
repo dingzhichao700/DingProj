@@ -3,6 +3,7 @@ module egret{
     export class EquipControl {
 
         private equipView: EquipView;
+        private strengthView: EquipStrengthView;
 
         private static _instance: EquipControl;
 
@@ -22,5 +23,13 @@ module egret{
             }
             this.equipView.open();
         }
+
+        public openStrengthView(): void {
+            if(!this.strengthView) {
+                this.strengthView = new EquipStrengthView();
+            }
+            this.strengthView.open();
+        }
+        
     }
 }

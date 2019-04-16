@@ -31,7 +31,7 @@ var ui;
             __egretProto__.imgRole_i = function () {
                 var t = new egret.gui.UIAsset();
                 this.imgRole = t;
-                this.__s(t, ["source", "x", "y"], ["img_guideRole_png", 68, 65]);
+                this.__s(t, ["source", "x", "y"], ["img_guideRole_png", 38, 65]);
                 return t;
             };
             __egretProto__.imgBg_i = function () {

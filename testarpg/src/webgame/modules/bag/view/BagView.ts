@@ -22,9 +22,10 @@ module egret {
         public update():void {
 
             this.itemCon.removeAllElements();
-            for(var i: number = 0;i < 25;i++) {
+            var itemList:Array<ItemData> = BagManager.getInstance().itemData;
+            for(var i: number = 0;i < itemList.length;i++) {
                 var item:BagItem = new BagItem();
-                item.itemId = 1+i;
+                item.itemId = itemList[i].id;
                 item.x = 5 + (i % 6)*81;
                 item.y = 5 + Math.floor(i / 6) * 80;
                 this.itemCon.addElement(item);

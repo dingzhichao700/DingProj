@@ -2,6 +2,7 @@ var egret;
 (function (egret) {
     var SkillManager = (function () {
         function SkillManager() {
+            this.skill_data = [1, 1, 1, 1, 1];
         }
         var __egretProto__ = SkillManager.prototype;
         SkillManager.getInstance = function () {
@@ -9,6 +10,17 @@ var egret;
                 SkillManager._instance = new SkillManager();
             }
             return SkillManager._instance;
+        };
+        /**获取技能等级*/
+        __egretProto__.getSkillLevel = function (id) {
+            return this.skill_data[id - 1];
+        };
+        __egretProto__.getLevelCost = function (lv) {
+            return SkillManager.LEVEL_COST[lv];
+        };
+        __egretProto__.upSkill = function (id) {
+            this.skill_data[id - 1] += 1;
+            egret.SkillControl.getInstance().playSucc();
         };
         __egretProto__.initCfg = function () {
             if (!this.skillCfgs) {
@@ -34,6 +46,7 @@ var egret;
             }
             return null;
         };
+        SkillManager.LEVEL_COST = [0, 1000, 1500, 2000, 3000, 4000, 5000, 5000, 5000, 5000];
         SkillManager.SKILL_CONFIG = [
             "1,烈焰,灼烧敌人，造成320点火焰伤害",
             "2,暴揍,提高近战角色的普攻伤害，并有概率陷入暴走状态",

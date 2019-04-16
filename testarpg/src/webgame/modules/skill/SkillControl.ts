@@ -22,7 +22,19 @@ module egret{
                 this.skillView = new SkillView();
             }
             this.skillView.open();
+        }
+
+        public updateskillView(): void {
+            if(this.skillView && this.skillView.isOpen) {
+                this.skillView.update();
+            }
         } 
+        
+        public playSucc(): void {
+            if(this.skillView && this.skillView.isOpen) {
+                this.skillView.playSucc();
+            }
+        }
 
         public openskillTip(id:number): void {
             if(!this.skillTipView) {

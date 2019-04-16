@@ -8,7 +8,7 @@ var ui;
                 _super.call(this);
                 this.__s = egret.gui.setProperties;
                 this.__s(this, ["height", "width"], [74, 72]);
-                this.elementsContent = [this.imgBg_i(), this.imgIcon_i()];
+                this.elementsContent = [this.imgBg_i(), this.imgIcon_i(), this.txtNum_i()];
                 this.states = [
                     new egret.gui.State("normal", []),
                     new egret.gui.State("disabled", [])
@@ -34,7 +34,13 @@ var ui;
                 t.source = "img_block_png";
                 return t;
             };
-            BagItemSkin._skinParts = ["imgBg", "imgIcon"];
+            __egretProto__.txtNum_i = function () {
+                var t = new egret.gui.Label();
+                this.txtNum = t;
+                this.__s(t, ["fontFamily", "height", "size", "text", "textAlign", "textColor", "width", "x", "y"], ["微软雅黑", 25, 18, "1", "right", 0x000000, 69, 1, 50]);
+                return t;
+            };
+            BagItemSkin._skinParts = ["imgBg", "imgIcon", "txtNum"];
             return BagItemSkin;
         })(egret.gui.Skin);
         bag.BagItemSkin = BagItemSkin;

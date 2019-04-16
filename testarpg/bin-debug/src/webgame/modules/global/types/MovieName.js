@@ -17,6 +17,11 @@ var egret;
          * @type {string}
          */
         MovieName.LEVEL_UP = "levelUp";
+        /**
+         * 传送阵特效
+         * @type {string}
+         */
+        MovieName.ENTRY = "entry";
         return MovieName;
     })();
     egret.MovieName = MovieName;

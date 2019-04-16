@@ -3,9 +3,12 @@ module egret {
 
     export class SkillManager {
 
+        private skill_data: Array<number>;
+        private static LEVEL_COST: Array<number> = [0,1000,1500,2000,3000,4000,5000,5000,5000,5000];
+        
         private skillCfgs: Array<SkillCfg>;
         
-        private static SKILL_CONFIG: Array<any> = [
+        private static SKILL_CONFIG: Array<string> = [
             "1,烈焰,灼烧敌人，造成320点火焰伤害",
             "2,暴揍,提高近战角色的普攻伤害，并有概率陷入暴走状态",
             "3,雷神锤,召唤雷神锤降世，横扫敌军，并附加240点雷属性伤害",
@@ -49,7 +52,22 @@ module egret {
         }
         
         public constructor() {
+            this.skill_data = [1,1,1,1,1];
         }
+        
+        /**获取技能等级*/        
+        public getSkillLevel(id: number):number{
+            return this.skill_data[id-1];
+        } 
+        
+        public getLevelCost(lv: number): number {
+            return SkillManager.LEVEL_COST[lv];
+        }
+
+        public upSkill(id: number):void {
+            this.skill_data[id - 1] += 1;
+            SkillControl.getInstance().playSucc();
+        } 
         
         public initCfg():void {
             if(!this.skillCfgs) {

@@ -19,6 +19,7 @@ module egret {
         private layer_window_2: Sprite = null;
         private layer_tip: Sprite = null;
         private layer_guide: Sprite = null;
+        private layer_warning: Sprite = null;
 		
 		//层级列表
 		private _layerHashMap:HashMap = null;
@@ -182,8 +183,10 @@ module egret {
                 this.gameCon.addChild(this.layer_window_2);
                 this.layer_tip = new Sprite();
                 this.gameCon.addChild(this.layer_tip);
-                this.layer_guide = new Sprite();
+                this.layer_guide = new Sprite(); 
                 this.gameCon.addChild(this.layer_guide);
+                this.layer_warning = new Sprite();
+                this.gameCon.addChild(this.layer_warning);
             }
             this.application.addChild(this.gameCon);
 		}
@@ -800,7 +803,10 @@ module egret {
                     break;
                 case BasePanel.LAYER_GUIDE:
                     targetLayer = this.layer_guide;
-                    break;
+                    break; 
+                case BasePanel.LAYER_WARNING:
+                    targetLayer = this.layer_warning;
+                    break; 
     		}
             targetLayer.addChild(view);
             view.openEnd();

@@ -18,11 +18,9 @@ module egret {
         private onStart(): void {
             this.close();
             
-            SceneManager.getInstance().enterScene(SceneType.CITY, 1003);
-            (<SceneWindow>SceneManager.getInstance().scene).nextTurn();
+            SceneManager.getInstance().enterScene(SceneType.CITY,1003);
+            globalUpdateWindows([UpdateType.ENTER_CITY]);
 
-            TimerManager.getInstance().addExecute(this.cityMove,this,3000,[],1);
-            
             var effect: ElementEffect = <ElementEffect>SceneElementManager.getInstance().getElement(ElementEffect);
             effect.setIsCheckResource(false);
             effect.x = 200;
@@ -30,12 +28,9 @@ module egret {
             effect.setMovieName(MovieName.EFFECT_01);
             effect.addToScene();
             
-            MainControl.getInstance().openMainView();
+            MainControl.getInstance().openMainView(); 
+            MainControl.getInstance().openWarnView();
             MainControl.getInstance().openGuideView();
-        }
-        
-        private cityMove():void {
-            RoleManager.getInstance().moveTo3(450, 900);
         }
         
     }

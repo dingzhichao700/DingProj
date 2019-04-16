@@ -25,7 +25,7 @@ var egret;
         var __egretProto__ = SceneWindow.prototype;
         __egretProto__.initWindow = function () {
             _super.prototype.initWindow.call(this);
-            this.addUpdateType(egret.UpdateType.PLAYER_EXIT_SCENE, egret.UpdateType.PLAYER_ENTER_SCENE, egret.UpdateType.PLAYER_VO_CHANGED, egret.UpdateType.COPY_MONSTER_BORN, egret.UpdateType.DAMAGE_HP_CHANGE, egret.UpdateType.CHANGE_SOULROAD, egret.UpdateType.CHANGE_COPY, egret.UpdateType.ADD_MONSTER);
+            this.addUpdateType(egret.UpdateType.PLAYER_EXIT_SCENE, egret.UpdateType.PLAYER_ENTER_SCENE, egret.UpdateType.PLAYER_VO_CHANGED, egret.UpdateType.COPY_MONSTER_BORN, egret.UpdateType.DAMAGE_HP_CHANGE, egret.UpdateType.CHANGE_SOULROAD, egret.UpdateType.CHANGE_COPY, egret.UpdateType.ENTER_CITY, egret.UpdateType.ADD_MONSTER);
         };
         __egretProto__.initData = function (data) {
             _super.prototype.initData.call(this, data);
@@ -51,8 +51,8 @@ var egret;
         __egretProto__.changeCopy = function (title) {
             this.clearCopy();
             egret.RoleManager.getInstance().changeSceneEffect();
-            egret.TimerManager.getInstance().addExecute(this.nextCopy, this, 3000, null, 1);
             egret.MainControl.getInstance().openLoading(title);
+            egret.TimerManager.getInstance().addExecute(this.nextCopy, this, 3000, null, 1);
         };
         /**进入下一个副本*/
         __egretProto__.nextCopy = function () {
@@ -64,8 +64,6 @@ var egret;
         __egretProto__.nextTurn = function () {
             egret.TimerManager.getInstance().addExecute(function () {
                 egret.globalUpdateWindows([egret.UpdateType.COPY_MONSTER_BORN]);
-                //Role.getInstance().moveTo2(0,0);
-                //RoleManager.getInstance().play(0,-1,ActionMovieClipDirectionType.DOWN_LEFT);
             }, null, 3000, null, 1);
         };
         __egretProto__.addEvents = function () {
@@ -94,9 +92,7 @@ var egret;
                     break;
                 case egret.UpdateType.COPY_MONSTER_BORN:
                     egret.dataManager().roleSceneData.resetRoleData();
-                    //Role.getInstance().updateHp();
                     egret.RoleManager.getInstance().updateHp();
-                    //var roles:Array<SceneElementDataItem> = [Role.getInstance().data];
                     var roles = egret.dataManager().roleSceneData.getRoleList();
                     this._monsters.length = 0;
                     var list = this._sceneData.getArmies();
@@ -106,7 +102,6 @@ var egret;
                             this._monsters[i] = monster;
                         monster.chaseArmies(roles);
                     }
-                    //Role.getInstance().chaseArmies(list);
                     egret.RoleManager.getInstance().chaseArmies(list);
                     break;
                 case egret.UpdateType.DAMAGE_HP_CHANGE:
@@ -180,6 +175,22 @@ var egret;
                     list.push(parameters[0]);
                     egret.RoleManager.getInstance().chaseArmies(list);
                     break;
+                case egret.UpdateType.ENTER_CITY:
+                    egret.dataManager().roleSceneData.resetRoleData();
+                    egret.RoleManager.getInstance().updateHp();
+                    this._monsters.length = 0;
+                    var list = this._sceneData.getNpcList();
+                    var effect = egret.SceneElementManager.getInstance().getElement(egret.ElementEffect);
+                    effect.setIsCheckResource(false);
+                    effect.setMovieName(egret.MovieName.ENTRY);
+                    effect.playCount = 0;
+                    this.addElement(effect, egret.SceneLayerType.BIOLOGY, 720, 680);
+                    for (var i in list) {
+                        var monster = this.renderMonster(list[i]);
+                        if (monster)
+                            this._monsters[i] = monster;
+                    }
+                    break;
             }
         };
         /**
@@ -206,8 +217,6 @@ var egret;
                 this._goodsList.push(goods);
             }
             this._goodsIndex++;
-            egret.MainControl.getInstance().coin += Math.floor(Math.random() * 3) + 1;
-            egret.MainControl.getInstance().updateMainView();
             if (this._goodsList.length == this._goodsDataList.length) {
                 egret.EnterFrameManager.getInstance().removeExecute(this._showGoodsId);
                 if (this._goodsList.length > 0) {
@@ -223,6 +232,15 @@ var egret;
                 //LogManager.debug(this,"checkTakeGoods");
                 egret.EnterFrameManager.getInstance().removeExecute(this._goodsLoopId);
                 this.navigateToElement(this._goodsList[this._goodsIndex].data.vo.id);
+                var lo = this._goodsList[this._goodsIndex].data.lo;
+                switch (lo.iconId) {
+                    case 26:
+                        egret.BagManager.getInstance().addItem(26, 5);
+                        break;
+                    case 27:
+                        egret.MainControl.getInstance().addCoin(Math.floor(Math.random() * 100) + 1000);
+                        break;
+                }
                 return true;
             }
             return false;

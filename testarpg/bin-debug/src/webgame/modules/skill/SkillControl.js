@@ -16,6 +16,16 @@ var egret;
             }
             this.skillView.open();
         };
+        __egretProto__.updateskillView = function () {
+            if (this.skillView && this.skillView.isOpen) {
+                this.skillView.update();
+            }
+        };
+        __egretProto__.playSucc = function () {
+            if (this.skillView && this.skillView.isOpen) {
+                this.skillView.playSucc();
+            }
+        };
         __egretProto__.openskillTip = function (id) {
             if (!this.skillTipView) {
                 this.skillTipView = new egret.SkillTips();

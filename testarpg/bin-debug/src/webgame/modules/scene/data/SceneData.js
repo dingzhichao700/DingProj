@@ -18,6 +18,7 @@ var egret;
             this._winCount = 0;
             this._bornPoint = new egret.Point();
             this._monsterPoint = new egret.Point();
+            this._npcList = [];
             this._normalMonsterList = [];
             this._bossMonsterList = [];
             this._arenaMonsterList = [];
@@ -38,12 +39,26 @@ var egret;
         };
         /**增加胜利次数*/
         __egretProto__.addWinCount = function () {
-            this._winCount++;
-            if (this._winCount % 2 == 0) {
-                egret.globalUpdateWindows([egret.UpdateType.CHANGE_COPY]);
+            if (egret.StoryControl.getInstance().index == 1) {
+                this._winCount++;
+                if (this._winCount < 1) {
+                    egret.dataManager().sceneData.sceneType = egret.SceneType.NORMAL_COPY;
+                    egret.globalUpdateWindows([egret.UpdateType.COPY_MONSTER_BORN]);
+                }
+                else if (this._winCount == 1) {
+                    egret.dataManager().sceneData.sceneType = egret.SceneType.ARENA;
+                    egret.globalUpdateWindows([egret.UpdateType.COPY_MONSTER_BORN]);
+                }
+                else if (this._winCount == 2) {
+                    egret.StoryControl.getInstance().addIndex();
+                    egret.StoryControl.getInstance().openMission();
+                    this._winCount = 0;
+                }
             }
-            else {
-                egret.globalUpdateWindows([egret.UpdateType.COPY_MONSTER_BORN]);
+            else if (egret.StoryControl.getInstance().index == 5) {
+                egret.SoulRoadControl.getInstance().addIndex();
+                egret.StoryControl.getInstance().addIndex();
+                egret.StoryControl.getInstance().openMission();
             }
         };
         /**获取下一个场景 id*/
@@ -64,6 +79,34 @@ var egret;
                 }
             }
             return false;
+        };
+        /**
+         * 获取主城npc数据
+         * @param isNew 是否生成新数据
+         * @returns {Array<SceneElementDataItem>}
+         */
+        __egretProto__.getNpcList = function (isNew) {
+            if (isNew === void 0) { isNew = true; }
+            if (isNew) {
+                this._npcList.length = 0;
+                for (var i = 0; i < 1; i++) {
+                    var npcPoint = this.getNpcPoint();
+                    var item = new egret.SceneElementDataItem();
+                    var vo = new egret.SceneMonsterVo();
+                    vo.id = egret.SceneElementData.getInstance().getAutoElementId();
+                    vo.idString = vo.id + "";
+                    vo.hp = 10000;
+                    vo.hpTotal = 10000;
+                    item.vo = vo;
+                    item.lo = new egret.MonsterLo();
+                    item.lo.movieName = "monster_035";
+                    vo.x = npcPoint.x;
+                    vo.y = npcPoint.y;
+                    vo.name = "树精";
+                    this._npcList[i] = item;
+                }
+            }
+            return this._npcList;
         };
         /**
          * 获取当前怪物数据
@@ -102,7 +145,19 @@ var egret;
                     var vo = new egret.SceneMonsterVo();
                     vo.id = egret.SceneElementData.getInstance().getAutoElementId();
                     vo.idString = vo.id + "";
-                    vo.name = "怪物" + i;
+                    var nameStr = "";
+                    switch (i) {
+                        case 0:
+                            nameStr = "山贼喽啰";
+                            break;
+                        case 1:
+                            nameStr = "山贼精英";
+                            break;
+                        case 2:
+                            nameStr = "山贼小将";
+                            break;
+                    }
+                    vo.name = nameStr;
                     vo.x = monsterPoint.x;
                     vo.y = monsterPoint.y;
                     vo.hp = 10000;
@@ -144,13 +199,11 @@ var egret;
             }
             return this._bossMonsterList;
         };
-        /**
-         * 获取怪物随机8个方向的出生坐标
-         * @returns {Point}
-         */
+        /**获取怪物随机8个方向的出生坐标*/
         __egretProto__.getBornPoint = function () {
-            var sceneLo = egret.IsoMapData.getInstance().getData(this.sceneId);
-            /*var index:number = Math.floor(Math.random() * 8);
+            /*var sceneLo:SceneEditLo = IsoMapData.getInstance().getData(this.sceneId);
+
+            var index:number = Math.floor(Math.random() * 8);
             var radian:number = Math.PI / 4 * index;
             var cx:number = sceneLo.width / 4;
             var cy:number = sceneLo.height / 2;
@@ -179,6 +232,18 @@ var egret;
             this._monsterPoint.x = this.limitValue(0, sceneLo.width, this._monsterPoint.x);
             this._monsterPoint.y = this.limitValue(0, sceneLo.height, this._monsterPoint.y);
             return this._monsterPoint;
+        };
+        /**
+         * 获取怪物坐标
+         * @param point 出生坐标中心点
+         * @param offsetX x轴随机偏移量
+         * @param offsetY y轴随机偏移量
+         * @returns {Point}
+         */
+        __egretProto__.getNpcPoint = function () {
+            this._bornPoint.x = 440;
+            this._bornPoint.y = 1000;
+            return this._bornPoint;
         };
         /**
          * 限制数值大小
@@ -216,17 +281,17 @@ var egret;
                     playerVo.id = egret.SceneElementData.getInstance().getAutoElementId();
                     playerVo.idString = playerVo.id + "";
                     if (i == 0) {
-                        playerVo.name = "剑圣"; //vo.nickname;
+                        playerVo.name = "山贼首领";
                         playerVo.sex = egret.SexType.MALE;
                         playerVo.vocation = egret.VocationType.WARRIOR;
                     }
                     else if (i == 1) {
-                        playerVo.name = "邪恶法师"; //vo.nickname;
+                        playerVo.name = "山贼术士";
                         playerVo.sex = egret.SexType.MALE;
                         playerVo.vocation = egret.VocationType.MAGE;
                     }
                     else if (i == 2) {
-                        playerVo.name = "寒冰射手"; //vo.nickname;
+                        playerVo.name = "山贼弓手";
                         playerVo.sex = egret.SexType.MALE;
                         playerVo.vocation = egret.VocationType.BOWMAN;
                     }
@@ -251,7 +316,7 @@ var egret;
             item.vo = new egret.SceneMonsterVo();
             item.vo.id = egret.SceneElementData.getInstance().getAutoElementId();
             item.vo.idString = item.vo.id + "";
-            item.vo.name = "阿斯兰";
+            item.vo.name = "白虎";
             item.vo.hp = 500;
             item.vo.hpTotal = 500;
             item.lo = new egret.MonsterLo();
@@ -295,10 +360,17 @@ var egret;
                     offsetY += gap;
                     vo.y += gap;
                 }
-                vo.name = "金币";
+                if (this.sceneType == egret.SceneType.BOSS_COPY) {
+                    vo.name = "强化材料";
+                    var lo = new egret.GoodsLo();
+                    lo.iconId = 26;
+                }
+                else {
+                    vo.name = "金币";
+                    var lo = new egret.GoodsLo();
+                    lo.iconId = 27;
+                }
                 item.vo = vo;
-                var lo = new egret.GoodsLo();
-                lo.iconId = "27";
                 item.lo = lo;
                 array.push(item);
             }

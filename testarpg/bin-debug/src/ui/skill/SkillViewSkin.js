@@ -8,7 +8,7 @@ var ui;
                 _super.call(this);
                 this.__s = egret.gui.setProperties;
                 this.__s(this, ["height", "width"], [960, 640]);
-                this.elementsContent = [this.window_i(), this.__3_i(), this.__4_i(), this.__5_i(), this.itemCon_i()];
+                this.elementsContent = [this.window_i(), this.__3_i(), this.__4_i(), this.__5_i(), this.itemCon_i(), this.imgSucc_i()];
                 this.states = [
                     new egret.gui.State("normal", []),
                     new egret.gui.State("disabled", [])
@@ -32,6 +32,12 @@ var ui;
                 this.__s(t, ["source", "x", "y"], ["bgSkill_jpg", 60, 171]);
                 return t;
             };
+            __egretProto__.imgSucc_i = function () {
+                var t = new egret.gui.UIAsset();
+                this.imgSucc = t;
+                this.__s(t, ["source", "x", "y"], ["img_success_png", 216, 360]);
+                return t;
+            };
             __egretProto__.itemCon_i = function () {
                 var t = new egret.gui.Group();
                 this.itemCon = t;
@@ -49,7 +55,7 @@ var ui;
                 this.__s(t, ["height", "skinName", "width"], [200, ui.WindowViewSkin, 200]);
                 return t;
             };
-            SkillViewSkin._skinParts = ["window", "itemCon"];
+            SkillViewSkin._skinParts = ["window", "itemCon", "imgSucc"];
             return SkillViewSkin;
         })(egret.gui.Skin);
         skill.SkillViewSkin = SkillViewSkin;

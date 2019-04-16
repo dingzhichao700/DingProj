@@ -20,8 +20,8 @@ module egret{
 
         public constructor() {
             this.addRole(1);
-//            this.addRole(2);
-//            this.addRole(3);
+            this.addRole(2);
+            this.addRole(3);
         }
 
         /**主角角色数组*/

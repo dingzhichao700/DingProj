@@ -12,4 +12,5 @@
 	<e:UIAsset source="bgSkill_jpg" x="60" y="171"/>
 	<e:Group width="494" height="574" id="itemCon" x="65" y="176">
 	</e:Group>
+	<e:UIAsset source="img_success_png" id="imgSucc" x="216" y="360"/>
 </e:Skin>

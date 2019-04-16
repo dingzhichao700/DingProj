@@ -16,6 +16,7 @@ var egret;
             this.layer_window_2 = null;
             this.layer_tip = null;
             this.layer_guide = null;
+            this.layer_warning = null;
             //层级列表
             this._layerHashMap = null;
             //显示对象列表
@@ -157,6 +158,8 @@ var egret;
                 this.gameCon.addChild(this.layer_tip);
                 this.layer_guide = new egret.Sprite();
                 this.gameCon.addChild(this.layer_guide);
+                this.layer_warning = new egret.Sprite();
+                this.gameCon.addChild(this.layer_warning);
             }
             this.application.addChild(this.gameCon);
         };
@@ -741,6 +744,9 @@ var egret;
                     break;
                 case egret.BasePanel.LAYER_GUIDE:
                     targetLayer = this.layer_guide;
+                    break;
+                case egret.BasePanel.LAYER_WARNING:
+                    targetLayer = this.layer_warning;
                     break;
             }
             targetLayer.addChild(view);

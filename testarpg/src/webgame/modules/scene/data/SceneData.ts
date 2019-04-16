@@ -16,7 +16,9 @@ module egret {
 		public isChanged:boolean = false;
 
 		//元素管理器
-		public _sceneElementManager:SceneElementManager = null;
+        public _sceneElementManager: SceneElementManager = null;
+        /**主城npc数据*/
+        private _npcList: Array<SceneElementDataItem>;
 		/**普通副本怪物数据*/
 		private _normalMonsterList:Array<SceneElementDataItem>;
 		/**Boss副本怪物数据*/
@@ -33,6 +35,7 @@ module egret {
 			this._bornPoint = new egret.Point();
 			this._monsterPoint = new egret.Point();
 
+            this._npcList = [];
 			this._normalMonsterList = [];
 			this._bossMonsterList = [];
 			this._arenaMonsterList = [];
@@ -56,13 +59,25 @@ module egret {
 
 		/**增加胜利次数*/
 		public addWinCount():void{
-			this._winCount ++;
+            if(StoryControl.getInstance().index == 1) { //野外
+                this._winCount++;
 
-			if(this._winCount % 2 == 0){
-				globalUpdateWindows([UpdateType.CHANGE_COPY]);
-			}else{
-				globalUpdateWindows([UpdateType.COPY_MONSTER_BORN]);
-			}
+                if(this._winCount < 1) {//刷n波山贼小怪
+                    dataManager().sceneData.sceneType = SceneType.NORMAL_COPY;
+                    globalUpdateWindows([UpdateType.COPY_MONSTER_BORN]);
+                } else if(this._winCount == 1) {//一波山贼boss
+                    dataManager().sceneData.sceneType = SceneType.ARENA;
+                    globalUpdateWindows([UpdateType.COPY_MONSTER_BORN]);
+                } else if(this._winCount == 2) {//打完山贼boss,弹结算
+                    StoryControl.getInstance().addIndex();
+                    StoryControl.getInstance().openMission();
+                    this._winCount = 0;
+                }
+            } else if(StoryControl.getInstance().index == 5) { //BOSS(就是斗罗之路)
+                SoulRoadControl.getInstance().addIndex();
+                StoryControl.getInstance().addIndex();
+                StoryControl.getInstance().openMission();
+    		}
 		}
 
 		/**获取下一个场景 id*/
@@ -85,7 +100,38 @@ module egret {
 				}
 			}
 			return false;
-		}
+        }
+
+		/**
+		 * 获取主城npc数据
+		 * @param isNew 是否生成新数据
+		 * @returns {Array<SceneElementDataItem>}
+		 */
+        public getNpcList(isNew: boolean = true): Array<SceneElementDataItem> {
+            if(isNew) {
+                this._npcList.length = 0;
+                for(var i: number = 0;i < 1;i++) {
+                    var npcPoint: Point = this.getNpcPoint();
+                    var item: SceneElementDataItem = new egret.SceneElementDataItem();
+                    var vo: SceneMonsterVo = new SceneMonsterVo();
+
+                    vo.id = SceneElementData.getInstance().getAutoElementId();
+                    vo.idString = vo.id + "";
+                    vo.hp = 10000;
+                    vo.hpTotal = 10000;
+
+                    item.vo = vo;
+                    item.lo = new MonsterLo();
+                    item.lo.movieName = "monster_035";
+                    vo.x = npcPoint.x;
+                    vo.y = npcPoint.y;
+                    vo.name = "树精";
+
+                    this._npcList[i] = item;
+                }
+            }
+            return this._npcList;
+        }
 
 		/**
 		 * 获取当前怪物数据
@@ -127,7 +173,19 @@ module egret {
 
 					vo.id = SceneElementData.getInstance().getAutoElementId();
 					vo.idString = vo.id + "";
-					vo.name = "怪物" + i;
+					var nameStr:string = "";
+					switch(i){
+					    case 0:
+                            nameStr = "山贼喽啰";
+                            break;
+                        case 1:
+                            nameStr = "山贼精英";
+                            break;
+                        case 2:
+                            nameStr = "山贼小将";
+                            break;
+					}
+                    vo.name = nameStr;
 					vo.x = monsterPoint.x;
 					vo.y = monsterPoint.y;
 					vo.hp = 10000;
@@ -177,14 +235,11 @@ module egret {
 			return this._bossMonsterList;
 		}
 
-		/**
-		 * 获取怪物随机8个方向的出生坐标
-		 * @returns {Point}
-		 */
+		/**获取怪物随机8个方向的出生坐标*/
 		public getBornPoint():Point{
-			var sceneLo:SceneEditLo = IsoMapData.getInstance().getData(this.sceneId);
+			/*var sceneLo:SceneEditLo = IsoMapData.getInstance().getData(this.sceneId);
 
-			/*var index:number = Math.floor(Math.random() * 8);
+			var index:number = Math.floor(Math.random() * 8);
 			var radian:number = Math.PI / 4 * index;
 			var cx:number = sceneLo.width / 4;
 			var cy:number = sceneLo.height / 2;
@@ -195,7 +250,6 @@ module egret {
 			this._bornPoint.y = Math.sin(radian) * radius + cy;*/
             this._bornPoint.x = 640;
             this._bornPoint.y = 500 + Math.random() * 200;
-
 			return this._bornPoint;
 		}
 
@@ -216,7 +270,20 @@ module egret {
 			this._monsterPoint.y = this.limitValue(0,sceneLo.height,this._monsterPoint.y);
 
 			return this._monsterPoint;
-		}
+        }
+        
+		/**
+		 * 获取怪物坐标
+		 * @param point 出生坐标中心点
+		 * @param offsetX x轴随机偏移量
+		 * @param offsetY y轴随机偏移量
+		 * @returns {Point}
+		 */
+        public getNpcPoint(): Point {
+            this._bornPoint.x = 440;
+            this._bornPoint.y = 1000;
+            return this._bornPoint;
+        }
 
 		/**
 		 * 限制数值大小
@@ -258,15 +325,15 @@ module egret {
 					playerVo.idString = playerVo.id + "";
 
 					if(i == 0){
-						playerVo.name = "剑圣"//vo.nickname;
+						playerVo.name = "山贼首领";
 						playerVo.sex = SexType.MALE;
 						playerVo.vocation = VocationType.WARRIOR;
 					}else if(i == 1){
-						playerVo.name = "邪恶法师"//vo.nickname;
+                        playerVo.name = "山贼术士";
 						playerVo.sex = SexType.MALE;
 						playerVo.vocation = VocationType.MAGE;
 					}else if(i == 2){
-						playerVo.name = "寒冰射手"//vo.nickname;
+                        playerVo.name = "山贼弓手";
 						playerVo.sex = SexType.MALE;
 						playerVo.vocation = VocationType.BOWMAN;
 					}
@@ -295,7 +362,7 @@ module egret {
 			item.vo = new SceneMonsterVo();
 			item.vo.id = SceneElementData.getInstance().getAutoElementId();
 			item.vo.idString = item.vo.id + "";
-			item.vo.name = "阿斯兰";
+			item.vo.name = "白虎";
 
 			(<SceneMonsterVo>item.vo).hp = 500;
 			(<SceneMonsterVo>item.vo).hpTotal = 500;
@@ -349,12 +416,17 @@ module egret {
 					offsetY += gap;
 					vo.y += gap;
 				}
-				vo.name = "金币";
-				item.vo = vo;
+				if(this.sceneType == SceneType.BOSS_COPY){
+                    vo.name = "强化材料";
+                    var lo: GoodsLo = new GoodsLo();
+                    lo.iconId = 26;
+                } else {
+                    vo.name = "金币";
+                    var lo: GoodsLo = new GoodsLo();
+                    lo.iconId = 27;
+				}
 
-				var lo:GoodsLo = new GoodsLo();
-				lo.iconId = "27";
-
+                item.vo = vo;
 				item.lo = lo;
 
 				array.push(item);

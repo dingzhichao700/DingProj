@@ -54,6 +54,8 @@ var egret;
         BasePanel.LAYER_TIP = 4;
         /**引导层*/
         BasePanel.LAYER_GUIDE = 5;
+        /**警告*/
+        BasePanel.LAYER_WARNING = 6;
         return BasePanel;
     })(egret.BaseView);
     egret.BasePanel = BasePanel;

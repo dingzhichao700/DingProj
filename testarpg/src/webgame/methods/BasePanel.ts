@@ -14,6 +14,8 @@ module egret {
         public static LAYER_TIP: number = 4;
         /**引导层*/
         public static LAYER_GUIDE: number = 5;
+        /**警告*/
+        public static LAYER_WARNING: number = 6;
 
         /** 类型 0为1级界面*/
         public layerType: number = 0;

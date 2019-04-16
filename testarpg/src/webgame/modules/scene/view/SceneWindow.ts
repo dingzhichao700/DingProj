@@ -43,7 +43,8 @@ module egret {
 				UpdateType.COPY_MONSTER_BORN,
                 UpdateType.DAMAGE_HP_CHANGE,
                 UpdateType.CHANGE_SOULROAD,
-				UpdateType.CHANGE_COPY,
+                UpdateType.CHANGE_COPY,
+                UpdateType.ENTER_CITY,
 				UpdateType.ADD_MONSTER
 			);
 		}
@@ -73,26 +74,24 @@ module egret {
 		}
 
 		/**切换副本*/
-		public changeCopy(title:string):void{
+		private changeCopy(title:string):void{
 			this.clearCopy();
 			RoleManager.getInstance().changeSceneEffect();
-			TimerManager.getInstance().addExecute(this.nextCopy,this,3000,null,1);
-			MainControl.getInstance().openLoading(title);
+            MainControl.getInstance().openLoading(title);
+            TimerManager.getInstance().addExecute(this.nextCopy,this,3000,null,1);
 		}
 
 		/**进入下一个副本*/
-		public nextCopy():void{
+        private nextCopy():void{
 			SceneManager.getInstance().enterScene(this._sceneData.sceneType,this._sceneData.getNextSceneId());
 			RoleManager.getInstance().enterSceneEffect();
 			this.nextTurn();
 		}
 
 		/**下一波怪物*/
-		public nextTurn():void{
+		private nextTurn():void{
 			TimerManager.getInstance().addExecute(function():void{
 				globalUpdateWindows([UpdateType.COPY_MONSTER_BORN]);
-				//Role.getInstance().moveTo2(0,0);
-				//RoleManager.getInstance().play(0,-1,ActionMovieClipDirectionType.DOWN_LEFT);
 			},null,3000,null,1);
 		}
 		
@@ -124,10 +123,8 @@ module egret {
 				//怪物出生
 				case UpdateType.COPY_MONSTER_BORN:
 					dataManager().roleSceneData.resetRoleData();
-					//Role.getInstance().updateHp();
 					RoleManager.getInstance().updateHp();
 
-					//var roles:Array<SceneElementDataItem> = [Role.getInstance().data];
 					var roles:Array<SceneElementDataItem> = dataManager().roleSceneData.getRoleList();
 
 					this._monsters.length = 0;
@@ -141,7 +138,6 @@ module egret {
 						monster.chaseArmies(roles);
 					}
 
-					//Role.getInstance().chaseArmies(list);
 					RoleManager.getInstance().chaseArmies(list);
 					break;
 				//伤害生命变化
@@ -225,7 +221,27 @@ module egret {
 					list.push(parameters[0]);
 
 					RoleManager.getInstance().chaseArmies(list);
-					break;
+                    break;
+                //回主城
+                case UpdateType.ENTER_CITY:
+                    dataManager().roleSceneData.resetRoleData();
+                    RoleManager.getInstance().updateHp();
+
+                    this._monsters.length = 0;
+                    var list: Array<SceneElementDataItem> = this._sceneData.getNpcList();
+
+                    var effect: ElementEffect = <ElementEffect>SceneElementManager.getInstance().getElement(ElementEffect);
+                    effect.setIsCheckResource(false);
+                    effect.setMovieName(MovieName.ENTRY);
+                    effect.playCount = 0;
+                    this.addElement(effect,SceneLayerType.BIOLOGY, 720, 680);
+
+                    for(var i in list) {
+                        var monster: ElementMonster = this.renderMonster(list[i]);
+                        if(monster)
+                            this._monsters[i] = monster;
+                    }
+                    break;
 			}
 		}
 		
@@ -261,8 +277,6 @@ module egret {
 			}
 
             this._goodsIndex++;
-            MainControl.getInstance().coin += Math.floor(Math.random() * 3) + 1;
-            MainControl.getInstance().updateMainView();
 
 			if(this._goodsList.length == this._goodsDataList.length){
 				EnterFrameManager.getInstance().removeExecute(this._showGoodsId);
@@ -284,6 +298,15 @@ module egret {
 				EnterFrameManager.getInstance().removeExecute(this._goodsLoopId);
 
 				this.navigateToElement(this._goodsList[this._goodsIndex].data.vo.id);
+                var lo: GoodsLo = <GoodsLo>this._goodsList[this._goodsIndex].data.lo;
+                switch(lo.iconId){
+                    case 26://强化材料
+                        BagManager.getInstance().addItem(26, 5);
+                        break;
+                    case 27://加金币
+                        MainControl.getInstance().addCoin(Math.floor(Math.random() * 100) + 1000);
+                        break;
+                }
 				
 				return true;
 			}

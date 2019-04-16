@@ -186,11 +186,7 @@ var egret;
         /**添加内部事件 */
         __egretProto__.addListeners = function () {
         };
-        /**
-         * 设置名称文本格式
-         * @param format:TextFormat = null 参数为 null 时重置为原格式
-         *
-         */
+        /**设置名称文本格式*/
         __egretProto__.setNameTextFormat = function (size, color) {
             if (size === void 0) { size = 20; }
             if (color === void 0) { color = 0xffffff; }

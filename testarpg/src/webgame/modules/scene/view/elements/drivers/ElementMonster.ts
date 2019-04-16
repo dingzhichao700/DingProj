@@ -2,15 +2,12 @@
 module egret {
 
 	export class ElementMonster extends SceneElementDriver{
-		/**
-		 * 构造函数
-		 */
-		public constructor(){
-			super();
 
+    	public constructor(){
+			super();
 			this.setIsCheckResource(false);
 		}
-		//
+
 		/**
 		 * 获取部件影片地址 
 		 * @param partType:String ActionPartType 动作影片类型
@@ -25,10 +22,8 @@ module egret {
 			
 			return url;
 		}
-		//
-		/**
-		 * 释放默认技能
-		 */
+
+		/**释放默认技能*/
 		public playSkill():void{
 			if(this._avatar.frameIndex == 1){
 				this.damage();

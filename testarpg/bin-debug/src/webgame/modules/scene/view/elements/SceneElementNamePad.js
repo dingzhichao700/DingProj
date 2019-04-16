@@ -2,9 +2,6 @@ var egret;
 (function (egret) {
     var SceneElementNamePad = (function (_super) {
         __extends(SceneElementNamePad, _super);
-        /**
-         * 构造函数
-         */
         function SceneElementNamePad() {
             _super.call(this);
             //名称
@@ -35,12 +32,7 @@ var egret;
         }
         var __egretProto__ = SceneElementNamePad.prototype;
         Object.defineProperty(__egretProto__, "nameText", {
-            //
-            /**
-             * 名称文本对象
-             * @return
-             *
-             */
+            /**名称文本对象*/
             get: function () {
                 return this._nameText;
             },
@@ -74,12 +66,7 @@ var egret;
             }
             return container;
         };
-        //
-        /**
-         * 设置名称
-         * @param name:String
-         *
-         */
+        /**设置名称 */
         __egretProto__.setName = function (name) {
             if (name == this._nameValue)
                 return;
@@ -142,7 +129,6 @@ var egret;
                 container.addChildAt(target, index);
             this.updateLayout();
         };
-        //
         /**
          * 移除元素
          * @param target
@@ -154,11 +140,7 @@ var egret;
                 this.updateLayout();
             }
         };
-        //
-        /**
-         * 更新布局
-         *
-         */
+        /**更新布局 */
         __egretProto__.updateLayout = function () {
             var length = this.numChildren;
             var height = 0;

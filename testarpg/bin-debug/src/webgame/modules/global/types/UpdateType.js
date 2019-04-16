@@ -54,6 +54,8 @@ var egret;
         UpdateType.ADD_ROLE = 709;
         /**添加怪物*/
         UpdateType.ADD_MONSTER = 710;
+        /**进入主城*/
+        UpdateType.ENTER_CITY = 711;
         return UpdateType;
     })();
     egret.UpdateType = UpdateType;

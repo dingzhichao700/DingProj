@@ -49,6 +49,8 @@ module egret{
         /**添加角色*/
         public static ADD_ROLE:number = 709;
         /**添加怪物*/
-        public static ADD_MONSTER:number = 710;
+        public static ADD_MONSTER: number = 710;
+        /**进入主城*/
+        public static ENTER_CITY: number = 711;
     }
 }
