@@ -41,6 +41,10 @@ module egret {
         }
         
         private openFight(e:egret.TouchEvent):void {
+            if(dataManager().sceneData.sceneType == SceneType.BOSS_COPY){ //已经在斗罗副本中，则不跳转
+                MainControl.getInstance().showWarn("您已在斗罗之路中");
+                return;
+            }
             switch(e.currentTarget) {
                 case this.img_0:
                 case this.img_1:

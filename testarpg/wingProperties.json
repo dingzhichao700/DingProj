@@ -42,7 +42,8 @@
 				{
 					"isFolder":false,
 					"key":"bg_13_png",
-					"name":"bg_13_png"
+					"name":"bg_13_png",
+					"scale9grid":"272,5,10,30"
 				},
 				{
 					"isFolder":false,
@@ -929,6 +930,11 @@
 					"isFolder":false,
 					"key":"soulRoad_png",
 					"name":"soulRoad_png"
+				},
+				{
+					"isFolder":false,
+					"key":"img_success2_png",
+					"name":"img_success2_png"
 				}
 			]
 		}

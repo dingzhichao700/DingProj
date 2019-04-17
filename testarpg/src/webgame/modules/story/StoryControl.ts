@@ -46,7 +46,7 @@ module egret {
                     TimerManager.getInstance().addExecute(this.openTalk,this,1000,[],1);
                     break;
                 case 1://主城，走向传送阵
-                    RoleManager.getInstance().moveTo3(650,650);
+                    RoleManager.getInstance().moveTo3(650,520);
                     TimerManager.getInstance().addExecute(function(): void {
                         dataManager().sceneData.sceneType = SceneType.NORMAL_COPY; 
                         globalUpdateWindows([UpdateType.CHANGE_COPY]);

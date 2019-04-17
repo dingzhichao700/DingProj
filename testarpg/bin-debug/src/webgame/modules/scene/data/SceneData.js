@@ -57,6 +57,7 @@ var egret;
             }
             else if (egret.StoryControl.getInstance().index == 5) {
                 egret.SoulRoadControl.getInstance().addIndex();
+                egret.SoulRoadControl.getInstance().closeSoulRoad();
                 egret.StoryControl.getInstance().addIndex();
                 egret.StoryControl.getInstance().openMission();
             }

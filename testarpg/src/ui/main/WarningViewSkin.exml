@@ -7,7 +7,7 @@
 		<e:State name="disabled"/>
 	</e:states>
 	<e:Group id="boxCon" height="38" width="439" x="103" y="161">
-		<e:UIAsset source="bg_warn_png" scale9Grid="109,6,42,24" width="423" y="0" x="0"/>
-		<e:Label id="txtContext" text="金钱不足" size="22" textAlign="center" fontFamily="微软雅黑" width="556" textColor="0xFFFFFF" x="-65" y="9"/>
+		<e:UIAsset source="bg_warn_png" scale9Grid="109,6,42,24" width="423" y="0" x="0" height="48"/>
+		<e:Label id="txtContext" text="金钱不足" textAlign="center" fontFamily="微软雅黑" width="556" textColor="0xFFFFFF" x="-65" size="26" y="12"/>
 	</e:Group>
 </e:Skin>

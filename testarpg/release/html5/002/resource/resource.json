@@ -32,7 +32,6 @@
 	"resources":[
 		{
 			"name":"bg_13_png",
-			"scale9grid":"272,5,10,30",
 			"type":"image",
 			"url":"main/bg_13.png"
 		},

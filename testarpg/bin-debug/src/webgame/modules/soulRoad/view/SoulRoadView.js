@@ -26,6 +26,10 @@ var egret;
             this.mask4.visible = index < 4;
         };
         __egretProto__.openFight = function (e) {
+            if (egret.dataManager().sceneData.sceneType == egret.SceneType.BOSS_COPY) {
+                egret.MainControl.getInstance().showWarn("您已在斗罗之路中");
+                return;
+            }
             switch (e.currentTarget) {
                 case this.img_0:
                 case this.img_1:

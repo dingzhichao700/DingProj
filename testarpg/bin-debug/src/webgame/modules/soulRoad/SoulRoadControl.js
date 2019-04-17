@@ -17,6 +17,11 @@ var egret;
             }
             this.soulRoad.open();
         };
+        __egretProto__.closeSoulRoad = function () {
+            if (this.soulRoad && this.soulRoad.isOpen) {
+                this.soulRoad.close();
+            }
+        };
         Object.defineProperty(__egretProto__, "curIndex", {
             get: function () {
                 return this._curIndex;

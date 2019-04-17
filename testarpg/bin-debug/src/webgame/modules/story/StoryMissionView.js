@@ -4,7 +4,7 @@ var egret;
         __extends(StoryMissionView, _super);
         function StoryMissionView() {
             _super.call(this);
-            this.layerType = egret.BasePanel.LAYER_WINDOW_1;
+            this.layerType = egret.BasePanel.LAYER_WINDOW_2;
             this.skinName = "ui.story.StoryMissionViewSkin";
         }
         var __egretProto__ = StoryMissionView.prototype;

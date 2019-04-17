@@ -184,7 +184,7 @@ var egret;
                     effect.setIsCheckResource(false);
                     effect.setMovieName(egret.MovieName.ENTRY);
                     effect.playCount = 0;
-                    this.addElement(effect, egret.SceneLayerType.BIOLOGY, 720, 680);
+                    this.addElement(effect, egret.SceneLayerType.BIOLOGY, 720, 550);
                     for (var i in list) {
                         var monster = this.renderMonster(list[i]);
                         if (monster)

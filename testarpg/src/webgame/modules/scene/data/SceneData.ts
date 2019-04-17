@@ -74,7 +74,9 @@ module egret {
                     this._winCount = 0;
                 }
             } else if(StoryControl.getInstance().index == 5) { //BOSS(就是斗罗之路)
-                SoulRoadControl.getInstance().addIndex();
+                SoulRoadControl.getInstance().addIndex(); 
+                SoulRoadControl.getInstance().closeSoulRoad(); 
+                
                 StoryControl.getInstance().addIndex();
                 StoryControl.getInstance().openMission();
     		}

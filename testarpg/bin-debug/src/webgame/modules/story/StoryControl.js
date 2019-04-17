@@ -25,7 +25,7 @@ var egret;
                     egret.TimerManager.getInstance().addExecute(this.openTalk, this, 1000, [], 1);
                     break;
                 case 1:
-                    egret.RoleManager.getInstance().moveTo3(650, 650);
+                    egret.RoleManager.getInstance().moveTo3(650, 520);
                     egret.TimerManager.getInstance().addExecute(function () {
                         egret.dataManager().sceneData.sceneType = egret.SceneType.NORMAL_COPY;
                         egret.globalUpdateWindows([egret.UpdateType.CHANGE_COPY]);

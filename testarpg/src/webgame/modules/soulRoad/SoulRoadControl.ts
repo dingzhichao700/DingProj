@@ -24,6 +24,12 @@ module egret{
             }
             this.soulRoad.open();
         }
+
+        public closeSoulRoad(): void {
+            if(this.soulRoad && this.soulRoad.isOpen) {
+                this.soulRoad.close();
+            }
+        }
         
         public get curIndex():number {
             return this._curIndex

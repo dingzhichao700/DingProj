@@ -31,13 +31,13 @@ var ui;
             };
             __egretProto__.__3_i = function () {
                 var t = new egret.gui.UIAsset();
-                this.__s(t, ["scale9Grid", "source", "width", "x", "y"], [egret.gui.getScale9Grid("109,6,42,24"), "bg_warn_png", 423, 0, 0]);
+                this.__s(t, ["height", "scale9Grid", "source", "width", "x", "y"], [48, egret.gui.getScale9Grid("109,6,42,24"), "bg_warn_png", 423, 0, 0]);
                 return t;
             };
             __egretProto__.txtContext_i = function () {
                 var t = new egret.gui.Label();
                 this.txtContext = t;
-                this.__s(t, ["fontFamily", "size", "text", "textAlign", "textColor", "width", "x", "y"], ["微软雅黑", 22, "金钱不足", "center", 0xFFFFFF, 556, -65, 9]);
+                this.__s(t, ["fontFamily", "size", "text", "textAlign", "textColor", "width", "x", "y"], ["微软雅黑", 26, "金钱不足", "center", 0xFFFFFF, 556, -65, 12]);
                 return t;
             };
             WarningViewSkin._skinParts = ["txtContext", "boxCon"];

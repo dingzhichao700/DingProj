@@ -8,7 +8,7 @@ module egret {
         
         public constructor() {
             super();
-            this.layerType = BasePanel.LAYER_WINDOW_1;
+            this.layerType = BasePanel.LAYER_WINDOW_2;
             this.skinName = "ui.story.StoryMissionViewSkin";
         }
 

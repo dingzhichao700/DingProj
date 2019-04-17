@@ -35,7 +35,7 @@ var ui;
             __egretProto__.imgSucc_i = function () {
                 var t = new egret.gui.UIAsset();
                 this.imgSucc = t;
-                this.__s(t, ["source", "x", "y"], ["img_success_png", 216, 360]);
+                this.__s(t, ["source", "x", "y"], ["img_success2_png", 216, 360]);
                 return t;
             };
             __egretProto__.itemCon_i = function () {

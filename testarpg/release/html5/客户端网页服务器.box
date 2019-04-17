@@ -9,7 +9,7 @@ Sub OnServiceStart()
     Set httpd = NetBox.CreateObject("NetBox.HttpServer")
 
     If httpd.Create("", 80) = 0 Then
-        Set host = httpd.AddHost("", "001/")
+        Set host = httpd.AddHost("", "002/")
 
         host.EnableScript = true
         host.AddDefault "index.html"
