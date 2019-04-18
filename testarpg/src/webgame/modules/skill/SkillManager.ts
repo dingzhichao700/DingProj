@@ -67,6 +67,8 @@ module egret {
         public upSkill(id: number):void {
             this.skill_data[id - 1] += 1;
             SkillControl.getInstance().playSucc();
+            var level: number = this.skill_data[id - 1];
+            MainControl.getInstance().addPower(150 * level);
         } 
         
         public initCfg():void {

@@ -21,6 +21,8 @@ var egret;
         __egretProto__.upSkill = function (id) {
             this.skill_data[id - 1] += 1;
             egret.SkillControl.getInstance().playSucc();
+            var level = this.skill_data[id - 1];
+            egret.MainControl.getInstance().addPower(150 * level);
         };
         __egretProto__.initCfg = function () {
             if (!this.skillCfgs) {

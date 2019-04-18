@@ -79,7 +79,7 @@ var ui;
             };
             __egretProto__.__22_i = function () {
                 var t = new egret.gui.UIAsset();
-                this.__s(t, ["height", "scale9Grid", "source", "width"], [126, egret.gui.getScale9Grid("19,16,117,22"), "bg_story_png", 382]);
+                this.__s(t, ["height", "scale9Grid", "source", "width", "x"], [126, egret.gui.getScale9Grid("19,16,117,22"), "bg_story_png", 495, -56]);
                 return t;
             };
             __egretProto__.__3_i = function () {
@@ -155,7 +155,7 @@ var ui;
                 var t = new egret.gui.Group();
                 this.boxTop = t;
                 this.__s(t, ["x", "y"], [-1, 0]);
-                t.elementsContent = [this.__3_i(), this.__4_i(), this.__5_i(), this.__6_i(), this.__7_i(), this.txtName_i(), this.txtScore_i(), this.__8_i(), this.__9_i(), this.__10_i(), this.__11_i(), this.__12_i(), this.__13_i(), this.txtCoin_i(), this.txtAchi_i(), this.boxMission_i()];
+                t.elementsContent = [this.__3_i(), this.__4_i(), this.__5_i(), this.__6_i(), this.__7_i(), this.txtName_i(), this.txtPower_i(), this.__8_i(), this.__9_i(), this.__10_i(), this.__11_i(), this.__12_i(), this.__13_i(), this.txtCoin_i(), this.txtAchi_i(), this.boxMission_i()];
                 return t;
             };
             __egretProto__.btnBag_i = function () {
@@ -235,19 +235,19 @@ var ui;
                 this.__s(t, ["size", "text", "textAlign", "width", "x", "y"], [20, "习浩然", "center", 70, 4, 79]);
                 return t;
             };
-            __egretProto__.txtScore_i = function () {
+            __egretProto__.txtPower_i = function () {
                 var t = new egret.gui.Label();
-                this.txtScore = t;
-                this.__s(t, ["fontFamily", "italic", "size", "text", "textAlign", "textColor", "width", "x", "y"], ["Arial", true, 24, "31417", "left", 0xFFE97C, 161, 139, 10]);
+                this.txtPower = t;
+                this.__s(t, ["bold", "fontFamily", "italic", "size", "text", "textAlign", "textColor", "width", "x", "y"], [true, "Arial", true, 26, "0", "left", 0xFFE97C, 161, 139, 10]);
                 return t;
             };
             __egretProto__.txtTarget_i = function () {
                 var t = new egret.gui.Label();
                 this.txtTarget = t;
-                this.__s(t, ["fontFamily", "height", "size", "text", "textAlign", "width", "x", "y"], ["微软雅黑 Light", 30, 24, "前往黑风寨，击败蛮族剑圣", "center", 359, 11, 20]);
+                this.__s(t, ["fontFamily", "height", "size", "text", "textAlign", "width", "x", "y"], ["微软雅黑 Light", 30, 24, "前往黑风寨，击败蛮族剑圣", "center", 451, -40, 20]);
                 return t;
             };
-            MainViewSkin._skinParts = ["txtName", "txtScore", "txtCoin", "txtAchi", "boxNum", "boxMission", "boxTop", "btnSoulRoad", "btnWuhun", "btnBag", "btnEquip", "btnSkill", "btnStrength", "boxCon", "txtExp", "txtTarget", "btnGo", "imgArrow", "boxStory", "boxBottom"];
+            MainViewSkin._skinParts = ["txtName", "txtPower", "txtCoin", "txtAchi", "boxNum", "boxMission", "boxTop", "btnSoulRoad", "btnWuhun", "btnBag", "btnEquip", "btnSkill", "btnStrength", "boxCon", "txtExp", "txtTarget", "btnGo", "imgArrow", "boxStory", "boxBottom"];
             return MainViewSkin;
         })(egret.gui.Skin);
         main.MainViewSkin = MainViewSkin;

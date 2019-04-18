@@ -151,6 +151,8 @@ module egret {
 
         private upEquipLevel(index: number): void {
             this.itemEquipData[index - 1] += 1;
+            var level: number = this.itemEquipData[index - 1];
+            MainControl.getInstance().addPower(500 * level);
         }
         
         private getEquipLevel(index:number):number {

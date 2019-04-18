@@ -11,7 +11,7 @@ module egret {
         
         private txtName: egret.gui.Label; 
         private txtCoin: egret.gui.Label; 
-        private txtScore: egret.gui.Label; 
+        private txtPower: egret.gui.Label; 
         private txtExp: egret.gui.Label;
         private txtTarget: egret.gui.Label; 
         
@@ -44,7 +44,7 @@ module egret {
             this.btnGo.addEventListener(egret.TouchEvent.TOUCH_END,this.goStory,this); 
             ApplicationManager.getInstance().stage.addEventListener(Event.RESIZE,this.resizeHandler,this);
             
-            this.boxMission.alpha = 0;
+            this.boxMission.alpha = 0; 
             
             this.onResize();
 
@@ -56,6 +56,7 @@ module egret {
             if(this.isCreate){
                 this.txtExp.text = MainControl.getInstance().totalExp.toFixed(2) + "%";
                 this.txtCoin.text = MainControl.getInstance().coin + "";
+                this.txtPower.text = MainControl.getInstance().power + "";
 
                 if(!this.clip1) {
                     this.clip1 = new AnimeClip();

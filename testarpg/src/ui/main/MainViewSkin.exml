@@ -13,7 +13,7 @@
 		<e:UIAsset source="head_1_png" x="8" y="12"/>
 		<e:UIAsset source="frame_head_0_png" x="0" y="2"/>
 		<e:Label id="txtName" size="20" text="习浩然" width="70" textAlign="center" x="4" y="79"/>
-		<e:Label id="txtScore" width="161" textColor="0xFFE97C" text="31417" fontFamily="Arial" italic="true" textAlign="left" size="24" x="139" y="10"/>
+		<e:Label id="txtPower" width="161" textColor="0xFFE97C" fontFamily="Arial" italic="true" textAlign="left" x="139" y="10" text="0" bold="true" size="26"/>
 		<e:UIAsset source="level9_png" x="0" y="104"/>
 		<e:UIAsset source="word_zhandouli_png" x="84" y="5"/>
 		<e:UIAsset source="bg_18_png" x="522" y="9" width="102" scale9Grid="9,2,3,18"/>
@@ -45,8 +45,8 @@
 		<e:Group id="boxCon" height="200" width="200" y="-149" x="507"/>
 		<e:Label id="txtExp" text="3%" y="-85" fontFamily="宋体" width="87" textAlign="center" x="541"/>
 		<e:Group id="boxStory" width="380" height="124" x="131" y="-270">
-			<e:UIAsset source="bg_story_png" scale9Grid="19,16,117,22" width="382" height="126"/>
-			<e:Label id="txtTarget" fontFamily="微软雅黑 Light" textAlign="center" width="359" size="24" x="11" text="前往黑风寨，击败蛮族剑圣" height="30" y="20"/>
+			<e:UIAsset source="bg_story_png" scale9Grid="19,16,117,22" width="495" height="126" x="-56"/>
+			<e:Label id="txtTarget" fontFamily="微软雅黑 Light" textAlign="center" width="451" size="24" text="前往黑风寨，击败蛮族剑圣" height="30" y="20" x="-40"/>
 			<e:UIAsset id="btnGo" source="btnOk_png" y="53" x="111"/>
 			<e:UIAsset id="imgArrow" source="guideArrow_png" y="48" x="6"/>
 		</e:Group>

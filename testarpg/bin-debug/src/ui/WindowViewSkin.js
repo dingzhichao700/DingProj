@@ -32,7 +32,7 @@ var ui;
         };
         __egretProto__.__6_i = function () {
             var t = new egret.gui.UIAsset();
-            this.__s(t, ["source", "x", "y"], ["bg_13_png", 31, 775]);
+            this.__s(t, ["scale9Grid", "source", "x", "y"], [egret.gui.getScale9Grid("272,5,10,30"), "bg_13_png", 31, 775]);
             return t;
         };
         __egretProto__.__7_i = function () {

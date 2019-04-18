@@ -42,7 +42,7 @@ var ui;
             __egretProto__.txtTitle_i = function () {
                 var t = new egret.gui.Label();
                 this.txtTitle = t;
-                this.__s(t, ["height", "size", "text", "textAlign", "textColor", "width", "x", "y"], [23, 20, "标签", "center", 0x000000, 115, 260, 419]);
+                this.__s(t, ["height", "size", "text", "textAlign", "textColor", "width", "x", "y"], [23, 22, "标签", "center", 0x000000, 115, 262, 419]);
                 return t;
             };
             LoadingViewSkin._skinParts = ["txtTitle", "boxCon"];

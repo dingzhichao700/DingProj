@@ -23,20 +23,20 @@ var ui;
                 configurable: true
             });
             __egretProto__.__4_i = function () {
-                var t = new egret.gui.Label();
-                this.__s(t, ["fontFamily", "height", "size", "text", "textAlign", "textColor", "width", "x", "y"], ["微软雅黑", 28, 24, "经验：", "right", 0x12E249, 89, 0, 39]);
+                var t = new egret.gui.UIAsset();
+                this.__s(t, ["source", "x", "y"], ["icon_coin_png", 0, -2]);
                 return t;
             };
             __egretProto__.__5_i = function () {
-                var t = new egret.gui.UIAsset();
-                this.__s(t, ["source", "x", "y"], ["icon_coin_png", 30, 2]);
+                var t = new egret.gui.Label();
+                this.__s(t, ["fontFamily", "height", "size", "text", "textAlign", "textColor", "width", "x", "y"], ["微软雅黑", 28, 24, "经验：", "right", 0x12E249, 89, 106, 0]);
                 return t;
             };
             __egretProto__.boxReward_i = function () {
                 var t = new egret.gui.Group();
                 this.boxReward = t;
-                this.__s(t, ["x", "y"], [359, 380]);
-                t.elementsContent = [this.txtCoin_i(), this.txtExp_i(), this.__4_i(), this.__5_i()];
+                this.__s(t, ["x", "y"], [333, 433]);
+                t.elementsContent = [this.__4_i(), this.txtCoin_i(), this.__5_i(), this.txtExp_i()];
                 return t;
             };
             __egretProto__.btnGo_i = function () {
@@ -53,19 +53,19 @@ var ui;
             __egretProto__.txtCoin_i = function () {
                 var t = new egret.gui.Label();
                 this.txtCoin = t;
-                this.__s(t, ["fontFamily", "height", "size", "text", "width", "x", "y"], ["微软雅黑", 22, 20, "1200", 105, 90, 9]);
+                this.__s(t, ["fontFamily", "height", "size", "text", "width", "x", "y"], ["微软雅黑", 22, 20, "1200", 61, 33, 4]);
                 return t;
             };
             __egretProto__.txtCon_i = function () {
                 var t = new egret.gui.Label();
                 this.txtCon = t;
-                this.__s(t, ["fontFamily", "height", "size", "text", "width", "x", "y"], ["微软雅黑", 75, 24, "勇士，请前往黑风寨剿匪，拯救黎民百姓！", 246, 351, 299]);
+                this.__s(t, ["fontFamily", "height", "size", "text", "width", "x", "y"], ["微软雅黑", 139, 24, "勇士，请前往黑风寨剿匪，拯救黎民百姓！", 260, 345, 290]);
                 return t;
             };
             __egretProto__.txtExp_i = function () {
                 var t = new egret.gui.Label();
                 this.txtExp = t;
-                this.__s(t, ["fontFamily", "height", "size", "text", "width", "x", "y"], ["微软雅黑", 32, 20, "1.5万", 105, 90, 42]);
+                this.__s(t, ["fontFamily", "height", "size", "text", "width", "x", "y"], ["微软雅黑", 22, 20, "1.5万", 105, 180, 4]);
                 return t;
             };
             StoryTalkViewSkin._skinParts = ["btnGo", "txtCon", "txtCoin", "txtExp", "boxReward"];

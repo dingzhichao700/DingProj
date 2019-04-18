@@ -935,6 +935,66 @@
 					"isFolder":false,
 					"key":"img_success2_png",
 					"name":"img_success2_png"
+				},
+				{
+					"isFolder":false,
+					"key":"bg_fight_png",
+					"name":"bg_fight_png"
+				},
+				{
+					"isFolder":false,
+					"key":"fight_0_png",
+					"name":"fight_0_png"
+				},
+				{
+					"isFolder":false,
+					"key":"fight_1_png",
+					"name":"fight_1_png"
+				},
+				{
+					"isFolder":false,
+					"key":"fight_2_png",
+					"name":"fight_2_png"
+				},
+				{
+					"isFolder":false,
+					"key":"fight_3_png",
+					"name":"fight_3_png"
+				},
+				{
+					"isFolder":false,
+					"key":"fight_4_png",
+					"name":"fight_4_png"
+				},
+				{
+					"isFolder":false,
+					"key":"fight_5_png",
+					"name":"fight_5_png"
+				},
+				{
+					"isFolder":false,
+					"key":"fight_6_png",
+					"name":"fight_6_png"
+				},
+				{
+					"isFolder":false,
+					"key":"fight_7_png",
+					"name":"fight_7_png"
+				},
+				{
+					"isFolder":false,
+					"key":"fight_8_png",
+					"name":"fight_8_png"
+				},
+				{
+					"isFolder":false,
+					"key":"fight_9_png",
+					"name":"fight_9_png"
+				},
+				{
+					"isFolder":false,
+					"key":"fight_plus_png",
+					"name":"fight_plus_png"
 				}
 			]
 		}

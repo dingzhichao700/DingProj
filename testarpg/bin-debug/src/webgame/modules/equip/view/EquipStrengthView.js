@@ -114,6 +114,8 @@ var egret;
         };
         __egretProto__.upEquipLevel = function (index) {
             this.itemEquipData[index - 1] += 1;
+            var level = this.itemEquipData[index - 1];
+            egret.MainControl.getInstance().addPower(500 * level);
         };
         __egretProto__.getEquipLevel = function (index) {
             return this.itemEquipData[index - 1];

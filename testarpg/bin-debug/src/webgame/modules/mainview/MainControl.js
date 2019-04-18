@@ -2,6 +2,7 @@ var egret;
 (function (egret) {
     var MainControl = (function () {
         function MainControl() {
+            this._power = 13071;
             this._coin = 11000;
             this._totalExp = 1.7;
         }
@@ -11,6 +12,21 @@ var egret;
                 MainControl._instance = new MainControl();
             }
             return MainControl._instance;
+        };
+        Object.defineProperty(__egretProto__, "power", {
+            get: function () {
+                return this._power;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**加战力*/
+        __egretProto__.addPower = function (value) {
+            this._power += value;
+            this.updateMainView();
+            if (this.warnView && this.warnView.isOpen) {
+                this.warnView.showAddPower(value);
+            }
         };
         Object.defineProperty(__egretProto__, "coin", {
             get: function () {

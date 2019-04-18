@@ -1,7 +1,8 @@
 
 module egret {
     export class MainControl {
-        
+
+        private _power: number = 13071;
         public achi: number;
         private _coin: number = 11000;
         private _totalExp: number = 1.7;
@@ -23,6 +24,19 @@ module egret {
         }
         
         public constructor() {
+        } 
+        
+        public get power(): number {
+            return this._power;
+        }
+
+        /**加战力*/
+        public addPower(value: number): void {
+            this._power += value;
+            this.updateMainView();
+            if(this.warnView && this.warnView.isOpen) {
+                this.warnView.showAddPower(value);
+            }
         }
         
         public get coin():number {
@@ -90,7 +104,6 @@ module egret {
                 this.mainView.showMission();
             }
         } 
-        
         
         public showStory(value:boolean): void {
             if(this.mainView && this.mainView.isOpen) {
