@@ -17,8 +17,14 @@ var egret;
          * @type {string}
          */
         MovieName.LEVEL_UP = "levelUp";
+        /**
+         * 传送阵特效
+         * @type {string}
+         */
+        MovieName.ENTRY = "entry";
         return MovieName;
     })();
     egret.MovieName = MovieName;
     MovieName.prototype.__class__ = "egret.MovieName";
 })(egret || (egret = {}));
+//# sourceMappingURL=MovieName.js.map

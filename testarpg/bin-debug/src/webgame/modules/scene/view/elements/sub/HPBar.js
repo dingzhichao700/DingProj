@@ -56,3 +56,4 @@ var egret;
     egret.HPBar = HPBar;
     HPBar.prototype.__class__ = "egret.HPBar";
 })(egret || (egret = {}));
+//# sourceMappingURL=HPBar.js.map

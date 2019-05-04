@@ -6,9 +6,9 @@
 <e:State name="normal"/>
 <e:State name="disabled"/>
 </e:states>
-	<egret:BasePanel id="window" height="200" width="200" skinName="ui.WindowViewSkin"/>
-	<e:UIAsset source="bg_21_png" scale9Grid="3,3,24,24" width="516" height="675" x="56" y="94"/>
-	<e:Group id="itemCon" height="653" width="495" x="66" y="102">
+	<egret:WindowView id="window" height="200" width="200" skinName="ui.WindowViewSkin"/>
+	<e:UIAsset source="bg_21_png" scale9Grid="3,3,24,24" width="500" height="675" y="94" x="64"/>
+	<e:Group id="itemCon" height="653" width="488" y="102" x="70">
 	</e:Group>
 	<e:UIAsset source="title_bag_png" x="280" y="29"/>
 </e:Skin>

@@ -22,3 +22,4 @@ var egret;
     }
     egret.globalUpdateWindows = globalUpdateWindows;
 })(egret || (egret = {}));
+//# sourceMappingURL=globalUpdateWindows.js.map

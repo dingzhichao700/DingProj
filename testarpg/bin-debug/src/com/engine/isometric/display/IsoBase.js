@@ -258,3 +258,4 @@ var egret;
     egret.IsoBase = IsoBase;
     IsoBase.prototype.__class__ = "egret.IsoBase";
 })(egret || (egret = {}));
+//# sourceMappingURL=IsoBase.js.map

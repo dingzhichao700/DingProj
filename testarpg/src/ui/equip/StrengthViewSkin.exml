@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin width="640" height="960" xmlns:e="http://ns.egret-labs.org/egret" xmlns:w="http://ns.egret-labs.org/wing" xmlns:egret="egret.*">
+	<w:HostComponent name="egret.gui.SkinnableComponent"/>
+	<w:Declarations/>
+	<e:states>
+		<e:State name="normal"/>
+		<e:State name="disabled"/>
+	</e:states>
+	<egret:WindowView id="window" height="960" width="640" skinName="ui.WindowViewSkin" locked="true">
+	</egret:WindowView>
+	<e:UIAsset source="title_strength_png" y="28" x="284" locked="true"/>
+	<e:UIAsset source="bgStrength_png" x="62" y="93" locked="true"/>
+	<e:UIAsset source="bg_38_png" width="507" height="152" scale9Grid="25,31,4,3" x="61" y="554" locked="true"/>
+	<e:UIAsset source="bg_8_png" x="302" y="392" locked="true"/>
+	<e:UIAsset source="btn_strengthUp_png" x="402" y="474" locked="true"/>
+	<e:UIAsset source="imgStrength_png" x="157" y="165" locked="true"/>
+	<egret:BagItem id="itemCost" skinName="ui.bag.BagItemSkin" width="72" height="72" x="278" y="430"/>
+	<egret:BagItem height="80" id="item_1" width="80" skinName="ui.bag.BagItemSkin" x="71" y="103"/>
+	<egret:BagItem height="80" id="item_2" width="80" skinName="ui.bag.BagItemSkin" x="71" y="193"/>
+	<egret:BagItem height="80" id="item_3" width="80" skinName="ui.bag.BagItemSkin" x="71" y="283"/>
+	<egret:BagItem height="80" id="item_4" width="80" skinName="ui.bag.BagItemSkin" x="71" y="373"/>
+	<egret:BagItem height="80" id="item_5" width="80" skinName="ui.bag.BagItemSkin" x="71" y="463"/>
+	<egret:BagItem id="item_6" height="80" width="80" skinName="ui.bag.BagItemSkin" x="487" y="103"/>
+	<egret:BagItem height="80" id="item_7" width="80" skinName="ui.bag.BagItemSkin" x="487" y="193"/>
+	<egret:BagItem height="80" id="item_8" width="80" skinName="ui.bag.BagItemSkin" x="487" y="283"/>
+	<egret:BagItem height="80" id="item_9" width="80" skinName="ui.bag.BagItemSkin" x="487" y="373"/>
+	<egret:BagItem height="80" id="item_10" width="80" skinName="ui.bag.BagItemSkin" x="487" y="463"/>
+	<e:Label text="强化属性" x="271" y="581" size="20" fontFamily="微软雅黑" textColor="0xA45F2B" textAlign="center" width="88" height="25"/>
+	<e:Label id="txtEquip" fontFamily="微软雅黑" width="224" height="25" x="199" y="362" text="玄天头盔 1级" textColor="0x1F1F1F" textAlign="center" size="22"/>
+	<e:Group id="boxAttr" height="66" width="284" y="620" x="173"/>
+	<e:UIAsset id="btnUp" source="btnBg_png" x="240" y="714"/>
+	<e:Label id="txtUp" fontFamily="微软雅黑" textAlign="center" width="67" height="37" x="281" text="强 化" size="26" textColor="0x000000" y="733"/>
+	<e:UIAsset id="imgIcon" x="285" y="245"/>
+	<e:UIAsset id="imgSucc" source="img_success_png" x="206" y="350"/>
+</e:Skin>

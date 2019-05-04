@@ -2,17 +2,11 @@
 module egret {
 
 	export class SceneElementDriver extends SceneElementMover{
-		/**
-		 * 上次使用的技能
-		 */
+		/**上次使用的技能*/
 		public skillType:number;
-		/**
-		 * 是否为释放技能状态
-		 */
+		/**是否为释放技能状态*/
 		public isSkillStatus:boolean;
-		/**
-		 * 敌人数据
-		 */
+		/**敌人数据*/
 		public armies:Array<SceneElementDataItem>;
 		//攻击目标
 		public _attackTarget:SceneElementDataItem;
@@ -52,9 +46,7 @@ module egret {
 		//血量更新类型通知缓存
 		private _hpChangeTypes:Array<number> = [UpdateType.DAMAGE_HP_CHANGE];
 
-		/**
-		 * 构造函数
-		 */
+		/**构造函数*/
 		public constructor(){
 			super();
 
@@ -129,7 +121,7 @@ module egret {
 				return 0;
 			}
 		}
-		//
+
 		/**
 		 * 设置血条进度条样式
 		 * @param bgUrl 进度背景地址
@@ -141,24 +133,22 @@ module egret {
 			this._hpBar.setStyle(bgUrl,barUrl,width,height);
 			this._namePad.updateLayout();
 		}
-		//
+
 		public updateXY():void{
 			super.updateXY();
 		}
-		//
+
 		public addToScene():void{
 			super.addToScene();
-
 			this.updateHp();
 		}
-		//
-		/**
-		 * 更新血量显示
-		 */
+
+		/**更新血量显示*/
 		public updateHp():void{
 			var vo:SceneDriverVo = <SceneDriverVo>this._data.vo;
 			this._hpBar.setProperty(vo.hp + "",vo.hp / vo.hpTotal);
 		}
+		
 		/**
 		 * 按指定动作类型和方向播放影片
 		 * @param frameIndex:int = -1 开始播放的帧索引，-1时不设置开始播放的帧索引，从当前帧开始播放或从第0帧开始播放
@@ -177,15 +167,13 @@ module egret {
 
 			this.clearAttack();
 		}
-		/**
-		 * 从场景移除时处理 
-		 * 
-		 */		
+		
+		/**从场景移除时处理*/		
 		public removeFromScene():void{
 			this.stopAll();
 			super.removeFromScene();
 		}
-		//
+
 		/**
 		 * 追击目标到达攻击范围时处理
 		 * @param fun 回调函数 function(target:SceneElementDataItem) target:攻击目标
@@ -199,7 +187,7 @@ module egret {
 			this._chaseArriveItem.execute = fun;
 			this._chaseArriveItem.target = target;
 		}
-		//
+
 		/**
 		 * 追击敌人
 		 * @param armies 敌人数据
@@ -251,7 +239,7 @@ module egret {
 				this.attackEnd();
 			}
 		}
-		//
+
 		/**
 		 * 获取优先攻击对象，各职业重写
 		 * @returns {null}
@@ -259,10 +247,8 @@ module egret {
 		public getPriorityTarget():SceneElementDataItem{
 			return null;
 		}
-		//
-		/**
-		 * 检测自动攻击
-		 */
+
+		/**检测自动攻击*/
 		public checkAutoAttack():void{
 			this._timerCount ++;
 
@@ -271,19 +257,19 @@ module egret {
 				this.chaseArmies(this.armies);
 			}
 		}
-		//
-		/**
-		 * 检测是否已到达攻击目标周围
-		 */
+
+		/**检测是否已到达攻击目标周围*/
 		public checkChaseArrive():boolean{
 			this._frameCount ++;
 			var distance:number;
 			var minRange:number = this.getElementMinRange();
 
 			//检测场景元素之间是否太靠近
-			if(this.checkRange()) return false;
+			if(this.checkRange()) 
+    			return false;
 
-			if(this._isLocked) return false;
+			if(this._isLocked) 
+    			return false;
 
 			//检测是否已到达攻击目标周围
 			distance = DimensionUtil.distance2(this._x,this._y,this._attackTarget.vo.x,this._attackTarget.vo.y);
@@ -311,15 +297,13 @@ module egret {
 
 			return false;
 		}
-		//
-		/**
-		 * 元素之间的距离太近时，自动分开的目标点
-		 */
+
+		/**元素之间的距离太近时，自动分开的目标点*/
 		public resetPositionPoint():void{
 			this._positionPoint.x = 0;
 			this._positionPoint.y = 0;
 		}
-		//
+
 		/**
 		 * 检测元素之间的距离，距离太近时自动分开
 		 * @returns {boolean} 返回 true 表示距离太近
@@ -390,7 +374,7 @@ module egret {
 
 			return false;
 		}
-		//
+
 		/**
 		 * 获取攻击范围，不同职业和怪物重写
 		 * @param skillType 技能类型
@@ -399,7 +383,7 @@ module egret {
 		public getAttackRange(skillType:number = 0):number{
 			return 150;
 		}
-		//
+
 		/**
 		 * 获取场景元素之间最小距离，小于此距离时，场景元素自动朝不同方向分开
 		 * @returns {number}
@@ -407,10 +391,8 @@ module egret {
 		public getElementMinRange():number{
 			return 80;
 		}
-		//
-		/**
-		 * 默认攻击方法，不同职业和怪物重写
-		 */
+
+		/**默认攻击方法，不同职业和怪物重写*/
 		public attack():void{
 			if(this._isLocked) return;
 			if(!this._attackTarget) return;
@@ -428,10 +410,8 @@ module egret {
 			this.play(0,ActionType.ATTACK,direction,1,this.attackEnd,this);
 			this._avatar.setFrameHandler(this.playSkill,this);
 		}
-		//
-		/**
-		 * 单次攻击结束
-		 */
+
+		/**单次攻击结束*/
 		public attackEnd():void{
 			this.resetPositionPoint();
 
@@ -441,25 +421,18 @@ module egret {
 			if(this._avatar.actionType == ActionType.ATTACK)
 				this.play(0,ActionType.PREPARE);
 		}
-		//
-		/**
-		 * 清理攻击相关数据和回调
-		 */
+
+		/**清理攻击相关数据和回调*/
 		public clearAttack():void{
 			this._timerCount = 0;
 			this._avatar.setFrameHandler(null);
 		}
-		//
-		/**
-		 * 释放默认技能
-		 */
-		public playSkill():void{
 
+		/**释放默认技能*/
+		public playSkill():void{
 		}
-		//
-		/**
-		 * 停止所有攻击相关的行为，用于战斗结束
-		 */
+
+		/**停止所有攻击相关的行为，用于战斗结束*/
 		public stopAll():void{
 			Tween.removeTweens(this);
 			EnterFrameManager.getInstance().removeExecute(this._chaseId);
@@ -475,19 +448,15 @@ module egret {
 			this.attackEnd();
 			this.clearAttack();
 		}
-		//
-		/**
-		 * 切换场景特效
-		 */
+
+		/**切换场景特效*/
 		public changeSceneEffect():void{
 			this.stopAll();
 
 			this.enterSceneEffect();
 		}
-		//
-		/**
-		 * 进入场景特效
-		 */
+
+		/**进入场景特效*/
 		public enterSceneEffect():void{
 			if(this.scene){
 				var effect:ElementEffect = <ElementEffect>SceneElementManager.getInstance().getElement(ElementEffect);
@@ -496,10 +465,8 @@ module egret {
 				this.scene.addElement(effect,SceneLayerType.BATTLE_EFFECT,this.x,this.y);
 			}
 		}
-		//
-		/**
-		 * 升级特效
-		 */
+
+		/**升级特效*/
 		public levelUpEffect():void{
 			if(this.scene){
 				var effect:ElementEffect = <ElementEffect>SceneElementManager.getInstance().getElement(ElementEffect);
@@ -509,7 +476,7 @@ module egret {
 				this.scene.addElement(effect,SceneLayerType.BATTLE_EFFECT,this.x,this.y);
 			}
 		}
-		//
+
 		/**
 		 * 计算伤害
 		 * @param skillType 技能类型
@@ -530,7 +497,7 @@ module egret {
 				globalUpdateWindows(this._hpChangeTypes,targets,damageValues,radians);
 			}
 		}
-		//
+
 		/**
 		 * 获取技能伤害敌人数据，不同技能重写，默认为单体伤害敌人数据
 		 * @param skillType 技能类型
@@ -543,7 +510,7 @@ module egret {
 			this._damageTargets.push(this._attackTarget);
 			return this._damageTargets;
 		}
-		//
+
 		/**
 		 * 获取伤害飘字角度数据
 		 * @param targets 敌人数据
@@ -558,7 +525,7 @@ module egret {
 
 			return this._radiansCache;
 		}
-		//
+
 		/**
 		 * 获取范围内的受伤害敌人数据
 		 * @param range 范围值
@@ -591,7 +558,7 @@ module egret {
 
 			return this._damageTargets;
 		}
-		//
+
 		/**
 		 * 记录技能使用时间
 		 * @param skillType
@@ -599,7 +566,7 @@ module egret {
 		public setSkillTime(skillType:number):void{
 			this._skillTimeData[skillType] = getTimer();
 		}
-		//
+
 		/**
 		 * 获取上次使用技能经过的时间
 		 * @param skillType
@@ -611,7 +578,7 @@ module egret {
 
 			return 1000000000;
 		}
-		//
+
 		/**
 		 * 标记使用技能
 		 * @param skillType
@@ -620,7 +587,7 @@ module egret {
 			this.setSkillTime(skillType);
 			this.skillType = skillType;
 		}
-		//
+
 		/**
 		 * 野蛮冲撞
 		 * @param master 播放技能对象
@@ -640,10 +607,8 @@ module egret {
 
 			Tween.get(this,{onChange:this.onChangeCollide,onChangeObj:this}).to({x:x,y:y},time).call(this.collideComplete,this,[master,target,x,y]);
 		}
-		//
-		/**
-		 * 野蛮冲撞移动时
-		 */
+
+		/**野蛮冲撞移动时*/
 		public onChangeCollide():void{
 			if(this.scene){
 				this.setXY(this._x,this._y);
@@ -653,7 +618,7 @@ module egret {
 				}
 			}
 		}
-		//
+
 		/**
 		 * 野蛮冲撞结束
 		 * @param master 移动结束对象
@@ -664,18 +629,14 @@ module egret {
 		public collideComplete(master:SceneElementDriver,target:SceneElementDriver,x:number,y:number):void{
 			this.setXY(x,y);
 		}
-		//
-		/**
-		 * 锁定，锁定时不无法动弹，动画暂停
-		 */
+
+		/**锁定，锁定时不无法动弹，动画暂停*/
 		public lock():void{
 			this._isLocked = true;
 			this._avatar.stopMovie();
 		}
-		//
-		/**
-		 * 解锁，恢复锁定前的动画播放
-		 */
+
+		/**解锁，恢复锁定前的动画播放*/
 		public unlock():void{
 			this.resetPositionPoint();
 			this._isLocked = false;
@@ -687,7 +648,7 @@ module egret {
 				this.chaseArmies(this.armies);
 			}
 		}
-		//
+
 		/**
 		 * 被击退，从击退中心点以半径计算退后的坐标
 		 * @param x 击退中心x
@@ -703,7 +664,7 @@ module egret {
 
 			Tween.get(this).to({x:tx,y:ty},200).call(this.stepBackComplete,this,[tx,ty]);
 		}
-		//
+
 		/**
 		 * 击退结束
 		 * @param x 击退目标点x
@@ -715,5 +676,6 @@ module egret {
 
 			this.chaseArmies(this.armies);
 		}
+		
 	}
 }

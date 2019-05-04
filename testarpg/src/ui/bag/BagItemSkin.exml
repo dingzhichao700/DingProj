@@ -8,4 +8,5 @@
 	</e:states>
 	<e:UIAsset id="imgBg" source="img_block_png"/>
 	<e:UIAsset id="imgIcon" x="3" y="2"/>
+	<e:Label textColor="0x000000" height="25" text="1" fontFamily="微软雅黑" textAlign="right" width="69" size="18" id="txtNum" y="50" x="1"/>
 </e:Skin>

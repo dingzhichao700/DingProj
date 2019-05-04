@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin width="640" height="960" xmlns:e="http://ns.egret-labs.org/egret" xmlns:w="http://ns.egret-labs.org/wing">
+	<w:HostComponent name="egret.gui.SkinnableComponent"/>
+	<w:Declarations/>
+	<e:states>
+		<e:State name="normal"/>
+		<e:State name="disabled"/>
+	</e:states>
+	<e:Group id="boxCon" height="38" width="439" x="103" y="161">
+		<e:UIAsset source="bg_warn_png" scale9Grid="109,6,42,24" width="423" y="0" x="0" height="48"/>
+		<e:Label id="txtContext" text="金钱不足" textAlign="center" fontFamily="微软雅黑" width="556" textColor="0xFFFFFF" x="-65" size="26" y="12"/>
+	</e:Group>
+	<e:Group id="boxPower" x="170" y="430">
+		<e:UIAsset source="bg_fight_png"/>
+		<e:UIAsset source="fight_plus_png" y="12" x="112"/>
+		<e:Group id="boxPowerNum" width="100" height="30" x="141" y="16"/>
+	</e:Group>
+</e:Skin>

@@ -30,16 +30,16 @@ var ui;
             __egretProto__.itemCon_i = function () {
                 var t = new egret.gui.Group();
                 this.itemCon = t;
-                this.__s(t, ["height", "width", "x", "y"], [653, 495, 66, 102]);
+                this.__s(t, ["height", "width", "x", "y"], [653, 488, 70, 102]);
                 return t;
             };
             __egretProto__.__3_i = function () {
                 var t = new egret.gui.UIAsset();
-                this.__s(t, ["height", "scale9Grid", "source", "width", "x", "y"], [675, egret.gui.getScale9Grid("3,3,24,24"), "bg_21_png", 516, 56, 94]);
+                this.__s(t, ["height", "scale9Grid", "source", "width", "x", "y"], [675, egret.gui.getScale9Grid("3,3,24,24"), "bg_21_png", 500, 64, 94]);
                 return t;
             };
             __egretProto__.window_i = function () {
-                var t = new egret.BasePanel();
+                var t = new egret.WindowView();
                 this.window = t;
                 this.__s(t, ["height", "skinName", "width"], [200, ui.WindowViewSkin, 200]);
                 return t;
@@ -51,3 +51,4 @@ var ui;
         BagViewSkin.prototype.__class__ = "ui.bag.BagViewSkin";
     })(bag = ui.bag || (ui.bag = {}));
 })(ui || (ui = {}));
+//# sourceMappingURL=BagViewSkin.js.map

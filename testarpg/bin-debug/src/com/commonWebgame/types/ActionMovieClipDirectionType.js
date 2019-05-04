@@ -45,3 +45,4 @@ var egret;
     egret.ActionMovieClipDirectionType = ActionMovieClipDirectionType;
     ActionMovieClipDirectionType.prototype.__class__ = "egret.ActionMovieClipDirectionType";
 })(egret || (egret = {}));
+//# sourceMappingURL=ActionMovieClipDirectionType.js.map

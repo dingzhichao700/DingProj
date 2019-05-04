@@ -21,3 +21,4 @@ var egret;
     egret.PathPolicyType = PathPolicyType;
     PathPolicyType.prototype.__class__ = "egret.PathPolicyType";
 })(egret || (egret = {}));
+//# sourceMappingURL=PathPolicyType.js.map

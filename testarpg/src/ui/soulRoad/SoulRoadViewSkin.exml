@@ -6,19 +6,22 @@
 		<e:State name="normal"/>
 		<e:State name="disabled"/>
 	</e:states>
-	<e:UIAsset source="bg_19_png" scale9Grid="4,4,24,24" width="640" height="960" x="0" y="0" locked="true"/>
 	<e:UIAsset source="soulRoadBg_nomal_png" width="666" height="862" y="14" x="-26" locked="true"/>
 	<e:UIAsset source="tab_diff_0_png" x="473" y="848" locked="true"/>
 	<e:UIAsset source="tab_normal_1_png" x="363" y="847" locked="true"/>
-	<e:UIAsset source="frame_bg_png" scale9Grid="3,3,2,2" width="275" height="253" x="71" y="563"/>
-	<e:UIAsset source="frame_bg_png" scale9Grid="3,3,2,2" width="318" height="227" x="246" y="106"/>
-	<e:UIAsset source="frame_bg_png" scale9Grid="3,3,2,2" width="492" height="203" x="75" y="343"/>
-	<e:UIAsset source="frame_bg_png" width="163" height="227" scale9Grid="3,3,2,2" y="106" x="76"/>
-	<e:UIAsset source="frame_bg_png" scale9Grid="3,3,2,2" width="214" height="254" x="353" y="562"/>
-	<e:UIAsset id="img_1" source="1_1_png" y="107" x="78"/>
-	<e:UIAsset id="img_2" source="1_2_png" y="108" x="248"/>
-	<e:UIAsset id="img_3" source="1_3_png" x="77" y="345"/>
-	<e:UIAsset id="img_4" source="1_4_png" x="74" y="565"/>
-	<e:UIAsset id="img_5" source="1_5_png" y="564" x="355"/>
+	<e:UIAsset source="frame_bg_png" width="224" height="247" scale9Grid="3,3,2,2" y="106" x="76"/>
+	<e:UIAsset source="frame_bg_png" scale9Grid="3,3,2,2" width="261" height="246" y="106" x="306"/>
+	<e:UIAsset source="frame_bg_png" scale9Grid="3,3,2,2" width="493" height="217" y="360" x="75"/>
+	<e:UIAsset source="frame_bg_png" scale9Grid="3,3,2,2" width="247" height="224" x="75" y="586"/>
+	<e:UIAsset source="frame_bg_png" scale9Grid="3,3,2,2" width="238" height="223" x="329" y="586"/>
+	<e:UIAsset id="img_0" source="1_1_png" y="108" x="78"/>
+	<e:UIAsset id="img_1" source="1_2_png" y="108" x="308"/>
+	<e:UIAsset id="img_2" source="1_3_png" x="77" y="362"/>
+	<e:UIAsset id="img_3" source="1_4_png" y="589" x="77"/>
+	<e:UIAsset id="img_4" source="1_5_png" y="589" x="330"/>
 	<e:UIAsset id="btnClose" source="btn_close1_png" x="554" y="38"/>
+	<e:UIAsset id="mask1" source="bg_19_png" scale9Grid="4,4,24,24" x="306" y="108" width="260" height="243"/>
+	<e:UIAsset id="mask2" source="bg_19_png" scale9Grid="4,4,24,24" width="491" height="214" x="75" y="361"/>
+	<e:UIAsset id="mask3" source="bg_19_png" scale9Grid="4,4,24,24" width="245" height="223" x="77" y="587"/>
+	<e:UIAsset id="mask4" source="bg_19_png" scale9Grid="4,4,24,24" width="238" height="223" x="329" y="587"/>
 </e:Skin>

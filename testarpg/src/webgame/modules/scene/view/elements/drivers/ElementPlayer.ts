@@ -2,19 +2,16 @@
 module egret {
 
 	export class ElementPlayer extends SceneElementDriver{
-		/**
-		 * 构造函数
-		 */
-		public constructor(){
+
+    	public constructor(){
 			super();
 
 			this.speed = 8;
 		}
-		//
+
 		/**
 		 * 更新动作影片显示
 		 * @param value:SceneElementDataItem
-		 * 
 		 */		
 		public updateAvatar(value:SceneElementDataItem):void{
 			this.setData(value);
@@ -24,7 +21,7 @@ module egret {
 				this._avatar.setPartTypes(this._partTypes,this.getPartUrl,this,this.loadActionComplete,this);
 			}
 		}
-		//
+
 		/**
 		 * 设置场景元素数据 
 		 * @param value:SceneElementDataItem
@@ -42,6 +39,7 @@ module egret {
 					playerVo.vocation,playerVo.sex,playerVo.bodyLevel,
 					playerVo.weaponLevel,playerVo.wingLevel);
 		}
+		
 		/**
 		 * 按指定动作类型和方向播放影片
 		 * @param frameIndex:int = -1 开始播放的帧索引，-1时不设置开始播放的帧索引，从当前帧开始播放或从第0帧开始播放
@@ -77,7 +75,7 @@ module egret {
 			
 			this._namePad.y = this._avatar.topLineY;
 		}
-		//
+
 		/**
 		 * 获取部件影片地址 
 		 * @param partType:String ActionPartType 动作影片类型
@@ -105,7 +103,7 @@ module egret {
 			
 			return url;
 		}
-		//
+
 		/**
 		 * 获取优先攻击对象，各职业重写
 		 * @returns {null}
@@ -121,20 +119,14 @@ module egret {
 					}
 				}
 			}
-
 			return null;
 		}
-		//
-		/**
-		 * 检测自动攻击
-		 */
-		public checkAutoAttack():void{
 
+		/**检测自动攻击*/
+		public checkAutoAttack():void{
 		}
-		//
-		/**
-		 * 检测自动攻击2，玩家在攻击结束时检测，不使用定时器方法checkAutoAttack()
-		 */
+
+		/**检测自动攻击2，玩家在攻击结束时检测，不使用定时器方法checkAutoAttack()*/
 		public checkAutoAttack2():void{
 			if(this._isLocked) return;
 			if(this._attackTarget && (<SceneDriverVo>this._attackTarget.vo).hp <= 0){
@@ -143,10 +135,8 @@ module egret {
 				this.attack();
 			}
 		}
-		//
-		/**
-		 * 玩家攻击方法
-		 */
+
+		/**玩家攻击方法*/
 		public attack():void{
 			if(this._isLocked) return;
 			if(this.isSkillStatus) return;
@@ -168,5 +158,6 @@ module egret {
 				this._avatar.setFrameHandler(this.playSkill,this);
 			}
 		}
+		
 	}
 }

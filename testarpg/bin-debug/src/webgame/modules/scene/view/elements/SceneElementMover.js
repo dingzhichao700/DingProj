@@ -2,10 +2,7 @@ var egret;
 (function (egret) {
     var SceneElementMover = (function (_super) {
         __extends(SceneElementMover, _super);
-        /**
-         * 构造函数 其它参数应为isoSize的整数倍
-         *
-         */
+        /**构造函数 其它参数应为isoSize的整数倍*/
         function SceneElementMover() {
             _super.call(this);
             /**
@@ -73,9 +70,7 @@ var egret;
             this._nodeInterval = 2;
             //是否为跟随者
             this._isFollowed = false;
-            /**
-             * 自动寻路的路径类型
-             */
+            /**自动寻路的路径类型*/
             this.pathTypes = null;
             //地图数据
             this._mapNodes = null;
@@ -180,11 +175,7 @@ var egret;
         }
         var __egretProto__ = SceneElementMover.prototype;
         Object.defineProperty(__egretProto__, "finalPoint", {
-            /**
-             * 目标点较远时，路径最终点
-             * @return
-             *
-             */
+            /**目标点较远时，路径最终点 */
             get: function () {
                 return this._finalPoint;
             },
@@ -192,11 +183,7 @@ var egret;
             configurable: true
         });
         Object.defineProperty(__egretProto__, "finalY", {
-            /**
-             * 最终目标点地图的坐标 y
-             * @return
-             *
-             */
+            /**最终目标点地图的坐标 y*/
             get: function () {
                 if (this._finalPoint)
                     return this._finalPoint.x;
@@ -206,11 +193,7 @@ var egret;
             configurable: true
         });
         Object.defineProperty(__egretProto__, "finalX", {
-            /**
-             * 最终目标点地图的坐标 x
-             * @return
-             *
-             */
+            /**最终目标点地图的坐标 x */
             get: function () {
                 if (this._finalPoint)
                     return this._finalPoint.y;
@@ -236,11 +219,7 @@ var egret;
             configurable: true
         });
         Object.defineProperty(__egretProto__, "isMoving", {
-            /**
-             * 是否正在移动中
-             * @return
-             *
-             */
+            /**是否正在移动中*/
             get: function () {
                 return this._isMoving;
             },
@@ -248,11 +227,7 @@ var egret;
             configurable: true
         });
         Object.defineProperty(__egretProto__, "pathNodes", {
-            /**
-             * 当前路径节点数组
-             * @return
-             *
-             */
+            /**当前路径节点数组*/
             get: function () {
                 return this._pathNodes;
             },
@@ -260,11 +235,7 @@ var egret;
             configurable: true
         });
         Object.defineProperty(__egretProto__, "passingPoints", {
-            /**
-             * 经过的坐标数据点，用于跟随
-             * @return
-             *
-             */
+            /**经过的坐标数据点，用于跟随*/
             get: function () {
                 return this._passingPoints;
             },
@@ -272,12 +243,7 @@ var egret;
             configurable: true
         });
         Object.defineProperty(__egretProto__, "passingNodes", {
-            //
-            /**
-             * 经过的路径
-             * @return
-             *
-             */
+            /**经过的路径*/
             get: function () {
                 return this._passingNodes;
             },
@@ -285,11 +251,7 @@ var egret;
             configurable: true
         });
         Object.defineProperty(__egretProto__, "depth", {
-            /**
-             * 获取元素深度
-             * @return
-             *
-             */
+            /**获取元素深度*/
             get: function () {
                 var node = this.currentNode;
                 var mapNode = this._isoMap.getMapNode(node.row, node.column);
@@ -349,7 +311,6 @@ var egret;
             configurable: true
         });
         Object.defineProperty(__egretProto__, "lastNode", {
-            //
             /**
              * 上次所在节点
              * @returns {IsoNode}
@@ -361,11 +322,7 @@ var egret;
             configurable: true
         });
         Object.defineProperty(__egretProto__, "currentNode", {
-            /**
-             * 当前视口中心点所在的节点
-             * @return
-             *
-             */
+            /**当前视口中心点所在的节点 */
             get: function () {
                 if (this._currentNode.row == -1) {
                     this._currentNode.copyBy(this.centerNode);
@@ -377,12 +334,7 @@ var egret;
             configurable: true
         });
         Object.defineProperty(__egretProto__, "canMove", {
-            //
-            /**
-             * 地图是否可移动，到达边界时无法移动
-             * @return
-             *
-             */
+            /**地图是否可移动，到达边界时无法移动*/
             get: function () {
                 if (this._x + "" == this._finalX + "" && this._y + "" == this._finalY + "") {
                     return false;
@@ -393,12 +345,7 @@ var egret;
             configurable: true
         });
         Object.defineProperty(__egretProto__, "isArrive", {
-            //
-            /**
-             * 是否已到达目标坐标点
-             * @return
-             *
-             */
+            /**是否已到达目标坐标点*/
             get: function () {
                 return this._x + "" == this._finalX + "" && this._y + "" == this._finalY + "" && this._finalPoint == null;
             },
@@ -406,7 +353,6 @@ var egret;
             configurable: true
         });
         Object.defineProperty(__egretProto__, "centerNode", {
-            //
             /**
              * 元素的原点所在的节点 ，适用于只访问节点数据的场合，不适合用于改变节点数据场合
              * @return
@@ -420,12 +366,7 @@ var egret;
             configurable: true
         });
         Object.defineProperty(__egretProto__, "targetNode", {
-            //
-            /**
-             * 当前的目标节点
-             * @return
-             *
-             */
+            /**当前的目标节点*/
             get: function () {
                 return this._targetNode;
             },
@@ -438,11 +379,7 @@ var egret;
             this.stopMove();
             _super.prototype.destroy.call(this);
         };
-        //
-        /**
-         * 清空经过的路径和坐标点
-         *
-         */
+        /**清空经过的路径和坐标点*/
         __egretProto__.clearFollowPoints = function () {
             for (var i = 0; i < SceneElementMover.PASSING_POINT_COUNT; i++) {
                 if (this._passingPoints[i]) {
@@ -457,14 +394,11 @@ var egret;
             }
             this._passingNodeIndex = 0;
         };
-        //
         /**
          * 获取目标点的节点数据，没有地图节点数据时使用，有地图节点数据时使用 IsoMap.getIsoNode()，
          * 适用于只访问节点数据的场合，不适合用于改变节点数据场合
          * @param x:Number x坐标
          * @param y:Number y坐标
-         * @return
-         *
          */
         __egretProto__.getIsoNode = function (x, y) {
             var line = Math.round(y / this._halfSize);
@@ -481,7 +415,6 @@ var egret;
             //计算3D空间中最靠近坐标的节点
             return this.getNeerNode(this._isoNodePoint, this._nodeLines, this._nodeColumns);
         };
-        //
         /**
          * 跳至目标坐标位置，如果坐标不是节点的坐标，将自动计算并跳至最近的节点
          * @param x:Number x坐标
@@ -493,7 +426,6 @@ var egret;
             this._hasSetTarget = true;
             this.gotoGrid(this._targetNode.row, this._targetNode.column);
         };
-        //
         /**
          * 跳至目标行列位置
          * @param row:Number 行索引
@@ -508,7 +440,6 @@ var egret;
             this.setXY(point.x, point.y);
             this.setCurrentNode(this.centerNode);
         };
-        //
         /**
          * 移动至目标位置，使用寻路
          * @param x:Number x坐标
@@ -523,7 +454,6 @@ var egret;
             this._hasSetTarget = true;
             this.moveToGridPath(this._targetNode.row, this._targetNode.column, isCheckPart);
         };
-        //
         /**
          * 移动至目标位置，不寻路，移动到节点
          * @param x:Number x坐标
@@ -537,12 +467,10 @@ var egret;
             this._hasSetTarget = true;
             this.moveToGrid(this._targetNode.row, this._targetNode.column);
         };
-        //
         /**
          * 移动至目标位置，不寻路，忽略节点数据
          * @param x:Number x坐标
          * @param y:Number y坐标
-         *
          */
         __egretProto__.moveTo3 = function (x, y) {
             this._isNoPath = true;
@@ -558,11 +486,7 @@ var egret;
                 this._isDispatchStart = true;
             }
         };
-        //
-        /**
-         * 停止移动
-         *
-         */
+        /**停止移动*/
         __egretProto__.stopMove = function () {
             if (!this._isMoving)
                 return;
@@ -574,7 +498,6 @@ var egret;
         /**
          * 内部停止移动，有动作处理
          * @param changedAction:Boolean = true 是否改变动作
-         *
          */
         __egretProto__.stopMoveInternal = function (changedAction) {
             if (changedAction === void 0) { changedAction = true; }
@@ -588,12 +511,7 @@ var egret;
             if (changedAction)
                 this.play(-1, egret.ActionType.PREPARE);
         };
-        //
-        /**
-         * 检测分段终点
-         * @return
-         *
-         */
+        /**检测分段终点*/
         __egretProto__.checkFinalPoint = function () {
             //路径分段时
             if (this._finalPoint) {
@@ -602,12 +520,10 @@ var egret;
             }
             return false;
         };
-        //
         /**
          * 移动至目标行列
          * @param row:Number 行索引
          * @param column:Number 列索引
-         *
          */
         __egretProto__.moveToGrid = function (row, column) {
             if (!this._hasSetTarget)
@@ -628,12 +544,10 @@ var egret;
                 this._isDispatchStart = true;
             }
         };
-        //
         /**
          * 移动至目标节点
          * @param row:Number 行索引
          * @param column:Number 列索引
-         *
          */
         __egretProto__.moveToNode = function (node) {
             this.setTargetNode(node);
@@ -653,12 +567,10 @@ var egret;
                 this._isDispatchStart = true;
             }
         };
-        //
         /**
          * 按寻路路径行走至目标行列
          * @param row:Number 行索引
          * @param column:Number 列索引
-         *
          */
         __egretProto__.moveToGridPath = function (row, column, isCheckPart) {
             if (isCheckPart === void 0) { isCheckPart = false; }
@@ -712,7 +624,6 @@ var egret;
          * 检测路径分段行走
          * @param row:int
          * @param column:int
-         *
          */
         __egretProto__.checkPathPart = function (row, column) {
             if (column === void 0) { column = 0; }
@@ -749,11 +660,9 @@ var egret;
             }
             this.moveToGridPath(row, column, false);
         };
-        //
         /**
          * 跟随元素所经过的点
          * @param points
-         *
          */
         __egretProto__.moveByPoints = function (points) {
             var index = points.length - this._nodeInterval * 6;
@@ -771,11 +680,9 @@ var egret;
                 this.stopMove();
             }
         };
-        //
         /**
          * 跟随元素所经过的路径节点
          * @param nodes
-         *
          */
         __egretProto__.moveByTrack = function (nodes) {
             var index = nodes.length - this._nodeInterval;
@@ -784,11 +691,9 @@ var egret;
                 this.moveToNode(node);
             }
         };
-        //
         /**
          * 按路径移动
          * @param nodes
-         *
          */
         __egretProto__.moveByPath = function () {
             this._moveIndex = 0;
@@ -796,11 +701,7 @@ var egret;
             this.moveToNextNode();
             //			this.dispatchEvent(new IsoMapEvent(IsoMapEvent.ISO_MAP_PATH_START,false,false));
         };
-        //
-        /**
-         * 移动至下一个节点
-         *
-         */
+        /**移动至下一个节点*/
         __egretProto__.moveToNextNode = function () {
             if (!this._pathNodes || this._pathNodes.length == 0)
                 return;
@@ -818,30 +719,19 @@ var egret;
             this._pathTargetNode = this._pathNodes[this._moveIndex];
             this.moveToNode(this._pathTargetNode);
         };
-        //
-        /**
-         * 清空路径数据
-         *
-         */
+        /**清空路径数据*/
         __egretProto__.clearPathNodes = function () {
             if (this._pathNodes)
                 this._pathNodes.length = 0;
         };
-        //
-        /**
-         * 设置当前节点
-         * @param node
-         *
-         */
+        /**设置当前节点*/
         __egretProto__.setCurrentNode = function (node) {
             this.setNode(node, SceneElementMover.CURRENT_NODE);
         };
-        //
         /**
          * 设置节点数据
          * @param node:IsoNode 节点
          * @param target:String 节点变量，
-         *
          */
         __egretProto__.setNode = function (node, target, dispatch) {
             if (dispatch === void 0) { dispatch = true; }
@@ -867,17 +757,14 @@ var egret;
                 }
             }
         };
-        //
         /**
          * 设置目标节点
          * @param node:IsoNode
-         *
          */
         __egretProto__.setTargetNode = function (node, dispatch) {
             if (dispatch === void 0) { dispatch = true; }
             this.setNode(node, SceneElementMover.TARGET_NODE, dispatch);
         };
-        //
         /**
          * 计算3D空间中以一个节点为中心的5个节点与目标点的最近节点，优点在于独立性强，不依赖地图节点数据，
          * 缺点在于 此方法频繁使用时需要分配很多内存，IsoMap 覆盖优化此方法，
@@ -885,8 +772,6 @@ var egret;
          * @param target:Point 2D目标点
          * @param lines:Array 连续的3行
          * @param columns:Array 连续的3列
-         * @return
-         *
          */
         __egretProto__.getNeerNode = function (target, lines, columns) {
             var distance = Number.POSITIVE_INFINITY;
@@ -952,7 +837,6 @@ var egret;
             this._neerNode.column = (this._neerPoint.x / this._isoSize2) | 0;
             return this._neerNode;
         };
-        //
         /**
          * 获取节点数据
          * @param row:Number 行索引
@@ -970,8 +854,6 @@ var egret;
             node.point2D = this.getIsoPoint(row, column);
             return node;
         };
-        //
-        //
         /**
          * 计算移动距离
          * @param x:Number
@@ -998,7 +880,6 @@ var egret;
                 this._finalY = this._targetY;
             }
         };
-        //
         /**
          * 获取目标位置的距离数据
          * @param x:Number
@@ -1018,11 +899,7 @@ var egret;
             this._distancePoint.y = this.limitValue(y, minY, this._maxY);
             return this._distancePoint;
         };
-        //
-        /**
-         * 移动地图
-         *
-         */
+        /**移动地图*/
         __egretProto__.moveMap = function () {
             if (this.checkDistance()) {
                 this.stopMoveInternal(!this._isFollowed);
@@ -1063,11 +940,7 @@ var egret;
             }
             //			sendData(ModuleNumber.SCENE,SceneCommand.MOVING,{x:_x,y:_y});
         };
-        //
-        /**
-         * 更新地图坐标
-         *
-         */
+        /**更新地图坐标*/
         __egretProto__.updateMap = function () {
             var x = this._x;
             var y = this._y;
@@ -1092,12 +965,10 @@ var egret;
             //			}
             this.setXY(x, y);
         };
-        //
         /**
          * 设置元素坐标，并更新其节点位置
          * @param x:Number
          * @param y:Number
-         *
          */
         __egretProto__.setXY = function (x, y) {
             var width = SceneElementMover.MOVER_WIDTH / 2;
@@ -1117,7 +988,6 @@ var egret;
             this.x = x;
             this.y = y;
         };
-        //
         __egretProto__.updateXY = function () {
             _super.prototype.updateXY.call(this);
             var vo = this._data.vo;
@@ -1125,12 +995,7 @@ var egret;
                 this.setXY(vo.x, vo.y);
             }
         };
-        //
-        /**
-         * 检测可移动距离是否为0
-         * @return
-         *
-         */
+        /**检测可移动距离是否为0*/
         __egretProto__.checkDistance = function () {
             //如果有路径时，根据路径判断
             if (this._hasPath)
@@ -1139,11 +1004,9 @@ var egret;
                 return false;
             return true;
         };
-        //
         /**
          * 添加或删除移动引擎
          * @param isAdded
-         *
          */
         __egretProto__.addEngine = function (isAdded) {
             this._nodeChangedFlag = true;
@@ -1168,20 +1031,14 @@ var egret;
                 }
             }
         };
-        //
-        /**
-         * 帧处理
-         * @param e
-         *
-         */
+        /**帧处理*/
         __egretProto__.mapContainerEnterFrame = function (e) {
+            if (e === void 0) { e = null; }
             //			var time:Number = new Date().time;
             //			trace(time - _timeDelay);
             //			_timeDelay = time;
-            if (e === void 0) { e = null; }
             this.moveMap();
         };
-        //
         /**
          * 设置地图数据
          * isoMap:IsoMap 参数可为 null
@@ -1201,13 +1058,10 @@ var egret;
             }
             this.clearFollowPoints();
         };
-        //
         /**
          * 获取等角投影矩形的中心点
          * @param row:Number 行索引
          * @param column:Number 列索引
-         * @return
-         *
          */
         __egretProto__.getIsoPoint = function (row, column) {
             var y = row * this._halfSize;
@@ -1219,14 +1073,11 @@ var egret;
             this._isoPoint.y = y;
             return this._isoPoint;
         };
-        //
         /**
          * 限制最小值和最大值
          * @param value:Number
          * @param min:Number
          * @param max:Number
-         * @return
-         *
          */
         __egretProto__.limitValue = function (value, min, max) {
             if (value < min)
@@ -1235,11 +1086,7 @@ var egret;
                 value = max;
             return value;
         };
-        //
-        /**
-         * 检测节点类型
-         *
-         */
+        /**检测节点类型*/
         __egretProto__.checkNode = function () {
             var node = this.currentNode;
             if (this._isoMap)
@@ -1253,7 +1100,6 @@ var egret;
             if (this.nodeChangedHandler != null)
                 this._nodeChangedFlag = this.nodeChangedHandler.apply(this.scene, [this]);
         };
-        //
         /**
          * 添加经过的点数据
          * @param x:Number
@@ -1289,11 +1135,9 @@ var egret;
                 this._passingPoints[SceneElementMover.PASSING_POINT_COUNT] = null;
             }
         };
-        //
         /**
          * 设置经过的节点数据
          * @param node:IsoNode
-         *
          */
         __egretProto__.setPassingNode = function (node) {
             this._passingNodes[this._passingNodeIndex] = node;
@@ -1307,7 +1151,6 @@ var egret;
                 this._passingNodes[SceneElementMover.PASSING_NODE_COUNT] = null;
             }
         };
-        //
         __egretProto__.removeFromScene = function () {
             this.stopMove();
             //先停止移动，再停止播放
@@ -1333,3 +1176,4 @@ var egret;
     egret.SceneElementMover = SceneElementMover;
     SceneElementMover.prototype.__class__ = "egret.SceneElementMover";
 })(egret || (egret = {}));
+//# sourceMappingURL=SceneElementMover.js.map

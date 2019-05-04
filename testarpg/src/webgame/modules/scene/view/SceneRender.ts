@@ -395,7 +395,7 @@ module egret {
 			if(!EnterFrameManager.getInstance().hasExecute(this._sortId))
 				this._sortId = EnterFrameManager.getInstance().addExecute(this.sortBiology,this,this.DELAY_SORT);
 		}
-		//
+
 		public remove():void{
 			super.remove();
 			
@@ -515,32 +515,25 @@ module egret {
 				return 0;
 			}
 		}
-		//
-		/**
-		 * 舞台尺寸改变  
-		 * @param e
-		 * 
-		 */		
+
+		/**舞台尺寸改变  */		
 		public stageResize(e:Event = null):void{
-			this.setRoleViewProperties();
+//			this.setRoleViewProperties();
 			
-			if(this._sceneEditLo){
-				if(this._role)
-					this._isoMap.setCurrentMapXY(this._role.x,this._role.y);
-				this._isoMap.setProperties(this._sceneEditLo.width,this._sceneEditLo.height,this._sceneEditLo.gridSize,this._viewWidth,this._viewHeight);
-			}
+//			if(this._sceneEditLo){
+//				if(this._role)
+//					this._isoMap.setCurrentMapXY(this._role.x,this._role.y);
+//				this._isoMap.setProperties(this._sceneEditLo.width,this._sceneEditLo.height,this._sceneEditLo.gridSize,this._viewWidth,this._viewHeight);
+//			}
 		}
-		//
-		/**
-		 * 更新视口数据 
-		 * 
-		 */		
+
+		/**更新视口数据 */		
 		public setRoleViewProperties():void{
 			this._viewWidth = ApplicationManager.getInstance().stage.stageWidth;
 			this._viewHeight = ApplicationManager.getInstance().stage.stageHeight;
-			
 			this._roleOffsetX = this._viewWidth / 2;
 			this._roleOffsetY = this._viewHeight / 2;
 		}
+		
 	}
 }

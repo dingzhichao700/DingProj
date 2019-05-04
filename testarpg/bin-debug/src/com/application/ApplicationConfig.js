@@ -18,3 +18,4 @@ var egret;
     egret.ApplicationConfig = ApplicationConfig;
     ApplicationConfig.prototype.__class__ = "egret.ApplicationConfig";
 })(egret || (egret = {}));
+//# sourceMappingURL=ApplicationConfig.js.map

@@ -88,9 +88,7 @@ module egret {
 		//是否为跟随者
 		public _isFollowed:boolean = false;
 		
-		/**
-		 * 自动寻路的路径类型 
-		 */		
+		/**自动寻路的路径类型*/		
 		public pathTypes:Array<any> = null;
 		//地图数据
 		private _mapNodes:Array<Array<MapNode>> = null;
@@ -169,10 +167,7 @@ module egret {
 		//是否为无路径移动
 		private _isNoPath:boolean;
 		
-		/**
-		 * 构造函数 其它参数应为isoSize的整数倍
-		 * 
-		 */		
+		/**构造函数 其它参数应为isoSize的整数倍*/		
 		public constructor(){
 			super();
 
@@ -221,30 +216,20 @@ module egret {
 			this._centerNode = new IsoNode();
 			this._centerNode.init();
 		}
-		/**
-		 * 目标点较远时，路径最终点 
-		 * @return 
-		 * 
-		 */
+		
+		/**目标点较远时，路径最终点 */
 		public get finalPoint():Point{
 			return this._finalPoint;
 		}
-		/**
-		 * 最终目标点地图的坐标 y
-		 * @return 
-		 * 
-		 */		
+		
+		/**最终目标点地图的坐标 y*/		
 		public get finalY():number{
 			if(this._finalPoint)
 				return this._finalPoint.x;
-			
 			return this._finalY;
 		}
-		/**
-		 * 最终目标点地图的坐标 x 
-		 * @return 
-		 * 
-		 */		
+		
+		/**最终目标点地图的坐标 x */		
 		public get finalX():number{
 			if(this._finalPoint)
 				return this._finalPoint.y;
@@ -255,6 +240,7 @@ module egret {
 		public get isRole():boolean{
 			return this._isRole;
 		}
+		
 		/**
 		 * 标记是否为主角 
 		 * @param value
@@ -266,45 +252,27 @@ module egret {
 			this.pathPartValue = 4600;
 		}
 
-		/**
-		 * 是否正在移动中 
-		 * @return 
-		 * 
-		 */
+		/**是否正在移动中*/
 		public get isMoving():boolean{
 			return this._isMoving;
 		}
-		/**
-		 * 当前路径节点数组  
-		 * @return 
-		 * 
-		 */
+		
+		/**当前路径节点数组*/
 		public get pathNodes():Array<MapNode>{
 			return this._pathNodes;
 		}
 
-		/**
-		 * 经过的坐标数据点，用于跟随 
-		 * @return 
-		 * 
-		 */
+		/**经过的坐标数据点，用于跟随*/
 		public get passingPoints():Array<PassingPoint>{
 			return this._passingPoints;
 		}
-		//
-		/**
-		 * 经过的路径 
-		 * @return 
-		 * 
-		 */
+
+		/**经过的路径*/
 		public get passingNodes():Array<IsoNode>{
 			return this._passingNodes;
 		}
-		/**
-		 * 获取元素深度 
-		 * @return 
-		 * 
-		 */		
+		
+		/**获取元素深度*/		
 		public get depth():number{
 			var node:IsoNode = this.currentNode;
 			var mapNode:MapNode = this._isoMap.getMapNode(node.row,node.column);
@@ -318,6 +286,7 @@ module egret {
 		public get isFollowed():boolean{
 			return this._isFollowed;
 		}
+		
 		/**
 		 * 是否为跟随者 
 		 * @param value
@@ -330,6 +299,7 @@ module egret {
 		public get nodeInterval():number{
 			return this._nodeInterval;
 		}
+		
 		/**
 		 * 跟随时的节点间隔或坐标点间隔
 		 * @param value:Number 默认值:2
@@ -342,6 +312,7 @@ module egret {
 		public get speed():number{
 			return this._speed;
 		}
+		
 		/**
 		 * 地图移动速度(移动一个单位)
 		 * @param value:Number 默认值:2px，也是最小值
@@ -353,7 +324,7 @@ module egret {
 			this._speed = value;
 			this._speed = Math.max(2,this._speed);
 		}
-		//
+
 		/**
 		 * 上次所在节点
 		 * @returns {IsoNode}
@@ -361,42 +332,29 @@ module egret {
 		public get lastNode():IsoNode{
 			return this._lastNode;
 		}
-		/**
-		 * 当前视口中心点所在的节点 
-		 * @return 
-		 * 
-		 */
+		
+		/**当前视口中心点所在的节点 */
 		public get currentNode():IsoNode{
 			if(this._currentNode.row == -1){
 				this._currentNode.copyBy(this.centerNode);
 			}
-			
 			//为null时取当前坐标点
 			return this._currentNode;
 		}
-		//
-		/**
-		 * 地图是否可移动，到达边界时无法移动 
-		 * @return 
-		 * 
-		 */		
+
+		/**地图是否可移动，到达边界时无法移动*/		
 		public get canMove():boolean{
             if(this._x + "" == this._finalX + "" && this._y + "" == this._finalY + ""){
 				return false;
 			}
-			
 			return true;
 		}
-		//
-		/**
-		 * 是否已到达目标坐标点 
-		 * @return 
-		 * 
-		 */		
+
+		/**是否已到达目标坐标点*/		
 		public get isArrive():boolean{
             return this._x + "" == this._finalX + "" && this._y + "" == this._finalY + "" && this._finalPoint == null;
 		}
-		//
+
 		/**
 		 * 元素的原点所在的节点 ，适用于只访问节点数据的场合，不适合用于改变节点数据场合
 		 * @return 
@@ -406,12 +364,8 @@ module egret {
 			this._centerNode.copyBy(this.getIsoNode(this._x,this._y));
 			return this._centerNode;
 		}
-		//
-		/**
-		 * 当前的目标节点 
-		 * @return 
-		 * 
-		 */		
+
+		/**当前的目标节点*/		
 		public get targetNode():IsoNode{
 			return this._targetNode;
 		}
@@ -423,11 +377,8 @@ module egret {
 			
 			super.destroy();
 		}
-		//
-		/**
-		 * 清空经过的路径和坐标点 
-		 * 
-		 */		
+
+		/**清空经过的路径和坐标点*/		
 		public clearFollowPoints():void{
 			for(var i:number = 0; i < SceneElementMover.PASSING_POINT_COUNT; i++){
 				if(this._passingPoints[i]){
@@ -445,14 +396,12 @@ module egret {
 			
 			this._passingNodeIndex = 0;
 		}
-		//
+
 		/**
 		 * 获取目标点的节点数据，没有地图节点数据时使用，有地图节点数据时使用 IsoMap.getIsoNode()，
 		 * 适用于只访问节点数据的场合，不适合用于改变节点数据场合
 		 * @param x:Number x坐标
 		 * @param y:Number y坐标
-		 * @return 
-		 * 
 		 */		
 		public getIsoNode(x:number,y:number):IsoNode{
 			var line:number = Math.round(y / this._halfSize);
@@ -472,7 +421,7 @@ module egret {
 			//计算3D空间中最靠近坐标的节点
 			return this.getNeerNode(this._isoNodePoint,this._nodeLines,this._nodeColumns);
 		}
-		//
+
 		/**
 		 * 跳至目标坐标位置，如果坐标不是节点的坐标，将自动计算并跳至最近的节点
 		 * @param x:Number x坐标
@@ -486,7 +435,7 @@ module egret {
 			
 			this.gotoGrid(this._targetNode.row,this._targetNode.column);
 		}
-		//
+
 		/**
 		 * 跳至目标行列位置 
 		 * @param row:Number 行索引
@@ -503,7 +452,7 @@ module egret {
 			this.setXY(point.x,point.y);
 			this.setCurrentNode(this.centerNode);
 		}
-		//
+
 		/**
 		 * 移动至目标位置，使用寻路
 		 * @param x:Number x坐标
@@ -521,7 +470,7 @@ module egret {
 			
 			this.moveToGridPath(this._targetNode.row,this._targetNode.column,isCheckPart);
 		}
-		//
+
 		/**
 		 * 移动至目标位置，不寻路，移动到节点
 		 * @param x:Number x坐标
@@ -539,12 +488,11 @@ module egret {
 			
 			this.moveToGrid(this._targetNode.row,this._targetNode.column);
 		}
-		//
+
 		/**
 		 * 移动至目标位置，不寻路，忽略节点数据
 		 * @param x:Number x坐标
 		 * @param y:Number y坐标
-		 *
 		 */
 		public moveTo3(x:number,y:number):void{
 			this._isNoPath = true;
@@ -563,11 +511,8 @@ module egret {
 				this._isDispatchStart = true;
 			}
 		}
-		//
-		/**
-		 * 停止移动 
-		 * 
-		 */		
+
+		/**停止移动*/		
 		public stopMove():void{
 			if(!this._isMoving) return;
 
@@ -578,15 +523,16 @@ module egret {
 			if(this.onStopMove != null)
 				this.onStopMove.apply(this.scene,[this]);
 		}
+		
 		/**
 		 * 内部停止移动，有动作处理 
 		 * @param changedAction:Boolean = true 是否改变动作
-		 * 
 		 */		
 		public stopMoveInternal(changedAction:boolean = true):void{
 			if(!this._isMoving) return;
 			//路径分段时
-			if(this.checkFinalPoint()) return;
+			if(this.checkFinalPoint())
+    			return;
 			
 			this.addEngine(false);
 			this.clearPathNodes();
@@ -594,12 +540,8 @@ module egret {
 			if(changedAction)
 				this.play(-1,ActionType.PREPARE);
 		}
-		//
-		/**
-		 * 检测分段终点 
-		 * @return 
-		 * 
-		 */		
+
+		/**检测分段终点*/		
 		private checkFinalPoint():boolean{
 			//路径分段时
 			if(this._finalPoint){
@@ -607,15 +549,13 @@ module egret {
 				
 				return true;
 			}
-			
 			return false;
 		}
-		//
+
 		/**
 		 * 移动至目标行列 
 		 * @param row:Number 行索引
 		 * @param column:Number 列索引
-		 * 
 		 */		
 		public moveToGrid(row:number,column:number):void{
 			if(!this._hasSetTarget)
@@ -640,12 +580,11 @@ module egret {
 				this._isDispatchStart = true;
 			}
 		}
-		//
+
 		/**
 		 * 移动至目标节点
 		 * @param row:Number 行索引
 		 * @param column:Number 列索引
-		 * 
 		 */		
 		public moveToNode(node:IsoNode):void{
 			this.setTargetNode(node);
@@ -667,15 +606,14 @@ module egret {
 			this._isMovingEnd = !this.canMove;
 			if(!this._isDispatchStart && !this._isMovingEnd){
 				this._isDispatchStart = true;
-				//				this.dispatchEvent(new IsoMapEvent(IsoMapEvent.ISO_MAP_MOVING_START,false,false));
+//				this.dispatchEvent(new IsoMapEvent(IsoMapEvent.ISO_MAP_MOVING_START,false,false));
 			}
 		}
-		//
+
 		/**
 		 * 按寻路路径行走至目标行列 
 		 * @param row:Number 行索引
 		 * @param column:Number 列索引
-		 * 
 		 */		
 		public moveToGridPath(row:number,column:number,isCheckPart:boolean = false):void{
 			var tempRow:number = this._currentNode.row;
@@ -737,11 +675,11 @@ module egret {
 			
 			this.moveByPath();
 		}
+		
 		/**
 		 * 检测路径分段行走 
 		 * @param row:int
 		 * @param column:int
-		 * 
 		 */		
 		private checkPathPart(row:number,column:number = 0):void{
 			var node:IsoNode = this.getIsoNodeByRow(row,column);
@@ -787,11 +725,10 @@ module egret {
 			
 			this.moveToGridPath(row,column,false);
 		}
-		//
+
 		/**
 		 * 跟随元素所经过的点 
 		 * @param points
-		 * 
 		 */		
 		public moveByPoints(points:Array<PassingPoint>):void{
 			var index:number = points.length - this._nodeInterval * 6;
@@ -810,11 +747,10 @@ module egret {
 				this.stopMove();
 			}
 		}
-		//
+
 		/**
 		 * 跟随元素所经过的路径节点 
 		 * @param nodes
-		 * 
 		 */		
 		public moveByTrack(nodes:Array<IsoNode>):void{
 			var index:number = nodes.length - this._nodeInterval;
@@ -823,25 +759,20 @@ module egret {
 				this.moveToNode(node);
 			}
 		}
-		//
+
 		/**
 		 * 按路径移动 
 		 * @param nodes
-		 * 
 		 */		
 		private moveByPath():void{
 			this._moveIndex = 0;
 			this._hasPath = true;
 			
 			this.moveToNextNode();
-			
 //			this.dispatchEvent(new IsoMapEvent(IsoMapEvent.ISO_MAP_PATH_START,false,false));
 		}
-		//
-		/**
-		 * 移动至下一个节点 
-		 * 
-		 */		
+
+		/**移动至下一个节点*/		
 		private moveToNextNode():void{
             if(!this._pathNodes || this._pathNodes.length == 0) return;
 
@@ -863,30 +794,22 @@ module egret {
 			
 			this.moveToNode(this._pathTargetNode);
 		}
-		//
-		/**
-		 * 清空路径数据 
-		 * 
-		 */		
+
+		/**清空路径数据*/		
 		private clearPathNodes():void{
 			if(this._pathNodes)
 				this._pathNodes.length = 0;
 		}
-		//
-		/**
-		 * 设置当前节点 
-		 * @param node
-		 * 
-		 */		
+
+		/**设置当前节点*/		
 		public setCurrentNode(node:IsoNode):void{
 			this.setNode(node,SceneElementMover.CURRENT_NODE);
 		}
-		//
+
 		/**
 		 * 设置节点数据 
 		 * @param node:IsoNode 节点
 		 * @param target:String 节点变量，
-		 * 
 		 */		
 		public setNode(node:IsoNode,target:string,dispatch:boolean = true):void{
 			if(this._isNoPath) return;
@@ -922,16 +845,15 @@ module egret {
 				}
 			}
 		}
-		//
+
 		/**
 		 * 设置目标节点 
 		 * @param node:IsoNode
-		 * 
 		 */		
 		public setTargetNode(node:IsoNode,dispatch:boolean = true):void{
 			this.setNode(node,SceneElementMover.TARGET_NODE,dispatch);
 		}
-		//
+
 		/**
 		 * 计算3D空间中以一个节点为中心的5个节点与目标点的最近节点，优点在于独立性强，不依赖地图节点数据，
 		 * 缺点在于 此方法频繁使用时需要分配很多内存，IsoMap 覆盖优化此方法，
@@ -939,8 +861,6 @@ module egret {
 		 * @param target:Point 2D目标点
 		 * @param lines:Array 连续的3行
 		 * @param columns:Array 连续的3列
-		 * @return 
-		 * 
 		 */		
 		public getNeerNode(target:Point,lines:Array<any>,columns:Array<any>):IsoNode{
 			var distance:number = Number.POSITIVE_INFINITY;
@@ -1021,7 +941,7 @@ module egret {
 			
 			return this._neerNode;
 		}
-		//
+
 		/**
 		 * 获取节点数据 
 		 * @param row:Number 行索引
@@ -1041,8 +961,7 @@ module egret {
 			
 			return node;
 		}
-		//
-		//
+
 		/**
 		 * 计算移动距离 
 		 * @param x:Number
@@ -1073,7 +992,7 @@ module egret {
 				this._finalY = this._targetY;
 			}
 		}
-		//
+
 		/**
 		 * 获取目标位置的距离数据 
 		 * @param x:Number
@@ -1096,11 +1015,8 @@ module egret {
 			
 			return this._distancePoint;
 		}
-		//
-		/**
-		 * 移动地图 
-		 * 
-		 */		
+
+		/**移动地图*/		
 		public moveMap():void{
 			if(this.checkDistance()){
 				this.stopMoveInternal(!this._isFollowed);
@@ -1149,14 +1065,10 @@ module egret {
 						this.movingEndHandler.apply(this.scene,[this]);
 				}
 			}
-			
 //			sendData(ModuleNumber.SCENE,SceneCommand.MOVING,{x:_x,y:_y});
 		}
-		//
-		/**
-		 * 更新地图坐标 
-		 * 
-		 */		
+
+		/**更新地图坐标*/		
 		private updateMap():void{
 			var x:number = this._x;
 			var y:number = this._y;
@@ -1183,15 +1095,13 @@ module egret {
 //			if(y == _targetY && Math.abs(sx) < 1){
 //				x = _targetX;
 //			}
-			
 			this.setXY(x,y);
 		}
-		//
+
 		/**
 		 * 设置元素坐标，并更新其节点位置
 		 * @param x:Number
 		 * @param y:Number
-		 * 
 		 */		
 		public setXY(x:number,y:number):void{
 			var width:number = SceneElementMover.MOVER_WIDTH / 2;
@@ -1216,7 +1126,7 @@ module egret {
 			this.x = x;
 			this.y = y;
 		}
-		//
+
 		public updateXY():void{
 			super.updateXY();
 			
@@ -1225,12 +1135,8 @@ module egret {
 				this.setXY(vo.x,vo.y);
 			}
 		}
-		//
-		/**
-		 * 检测可移动距离是否为0 
-		 * @return 
-		 * 
-		 */		
+
+		/**检测可移动距离是否为0*/		
 		private checkDistance():boolean{
 			//如果有路径时，根据路径判断
 			if(this._hasPath) return false;
@@ -1239,11 +1145,10 @@ module egret {
 			
 			return true;
 		}
-		//
+
 		/**
 		 * 添加或删除移动引擎 
 		 * @param isAdded
-		 * 
 		 */		
 		public addEngine(isAdded:boolean):void{
 			this._nodeChangedFlag = true;
@@ -1270,20 +1175,15 @@ module egret {
 				}
 			}
 		}
-		//
-		/**
-		 * 帧处理 
-		 * @param e
-		 * 
-		 */		
+
+		/**帧处理*/		
 		private mapContainerEnterFrame(e:Event = null):void{
 //			var time:Number = new Date().time;
 //			trace(time - _timeDelay);
 //			_timeDelay = time;
-			
 			this.moveMap();
 		}
-		//
+
 		/**
 		 * 设置地图数据 
 		 * isoMap:IsoMap 参数可为 null
@@ -1303,16 +1203,13 @@ module egret {
 				this._maxX = this._mapWidth - this._toplimitOffsetWidth;
 				this._maxY = this._mapHeight - this._toplimitOffsetHeight;
 			}
-			
 			this.clearFollowPoints();
 		}
-		//
+
 		/**
 		 * 获取等角投影矩形的中心点 
 		 * @param row:Number 行索引
 		 * @param column:Number 列索引
-		 * @return 
-		 * 
 		 */		
 		public getIsoPoint(row:number,column:number):Point{
 			var y:number = row * this._halfSize;
@@ -1326,14 +1223,12 @@ module egret {
 			
 			return this._isoPoint;
 		}
-		//
+
 		/**
 		 * 限制最小值和最大值 
 		 * @param value:Number
 		 * @param min:Number
 		 * @param max:Number
-		 * @return 
-		 * 
 		 */		
 		public limitValue(value:number,min:number,max:number):number{
 			if(value < min)
@@ -1343,11 +1238,8 @@ module egret {
 			
 			return value;
 		}
-		//
-		/**
-		 * 检测节点类型 
-		 * 
-		 */		
+
+		/**检测节点类型*/		
 		private checkNode():void{
 			var node:IsoNode = this.currentNode;
 			if(this._isoMap)
@@ -1362,7 +1254,7 @@ module egret {
 			if(this.nodeChangedHandler != null)
 				this._nodeChangedFlag = this.nodeChangedHandler.apply(this.scene,[this]);
 		}
-		//
+
 		/**
 		 * 添加经过的点数据 
 		 * @param x:Number
@@ -1401,11 +1293,10 @@ module egret {
 				this._passingPoints[SceneElementMover.PASSING_POINT_COUNT] = null;
 			}
 		}
-		//
+
 		/**
 		 * 设置经过的节点数据 
 		 * @param node:IsoNode
-		 * 
 		 */		
 		private setPassingNode(node:IsoNode):void{
 			this._passingNodes[this._passingNodeIndex] = node;
@@ -1421,11 +1312,12 @@ module egret {
 				this._passingNodes[SceneElementMover.PASSING_NODE_COUNT] = null;
 			}
 		}
-		//
+
 		public removeFromScene():void{
 			this.stopMove();
 			//先停止移动，再停止播放
 			super.removeFromScene();
 		}
+		
 	}
 }

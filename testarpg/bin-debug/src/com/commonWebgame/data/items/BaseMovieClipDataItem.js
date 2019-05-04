@@ -37,3 +37,4 @@ var egret;
     egret.BaseMovieClipDataItem = BaseMovieClipDataItem;
     BaseMovieClipDataItem.prototype.__class__ = "egret.BaseMovieClipDataItem";
 })(egret || (egret = {}));
+//# sourceMappingURL=BaseMovieClipDataItem.js.map

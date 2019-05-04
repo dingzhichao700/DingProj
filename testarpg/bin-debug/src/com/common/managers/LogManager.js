@@ -269,3 +269,4 @@ var egret;
     egret.LogManager = LogManager;
     LogManager.prototype.__class__ = "egret.LogManager";
 })(egret || (egret = {}));
+//# sourceMappingURL=LogManager.js.map

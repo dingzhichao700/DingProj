@@ -21,3 +21,4 @@ var egret;
     egret.SceneMonsterVo = SceneMonsterVo;
     SceneMonsterVo.prototype.__class__ = "egret.SceneMonsterVo";
 })(egret || (egret = {}));
+//# sourceMappingURL=SceneMonsterVo.js.map

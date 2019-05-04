@@ -126,3 +126,4 @@ var egret;
     egret.ScriptItem = ScriptItem;
     ScriptItem.prototype.__class__ = "egret.ScriptItem";
 })(egret || (egret = {}));
+//# sourceMappingURL=ScriptItem.js.map

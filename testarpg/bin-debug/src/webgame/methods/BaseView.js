@@ -8,7 +8,7 @@ var egret;
         __extends(BaseView, _super);
         function BaseView() {
             _super.call(this);
-            /**组件是否已创建*/
+            /**组件是否已初始化*/
             this.isCreate = false;
             this.addEventListener(egret.gui.UIEvent.CREATION_COMPLETE, this.createCompleteEvent, this);
         }
@@ -26,3 +26,4 @@ var egret;
     egret.BaseView = BaseView;
     BaseView.prototype.__class__ = "egret.BaseView";
 })(egret || (egret = {}));
+//# sourceMappingURL=BaseView.js.map

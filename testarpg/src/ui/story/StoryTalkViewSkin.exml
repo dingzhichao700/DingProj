@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin width="640" height="960" xmlns:e="http://ns.egret-labs.org/egret" xmlns:w="http://ns.egret-labs.org/wing">
+	<w:HostComponent name="egret.gui.SkinnableComponent"/>
+	<w:Declarations/>
+	<e:states>
+		<e:State name="normal"/>
+		<e:State name="disabled"/>
+	</e:states>
+	<e:UIAsset source="bgStory_png" width="606" height="381" x="19" y="173"/>
+	<e:UIAsset id="btnGo" source="btnOk_png" x="375" y="467"/>
+	<e:Label id="txtCon" width="260" height="139" fontFamily="微软雅黑" size="24" text="勇士，请前往黑风寨剿匪，拯救黎民百姓！" x="345" y="290"/>
+	<e:Group id="boxReward" x="333" y="433">
+		<e:UIAsset source="icon_coin_png" x="0" y="-2"/>
+		<e:Label id="txtCoin" height="22" fontFamily="微软雅黑" width="61" text="1200" size="20" x="33" y="4"/>
+		<e:Label height="28" fontFamily="微软雅黑" width="89" size="24" text="经验：" textAlign="right" textColor="0x12E249" y="0" x="106"/>
+		<e:Label id="txtExp" fontFamily="微软雅黑" width="105" height="22" text="1.5万" size="20" x="180" y="4"/>
+	</e:Group>
+</e:Skin>

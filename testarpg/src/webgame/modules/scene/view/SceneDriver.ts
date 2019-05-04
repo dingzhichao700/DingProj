@@ -21,20 +21,13 @@ module egret {
 		//场景数据 id
 		public _mapId:number = 0;
 		
-		/**
-		 * 构造函数
-		 */
 		public constructor(){
 			super();
-			
 			this._lastNaviPoint = new Point();
 			this._navigatorItems = [];
 		}
-		//
-		/**
-		 * 加载场景地图数据 
-		 * 
-		 */		
+
+		/**加载场景地图数据*/		
 		public loadData(id:number):void{
 			this._mapId = id;
 			
@@ -50,7 +43,7 @@ module egret {
 				ResoureManager.getInstance().loadMapData(url,id,this.loadCompleteData,this);
 			}
 		}
-		//
+
 		/**
 		 * 主角跳转至场景x,y处 
 		 * @param x
@@ -62,16 +55,12 @@ module egret {
 			//(<Role><any> (this._role)).showPlayer(this,x,y);
 			RoleManager.getInstance().showPlayer(this,x,y);
 		}
-		//
-		/**
-		 * 加载场景地图数据完成 
-		 * @param loadDataItem
-		 * 
-		 */		
+
+		/**加载场景地图数据完成 */		
 		private loadCompleteData():void{
 			this.loadData(this._mapId);
 		}
-		//
+
 		public initData(data:SceneEditLo):void{
 			super.initData(data);
 			
@@ -82,11 +71,10 @@ module egret {
 			
 			TimerManager.getInstance().addExecute(this.changeScene,this,1000,null,1);
 		}
-		//
+
 		/**
 		 * 设置主角场景元素，应在初始化数据后设置 
 		 * @param role:ElementPlayer 主角场景元素
-		 * 
 		 */		
 		public setRole(role:ElementPlayer):void{
 			super.setRole(role);
@@ -96,14 +84,14 @@ module egret {
 			//this._role.nodeChangedHandler = this.nodeChanged;
 			this._role.onStopMove = this.onStopMove;
 		}
+		
 		/**
 		 * 调用 stopMove() 时回调函数
 		 * @param target
-		 *
 		 */
 		private onStopMove(target:SceneElementMover):void{
-
 		}
+		
 		/**
 		 * 节点改变时
 		 * @param target 节点改变的目标对象
@@ -112,13 +100,12 @@ module egret {
 		public nodeChanged(target:SceneElementMover):boolean{
 			return true;
 		}
-		//
+
 		/**
 		 * 移动场景元素 
 		 * @param id:String 元素id(lo或vo的id)
 		 * @param x:int
 		 * @param y:int
-		 * 
 		 */		
 		public moveElement(id:string,x:number,y:number = 0):void{
 			var mover:SceneElementMover = this._elementsIdMap.get(id);
@@ -127,11 +114,10 @@ module egret {
 				mover.moveTo(x,y);
 			}
 		}
-		//
+
 		/**
 		 * 导航至当前场景中的元素，元素可以是非固定场景元素
 		 * @param id:Number 元素lo或vo中的id
-		 * 
 		 */		
 		public navigateToElement(id:number):void{
 			if(!this._currentNaviItem){
@@ -142,12 +128,11 @@ module egret {
 			var point:Point = this.getElementPoint(id + "");
 			this.navigateTo(point.x ,point.y);
 		}
-		//
+
 		/**
 		 * 导航至当前场景中的坐标
 		 * @param x:Number
 		 * @param y:Number
-		 *
 		 */
 		public navigateTo(x:number,y:number):void{
 			if(this.checkArriveNaviPoint())
@@ -166,35 +151,27 @@ module egret {
 			RoleManager.getInstance().moveTo3(x,y);
 			this._isoMap.setCurrentMapXY(x,y);
 		}
-		//
+
 		/**
 		 * 跨场景导航 
 		 * @param sceneId:Number = -1 场景id，指定此参数时，elementId参数无效，可指定x,y
 		 * @param elementId:Number = -1 目标场景元素id，为场景固定元素id，指定此参数场景id使用-1才有效，已指定此参数时后面的参数无效
 		 * @param x:Number = -1 目标场景x
 		 * @param y:Number = -1 目标场景y
-		 * 
 		 */		
 		public navigate(sceneId:number = -1,elementId:number = -1,x:number = -1,y:number = -1):void{
-			
 		}
-		//
+
 		public navigateToItem(naviItem:SceneNavigatorDataItem):void{
 			this.navigate(naviItem.sceneId,naviItem.elementId,naviItem.x,naviItem.y);
 		}
-		//
-		/**
-		 * 主角移动 
-		 * 
-		 */		
+
+		/**主角移动*/		
 		public roleMoving():void{
 			this._isoMap.setMapXY(this._roleOffsetX - this._role.x,this._roleOffsetY - this._role.y);
 		}
-		//
-		/**
-		 * 清空场景  
-		 * 
-		 */		
+
+		/**清空场景*/		
 		public clearScene():void{
 			super.clearScene();
 
@@ -204,11 +181,10 @@ module egret {
 			//	(<Role><any> (this._role)).changeScene(this);
 			RoleManager.getInstance().changeScene(this);
 		}
-		//
+
 		/**
 		 * 根据导航数据进行导航 
 		 * @param items:Array 导航数据数组 
-		 * 
 		 */		
 		public navigateByItems(items:Array<any>):void{
 			if(!items){
@@ -221,11 +197,8 @@ module egret {
 			
 			this.navigateToNextItem();
 		}
-		//
-		/**
-		 * 进行下一个导航点
-		 * 
-		 */		
+
+		/**进行下一个导航点*/		
 		public navigateToNextItem():void{
 			this._navigateIndex ++;
 			
@@ -238,7 +211,6 @@ module egret {
 					//this._role.stopMove();
 					RoleManager.getInstance().stopMove();
 				}
-
 				return;
 			}
 			
@@ -252,7 +224,7 @@ module egret {
 				LogManager.error(this,"导航数据有误");
 			}
 		}
-		//
+
 		public addEvents():void{
 			super.addEvents();
 			
@@ -262,7 +234,7 @@ module egret {
 			//按下即走，点击不处理
 			this._isoMap.addEventListener(IsoMapEvent.ISO_MAP_MOVING_START,this.isoMapTileMovingStart,this);
 		}
-		//
+
 		public remove():void{
 			super.remove();
 			
@@ -277,11 +249,10 @@ module egret {
 				this._role.onStopMove = null;
 			}
 		}
-		//
+
 		/**
 		 * 更新动态场景元素坐标为数据中的坐标，若未渲染则渲染此元素，若坐标已不在渲染区域，则移除此元素
 		 * @param item:SceneElementDataItem 场景元素数据
-		 * 
 		 */		
 		public updateElement(item:SceneElementDataItem):void{
 			var rect:Rectangle = this._isoMap.renderRect;
@@ -298,7 +269,7 @@ module egret {
 				//this.removeElementById(item.id);
 			}
 		}
-		//
+
 		/**
 		 * 添加场景元素 
 		 * @param target:DisplayObject 场景元素
@@ -321,13 +292,11 @@ module egret {
 
 			return mover;
 		}
-		//
+
 		/**
 		 * 移除场景元素 
 		 * @param target:DisplayObject 场景元素 
 		 * @param isRecover:Boolean = true 是否自动回收，特殊元素不回收，直接移除，如鼠标点击影片
-		 * @return 
-		 * 
 		 */		
 		public removeElement(target:DisplayObject,isRecover:boolean = true):DisplayObject{
 			var mover:SceneElementMover = <SceneElementMover><any> (super.removeElement(target,isRecover));
@@ -342,61 +311,41 @@ module egret {
 
 			return mover;
 		}
-		//
+
 		/**
 		 * 点击场景元素 
 		 * @param target:SceneElement 场景元素
-		 * 
 		 */		
 		public clickElement(target:SceneElement):void{
-			
 		}
-		//
+
 		/**
 		 * 场景元素移动结束 
 		 * @param target:SceneElement 场景元素
-		 * 
 		 */		
 		public elementMovingEnd(target:SceneElement):void{
-			
 		}
-		//
-		/**
-		 * 获取场景元素坐标点 
-		 * @return 
-		 * 
-		 */		
+
+		/**获取场景元素坐标点 */		
 		public getElementPoint(id:string):Point{
 			return null;
 		}
-		//
-		/**
-		 * 生物层点击 
-		 * @param e
-		 * 
-		 */		
+
+		/**生物层点击 */		
 		public biologyContainerClick(e:TouchEvent):void{
 			var target:SceneElementInteractive = <SceneElementInteractive><any> (e.target);
 			
 			if(target)
 				this.clickElement(target);
 		}
-		//
-		/**
-		 * 持续按下鼠标 
-		 * @param event
-		 * 
-		 */		
+
+		/**持续按下鼠标 */		
 		public isoMapTileMovingStart(event:IsoMapEvent):void{
 			return;
 			this.startMove();
 		}
-		//
-		/**
-		 * 检测是否已到达导航点 
-		 * @return 
-		 * 
-		 */		
+
+		/**检测是否已到达导航点*/		
 		public checkArriveNaviPoint(elementId:number = 0):boolean{
 			if(elementId != 0){
 				this._currentNaviItem = new SceneNavigatorDataItem();
@@ -432,14 +381,10 @@ module egret {
 //					}
 				}
 			}
-			
 			return false;
 		}
-		//
-		/**
-		 * 玩家主动开始移动 
-		 * 
-		 */		
+
+		/** 玩家主动开始移动 */		
 		public startMove():void{
 			this._currentNaviItem = null;
 			this._lastNaviPoint.x = 0;
@@ -453,38 +398,26 @@ module egret {
 				RoleManager.getInstance().moveTo3(this._isoMap.currentMapX,this._isoMap.currentMapY);
 			}
 		}
-		//
-		/**
-		 * 主角线路改变 
-		 * @param event
-		 * 
-		 */		
+
+		/**主角线路改变 */		
 		public sceneElementPathChanged(event:Event):void{
 			super.sceneElementPathChanged(event);
 		}
-		//
-		/**
-		 * 场景改变时处理 
-		 * 
-		 */		
+
+		/**场景改变时处理 */		
 		public changeScene():void{
-
 		}
-		/**
-		 * 检测鼠标点击影片加载完成时 
-		 * 
-		 */		
+		
+		/**检测鼠标点击影片加载完成时 */		
 		public checkMousePoint():void{
-
 		}
-		//
+
 		/**
 		 * 移除一个玩家 
 		 * @param id
-		 * 
 		 */		
 		public removePlayer(id:string):void{
-			
 		}
+		
 	}
 }

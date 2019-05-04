@@ -212,3 +212,4 @@ var egret;
     egret.HashMap = HashMap;
     HashMap.prototype.__class__ = "egret.HashMap";
 })(egret || (egret = {}));
+//# sourceMappingURL=HashMap.js.map

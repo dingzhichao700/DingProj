@@ -133,7 +133,7 @@ module egret {
 			return this._data;
 		}
 		
-		/**场景元素数据*/		
+		/**场景元素数据*/
 		public set data(value:SceneElementDataItem){
 			this.setData(value);
 		}
@@ -197,11 +197,7 @@ module egret {
 		public addListeners():void{
 		}
 
-		/**
-		 * 设置名称文本格式
-		 * @param format:TextFormat = null 参数为 null 时重置为原格式
-		 *
-		 */
+		/**设置名称文本格式*/
 		public setNameTextFormat(size:number = 20,color:number = 0xffffff):void{
 			this._namePad.setNameTextFormat(size,color);
 		}

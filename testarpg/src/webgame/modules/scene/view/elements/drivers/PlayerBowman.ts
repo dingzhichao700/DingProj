@@ -1,7 +1,5 @@
 module egret{
-    /**
-     * 射手
-     */
+    /**射手*/
     export class PlayerBowman extends ElementPlayer{
         
         //神兽
@@ -10,7 +8,7 @@ module egret{
         public constructor(){
             super();
         }
-        //
+
         /**
          * 获取攻击范围，不同职业和怪物重写
          * @param skillType 技能类型
@@ -19,10 +17,8 @@ module egret{
         public getAttackRange(skillType:number = 0):number{
             return 300;
         }
-        //
-        /**
-         * 玩家攻击方法
-         */
+        
+        /**玩家攻击方法*/
         public attack():void{
             if(this._isLocked) return;
             if(this.isSkillStatus) return;
@@ -59,7 +55,6 @@ module egret{
             }
         }
 
-        //
         /**
          * 增加神兽
          * @returns {SceneElementDataItem}
@@ -86,14 +81,12 @@ module egret{
 
             globalUpdateWindows([UpdateType.ADD_MONSTER],item);
         }
-        //
-        /**
-         * 清空神兽
-         */
+
+        /**清空神兽*/
         public removeAnimal():void{
             this._animal = null;
         }
-        //
+
         /**
          * 是否已有神兽
          * @returns {PlayerAnimal|boolean}
@@ -102,10 +95,7 @@ module egret{
             return this._animal && (<SceneDriverVo>this._animal.data.vo).hp > 0;
         }
 
-        //
-        /**
-         * 释放技能
-         */
+        /**释放技能*/
         public playSkill():void {
             if (!this.scene) return;
 
@@ -124,5 +114,6 @@ module egret{
                 //this.checkAutoAttack2();
             }
         }
+        
     }
 }

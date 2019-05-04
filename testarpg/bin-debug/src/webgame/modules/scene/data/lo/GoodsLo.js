@@ -11,3 +11,4 @@ var egret;
     egret.GoodsLo = GoodsLo;
     GoodsLo.prototype.__class__ = "egret.GoodsLo";
 })(egret || (egret = {}));
+//# sourceMappingURL=GoodsLo.js.map

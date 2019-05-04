@@ -34,3 +34,4 @@ var egret;
     egret.ApplicationEvent = ApplicationEvent;
     ApplicationEvent.prototype.__class__ = "egret.ApplicationEvent";
 })(egret || (egret = {}));
+//# sourceMappingURL=ApplicationEvent.js.map

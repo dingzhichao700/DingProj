@@ -6,7 +6,7 @@ module egret {
 
     export class BaseView extends egret.gui.SkinnableContainer {
         
-        /**组件是否已创建*/
+        /**组件是否已初始化*/
         public isCreate:Boolean = false;
         
         public constructor() {

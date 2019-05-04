@@ -316,3 +316,4 @@ var egret;
     egret.EnterFrameManager = EnterFrameManager;
     EnterFrameManager.prototype.__class__ = "egret.EnterFrameManager";
 })(egret || (egret = {}));
+//# sourceMappingURL=EnterFrameManager.js.map

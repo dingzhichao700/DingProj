@@ -2,9 +2,7 @@ var egret;
 (function (egret) {
     var SceneElementDriver = (function (_super) {
         __extends(SceneElementDriver, _super);
-        /**
-         * 构造函数
-         */
+        /**构造函数*/
         function SceneElementDriver() {
             _super.call(this);
             //攻击计数
@@ -86,7 +84,6 @@ var egret;
             };
         }
         var __egretProto__ = SceneElementDriver.prototype;
-        //
         /**
          * 设置血条进度条样式
          * @param bgUrl 进度背景地址
@@ -98,19 +95,14 @@ var egret;
             this._hpBar.setStyle(bgUrl, barUrl, width, height);
             this._namePad.updateLayout();
         };
-        //
         __egretProto__.updateXY = function () {
             _super.prototype.updateXY.call(this);
         };
-        //
         __egretProto__.addToScene = function () {
             _super.prototype.addToScene.call(this);
             this.updateHp();
         };
-        //
-        /**
-         * 更新血量显示
-         */
+        /**更新血量显示*/
         __egretProto__.updateHp = function () {
             var vo = this._data.vo;
             this._hpBar.setProperty(vo.hp + "", vo.hp / vo.hpTotal);
@@ -140,15 +132,11 @@ var egret;
             _super.prototype.play.apply(this, arguments);
             this.clearAttack();
         };
-        /**
-         * 从场景移除时处理
-         *
-         */
+        /**从场景移除时处理*/
         __egretProto__.removeFromScene = function () {
             this.stopAll();
             _super.prototype.removeFromScene.call(this);
         };
-        //
         /**
          * 追击目标到达攻击范围时处理
          * @param fun 回调函数 function(target:SceneElementDataItem) target:攻击目标
@@ -161,7 +149,6 @@ var egret;
             this._chaseArriveItem.execute = fun;
             this._chaseArriveItem.target = target;
         };
-        //
         /**
          * 追击敌人
          * @param armies 敌人数据
@@ -208,7 +195,6 @@ var egret;
                 this.attackEnd();
             }
         };
-        //
         /**
          * 获取优先攻击对象，各职业重写
          * @returns {null}
@@ -216,10 +202,7 @@ var egret;
         __egretProto__.getPriorityTarget = function () {
             return null;
         };
-        //
-        /**
-         * 检测自动攻击
-         */
+        /**检测自动攻击*/
         __egretProto__.checkAutoAttack = function () {
             this._timerCount++;
             //1==500ms
@@ -227,10 +210,7 @@ var egret;
                 this.chaseArmies(this.armies);
             }
         };
-        //
-        /**
-         * 检测是否已到达攻击目标周围
-         */
+        /**检测是否已到达攻击目标周围*/
         __egretProto__.checkChaseArrive = function () {
             this._frameCount++;
             var distance;
@@ -260,15 +240,11 @@ var egret;
             }
             return false;
         };
-        //
-        /**
-         * 元素之间的距离太近时，自动分开的目标点
-         */
+        /**元素之间的距离太近时，自动分开的目标点*/
         __egretProto__.resetPositionPoint = function () {
             this._positionPoint.x = 0;
             this._positionPoint.y = 0;
         };
-        //
         /**
          * 检测元素之间的距离，距离太近时自动分开
          * @returns {boolean} 返回 true 表示距离太近
@@ -324,7 +300,6 @@ var egret;
             //LogManager.debug(this,"checkRange3:" + this.data.vo.name);
             return false;
         };
-        //
         /**
          * 获取攻击范围，不同职业和怪物重写
          * @param skillType 技能类型
@@ -334,7 +309,6 @@ var egret;
             if (skillType === void 0) { skillType = 0; }
             return 150;
         };
-        //
         /**
          * 获取场景元素之间最小距离，小于此距离时，场景元素自动朝不同方向分开
          * @returns {number}
@@ -342,10 +316,7 @@ var egret;
         __egretProto__.getElementMinRange = function () {
             return 80;
         };
-        //
-        /**
-         * 默认攻击方法，不同职业和怪物重写
-         */
+        /**默认攻击方法，不同职业和怪物重写*/
         __egretProto__.attack = function () {
             if (this._isLocked)
                 return;
@@ -361,10 +332,7 @@ var egret;
             this.play(0, egret.ActionType.ATTACK, direction, 1, this.attackEnd, this);
             this._avatar.setFrameHandler(this.playSkill, this);
         };
-        //
-        /**
-         * 单次攻击结束
-         */
+        /**单次攻击结束*/
         __egretProto__.attackEnd = function () {
             this.resetPositionPoint();
             if (!this._attackTarget) {
@@ -373,24 +341,15 @@ var egret;
             if (this._avatar.actionType == egret.ActionType.ATTACK)
                 this.play(0, egret.ActionType.PREPARE);
         };
-        //
-        /**
-         * 清理攻击相关数据和回调
-         */
+        /**清理攻击相关数据和回调*/
         __egretProto__.clearAttack = function () {
             this._timerCount = 0;
             this._avatar.setFrameHandler(null);
         };
-        //
-        /**
-         * 释放默认技能
-         */
+        /**释放默认技能*/
         __egretProto__.playSkill = function () {
         };
-        //
-        /**
-         * 停止所有攻击相关的行为，用于战斗结束
-         */
+        /**停止所有攻击相关的行为，用于战斗结束*/
         __egretProto__.stopAll = function () {
             egret.Tween.removeTweens(this);
             egret.EnterFrameManager.getInstance().removeExecute(this._chaseId);
@@ -404,18 +363,12 @@ var egret;
             this.attackEnd();
             this.clearAttack();
         };
-        //
-        /**
-         * 切换场景特效
-         */
+        /**切换场景特效*/
         __egretProto__.changeSceneEffect = function () {
             this.stopAll();
             this.enterSceneEffect();
         };
-        //
-        /**
-         * 进入场景特效
-         */
+        /**进入场景特效*/
         __egretProto__.enterSceneEffect = function () {
             if (this.scene) {
                 var effect = egret.SceneElementManager.getInstance().getElement(egret.ElementEffect);
@@ -424,10 +377,7 @@ var egret;
                 this.scene.addElement(effect, egret.SceneLayerType.BATTLE_EFFECT, this.x, this.y);
             }
         };
-        //
-        /**
-         * 升级特效
-         */
+        /**升级特效*/
         __egretProto__.levelUpEffect = function () {
             if (this.scene) {
                 var effect = egret.SceneElementManager.getInstance().getElement(egret.ElementEffect);
@@ -437,7 +387,6 @@ var egret;
                 this.scene.addElement(effect, egret.SceneLayerType.BATTLE_EFFECT, this.x, this.y);
             }
         };
-        //
         /**
          * 计算伤害
          * @param skillType 技能类型
@@ -461,7 +410,6 @@ var egret;
                 egret.globalUpdateWindows(this._hpChangeTypes, targets, damageValues, radians);
             }
         };
-        //
         /**
          * 获取技能伤害敌人数据，不同技能重写，默认为单体伤害敌人数据
          * @param skillType 技能类型
@@ -477,7 +425,6 @@ var egret;
             this._damageTargets.push(this._attackTarget);
             return this._damageTargets;
         };
-        //
         /**
          * 获取伤害飘字角度数据
          * @param targets 敌人数据
@@ -490,7 +437,6 @@ var egret;
             }
             return this._radiansCache;
         };
-        //
         /**
          * 获取范围内的受伤害敌人数据
          * @param range 范围值
@@ -522,7 +468,6 @@ var egret;
             }
             return this._damageTargets;
         };
-        //
         /**
          * 记录技能使用时间
          * @param skillType
@@ -530,7 +475,6 @@ var egret;
         __egretProto__.setSkillTime = function (skillType) {
             this._skillTimeData[skillType] = egret.getTimer();
         };
-        //
         /**
          * 获取上次使用技能经过的时间
          * @param skillType
@@ -541,7 +485,6 @@ var egret;
                 return egret.getTimer() - this._skillTimeData[skillType];
             return 1000000000;
         };
-        //
         /**
          * 标记使用技能
          * @param skillType
@@ -550,7 +493,6 @@ var egret;
             this.setSkillTime(skillType);
             this.skillType = skillType;
         };
-        //
         /**
          * 野蛮冲撞
          * @param master 播放技能对象
@@ -568,10 +510,7 @@ var egret;
             y = this.limitValue(y, height, this._maxY);
             egret.Tween.get(this, { onChange: this.onChangeCollide, onChangeObj: this }).to({ x: x, y: y }, time).call(this.collideComplete, this, [master, target, x, y]);
         };
-        //
-        /**
-         * 野蛮冲撞移动时
-         */
+        /**野蛮冲撞移动时*/
         __egretProto__.onChangeCollide = function () {
             if (this.scene) {
                 this.setXY(this._x, this._y);
@@ -580,7 +519,6 @@ var egret;
                 }
             }
         };
-        //
         /**
          * 野蛮冲撞结束
          * @param master 移动结束对象
@@ -591,18 +529,12 @@ var egret;
         __egretProto__.collideComplete = function (master, target, x, y) {
             this.setXY(x, y);
         };
-        //
-        /**
-         * 锁定，锁定时不无法动弹，动画暂停
-         */
+        /**锁定，锁定时不无法动弹，动画暂停*/
         __egretProto__.lock = function () {
             this._isLocked = true;
             this._avatar.stopMovie();
         };
-        //
-        /**
-         * 解锁，恢复锁定前的动画播放
-         */
+        /**解锁，恢复锁定前的动画播放*/
         __egretProto__.unlock = function () {
             this.resetPositionPoint();
             this._isLocked = false;
@@ -612,7 +544,6 @@ var egret;
                 this.chaseArmies(this.armies);
             }
         };
-        //
         /**
          * 被击退，从击退中心点以半径计算退后的坐标
          * @param x 击退中心x
@@ -626,7 +557,6 @@ var egret;
             var ty = Math.sin(radian) * radius + y;
             egret.Tween.get(this).to({ x: tx, y: ty }, 200).call(this.stepBackComplete, this, [tx, ty]);
         };
-        //
         /**
          * 击退结束
          * @param x 击退目标点x
@@ -642,3 +572,4 @@ var egret;
     egret.SceneElementDriver = SceneElementDriver;
     SceneElementDriver.prototype.__class__ = "egret.SceneElementDriver";
 })(egret || (egret = {}));
+//# sourceMappingURL=SceneElementDriver.js.map

@@ -407,3 +407,4 @@ var egret;
     egret.IsoMap = IsoMap;
     IsoMap.prototype.__class__ = "egret.IsoMap";
 })(egret || (egret = {}));
+//# sourceMappingURL=IsoMap.js.map

@@ -7,26 +7,22 @@ var egret;
         __extends(GameRunner, _super);
         function GameRunner() {
             _super.call(this);
-            egret.Profiler.getInstance().run();
+            //性能数据显示(fps,draw,cost)
+            //            egret.Profiler.getInstance().run();
             this.loadRes();
         }
         var __egretProto__ = GameRunner.prototype;
         __egretProto__.loadRes = function () {
-            var arr = ["main", "equip", "wuhun", "clip", "soulRoad"];
+            var arr = ["main", "equip", "wuhun", "clip", "soulRoad", "skill"];
             egret.LoadManager.getInstance().loadResList(arr, this.startGame);
         };
         __egretProto__.startGame = function () {
-            egret.SceneManager.getInstance().enterScene(egret.SceneType.NORMAL_COPY, 1001);
-            egret.SceneManager.getInstance().scene.nextTurn();
-            var effect = egret.SceneElementManager.getInstance().getElement(egret.ElementEffect);
-            effect.setIsCheckResource(false);
-            effect.x = 200;
-            effect.y = 200;
-            effect.setMovieName(egret.MovieName.EFFECT_01);
-            effect.addToScene();
+            egret.ApplicationManager.getInstance().initLayer();
+            egret.MainControl.getInstance().openLogin();
         };
         return GameRunner;
     })(egret.ApplicationRunner);
     egret.GameRunner = GameRunner;
     GameRunner.prototype.__class__ = "egret.GameRunner";
 })(egret || (egret = {}));
+//# sourceMappingURL=GameRunner.js.map

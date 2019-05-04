@@ -8,7 +8,7 @@ var ui;
                 _super.call(this);
                 this.__s = egret.gui.setProperties;
                 this.__s(this, ["height", "width"], [960, 640]);
-                this.elementsContent = [this.window_i(), this.__3_i(), this.__4_i(), this.__5_i(), this.__6_i(), this.boxCon_i(), this.__7_i(), this.__8_i(), this.__9_i(), this.__10_i(), this.__11_i(), this.__12_i(), this.__13_i(), this.__14_i(), this.__15_i(), this.__16_i(), this.__17_i(), this.__18_i(), this.__19_i()];
+                this.elementsContent = [this.window_i(), this.__3_i(), this.__4_i(), this.__5_i(), this.__6_i(), this.boxCon_i(), this.__7_i(), this.__8_i(), this.__9_i(), this.__10_i(), this.__11_i(), this.item1_i(), this.item2_i(), this.item3_i(), this.item4_i(), this.item5_i()];
                 this.states = [
                     new egret.gui.State("normal", []),
                     new egret.gui.State("disabled", [])
@@ -27,46 +27,6 @@ var ui;
                 this.__s(t, ["source", "x", "y"], ["btn_tipicon_png", 135, 710]);
                 return t;
             };
-            __egretProto__.__12_i = function () {
-                var t = new egret.WuhunItem();
-                this.__s(t, ["height", "skinName", "width", "x", "y"], [84, ui.wuhun.WuhunItemSkin, 84, 268, 466]);
-                return t;
-            };
-            __egretProto__.__13_i = function () {
-                var t = new egret.WuhunItem();
-                this.__s(t, ["height", "scaleX", "scaleY", "skinName", "width", "x", "y"], [84, 0.9, 0.9, ui.wuhun.WuhunItemSkin, 84, 142, 456]);
-                return t;
-            };
-            __egretProto__.__14_i = function () {
-                var t = new egret.WuhunItem();
-                this.__s(t, ["height", "scaleX", "scaleY", "skinName", "width", "x", "y"], [84, 0.7, 0.7, ui.wuhun.WuhunItemSkin, 84, 61, 428]);
-                return t;
-            };
-            __egretProto__.__15_i = function () {
-                var t = new egret.WuhunItem();
-                this.__s(t, ["height", "scaleX", "scaleY", "skinName", "width", "x", "y"], [84, 0.7, 0.7, ui.wuhun.WuhunItemSkin, 84, 505, 428]);
-                return t;
-            };
-            __egretProto__.__16_i = function () {
-                var t = new egret.WuhunItem();
-                this.__s(t, ["height", "scaleX", "scaleY", "skinName", "width", "x", "y"], [84, 0.9, 0.9, ui.wuhun.WuhunItemSkin, 84, 404, 456]);
-                return t;
-            };
-            __egretProto__.__17_i = function () {
-                var t = new egret.gui.UIAsset();
-                this.__s(t, ["height", "source", "width", "x", "y"], [62, "genius_114_png", 62, 280, 477]);
-                return t;
-            };
-            __egretProto__.__18_i = function () {
-                var t = new egret.gui.UIAsset();
-                this.__s(t, ["height", "source", "width", "x", "y"], [53, "genius_116_png", 53, 153, 467]);
-                return t;
-            };
-            __egretProto__.__19_i = function () {
-                var t = new egret.gui.UIAsset();
-                this.__s(t, ["height", "source", "width", "x", "y"], [42, "genius_12_png", 42, 69, 437]);
-                return t;
-            };
             __egretProto__.__3_i = function () {
                 var t = new egret.gui.UIAsset();
                 this.__s(t, ["source", "x", "y"], ["title_wuhun_png", 280, 29]);
@@ -74,7 +34,7 @@ var ui;
             };
             __egretProto__.__4_i = function () {
                 var t = new egret.gui.UIAsset();
-                this.__s(t, ["source", "x", "y"], ["wuhun_bg_jpg", 61, 173]);
+                this.__s(t, ["source", "x", "y"], ["wuhun_bg_jpg", 64, 174]);
                 return t;
             };
             __egretProto__.__5_i = function () {
@@ -108,9 +68,39 @@ var ui;
                 this.__s(t, ["height", "width", "x", "y"], [209, 253, 62, 175]);
                 return t;
             };
+            __egretProto__.item1_i = function () {
+                var t = new egret.WuhunItem();
+                this.item1 = t;
+                this.__s(t, ["height", "skinName", "width", "x", "y"], [84, ui.wuhun.WuhunItemSkin, 84, 66, 438]);
+                return t;
+            };
+            __egretProto__.item2_i = function () {
+                var t = new egret.WuhunItem();
+                this.item2 = t;
+                this.__s(t, ["height", "scaleX", "scaleY", "skinName", "width", "x", "y"], [84, 1.1, 1.1, ui.wuhun.WuhunItemSkin, 84, 156, 466]);
+                return t;
+            };
+            __egretProto__.item3_i = function () {
+                var t = new egret.WuhunItem();
+                this.item3 = t;
+                this.__s(t, ["height", "scaleX", "scaleY", "skinName", "width", "x", "y"], [84, 1.2, 1.2, ui.wuhun.WuhunItemSkin, 84, 259, 476]);
+                return t;
+            };
+            __egretProto__.item4_i = function () {
+                var t = new egret.WuhunItem();
+                this.item4 = t;
+                this.__s(t, ["height", "scaleX", "scaleY", "skinName", "width", "x", "y"], [84, 1.1, 1.1, ui.wuhun.WuhunItemSkin, 84, 376, 466]);
+                return t;
+            };
+            __egretProto__.item5_i = function () {
+                var t = new egret.WuhunItem();
+                this.item5 = t;
+                this.__s(t, ["height", "skinName", "width", "x", "y"], [84, ui.wuhun.WuhunItemSkin, 84, 476, 438]);
+                return t;
+            };
             __egretProto__.__10_i = function () {
                 var t = new egret.gui.Label();
-                this.__s(t, ["fontFamily", "size", "text", "textColor", "x", "y"], ["微软雅黑", 24, "白虎，攻守兼备的上级武魂", 0x3B3A3A, 179, 714]);
+                this.__s(t, ["fontFamily", "size", "text", "textColor", "x", "y"], ["微软雅黑", 24, "白虎，攻守兼备的上级武魂", 0x3B3A3A, 179, 716]);
                 return t;
             };
             __egretProto__.window_i = function () {
@@ -119,10 +109,11 @@ var ui;
                 this.__s(t, ["height", "skinName", "width"], [200, ui.WindowViewSkin, 200]);
                 return t;
             };
-            WuhunViewSkin._skinParts = ["window", "boxCon"];
+            WuhunViewSkin._skinParts = ["window", "boxCon", "item1", "item2", "item3", "item4", "item5"];
             return WuhunViewSkin;
         })(egret.gui.Skin);
         wuhun.WuhunViewSkin = WuhunViewSkin;
         WuhunViewSkin.prototype.__class__ = "ui.wuhun.WuhunViewSkin";
     })(wuhun = ui.wuhun || (ui.wuhun = {}));
 })(ui || (ui = {}));
+//# sourceMappingURL=WuhunViewSkin.js.map

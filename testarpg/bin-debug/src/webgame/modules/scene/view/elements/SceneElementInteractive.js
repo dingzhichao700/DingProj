@@ -2,9 +2,6 @@ var egret;
 (function (egret) {
     var SceneElementInteractive = (function (_super) {
         __extends(SceneElementInteractive, _super);
-        /**
-         * 构造函数
-         */
         function SceneElementInteractive() {
             _super.call(this);
             //鼠标经过的滤镜
@@ -13,7 +10,6 @@ var egret;
             ];
             //纸娃娃影片
             this._avatar = null;
-            //
             this._sceneAvatarVo = null;
             //层级列表
             this._layerHashMap = null;
@@ -22,9 +18,13 @@ var egret;
             this._sceneAvatarVo = new egret.SceneAvatarVo();
             this._avatar = new egret.Avatar();
             this.show(this._avatar, egret.SceneElementLayerType.ACTION);
+            this.shadow = new egret.gui.UIAsset();
+            this.shadow.source = "resource/main/shadow.png";
+            this.shadow.x = -53;
+            this.shadow.y = -30;
+            this.show(this.shadow, egret.SceneElementLayerType.BOTTOM);
         }
         var __egretProto__ = SceneElementInteractive.prototype;
-        //
         /**
          * 设置动作图片是否按方向拆分
          * @param value
@@ -32,7 +32,6 @@ var egret;
         __egretProto__.setAvatarDirectionSplit = function (value) {
             this._avatar.directionSplit = value;
         };
-        //
         /**
          * 是否自动检测加载资源，单个方向的模型设置为 false
          * @param value
@@ -60,12 +59,7 @@ var egret;
             this.setData(item);
         };
         Object.defineProperty(__egretProto__, "avatar", {
-            //
-            /**
-             * 纸娃娃影片
-             * @return
-             *
-             */
+            /**纸娃娃影片*/
             get: function () {
                 return this._avatar;
             },
@@ -87,11 +81,7 @@ var egret;
             configurable: true
         });
         Object.defineProperty(__egretProto__, "isPlayed", {
-            /**
-             * 是否正在播放动作影片
-             * @return
-             *
-             */
+            /**是否正在播放动作影片*/
             get: function () {
                 return this._avatar.isPlayed;
             },
@@ -99,7 +89,6 @@ var egret;
             configurable: true
         });
         Object.defineProperty(__egretProto__, "actionType", {
-            //
             get: function () {
                 return this._avatar.actionType;
             },
@@ -166,14 +155,10 @@ var egret;
             this._avatar.setPartTypes(this._partTypes, this.getPartUrl, this, this.loadActionComplete, this);
             this._namePad.y = this._avatar.topLineY;
         };
-        /**
-         * 加载影片完成
-         *
-         */
+        /**加载影片完成*/
         __egretProto__.loadActionComplete = function () {
             this._namePad.y = this._avatar.topLineY;
         };
-        //
         /**
          * 停止影片在指定动作类型和方向
          * @param frameIndex:int = -1 开始播放的帧索引，-1时不设置开始播放的帧索引，从当前帧开始播放或从第0帧开始播放
@@ -187,7 +172,6 @@ var egret;
             if (direction === void 0) { direction = -1; }
             this._avatar.stop(frameIndex, actionType, direction);
         };
-        //
         /**
          * 设置动作vo
          * @param actionPartType:String 动作部件类型 ActionPartType
@@ -197,11 +181,9 @@ var egret;
         __egretProto__.setActionVo = function (actionPartType, vo) {
             this._avatar.setActionPart(actionPartType, vo);
         };
-        //
         __egretProto__.getActionVo = function (actionPartType) {
             return this._avatar.getActionVo(actionPartType);
         };
-        //
         /**
          * 设置动作资源地址
          * @param actionPartType:String 动作部件类型 ActionPartType
@@ -241,7 +223,6 @@ var egret;
             }
             return container;
         };
-        //
         /**
          * 设置显示对象在元素上的层级并添加到显示列表中，
          * @param target:DisplayObject 显示对象
@@ -261,7 +242,6 @@ var egret;
             if (!isNaN(y))
                 target.y = y;
         };
-        //
         /**
          * 从元素上移除显示对象
          * @param target:DisplayObject 已呈现在地图上的显示对象
@@ -273,7 +253,6 @@ var egret;
             if (target.parent)
                 target.parent.removeChild(target);
         };
-        //
         /**
          * 更新动作影片显示
          * @param vo:SceneElementVo
@@ -287,7 +266,6 @@ var egret;
                 this._avatar.setPartTypes(this._partTypes, this.getPartUrl, this, this.loadActionComplete, this);
             }
         };
-        //
         /**
          * 设置场景元素数据
          * @param value:SceneElementDataItem
@@ -297,10 +275,7 @@ var egret;
             _super.prototype.setData.call(this, value);
             egret.SceneElementData.getInstance().setSceneAvatarVo(this._sceneAvatarVo, value.lo);
         };
-        /**
-         * 添加至场景时处理
-         *
-         */
+        /**添加至场景时处理*/
         __egretProto__.addToScene = function () {
             _super.prototype.addToScene.call(this);
         };
@@ -323,18 +298,11 @@ var egret;
             //this.addEventListener(TouchEvent.TOUCH_ROLL_OVER,this.roleOverHandler,this);
             //this.addEventListener(TouchEvent.TOUCH_ROLL_OUT,this.roleOutHandler,this);
         };
-        /**
-         * 鼠标经过
-         * @param event
-         *
-         */
+        /**鼠标经过*/
         __egretProto__.roleOverHandler = function (event) {
             //EnterFrameManager.getInstance().addExecute(this.checkAlpha,8);
         };
-        /**
-         * 检测alpha
-         *
-         */
+        /**检测alpha*/
         __egretProto__.checkAlpha = function () {
             //var isTransparent:boolean = BitmapDataUtil.isTransparent(this,this.mouseX,this.mouseY);
             //if(isTransparent){
@@ -344,17 +312,12 @@ var egret;
             //		this.filters = this._overFilters;
             //}
         };
-        /**
-         * 鼠标移出
-         * @param event
-         *
-         */
+        /**鼠标移出*/
         __egretProto__.roleOutHandler = function (event) {
             //EnterFrameManager.getInstance().removeExecute(this.checkAlpha);
             if (event === void 0) { event = null; }
             this.filters = null;
         };
-        //
         /**
          * 获取部件影片地址
          * @param partType:String ActionPartType 动作影片类型
@@ -374,3 +337,4 @@ var egret;
     egret.SceneElementInteractive = SceneElementInteractive;
     SceneElementInteractive.prototype.__class__ = "egret.SceneElementInteractive";
 })(egret || (egret = {}));
+//# sourceMappingURL=SceneElementInteractive.js.map

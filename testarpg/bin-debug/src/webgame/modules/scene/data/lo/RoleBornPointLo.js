@@ -16,3 +16,4 @@ var egret;
     egret.RoleBornPointLo = RoleBornPointLo;
     RoleBornPointLo.prototype.__class__ = "egret.RoleBornPointLo";
 })(egret || (egret = {}));
+//# sourceMappingURL=RoleBornPointLo.js.map

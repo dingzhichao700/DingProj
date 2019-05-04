@@ -13,26 +13,42 @@
 		<e:UIAsset source="head_1_png" x="8" y="12"/>
 		<e:UIAsset source="frame_head_0_png" x="0" y="2"/>
 		<e:Label id="txtName" size="20" text="习浩然" width="70" textAlign="center" x="4" y="79"/>
-		<e:Label id="txtScore" width="161" textColor="0xFFE97C" text="31417" fontFamily="Arial" italic="true" textAlign="left" size="24" x="139" y="10"/>
+		<e:Label id="txtPower" width="161" textColor="0xFFE97C" fontFamily="Arial" italic="true" textAlign="left" x="139" y="10" text="0" bold="true" size="26"/>
 		<e:UIAsset source="level9_png" x="0" y="104"/>
 		<e:UIAsset source="word_zhandouli_png" x="84" y="5"/>
 		<e:UIAsset source="bg_18_png" x="522" y="9" width="102" scale9Grid="9,2,3,18"/>
 		<e:UIAsset source="icon_coin_png" x="507" y="6"/>
 		<e:UIAsset source="bg_18_png" width="102" scale9Grid="9,2,3,18" x="392" y="9"/>
 		<e:UIAsset x="377" y="6" source="icon_achi_png"/>
-		<e:Label id="txtCoin" text="10311" x="537" y="13" fontFamily="Arial" size="15" width="82"/>
-		<e:Label id="txtAchi" fontFamily="Arial" width="82" size="15" x="406" y="13" text="410"/>
+		<e:Label id="txtCoin" text="10311" y="13" fontFamily="Arial" width="82" size="18" x="542"/>
+		<e:Label id="txtAchi" fontFamily="Arial" width="82" y="13" text="410" size="18" x="416"/>
+		<e:Group id="boxMission" x="111" y="133">
+			<e:UIAsset source="bg_copyTitle_png" x="0" y="0"/>
+			<e:UIAsset source="tz_png" x="116" y="24"/>
+			<e:Group id="boxNum" x="244" y="23" width="42">
+				<e:UIAsset source="copy_1_png" y="1" x="3"/>
+			</e:Group>
+		</e:Group>
 	</e:Group>
-	<e:Group id="boxBottom" x="0" y="817">
-		<e:UIAsset source="bg_mainbottom_png" width="531" x="55" y="60"/>
-		<e:UIAsset source="main_bottomBar_png" scale9Grid="11,1,68,7" width="499" x="67" y="134"/>
-		<e:UIAsset source="lock_exppool_png" x="527" y="0"/>
-		<e:UIAsset id="btnSoulRoad" source="soulRoad_gray_png" y="3" x="0"/>
-		<e:UIAsset id="btnWuhun" source="btn_jineng_png" y="59" x="145"/>
-		<e:UIAsset id="btnBag" source="btn_beibao_png" y="58" x="247"/>
-		<e:UIAsset id="btnEquip" y="61" source="btn_renwu_png" x="338"/>
-		<e:UIAsset id="btnSkill" source="btn_skill_png" x="427" y="62"/>
-		<e:UIAsset source="bg_5_png" x="537" y="27"/>
-		<e:UIAsset source="label_exppool_png" x="526" y="111"/>
+	<e:Group id="boxBottom" x="0" y="960">
+		<e:UIAsset source="bg_mainbottom_png" width="531" x="55" y="-83"/>
+		<e:UIAsset source="main_bottomBar_png" scale9Grid="11,1,68,7" width="499" x="67" y="-9"/>
+		<e:UIAsset source="lock_exppool_png" x="527" y="-143"/>
+		<e:UIAsset id="btnSoulRoad" source="soulRoad_gray_png" x="0" y="-140"/>
+		<e:UIAsset id="btnWuhun" source="btn_jineng_png" y="-84" x="125"/>
+		<e:UIAsset id="btnBag" source="btn_beibao_png" y="-85" x="211"/>
+		<e:UIAsset id="btnEquip" source="btn_renwu_png" y="-82" x="292"/>
+		<e:UIAsset id="btnSkill" source="btn_skill_png" y="-81" x="370"/>
+		<e:UIAsset id="btnStrength" y="-81" source="btn_strength_png" x="445"/>
+		<e:UIAsset source="bg_5_png" x="537" y="-116"/>
+		<e:UIAsset source="label_exppool_png" x="526" y="-32"/>
+		<e:Group id="boxCon" height="200" width="200" y="-149" x="507"/>
+		<e:Label id="txtExp" text="3%" y="-85" fontFamily="宋体" width="87" textAlign="center" x="541"/>
+		<e:Group id="boxStory" width="380" height="124" x="131" y="-270">
+			<e:UIAsset source="bg_story_png" scale9Grid="19,16,117,22" width="495" height="126" x="-56"/>
+			<e:Label id="txtTarget" fontFamily="微软雅黑 Light" textAlign="center" width="451" size="24" text="前往黑风寨，击败蛮族剑圣" height="30" y="20" x="-40"/>
+			<e:UIAsset id="btnGo" source="btnOk_png" y="53" x="111"/>
+			<e:UIAsset id="imgArrow" source="guideArrow_png" y="48" x="6"/>
+		</e:Group>
 	</e:Group>
 </e:Skin>

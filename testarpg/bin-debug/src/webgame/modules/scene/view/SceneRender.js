@@ -355,7 +355,6 @@ var egret;
             if (!egret.EnterFrameManager.getInstance().hasExecute(this._sortId))
                 this._sortId = egret.EnterFrameManager.getInstance().addExecute(this.sortBiology, this, this.DELAY_SORT);
         };
-        //
         __egretProto__.remove = function () {
             _super.prototype.remove.call(this);
             //this._isoMap.removeEventListener(IsoMapEvent.ISO_MAP_RENDER_CHANGED,this.renderChangedHandler,this);
@@ -468,26 +467,17 @@ var egret;
                 return 0;
             }
         };
-        //
-        /**
-         * 舞台尺寸改变
-         * @param e
-         *
-         */
+        /**舞台尺寸改变  */
         __egretProto__.stageResize = function (e) {
+            //			this.setRoleViewProperties();
             if (e === void 0) { e = null; }
-            this.setRoleViewProperties();
-            if (this._sceneEditLo) {
-                if (this._role)
-                    this._isoMap.setCurrentMapXY(this._role.x, this._role.y);
-                this._isoMap.setProperties(this._sceneEditLo.width, this._sceneEditLo.height, this._sceneEditLo.gridSize, this._viewWidth, this._viewHeight);
-            }
+            //			if(this._sceneEditLo){
+            //				if(this._role)
+            //					this._isoMap.setCurrentMapXY(this._role.x,this._role.y);
+            //				this._isoMap.setProperties(this._sceneEditLo.width,this._sceneEditLo.height,this._sceneEditLo.gridSize,this._viewWidth,this._viewHeight);
+            //			}
         };
-        //
-        /**
-         * 更新视口数据
-         *
-         */
+        /**更新视口数据 */
         __egretProto__.setRoleViewProperties = function () {
             this._viewWidth = egret.ApplicationManager.getInstance().stage.stageWidth;
             this._viewHeight = egret.ApplicationManager.getInstance().stage.stageHeight;
@@ -499,3 +489,4 @@ var egret;
     egret.SceneRender = SceneRender;
     SceneRender.prototype.__class__ = "egret.SceneRender";
 })(egret || (egret = {}));
+//# sourceMappingURL=SceneRender.js.map

@@ -48,3 +48,4 @@ var egret;
     egret.ScenePlayerVo = ScenePlayerVo;
     ScenePlayerVo.prototype.__class__ = "egret.ScenePlayerVo";
 })(egret || (egret = {}));
+//# sourceMappingURL=ScenePlayerVo.js.map

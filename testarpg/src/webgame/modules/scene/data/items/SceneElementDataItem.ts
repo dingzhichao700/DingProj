@@ -2,13 +2,10 @@
 module egret {
 
 	export class SceneElementDataItem{
-		/**
-		 * 场景元素表数据 
-		 */		
+    	
+		/**场景元素表数据 */		
 		public lo:SceneElementLo = null;
-		/**
-		 * 场景元素服务端数据 
-		 */		
+		/**场景元素服务端数据 */		
 		public vo:SceneElementVo = null;
 
 		public get id():string{

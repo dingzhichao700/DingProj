@@ -159,3 +159,4 @@ var egret;
     egret.PathData = PathData;
     PathData.prototype.__class__ = "egret.PathData";
 })(egret || (egret = {}));
+//# sourceMappingURL=PathData.js.map

@@ -69,3 +69,4 @@ var egret;
     egret.LocalDataFileName = LocalDataFileName;
     LocalDataFileName.prototype.__class__ = "egret.LocalDataFileName";
 })(egret || (egret = {}));
+//# sourceMappingURL=LocalDataFileName.js.map

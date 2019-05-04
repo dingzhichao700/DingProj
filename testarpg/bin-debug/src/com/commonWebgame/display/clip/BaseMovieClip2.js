@@ -150,3 +150,4 @@ var egret;
     egret.BaseMovieClip2 = BaseMovieClip2;
     BaseMovieClip2.prototype.__class__ = "egret.BaseMovieClip2";
 })(egret || (egret = {}));
+//# sourceMappingURL=BaseMovieClip2.js.map

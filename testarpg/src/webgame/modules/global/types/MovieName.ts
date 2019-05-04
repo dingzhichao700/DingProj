@@ -12,6 +12,11 @@ module egret{
          * 升级特效
          * @type {string}
          */
-        public static LEVEL_UP:string = "levelUp";
+        public static LEVEL_UP: string = "levelUp";
+        /**
+         * 传送阵特效
+         * @type {string}
+         */
+        public static ENTRY: string = "entry";
     }
 }

@@ -2,6 +2,7 @@ module egret{
     
     /**主角多角色管理器*/
     export class RoleManager{
+        
         //主角角色
         private _roles:Array<ElementPlayer> = [];
         //当前场景
@@ -73,23 +74,20 @@ module egret{
             this._roles.push(role);
 
             if(this._roles.length > 1){
-                var radius:number = 150;
-                var radian:number = Math.PI * 2 * Math.random();
-                var x:number = Math.cos(radian) * radius + this.role.x;
-                var y:number = Math.sin(radian) * radius + this.role.y;
-
-                if(this._scene)
+                if(this._scene) {
+                    var radius: number = 150;
+                    var radian: number = Math.PI * 2 * Math.random();
+                    var x: number = Math.cos(radian) * radius + this.role.x;
+                    var y: number = Math.sin(radian) * radius + this.role.y;
                     this._scene.addElement(role,SceneLayerType.BIOLOGY,x,y);
+                }
                 role.chaseArmies(this.role.armies);
 
                 globalUpdateWindows([UpdateType.ADD_ROLE]);
             }
         }
 
-        /**
-         * 删除角色
-         * @param id 角色数据 id
-         */
+        /**删除角色*/
         public removeRole(id:number):void{
             //主角色不回收，次角色可回收
             if(id == this.role.data.vo.id){
@@ -162,7 +160,6 @@ module egret{
                 this._roles[i].data.vo.x = points[i].x;
                 this._roles[i].data.vo.y = points[i].y;
                 this._roles[i].updateXY();
-
                 //LogManager.debug(this,"setElementPlayerXY() vocation = " + this._roles[i].data.vo["vocation"],points[i].x,points[i].y,this._roles[i].x,this._roles[i].y);
             }
         }

@@ -13,3 +13,4 @@ var egret;
     egret.BaseVo = BaseVo;
     BaseVo.prototype.__class__ = "egret.BaseVo";
 })(egret || (egret = {}));
+//# sourceMappingURL=BaseVo.js.map

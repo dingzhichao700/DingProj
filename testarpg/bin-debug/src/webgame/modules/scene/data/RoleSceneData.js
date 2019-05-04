@@ -9,16 +9,12 @@ var egret;
             this._roleList = [];
         }
         var __egretProto__ = RoleSceneData.prototype;
-        //
-        /**
-         * 重置角色hp数据
-         */
+        /**重置角色hp数据*/
         __egretProto__.resetRoleData = function () {
             for (var i in this._roleList) {
                 this._roleList[i].vo.hp = this._roleList[i].vo.hpTotal = 20000;
             }
         };
-        //
         /**
          * 增加角色数据
          * @param vocation
@@ -31,7 +27,7 @@ var egret;
                 var playerVo = new egret.ScenePlayerVo();
                 playerVo.id = egret.SceneElementData.getInstance().getAutoElementId();
                 playerVo.idString = playerVo.id + "";
-                playerVo.name = "德玛西亚"; //vo.nickname;
+                playerVo.name = "剑士";
                 playerVo.sex = egret.SexType.MALE;
                 playerVo.vocation = egret.VocationType.WARRIOR;
             }
@@ -39,7 +35,7 @@ var egret;
                 playerVo = new egret.ScenePlayerVo();
                 playerVo.id = egret.SceneElementData.getInstance().getAutoElementId();
                 playerVo.idString = playerVo.id + "";
-                playerVo.name = "小法师"; //vo.nickname;
+                playerVo.name = "小法师";
                 playerVo.sex = egret.SexType.MALE;
                 playerVo.vocation = egret.VocationType.MAGE;
             }
@@ -47,7 +43,7 @@ var egret;
                 playerVo = new egret.ScenePlayerVo();
                 playerVo.id = egret.SceneElementData.getInstance().getAutoElementId();
                 playerVo.idString = playerVo.id + "";
-                playerVo.name = "暗影射手"; //vo.nickname;
+                playerVo.name = "暗影射手";
                 playerVo.sex = egret.SexType.MALE;
                 playerVo.vocation = egret.VocationType.BOWMAN;
             }
@@ -57,7 +53,6 @@ var egret;
             }
             return item;
         };
-        //
         /**
          * 删除角色数据
          * @param id 角色数据 id
@@ -70,7 +65,6 @@ var egret;
                 }
             }
         };
-        //
         /**
          * 增加神兽数据
          * @returns {SceneElementDataItem}
@@ -81,7 +75,6 @@ var egret;
             this._roleList.push(item);
             return item;
         };
-        //
         /**
          * 获取多角色数据
          * @returns {Array<SceneElementDataItem>}
@@ -94,3 +87,4 @@ var egret;
     egret.RoleSceneData = RoleSceneData;
     RoleSceneData.prototype.__class__ = "egret.RoleSceneData";
 })(egret || (egret = {}));
+//# sourceMappingURL=RoleSceneData.js.map

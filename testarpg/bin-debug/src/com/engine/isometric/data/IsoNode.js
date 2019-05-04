@@ -104,3 +104,4 @@ var egret;
     egret.IsoNode = IsoNode;
     IsoNode.prototype.__class__ = "egret.IsoNode";
 })(egret || (egret = {}));
+//# sourceMappingURL=IsoNode.js.map

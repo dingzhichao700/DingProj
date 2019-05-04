@@ -72,3 +72,4 @@ var egret;
     egret.TimeRecordManager = TimeRecordManager;
     TimeRecordManager.prototype.__class__ = "egret.TimeRecordManager";
 })(egret || (egret = {}));
+//# sourceMappingURL=TimeRecordManager.js.map

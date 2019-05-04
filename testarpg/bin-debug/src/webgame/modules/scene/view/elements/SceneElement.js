@@ -2,9 +2,6 @@ var egret;
 (function (egret) {
     var SceneElement = (function (_super) {
         __extends(SceneElement, _super);
-        /**
-         * 构造函数
-         */
         function SceneElement() {
             _super.call(this);
             //场景元素数据
@@ -32,7 +29,6 @@ var egret;
             this.touchChildren = false;
             this._namePad = new egret.SceneElementNamePad();
             this.addChild(this._namePad);
-            //this._data = new SceneElementDataItem();
             this._depthPoint = new egret.Point();
             this._depthPoint3D = new egret.Point3D();
             this.addListeners();
@@ -42,11 +38,7 @@ var egret;
             get: function () {
                 return this._enabled;
             },
-            /**
-             * 是否启用此对象的鼠标响应
-             * @param value
-             *
-             */
+            /**是否启用此对象的鼠标响应 */
             set: function (value) {
                 if (this._enabled == value)
                     return;
@@ -96,11 +88,7 @@ var egret;
             configurable: true
         });
         Object.defineProperty(__egretProto__, "namePad", {
-            /**
-             * 名称面板
-             * @return
-             *
-             */
+            /**名称面板*/
             get: function () {
                 return this._namePad;
             },
@@ -108,22 +96,14 @@ var egret;
             configurable: true
         });
         Object.defineProperty(__egretProto__, "depth", {
-            /**
-             * 获取元素深度
-             * @return
-             *
-             */
+            /**获取元素深度*/
             get: function () {
                 return this.getDepth();
             },
             enumerable: true,
             configurable: true
         });
-        /**
-         * 获取元素深度
-         * @return
-         *
-         */
+        /**获取元素深度*/
         __egretProto__.getDepth = function () {
             if (this._lastX != this._x || this._lastY != this._y) {
                 this._lastX = this._x;
@@ -138,11 +118,7 @@ var egret;
             get: function () {
                 return this._id || this.name;
             },
-            /**
-             * 场景元素显示对象id
-             * @param value:String
-             *
-             */
+            /**场景元素显示对象id*/
             set: function (value) {
                 this._id = value;
             },
@@ -153,18 +129,13 @@ var egret;
             get: function () {
                 return this._data;
             },
-            /**
-             * 场景元素数据
-             * @param value
-             *
-             */
+            /**场景元素数据*/
             set: function (value) {
                 this.setData(value);
             },
             enumerable: true,
             configurable: true
         });
-        //
         /**
          * 设置场景元素数据
          * @param value:SceneElementDataItem
@@ -182,11 +153,7 @@ var egret;
                     throw new Error("无效的场景元素数据，id 不能为 0");
             }
         };
-        //
-        /**
-         * 更新名称面板
-         *
-         */
+        /**更新名称面板*/
         __egretProto__.updateName = function () {
             var name = null;
             if (this._data) {
@@ -199,60 +166,33 @@ var egret;
                 this._namePad.setName(name);
             }
         };
-        //
-        /**
-         * 场景元素刷新
-         *
-         */
+        /**场景元素刷新*/
         __egretProto__.updateXY = function () {
             var vo = this._data.vo;
             if (vo) {
                 this.x = vo.x;
                 this.y = vo.y;
             }
-            //			var lo:SceneElementLo = _data.lo;
-            //			if(lo){
-            //				this.x = lo.point.x;
-            //				this.y = lo.point.y;
-            //			}
         };
-        /**
-         * 添加至场景时处理
-         *
-         */
+        /**添加至场景时处理*/
         __egretProto__.addToScene = function () {
             this.updateName();
             this.updateXY();
             this.addListeners();
         };
-        /**
-         * 从场景移除时处理
-         *
-         */
+        /**从场景移除时处理*/
         __egretProto__.removeFromScene = function () {
         };
-        //
-        /**
-         * 添加内部事件
-         *
-         */
+        /**添加内部事件 */
         __egretProto__.addListeners = function () {
         };
-        //
-        /**
-         * 设置名称文本格式
-         * @param format:TextFormat = null 参数为 null 时重置为原格式
-         *
-         */
+        /**设置名称文本格式*/
         __egretProto__.setNameTextFormat = function (size, color) {
             if (size === void 0) { size = 20; }
             if (color === void 0) { color = 0xffffff; }
             this._namePad.setNameTextFormat(size, color);
         };
-        //
-        /**
-         * 销毁对象，将删除所有事件侦听(包括非组件内部调用addEventListener注册的事件侦听)及变量引用并从显示列表删除，无法重新使用，释放内存资源
-         */
+        /**销毁对象，将删除所有事件侦听(包括非组件内部调用addEventListener注册的事件侦听)及变量引用并从显示列表删除，无法重新使用，释放内存资源*/
         __egretProto__.destroy = function () {
             if (this._isDestroy)
                 return;
@@ -264,3 +204,4 @@ var egret;
     egret.SceneElement = SceneElement;
     SceneElement.prototype.__class__ = "egret.SceneElement";
 })(egret || (egret = {}));
+//# sourceMappingURL=SceneElement.js.map

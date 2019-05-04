@@ -9,16 +9,14 @@ module egret{
         public constructor(){
 
         }
-        //
-        /**
-         * 重置角色hp数据
-         */
+
+        /**重置角色hp数据*/
         public resetRoleData():void{
             for(var i in this._roleList){
                 (<SceneDriverVo>this._roleList[i].vo).hp = (<SceneDriverVo>this._roleList[i].vo).hpTotal = 20000;
             }
         }
-        //
+
         /**
          * 增加角色数据
          * @param vocation
@@ -32,21 +30,21 @@ module egret{
 
                 playerVo.id = SceneElementData.getInstance().getAutoElementId();
                 playerVo.idString = playerVo.id + "";
-                playerVo.name = "德玛西亚"//vo.nickname;
+                playerVo.name = "剑士";
                 playerVo.sex = SexType.MALE;
                 playerVo.vocation = VocationType.WARRIOR;
             }else if(vocation == 2){
                 playerVo = new ScenePlayerVo();
                 playerVo.id = SceneElementData.getInstance().getAutoElementId();
                 playerVo.idString = playerVo.id + "";
-                playerVo.name = "小法师"//vo.nickname;
+                playerVo.name = "小法师";
                 playerVo.sex = SexType.MALE;
                 playerVo.vocation = VocationType.MAGE;
             }else if(vocation == 3){
                 playerVo = new ScenePlayerVo();
                 playerVo.id = SceneElementData.getInstance().getAutoElementId();
                 playerVo.idString = playerVo.id + "";
-                playerVo.name = "暗影射手"//vo.nickname;
+                playerVo.name = "暗影射手";
                 playerVo.sex = SexType.MALE;
                 playerVo.vocation = VocationType.BOWMAN;
             }
@@ -58,7 +56,7 @@ module egret{
 
             return item;
         }
-        //
+
         /**
          * 删除角色数据
          * @param id 角色数据 id
@@ -71,7 +69,7 @@ module egret{
                 }
             }
         }
-        //
+
         /**
          * 增加神兽数据
          * @returns {SceneElementDataItem}
@@ -83,7 +81,7 @@ module egret{
 
             return item;
         }
-        //
+
         /**
          * 获取多角色数据
          * @returns {Array<SceneElementDataItem>}

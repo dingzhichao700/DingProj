@@ -2,19 +2,14 @@ var egret;
 (function (egret) {
     var ElementPlayer = (function (_super) {
         __extends(ElementPlayer, _super);
-        /**
-         * 构造函数
-         */
         function ElementPlayer() {
             _super.call(this);
             this.speed = 8;
         }
         var __egretProto__ = ElementPlayer.prototype;
-        //
         /**
          * 更新动作影片显示
          * @param value:SceneElementDataItem
-         *
          */
         __egretProto__.updateAvatar = function (value) {
             this.setData(value);
@@ -23,7 +18,6 @@ var egret;
                 this._avatar.setPartTypes(this._partTypes, this.getPartUrl, this, this.loadActionComplete, this);
             }
         };
-        //
         /**
          * 设置场景元素数据
          * @param value:SceneElementDataItem
@@ -80,7 +74,6 @@ var egret;
             this.clearAttack();
             this._namePad.y = this._avatar.topLineY;
         };
-        //
         /**
          * 获取部件影片地址
          * @param partType:String ActionPartType 动作影片类型
@@ -108,7 +101,6 @@ var egret;
             var url = egret.dataManager().sceneElementData.getActionUrl(path, movie, this._avatar.actionType);
             return url;
         };
-        //
         /**
          * 获取优先攻击对象，各职业重写
          * @returns {null}
@@ -125,16 +117,10 @@ var egret;
             }
             return null;
         };
-        //
-        /**
-         * 检测自动攻击
-         */
+        /**检测自动攻击*/
         __egretProto__.checkAutoAttack = function () {
         };
-        //
-        /**
-         * 检测自动攻击2，玩家在攻击结束时检测，不使用定时器方法checkAutoAttack()
-         */
+        /**检测自动攻击2，玩家在攻击结束时检测，不使用定时器方法checkAutoAttack()*/
         __egretProto__.checkAutoAttack2 = function () {
             if (this._isLocked)
                 return;
@@ -145,10 +131,7 @@ var egret;
                 this.attack();
             }
         };
-        //
-        /**
-         * 玩家攻击方法
-         */
+        /**玩家攻击方法*/
         __egretProto__.attack = function () {
             if (this._isLocked)
                 return;
@@ -175,3 +158,4 @@ var egret;
     egret.ElementPlayer = ElementPlayer;
     ElementPlayer.prototype.__class__ = "egret.ElementPlayer";
 })(egret || (egret = {}));
+//# sourceMappingURL=ElementPlayer.js.map

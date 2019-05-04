@@ -126,3 +126,4 @@ var ui;
         HeadListSkin.prototype.__class__ = "ui.main.HeadListSkin";
     })(main = ui.main || (ui.main = {}));
 })(ui || (ui = {}));
+//# sourceMappingURL=HeadListSkin.js.map

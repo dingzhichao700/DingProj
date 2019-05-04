@@ -1,8 +1,3 @@
-/**
- *
- * @author
- *
- */
 var egret;
 (function (egret) {
     var ItemTips = (function (_super) {
@@ -32,6 +27,25 @@ var egret;
                 this.item.itemId = this._id;
                 this.txtName.text = cfg.name;
                 this.txtQuality.text = "品质：" + egret.ItemManager.getInstance().getQuaByType(cfg.quality);
+                this.txtDesc.text = cfg.desc;
+                this.txtDesc.lineSpacing = 15;
+                if (cfg.attrs) {
+                    this.lineAttr.visible = this.txtAttr.visible = true;
+                    var str = "";
+                    var attrNum = 0;
+                    for (var key in cfg.attrs) {
+                        str += egret.ItemManager.getNameByType(key) + "+" + cfg.attrs[key] + "\n";
+                        attrNum++;
+                    }
+                    this.txtAttr.text = str;
+                    this.txtAttr.height = 35 * attrNum;
+                    this.txtAttr.lineSpacing = 15;
+                    this.imgBg.height = 285 + 35 * attrNum;
+                }
+                else {
+                    this.imgBg.height = 246;
+                    this.lineAttr.visible = this.txtAttr.visible = false;
+                }
             }
         };
         return ItemTips;
@@ -39,3 +53,4 @@ var egret;
     egret.ItemTips = ItemTips;
     ItemTips.prototype.__class__ = "egret.ItemTips";
 })(egret || (egret = {}));
+//# sourceMappingURL=ItemTips.js.map

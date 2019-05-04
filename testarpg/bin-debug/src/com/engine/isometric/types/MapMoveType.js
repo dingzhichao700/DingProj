@@ -17,3 +17,4 @@ var egret;
     egret.MapMoveType = MapMoveType;
     MapMoveType.prototype.__class__ = "egret.MapMoveType";
 })(egret || (egret = {}));
+//# sourceMappingURL=MapMoveType.js.map

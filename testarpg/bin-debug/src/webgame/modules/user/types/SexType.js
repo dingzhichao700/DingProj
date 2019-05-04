@@ -21,3 +21,4 @@ var egret;
     egret.SexType = SexType;
     SexType.prototype.__class__ = "egret.SexType";
 })(egret || (egret = {}));
+//# sourceMappingURL=SexType.js.map

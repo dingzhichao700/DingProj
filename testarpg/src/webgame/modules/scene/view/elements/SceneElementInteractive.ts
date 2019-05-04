@@ -7,17 +7,15 @@ module egret {
 			new GlowFilter(0x00ffff,1,2,2,3,1)
 		];
 		//纸娃娃影片
-		public _avatar:Avatar = null;
-		//
+        public _avatar: Avatar = null;
+        private shadow: egret.gui.UIAsset;
+
 		public _sceneAvatarVo:SceneAvatarVo = null;
 		//层级列表
 		public _layerHashMap:HashMap = null;
 		//影片部件类型集合
 		public _partTypes:Array<string>;
 		
-		/**
-		 * 构造函数
-		 */
 		public constructor(){
 			super();
 			
@@ -28,8 +26,14 @@ module egret {
 			
 			this._avatar = new Avatar();
 			this.show(this._avatar,SceneElementLayerType.ACTION);
+
+            this.shadow = new egret.gui.UIAsset();
+            this.shadow.source = "resource/main/shadow.png";
+            this.shadow.x = -53;
+            this.shadow.y = -30;
+            this.show(this.shadow,SceneElementLayerType.BOTTOM);
 		}
-		//
+
 		/**
 		 * 设置动作图片是否按方向拆分
 		 * @param value
@@ -37,7 +41,7 @@ module egret {
 		public setAvatarDirectionSplit(value:boolean):void{
 			this._avatar.directionSplit = value;
 		}
-		//
+
 		/**
 		 * 是否自动检测加载资源，单个方向的模型设置为 false
 		 * @param value
@@ -45,6 +49,7 @@ module egret {
 		public setIsCheckResource(value:boolean):void{
 			this._avatar.isCheckResource = value;
 		}
+		
 		/**
 		 * 快速设置元素数据，自动生成元素id，用于特效类等临时性元素 
 		 * @param name 影片名称
@@ -65,12 +70,8 @@ module egret {
 			
 			this.setData(item);
 		}
-		//
-		/**
-		 * 纸娃娃影片 
-		 * @return 
-		 * 
-		 */
+
+		/**纸娃娃影片*/
 		public get avatar():Avatar{
 			return this._avatar;
 		}
@@ -87,18 +88,15 @@ module egret {
 			this._sceneAvatarVo = value;
 		}
 
-		/**
-		 * 是否正在播放动作影片 
-		 * @return 
-		 * 
-		 */
+		/**是否正在播放动作影片*/
 		public get isPlayed():boolean{
 			return this._avatar.isPlayed;
 		}
-		//
+
 		public get actionType():number{
 			return this._avatar.actionType;
 		}
+		
 		/**
 		 * 动作类型 
 		 * @param value:int
@@ -150,14 +148,11 @@ module egret {
 			
 			this._namePad.y = this._avatar.topLineY;
 		}
-		/**
-		 * 加载影片完成 
-		 * 
-		 */		
+		/**加载影片完成*/		
 		public loadActionComplete():void{
 			this._namePad.y = this._avatar.topLineY;
 		}
-		//
+
 		/**
 		 * 停止影片在指定动作类型和方向 
 		 * @param frameIndex:int = -1 开始播放的帧索引，-1时不设置开始播放的帧索引，从当前帧开始播放或从第0帧开始播放
@@ -168,7 +163,7 @@ module egret {
 		public stop(frameIndex:number = -1,actionType:number = -1,direction:number = -1):void{
 			this._avatar.stop(frameIndex,actionType,direction);
 		}
-		//
+		
 		/**
 		 * 设置动作vo 
 		 * @param actionPartType:String 动作部件类型 ActionPartType
@@ -178,11 +173,11 @@ module egret {
 		public setActionVo(actionPartType:string,vo:ActionMovieClipVo):void{
 			this._avatar.setActionPart(actionPartType,vo);
 		}
-		//
+
 		public getActionVo(actionPartType:string):ActionMovieClipVo{
 			return this._avatar.getActionVo(actionPartType);
 		}
-		//
+
 		/**
 		 * 设置动作资源地址 
 		 * @param actionPartType:String 动作部件类型 ActionPartType
@@ -223,10 +218,9 @@ module egret {
 					this.setChildIndex(this._layerHashMap.get(keys[i]),i);
 				}
 			}
-			
 			return container;
 		}
-		//
+
 		/**
 		 * 设置显示对象在元素上的层级并添加到显示列表中，
 		 * @param target:DisplayObject 显示对象
@@ -245,7 +239,7 @@ module egret {
 			if(!isNaN(y))
 				target.y = y;
 		}
-		//
+
 		/**
 		 * 从元素上移除显示对象 
 		 * @param target:DisplayObject 已呈现在地图上的显示对象
@@ -257,7 +251,7 @@ module egret {
 			if(target.parent)
 				target.parent.removeChild(target);
 		}
-		//
+
 		/**
 		 * 更新动作影片显示
 		 * @param vo:SceneElementVo
@@ -272,7 +266,7 @@ module egret {
 				this._avatar.setPartTypes(this._partTypes,this.getPartUrl,this,this.loadActionComplete,this);
 			}
 		}
-		//
+
 		/**
 		 * 设置场景元素数据
 		 * @param value:SceneElementDataItem
@@ -283,10 +277,8 @@ module egret {
 			
 			SceneElementData.getInstance().setSceneAvatarVo(this._sceneAvatarVo,value.lo);
 		}
-		/**
-		 * 添加至场景时处理 
-		 * 
-		 */		
+		
+		/**添加至场景时处理*/		
 		public addToScene():void{
 			super.addToScene();
 		}
@@ -298,14 +290,13 @@ module egret {
 			//this.removeEventListener(TouchEvent.TOUCH_ROLL_OUT,this.roleOutHandler,this);
 			
 			//this.roleOutHandler();
-			
 			this.stop();
-			
 			this._avatar.clear();
 		}
 		
 		public destroy():void{
-			if(this._isDestroy) return;
+			if(this._isDestroy)
+    			return;
 			
 			this._avatar.destroy();
 			
@@ -318,18 +309,13 @@ module egret {
 			//this.addEventListener(TouchEvent.TOUCH_ROLL_OVER,this.roleOverHandler,this);
 			//this.addEventListener(TouchEvent.TOUCH_ROLL_OUT,this.roleOutHandler,this);
 		}
-		/**
-		 * 鼠标经过 
-		 * @param event
-		 * 
-		 */		
+		
+		/**鼠标经过*/		
 		public roleOverHandler(event:TouchEvent):void{
 			//EnterFrameManager.getInstance().addExecute(this.checkAlpha,8);
 		}
-		/**
-		 * 检测alpha 
-		 * 
-		 */		
+		
+		/**检测alpha*/		
 		public checkAlpha():void{
 			//var isTransparent:boolean = BitmapDataUtil.isTransparent(this,this.mouseX,this.mouseY);
 			
@@ -340,17 +326,14 @@ module egret {
 			//		this.filters = this._overFilters;
 			//}
 		}
-		/**
-		 * 鼠标移出 
-		 * @param event
-		 * 
-		 */		
+		
+		/**鼠标移出*/		
 		public roleOutHandler(event:TouchEvent = null):void{
 			//EnterFrameManager.getInstance().removeExecute(this.checkAlpha);
 			
 			this.filters = null;
 		}
-		//
+
 		/**
 		 * 获取部件影片地址 
 		 * @param partType:String ActionPartType 动作影片类型
@@ -365,8 +348,8 @@ module egret {
 			//若动作影片改变时，只需要改变
 			//_data.lo.movieName的值即可
 			var url:string = dataManager().sceneElementData.getActionUrl(path,movie,this._avatar.actionType);
-			
 			return url;
 		}
+		
 	}
 }

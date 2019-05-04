@@ -16,9 +16,10 @@ var egret;
         };
         __egretProto__.update = function () {
             this.itemCon.removeAllElements();
-            for (var i = 0; i < 25; i++) {
+            var itemList = egret.BagManager.getInstance().itemData;
+            for (var i = 0; i < itemList.length; i++) {
                 var item = new egret.BagItem();
-                item.itemId = 1 + i;
+                item.itemId = itemList[i].id;
                 item.x = 5 + (i % 6) * 81;
                 item.y = 5 + Math.floor(i / 6) * 80;
                 this.itemCon.addElement(item);
@@ -35,3 +36,4 @@ var egret;
     egret.BagView = BagView;
     BagView.prototype.__class__ = "egret.BagView";
 })(egret || (egret = {}));
+//# sourceMappingURL=BagView.js.map

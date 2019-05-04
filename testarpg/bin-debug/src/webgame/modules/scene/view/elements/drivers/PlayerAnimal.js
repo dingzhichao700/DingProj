@@ -1,16 +1,12 @@
 var egret;
 (function (egret) {
-    /**
-     * 召唤兽
-     */
+    /**召唤兽*/
     var PlayerAnimal = (function (_super) {
         __extends(PlayerAnimal, _super);
-        //
         function PlayerAnimal() {
             _super.call(this);
         }
         var __egretProto__ = PlayerAnimal.prototype;
-        //
         /**
          * 设置场景元素数据
          * @param value:SceneElementDataItem
@@ -54,15 +50,10 @@ var egret;
             this._namePad.y = this._avatar.topLineY;
             this.clearAttack();
         };
-        //
-        /**
-         * 获取优先攻击对象，各职业重写
-         * @returns {null}
-         */
+        /**获取优先攻击对象，各职业重写*/
         __egretProto__.getPriorityTarget = function () {
             return null;
         };
-        //
         /**
          * 获取部件影片地址
          * @param partType:String ActionPartType 动作影片类型
@@ -74,10 +65,7 @@ var egret;
             var url = egret.dataManager().sceneElementData.getActionUrl(path, movie, this._avatar.actionType);
             return url;
         };
-        //
-        /**
-         * 释放默认技能
-         */
+        /**释放默认技能*/
         __egretProto__.playSkill = function () {
             if (this._avatar.frameIndex == 1) {
                 this.damage();
@@ -91,3 +79,4 @@ var egret;
     egret.PlayerAnimal = PlayerAnimal;
     PlayerAnimal.prototype.__class__ = "egret.PlayerAnimal";
 })(egret || (egret = {}));
+//# sourceMappingURL=PlayerAnimal.js.map

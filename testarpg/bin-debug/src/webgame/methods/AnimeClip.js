@@ -26,3 +26,4 @@ var egret;
     egret.AnimeClip = AnimeClip;
     AnimeClip.prototype.__class__ = "egret.AnimeClip";
 })(egret || (egret = {}));
+//# sourceMappingURL=AnimeClip.js.map

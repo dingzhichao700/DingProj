@@ -78,3 +78,4 @@ var egret;
     egret.UserInfoVo = UserInfoVo;
     UserInfoVo.prototype.__class__ = "egret.UserInfoVo";
 })(egret || (egret = {}));
+//# sourceMappingURL=UserInfoVo.js.map
