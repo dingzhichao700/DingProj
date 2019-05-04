@@ -43,7 +43,7 @@ package module.ball {
 					_pDown = point2.y;
 				}
 			}
-			drawBlock();
+//			drawBlock();
 		}
 
 		public function setRect(width:int, height:int):void {
