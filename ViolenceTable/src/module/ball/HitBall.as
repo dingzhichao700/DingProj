@@ -1,5 +1,6 @@
 package module.ball {
 	import laya.events.Event;
+	import laya.media.SoundManager;
 	import laya.utils.Handler;
 	import laya.utils.HitArea;
 	import laya.utils.Tween;
@@ -8,7 +9,7 @@ package module.ball {
 
 		public function HitBall() {
 			boxBottom.alpha = 0.5;
-			_speedCost = 1; 
+//			_speedCost = 1; 
 		}
 
 		override protected function speedSetHandler():void {
@@ -31,13 +32,13 @@ package module.ball {
 		}
 
 		private function showComp():void {
-			
 			this.on(Event.MOUSE_DOWN, this, onDown);
 		}
 		
 		private function onDown():void {
 			Tween.to(this.boxBottom, {scaleX: 0.1, scaleY: 0.1}, 1000); //光圈缩小回去
 			this.off(Event.MOUSE_DOWN, this, onDown);
+			SoundManager.playMusic("res/sound/hit_hold.mp3", 1/*, new Handler(this, onComplete)*/);
 
 			stage.on(Event.MOUSE_UP, this, onUp);
 			stage.on(Event.MOUSE_OUT, this, onUp);
@@ -46,6 +47,8 @@ package module.ball {
 		private function onUp(e:Event):void {
 			stage.off(Event.MOUSE_OUT, this, onUp);
 			stage.off(Event.MOUSE_UP, this, onUp);
+			SoundManager.playMusic("res/sound/hit_ball.mp3", 1);
+			
 			var rotationAdd:Number = Math.atan2(mouseY, mouseX) * 180 / Math.PI;
 			this.addSpeed(rotationAdd + 180, 20);
 		}

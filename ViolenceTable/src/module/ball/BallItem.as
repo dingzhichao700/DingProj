@@ -1,4 +1,8 @@
 package module.ball {
+	
+	import laya.filters.GlowFilter;
+	import laya.ui.Image;
+	
 	import ui.BallItemUI;
 
 	public class BallItem extends BallItemUI {
@@ -8,7 +12,9 @@ package module.ball {
 		private var _speed:Number = 0;
 		private var _radius:int;
 		private var _ballRotation:Number;
-		protected var _speedCost:Number = 0.991;
+		
+		private var ballImage:Image;
+		protected var _speedCost:Number = 0.99;
 
 		public function BallItem() {
 			ballRotation = 0;
@@ -25,17 +31,25 @@ package module.ball {
 
 		public function set type(value:int):void {
 			_type = value;
-			boxBall.graphics.clear();
+//			boxBall.graphics.clear();
+			ballImage ||= new Image();
+			ballImage.x = -27;
+			ballImage.y = -27;
+			boxBall.addChild(ballImage);
+			
+			var filter:GlowFilter = new GlowFilter("#333333",2,2,3);
+			ballImage.filters = [filter];
 			switch (_type) {
 				case 0:
-					_radius = 22;
-					boxBall.graphics.drawCircle(0, 0, _radius, "#ffffff");
+					_radius = 27;
+//					boxBall.graphics.drawCircle(0, 0, _radius, "#ffffff");
 					break;
 				case 1:
-					_radius = 22;
-					boxBall.graphics.drawCircle(0, 0, _radius, "#e06444");
+					_radius = 27;
+//					boxBall.graphics.drawCircle(0, 0, _radius, "#e06444");
 					break;
 			}
+			ballImage.skin = "ball/ball_" + _type + ".png";
 			speedSetHandler();
 		}
 

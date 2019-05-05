@@ -1,5 +1,6 @@
 package module {
 	import laya.maths.Point;
+	import laya.media.SoundManager;
 	
 	import module.ball.BallItem;
 	import module.ball.BallManager;
@@ -58,7 +59,7 @@ package module {
 
 			var ball0:BallItem = addBall(200, 100, 0, 0);
 //			ball0.addSpeed(90, 15);
-			
+
 //			var ball1:BallItem = addBall(300, 300, 0, 0);
 //			ball1.ballRotation = 180;
 //			ball1.speed = 1;
@@ -73,7 +74,7 @@ package module {
 		 * @param x
 		 * @param y
 		 * @param type 球类型
-		 * @param camp 阵营，0为玩家球，1为被打球
+		 * @param camp 阵营，0为玩家球，1为被敌方球
 		 */
 		private function addBall(x:int, y:int, type:int = 1, camp:int = 1):BallItem {
 			var item:BallItem = BallManager.getInstance().getBall(type);
@@ -160,6 +161,8 @@ package module {
 							/**碰撞方向上，球2对球1的相对速度小于0才会相撞，否则不会*/
 							if (speedHit2 < speedHit1) {
 								hitBall = true;
+								SoundManager.playMusic("res/sound/hit_iron.mp3", 1);
+								
 								/*碰撞方向上，撞后的角度*/
 								var angleHitSpit1:int = hitAngle + 180;
 								var angleHitSpit2:int = hitAngle;
@@ -169,18 +172,18 @@ package module {
 								var speedHitSpit2:int = (Math.abs(speedHit1) + Math.abs(speedHit2)) / 2;
 
 								/*碰撞切线方向上，撞后的角度，根据夹角angleHit1、angleHit2来判断*/
-								while(angleHit1 < 0){
-									angleHit1 +=360;
+								while (angleHit1 < 0) {
+									angleHit1 += 360;
 								}
-								while(angleHit1 > 360){
-									angleHit1 -=360;
+								while (angleHit1 > 360) {
+									angleHit1 -= 360;
 								}
 								var angleSide1:int = hitAngle + ((0 < angleHit1 && angleHit1 < 180) ? 90 : -90);
-								while(angleHit2 < 0){
-									angleHit2 +=360;
+								while (angleHit2 < 0) {
+									angleHit2 += 360;
 								}
-								while(angleHit2 > 360){
-									angleHit2 -=360;
+								while (angleHit2 > 360) {
+									angleHit2 -= 360;
 								}
 								var angleSide2:int = hitAngle + ((0 < angleHit2 && angleHit2 < 180) ? 90 : -90);
 
@@ -201,14 +204,18 @@ package module {
 					}
 				}
 
+				//球移动坐标
 				if (!hitBlock && !hitBall && ball.speed != 0) {
-					ball.speed = ball.speed * ball.speedCost;
-					var xDis:int = Math.cos(ball.ballRotation / 180 * Math.PI) * ball.speed;
-					var yDis:int = Math.sin(ball.ballRotation / 180 * Math.PI) * ball.speed;
+					//速度损耗，要考虑子弹时间 对 速度损耗的填补，即(1 - ball.speedCost) * (1 - timeScale)
+					ball.speed = ball.speed * (ball.speedCost + (1 - ball.speedCost) * (1 - timeScale));
+
+					//位移
+					var xDis:int = Math.cos(ball.ballRotation / 180 * Math.PI) * ball.speed * timeScale;
+					var yDis:int = Math.sin(ball.ballRotation / 180 * Math.PI) * ball.speed * timeScale;
 					ball.x += xDis;
 					ball.y += yDis;
 				}
-				
+
 				totalSpeed += ball.speed;
 			}
 			txtSpeed.innerHTML = totalSpeed + "";
@@ -287,6 +294,10 @@ package module {
 			var disY:int = item2.y - item.y;
 			var dis:int = Math.sqrt(disX * disX + disY * disY);
 			return dis < (item.radius + item2.radius);
+		}
+
+		private function get timeScale():Number {
+			return Params.ins.timeScale;
 		}
 
 	}
