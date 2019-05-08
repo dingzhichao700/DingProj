@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="ItemAttrSkin" xmlns:e="http://ns.egret.com/eui" xmlns:DLG="DLG.*" xmlns:w="http://ns.egret.com/wing">
-	<DLG:CLabel text="【基础属性】" anchorOffsetX="0" fontFamily="KaiTi" textAlign="left" size="24" anchorOffsetY="0" textColor="0xffffff" x="0" y="0"/>
-	<DLG:CLabel id="hp_txt" text="生命：100" anchorOffsetX="0" fontFamily="KaiTi" textAlign="left" size="20" anchorOffsetY="0" textColor="0xffffff" x="10" y="36"/>
-	<DLG:CLabel id="atk_txt" text="攻击：150" anchorOffsetX="0" fontFamily="KaiTi" textAlign="left" size="20" anchorOffsetY="0" textColor="0xffffff" x="10" y="62"/>
-	<DLG:CLabel id="def_txt" text="防御：150" anchorOffsetX="0" fontFamily="KaiTi" textAlign="left" size="20" anchorOffsetY="0" textColor="0xFFFFFF" x="10" y="87"/>
-</e:Skin>

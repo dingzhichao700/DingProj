@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="TabBarItem" width="131" height="44" xmlns:e="http://ns.egret.com/eui" xmlns:DLG="DLG.*" xmlns:w="http://ns.egret.com/wing">
-	<DLG:CButton id="itemBtn" skinName="SelectBtn"/>
-</e:Skin>

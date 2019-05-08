@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="GuidSkinView" width="640" height="960" xmlns:e="http://ns.egret.com/eui" xmlns:DLG="DLG.*" xmlns:w="http://ns.egret.com/wing">
-	<DLG:CRect width="900" height="1600" fillAlpha="0.7" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" verticalCenter="0"/>
-	<DLG:CGroup id="content_box" x="80" y="671" anchorOffsetY="0" anchorOffsetX="0">
-		<DLG:CImage id="arrow_img" scale9Grid="15,15,22,22" anchorOffsetY="0" x="4" y="-45" source="guide_arrow_png" scaleX="1.2" scaleY="1.2"/>
-		<DLG:CImage id="icon_img" scale9Grid="15,15,22,22" anchorOffsetY="0" x="3" y="51" source="menubar_fight_png" scaleX="1" scaleY="1" locked="true"/>
-	</DLG:CGroup>
-</e:Skin>

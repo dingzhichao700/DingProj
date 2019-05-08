@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="TipsItem" states="normal,disabled,normalWithPrompt,disabledWithPrompt" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:DLG="DLG.*">
-	<DLG:CLabel id="label_txt" text="规则说明" x="20.67" y="2.31" size="18" anchorOffsetY="0" height="19.67" textColor="0xffeea0" fontFamily="KaiTi"/>
-	<DLG:CImage x="0" y="0" source="common_tip_icon_png"/>
-</e:Skin>

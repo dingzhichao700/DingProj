@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="AddItemSkin" states="normal,disabled,normalWithPrompt,disabledWithPrompt" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:DLG="DLG.*" height="32">
-	<DLG:CImage id="bg_img" y="0" anchorOffsetX="0" anchorOffsetY="0" x="0" scale9Grid="44,41,12,13" fillMode="scale" source="common_bg_icon_png" width="107" height="32" maxWidth="107" maxHeight="32"/>
-	<DLG:CLabel id="lab_txt" text="9/10" x="7.92" y="7.16" size="20" anchorOffsetY="0" height="20.67" textAlign="center" anchorOffsetX="0" width="77.75" textColor="0xffeea0" fontFamily="KaiTi"/>
-	<DLG:CButton id="add_btn" width="29" height="32" anchorOffsetX="0" anchorOffsetY="0" skinName="AddBtnSkin" x="78" y="1.98"/>
-</e:Skin>

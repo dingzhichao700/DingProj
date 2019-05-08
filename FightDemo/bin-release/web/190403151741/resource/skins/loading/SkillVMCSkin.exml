@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="SkillVMCSkin" width="640" height="960" xmlns:e="http://ns.egret.com/eui" xmlns:DLG="DLG.*" xmlns:w="http://ns.egret.com/wing">
-	<DLG:CRect width="768" height="1080" fillAlpha="0.7" horizontalCenter="0" verticalCenter="-4"/>
-	<DLG:CComponent id="vmc_box" y="0" x="0"/>
-</e:Skin>

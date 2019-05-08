@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="startBtn" width="135" height="125" xmlns:e="http://ns.egret.com/eui" xmlns:DLG="DLG.*" xmlns:w="http://ns.egret.com/wing">
-	<DLG:CImage anchorOffsetX="0" anchorOffsetY="0" source="Login_json.Login_start_png"/>
-</e:Skin>

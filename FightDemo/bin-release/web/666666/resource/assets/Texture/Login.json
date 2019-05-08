@@ -1,9 +1,0 @@
-{"file":"Login.png","frames":{
-"Login_areaBg_png":{"x":554,"y":1,"w":324,"h":74,"offX":0,"offY":0,"sourceW":324,"sourceH":74},
-"Login_panelSkin1_png":{"x":366,"y":75,"w":50,"h":50,"offX":0,"offY":0,"sourceW":50,"sourceH":50},
-"Login_shutDown_png":{"x":418,"y":75,"w":46,"h":47,"offX":0,"offY":0,"sourceW":46,"sourceH":47},
-"Login_smeltBg_png":{"x":1,"y":75,"w":100,"h":100,"offX":0,"offY":0,"sourceW":100,"sourceH":100},
-"Login_start_png":{"x":880,"y":1,"w":135,"h":125,"offX":0,"offY":0,"sourceW":135,"sourceH":125},
-"Login_WndHead_png":{"x":1,"y":1,"w":551,"h":72,"offX":0,"offY":0,"sourceW":551,"sourceH":72},
-"Login_yellowBtnBright_png":{"x":103,"y":75,"w":131,"h":44,"offX":0,"offY":0,"sourceW":131,"sourceH":44},
-"Login_yellowBtnDark_png":{"x":236,"y":75,"w":128,"h":39,"offX":0,"offY":0,"sourceW":128,"sourceH":39}}}

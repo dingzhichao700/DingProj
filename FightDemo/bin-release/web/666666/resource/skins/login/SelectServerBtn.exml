@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="SelectServerBtn" width="80" height="30" xmlns:e="http://ns.egret.com/eui" xmlns:DLG="DLG.*" xmlns:w="http://ns.egret.com/wing">
-	<DLG:CLabel id="label_txt" text="选区" x="0" y="0" width="80" textAlign="center" verticalAlign="middle" fontFamily="KaiTi" textColor="0x72f70c"/>
-</e:Skin>

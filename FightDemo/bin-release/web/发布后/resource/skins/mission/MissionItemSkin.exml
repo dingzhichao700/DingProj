@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="MissionItemSkin" xmlns:e="http://ns.egret.com/eui" xmlns:DLG="DLG.*" xmlns:w="http://ns.egret.com/wing" width="504">
-	<DLG:CImage id="bg_img" anchorOffsetY="0" x="0" y="0" scale9Grid="21,19,13,11" anchorOffsetX="0" source="mission_bg1_png"/>
-	<DLG:CLabel id="label_txt1" text="星斗森林外围（一）" anchorOffsetX="0" width="296" fontFamily="KaiTi" textAlign="left" horizontalCenter="-49" verticalCenter="0.5" size="28" anchorOffsetY="0" height="34" textColor="0x070707" bold="true"/>
-	<DLG:CLabel id="label_txt2" text="（3000年魂兽）" anchorOffsetX="0" width="167" fontFamily="KaiTi" textAlign="right" size="20" anchorOffsetY="0" height="23" textColor="0x070707" bold="true" x="303" y="58"/>
-	<DLG:CImage id="mask_img" anchorOffsetY="0" x="0" y="0" scale9Grid="21,19,13,11" anchorOffsetX="0" source="mission_bg_black_png"/>
-	<DLG:CImage id="arrow_img" scale9Grid="15,15,22,22" anchorOffsetY="0" x="8.4" y="95" source="guide_arrow_png" scaleX="0.7" scaleY="0.7" rotation="270.77"/>
-</e:Skin>

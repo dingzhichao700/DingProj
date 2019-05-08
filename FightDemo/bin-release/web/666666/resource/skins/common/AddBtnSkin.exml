@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="AddBtnSkin" width="29" height="32" xmlns:e="http://ns.egret.com/eui" xmlns:DLG="DLG.*" xmlns:w="http://ns.egret.com/wing">
-	<DLG:CImage id="img" scale9Grid="15,15,22,22" anchorOffsetY="0" x="0" y="0" source="common_btn2_png" width="29" height="32"/>
-</e:Skin>
