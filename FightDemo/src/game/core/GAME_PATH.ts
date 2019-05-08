@@ -4,7 +4,7 @@ module game {
 		public static TYPE_PNG: string = '.png';
 		public static TYPE_JSON: string = '.json';
 	
-		protected static BASE_PATH: string = 'resource2/';
+		protected static BASE_PATH: string = 'resource/';
 		public static ZIP: string = GAME_PATH.BASE_PATH + 'config.zip';
 		public static MAP_PATH: string = GAME_PATH.BASE_PATH + 'map/';
 		public static WALL_PATH: string = GAME_PATH.BASE_PATH + 'wall/';

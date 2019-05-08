@@ -97,7 +97,7 @@ var game_file_list = [
 	"bin-debug/game/modules/load/views/SkillVmcView.js",
 	"bin-debug/game/modules/load/views/WelcomView.js",
 	"bin-debug/game/modules/login/ConnectAction.js",
-	"bin-debug/game/modules/login/LoadGmaeResAction.js",
+	"bin-debug/game/modules/login/LoadMainResAction.js",
 	"bin-debug/game/modules/login/LoginManager.js",
 	"bin-debug/game/modules/login/panels/LoginInputPanel.js",
 	"bin-debug/game/modules/login/panels/SelectServerPanel.js",
