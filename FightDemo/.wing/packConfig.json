@@ -1,0 +1,12 @@
+{
+    "useClip": false,
+    "maxImageWidth": 2048,
+    "maxImageHeight": 2048,
+    "defaultResPath": "e:\\works\\client\\tafang2\\resource\\default.res.json",
+    "packGroups": {
+        "preload": true,
+        "createRole": true,
+        "main": true,
+        "common": true
+    }
+}

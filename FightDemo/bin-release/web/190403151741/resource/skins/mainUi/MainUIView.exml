@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="MainUI" width="640" height="960" xmlns:e="http://ns.egret.com/eui" xmlns:DLG="DLG.*" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" xmlns:panel="panel.*">
+	<DLG:CGroup id="top_box" x="0" y="0" width="640">
+		<DLG:CImage anchorOffsetY="0" anchorOffsetX="0" x="-7" y="-3" source="mainTop_bg_img1_png" scale9Grid="306,14,15,18" width="657" scaleX="1" scaleY="1"/>
+		<DLG:CImage y="35.81" anchorOffsetX="0" anchorOffsetY="0" scale9Grid="35,32,35,35" x="438.34" scaleX="1" scaleY="1" source="mainTop_fight_bg_png"/>
+		<DLG:CLabel id="title_txt" text="Label" x="450" y="57" width="105" size="20" textAlign="center" fontFamily="KaiTi" scaleX="1" scaleY="1" anchorOffsetX="0"/>
+		<DLG:CLabel id="des_txt" text="Label" x="453.71" y="88.31" width="80.33" anchorOffsetY="0" height="54" size="18" fontFamily="KaiTi" scaleX="1" scaleY="1" anchorOffsetX="0" textAlign="center"/>
+		<DLG:CImage anchorOffsetY="0" x="8.33" y="0.32" anchorOffsetX="0" scale9Grid="0,0,157,149" source="mainTop_head_bg_png" scaleX="1" scaleY="1"/>
+		<DLG:CImage anchorOffsetY="0" scale9Grid="0,0,26,32" anchorOffsetX="0" x="19.33" y="3.32" source="mainTop_head_img_png" scaleX="1" scaleY="1"/>
+		<DLG:CImage anchorOffsetY="0" scale9Grid="0,0,26,32" anchorOffsetX="0" x="14.43" y="75.32" source="mainTop_bg4_png" scaleX="1" scaleY="1"/>
+		<DLG:CImage anchorOffsetY="0" scale9Grid="0,0,26,32" anchorOffsetX="0" x="374.34" y="7.5" source="mainTop_name_bg_png" scaleX="1" scaleY="1"/>
+		<DLG:CImage anchorOffsetY="0" scale9Grid="0,0,26,32" anchorOffsetX="0" x="511.34" y="7.5" source="mainTop_name_bg_png" scaleX="1" scaleY="1"/>
+		<DLG:CImage anchorOffsetY="0" scale9Grid="0,0,26,32" anchorOffsetX="0" x="93.98" y="0" scaleX="1" scaleY="1" source="mainTop_power_img_png"/>
+		<DLG:CImage anchorOffsetY="0" scale9Grid="0,0,26,32" anchorOffsetX="0" x="133.14" y="12" scaleX="1" scaleY="1" source="mainTop_num_6_png"/>
+		<DLG:CImage anchorOffsetY="0" scale9Grid="0,0,26,32" anchorOffsetX="0" x="147.99" y="12" scaleX="1" scaleY="1" source="mainTop_num_1_png"/>
+		<DLG:CImage anchorOffsetY="0" scale9Grid="0,0,26,32" anchorOffsetX="0" x="162.95" y="12" scaleX="1" scaleY="1" source="mainTop_num_9_png"/>
+		<DLG:CImage anchorOffsetY="0" scale9Grid="0,0,26,32" anchorOffsetX="0" x="364.75" y="8" scaleX="1" scaleY="1" source="mainTop_money1_png"/>
+		<DLG:CImage anchorOffsetY="0" scale9Grid="0,0,26,32" anchorOffsetX="0" x="501.54" y="8" scaleX="1" scaleY="1" source="mainTop_money2_png"/>
+		<DLG:CLabel text="100" x="530" y="12" anchorOffsetY="0" size="20" fontFamily="KaiTi" scaleX="1" scaleY="1" anchorOffsetX="0"/>
+		<DLG:CLabel text="253" x="396.17" y="12" anchorOffsetY="0" size="20" fontFamily="KaiTi" scaleX="1" scaleY="1" anchorOffsetX="0"/>
+	</DLG:CGroup>
+	<DLG:CGroup id="bottom_box" x="65" y="858.5">
+		<DLG:CImage y="0" anchorOffsetX="0" anchorOffsetY="0" scale9Grid="35,32,35,35" x="0" scaleX="1" scaleY="1" source="mainTop_bg3_png"/>
+		<DLG:CList id="mainList" width="461" height="89.4" anchorOffsetX="0" anchorOffsetY="0" itemRendererSkinName="MainUITabBarItem" x="15" y="10" scaleX="1" scaleY="1">
+		<e:layout>
+			<e:VerticalLayout gap="10"/>
+		</e:layout>
+		</DLG:CList>
+	</DLG:CGroup>
+</e:Skin>

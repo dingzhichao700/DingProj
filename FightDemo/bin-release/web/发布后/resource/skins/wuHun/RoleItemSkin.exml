@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="RoleItemSkin" width="97" height="100" xmlns:e="http://ns.egret.com/eui" xmlns:DLG="DLG.*" xmlns:w="http://ns.egret.com/wing" xmlns:game="game.*">
+	<DLG:CImage id="bg_img" anchorOffsetY="0" x="8" y="11" anchorOffsetX="0" source="wuHun_bg_head_png" scale9Grid="0,0,157,149"/>
+	<DLG:CImage id="select_mc" anchorOffsetY="0" scale9Grid="0,0,26,32" width="89" height="89" anchorOffsetX="0" y="2" x="-2.5" source="wuHun_bg_head1_png" scaleX="1.2" scaleY="1.2"/>
+	<DLG:CImage id="icon_img" anchorOffsetY="0" scale9Grid="0,0,26,32" source="wuHun_head_1_png" anchorOffsetX="0" x="0" y="0"/>
+	<DLG:CImage anchorOffsetY="0" scale9Grid="0,0,26,32" anchorOffsetX="0" x="-1" y="77" source="wuHun_head_title_png"/>
+	<DLG:CImage id="icon_title" anchorOffsetY="0" scale9Grid="0,0,26,32" anchorOffsetX="0" x="14" y="79" source="wuHun_head_title_1_png"/>
+</e:Skin>

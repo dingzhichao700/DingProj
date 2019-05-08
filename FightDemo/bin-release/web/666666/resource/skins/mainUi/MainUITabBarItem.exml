@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="MainUITabBarItem" width="99" height="90" xmlns:e="http://ns.egret.com/eui" xmlns:DLG="DLG.*" xmlns:w="http://ns.egret.com/wing">
+	<DLG:CButton id="btn" width="99" height="90" horizontalCenter="0" y="0" skinName="MainBtn"/>
+</e:Skin>

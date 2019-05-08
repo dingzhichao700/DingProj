@@ -1,0 +1,14 @@
+{
+  "global": {
+    "globalAutoLayerMarkEnable": false,
+    "globalRulerEnable": true
+  },
+  "169dd140a5c": {
+    "guideLines": [
+      {
+        "type": "v",
+        "pos": 84
+      }
+    ]
+  }
+}

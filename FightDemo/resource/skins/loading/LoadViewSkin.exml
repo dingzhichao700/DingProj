@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="LoadViewSkin" width="640" height="960" xmlns:e="http://ns.egret.com/eui" xmlns:DLG="DLG.*" xmlns:w="http://ns.egret.com/wing">
+	<DLG:CBigImage id="loginBg" width="900" height="1600" horizontalCenter="0" verticalCenter="0" source="loginBg_jpg"/>
+	<DLG:CComponent id="barItem" x="86" y="709" anchorOffsetY="0" skinName="LoadBarSkin"/>
+	<DLG:CImage id="loginBg1" x="32" y="862" source="load_bg1_png"/>
+	<DLG:CImage id="loginBg2" x="0" y="63.12" source="load_bg2_png"/>
+</e:Skin>

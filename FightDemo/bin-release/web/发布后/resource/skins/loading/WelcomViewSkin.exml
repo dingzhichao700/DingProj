@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="WelcomViewSkin" width="640" height="960" xmlns:e="http://ns.egret.com/eui" xmlns:DLG="DLG.*" xmlns:w="http://ns.egret.com/wing">
+	<DLG:CRect width="900" height="1600" fillAlpha="0.7" horizontalCenter="0" verticalCenter="0"/>
+	<DLG:CImage y="167" source="welcom_bg_png" horizontalCenter="0.5"/>
+	<DLG:CImage x="217" y="445.83" source="welcom_button_png"/>
+</e:Skin>

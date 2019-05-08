@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="WeaponItemSkin" xmlns:e="http://ns.egret.com/eui" xmlns:DLG="DLG.*" xmlns:w="http://ns.egret.com/wing" xmlns:game="game.*">
+	<DLG:CGroup x="0" y="0">
+		<DLG:CImage anchorOffsetY="0" x="6.2" y="11.8" anchorOffsetX="0" source="weapon_head_bg_png" scale9Grid="0,0,157,149" scaleX="1" scaleY="1"/>
+		<DLG:CImage id="select_mc" anchorOffsetY="0" scale9Grid="0,0,26,32" anchorOffsetX="0" y="0" x="0" source="weapon_head_bg1_png" scaleX="1" scaleY="1"/>
+		<DLG:CImage id="icon_img" anchorOffsetY="0" scale9Grid="0,0,26,32" anchorOffsetX="0" source="head_icon2_png" y="14.5" x="23" scaleX="1" scaleY="1"/>
+		<DLG:CImage id="icon_lock" anchorOffsetY="0" scale9Grid="0,0,26,32" anchorOffsetX="0" y="27.5" x="31.700000000000003" source="weapon_lock_png" scaleX="1" scaleY="1"/>
+		<DLG:CImage id="new_icon" anchorOffsetY="0" scale9Grid="0,0,26,32" anchorOffsetX="0" source="weapon_new_icon_png" y="3.2" x="15" scaleX="1" scaleY="1"/>
+		<DLG:CImage id="title_img" anchorOffsetY="0" anchorOffsetX="0" source="weapon_head_title_png" y="84" scaleX="1" scaleY="1" scale9Grid="42,5,7,12" width="102.03" height="25.33" horizontalCenter="1"/>
+		<DLG:CLabel id="label_txt" text="暴雨梨花针" anchorOffsetX="0" width="82.5" fontFamily="KaiTi" textAlign="center" size="16" x="13.700000000000001" y="86.3" textColor="0x000000" scaleX="1" scaleY="1"/>
+		<DLG:CImage id="name_img" y="85.97" anchorOffsetX="0" anchorOffsetY="0" scale9Grid="299,447,34,171" scaleX="0.55" scaleY="0.55" horizontalCenter="1" x="38" source="weapon_title_4_png"/>
+	</DLG:CGroup>
+</e:Skin>

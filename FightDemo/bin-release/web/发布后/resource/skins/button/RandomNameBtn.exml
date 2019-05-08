@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="RandomNameBtn" width="49" height="50" xmlns:e="http://ns.egret.com/eui" xmlns:DLG="DLG.*">
+	<DLG:CImage source="CreateRole_json.CreateRole_ShaiZi_png" x="0" y="0"/>
+</e:Skin>

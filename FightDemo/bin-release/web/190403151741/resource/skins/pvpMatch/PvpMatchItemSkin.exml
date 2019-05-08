@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="PvpMatchItemSkin" xmlns:e="http://ns.egret.com/eui" xmlns:DLG="DLG.*" xmlns:w="http://ns.egret.com/wing">
+	<DLG:CImage id="bg_img" anchorOffsetY="0" x="0" y="0" scale9Grid="21,19,13,11" source="pvp_head_bg1_png"/>
+	<DLG:CImage id="icon_img" anchorOffsetY="0" x="38" y="2" scaleX="0.8" scaleY="0.8" scale9Grid="0,0,26,32" source="pvp_head_1_png"/>
+	<DLG:CImage id="icon_title" anchorOffsetY="0" x="37.2" y="139" scaleX="0.8" scaleY="0.8" scale9Grid="0,0,26,32" source="pvp_lv_img_png"/>
+	<DLG:CLabel id="label_txt" text="登录" anchorOffsetX="0" width="71" fontFamily="KaiTi" textAlign="left" horizontalCenter="52.5" verticalCenter="69.5" size="18" textColor="0xffffff"/>
+</e:Skin>

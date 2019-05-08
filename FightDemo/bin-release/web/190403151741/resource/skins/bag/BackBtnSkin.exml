@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="BackBtnSkin" width="74" height="120" xmlns:e="http://ns.egret.com/eui" xmlns:DLG="DLG.*" xmlns:w="http://ns.egret.com/wing">
+	<DLG:CImage id="img" width="74" height="83" scale9Grid="15,15,22,22" anchorOffsetY="0" x="0" y="0" source="common_back_btn_png"/>
+	<DLG:CImage id="img0" width="59" height="34" scale9Grid="15,15,22,22" anchorOffsetY="0" x="0.68" y="82.51" source="common_back_icon_png"/>
+</e:Skin>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="WuHunItemSkin" width="60" height="64" xmlns:e="http://ns.egret.com/eui" xmlns:DLG="DLG.*" xmlns:w="http://ns.egret.com/wing">
+	<DLG:CImage id="bg_img" width="60" height="64" anchorOffsetY="0" x="0" y="0" scale9Grid="21,19,13,11" source="wuHun_icon_bg_png"/>
+	<DLG:CImage id="icon_img" anchorOffsetY="0" scaleX="0.8" scaleY="0.8" scale9Grid="0,0,26,32" source="goods_10004_png" horizontalCenter="-0.5" verticalCenter="-0.5"/>
+</e:Skin>

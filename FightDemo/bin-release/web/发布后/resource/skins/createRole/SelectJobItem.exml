@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="SelectJobItem" width="86" height="87" xmlns:e="http://ns.egret.com/eui" xmlns:DLG="DLG.*" xmlns:w="http://ns.egret.com/wing">
+	<DLG:CImage id="jobIcon" anchorOffsetX="0" anchorOffsetY="0" source="CreateRole_json.CreateRole_HeroIcon_1_png" horizontalCenter="0" verticalCenter="0"/>
+	<DLG:CImage id="select_mc" anchorOffsetX="0" anchorOffsetY="0" source="CreateRole_json.CreateRole_SexGuang_png" horizontalCenter="0" verticalCenter="0"/>
+</e:Skin>

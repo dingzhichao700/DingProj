@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="CloseBtn" width="46" height="47" xmlns:e="http://ns.egret.com/eui" xmlns:DLG="DLG.*" xmlns:w="http://ns.egret.com/wing">
+	<DLG:CImage id="img" x="0" y="0" source="Login_json.Login_shutDown_png"/>
+</e:Skin>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="bagView" width="640" height="960" xmlns:e="http://ns.egret.com/eui" xmlns:DLG="DLG.*" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" xmlns:panel="panel.*">
+	<DLG:CRect width="768" height="1080" fillAlpha="0.7" horizontalCenter="0" verticalCenter="-4"/>
+	<DLG:CImage anchorOffsetX="0" anchorOffsetY="0" height="960" scale9Grid="299,447,34,171" source="common_panel_bg_png" horizontalCenter="-0.5" verticalCenter="0" locked="true"/>
+	<DLG:CImage anchorOffsetX="0" anchorOffsetY="0" scale9Grid="299,447,34,171" horizontalCenter="1" verticalCenter="-457.5" source="bag_json.bag_title_png"/>
+	<DLG:CImage anchorOffsetX="0" anchorOffsetY="0" scale9Grid="299,447,34,171" horizontalCenter="3.5" verticalCenter="-51.5" source="bag_json.bag_bg_png" locked="true"/>
+	<DLG:CLabel text="包裹：" anchorOffsetX="0" fontFamily="KaiTi" textAlign="left" horizontalCenter="137" verticalCenter="-402" size="24" textColor="0xffeea0"/>
+	<DLG:CLabel id="num_txt" text="100/200" anchorOffsetX="0" width="324" fontFamily="KaiTi" textAlign="right" horizontalCenter="87" verticalCenter="-402.5" size="24" textColor="0x067800"/>
+	<DLG:CList id="list" width="480" height="642.73" anchorOffsetX="0" anchorOffsetY="0" x="87" y="108.44" itemRendererSkinName="BagItemSkin">
+		<e:layout>
+			<e:VerticalLayout gap="10"/>
+		</e:layout>
+	</DLG:CList>
+	<DLG:CButton id="rong_btn" width="172" height="68" horizontalCenter="0" y="774.02" skinName="BagBtnSkin" anchorOffsetX="0" visible="false"/>
+	<DLG:CButton id="back_btn" width="74" height="83" horizontalCenter="-199" y="828.72" x="10" skinName="BackBtnSkin"/>
+	<DLG:CButton id="close_btn" width="52" height="52" horizontalCenter="263" y="7.19" x="20" skinName="CloseBtn"/>
+</e:Skin>

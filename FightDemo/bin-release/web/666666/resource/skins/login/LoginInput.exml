@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="loginInput" width="640" height="490" xmlns:e="http://ns.egret.com/eui" xmlns:DLG="DLG.*" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<DLG:CRect width="640" height="490" x="0" y="0" anchorOffsetX="0" anchorOffsetY="0" fillColor="0x141619"/>
+	<DLG:CLabel text="服务器" x="76" y="50" anchorOffsetX="0" fontFamily="SimHei"/>
+	<DLG:CLabel text="用户名" x="76" y="120" anchorOffsetX="0" fontFamily="SimHei"/>
+	<DLG:CLabel text="密码" x="76" y="190" anchorOffsetX="0" fontFamily="SimHei" width="90" textAlign="center"/>
+	<DLG:CRect width="300" height="40" x="195" y="115" fillColor="0xffffff"/>
+	<DLG:CRect width="300" height="40" x="195" y="45" fillColor="0xFFFFFF"/>
+	<DLG:CRect width="300" height="40" x="195" y="185" fillColor="0xFFFFFF"/>
+	<DLG:CTextInput id="serverId" x="195" y="45" skinName="TextInput"/>
+	<DLG:CTextInput id="userName" x="195" y="115" skinName="TextInput"/>
+	<DLG:CTextInput id="password" x="195" y="185" skinName="TextInput"/>
+	<DLG:CButton id="confirmBtn" width="200" height="50" skinName="LoginBtn" horizontalCenter="0" verticalCenter="79"/>
+</e:Skin>

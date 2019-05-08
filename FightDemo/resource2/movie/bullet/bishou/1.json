@@ -1,0 +1,20 @@
+{"frames": [
+
+{
+	"filename": "15151.png",
+	"frame": {"x":2,"y":2,"w":30,"h":78},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":234,"y":187,"w":30,"h":78},
+	"sourceSize": {"w":500,"h":500}
+}],
+"meta": {
+	"app": "http://www.texturepacker.com",
+	"version": "1.0",
+	"image": "1.png",
+	"format": "RGBA8888",
+	"size": {"w":34,"h":82},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:d9970ae62fb68af9141658b1eebdcad0$"
+}
+}
