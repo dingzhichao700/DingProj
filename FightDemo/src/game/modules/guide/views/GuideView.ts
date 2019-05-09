@@ -1,5 +1,6 @@
 class GuideView extends DLG.CComponent {
 	public onLoadCallBack: Function;
+	
 	public onLoadCallTarget: any;
 	public isLoad: boolean;
 
@@ -17,6 +18,7 @@ class GuideView extends DLG.CComponent {
 
 	/** 创建完成*/
 	public createCompleteEvent(event: eui.UIEvent): void {
+		// let name = jobNameAction.getRandomName(self.selectSex);
 		let self = this;
 		self.isLoad = true;
 		self.removeEventListener(eui.UIEvent.CREATION_COMPLETE, self.createCompleteEvent, self);

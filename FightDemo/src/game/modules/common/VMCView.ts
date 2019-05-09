@@ -104,7 +104,7 @@ module game {
 			// loadvo.load(_url, self.loadCfgComplete, self);
 
 
-			self._url = 'resource2/movie/effect/' + url + "/1";
+			self._url = 'resource/movie/effect/' + url + "/1";
 			let loadMar: MovieLoadManager = MovieLoadManager.getInstance();
 			let arr = loadMar.getRes(self._url);
 			if (arr) {

@@ -4,6 +4,19 @@ module game {
 		protected RES_MAIN: string = 'main';
 		protected isLoadMain: boolean = false;
 
+		private loadCount:number;
+		private cfg_list: Array<string>;
+
+		public static global_json: string = 'cfg_Global.json';
+		public static lan_json: string = 'cfg_Lan.json';
+		public static monster_json: string = 'cfg_Monster.json';
+		public static bullet_json: string = 'cfg_Bullet.json';
+		public static skill_json: string = 'cfg_skill.json';
+		public static scene_json: string = 'cfg_Scene.json';
+		public static goods_json: string = 'cfg_goods.json';
+		public static buff_json: string = 'cfg_buff.json';
+		public static effect_json: string = 'cfg_effect.json';
+
 		public constructor() {
 			super();
 		}
@@ -20,7 +33,37 @@ module game {
 				// RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS, self.onResourceProgress, self);
 				RES.loadGroup(self.RES_MAIN);
 
-				DLG.Utils.getZipResByUrl(GAME_PATH.ZIP, this.onConfigDataComplete, this, RES.ResourceItem.TYPE_BIN);
+				// DLG.Utils.getZipResByUrl(GAME_PATH.ZIP, this.onConfigDataComplete, this, RES.ResourceItem.TYPE_BIN);
+				this.cfg_list =  [LoadMainResAction.lan_json,
+								LoadMainResAction.global_json,
+								LoadMainResAction.monster_json,
+								LoadMainResAction.bullet_json,
+								LoadMainResAction.skill_json,
+								LoadMainResAction.scene_json,
+								LoadMainResAction.goods_json,
+								LoadMainResAction.buff_json,
+								LoadMainResAction.effect_json];
+				this.loadCount = 0;
+				this.loadCfg();
+			}
+		}
+
+		private loadCfg(): void {
+			let url:string = this.cfg_list[this.loadCount];
+			RES.getResByUrl(GAME_PATH.CONFIG + url, this.onCfg, this, RES.ResourceItem.TYPE_JSON);
+		}
+
+		private onCfg(data): void {
+			let _name:string = this.cfg_list[this.loadCount];
+			_name = _name.replace('.json', "_json");
+			CfgData.setCfgData(_name, data);
+			this.loadCount++;
+			if(this.loadCount >= this.cfg_list.length){
+				LoginManager.getInstance().loadZip = true;
+				LoginManager.getInstance().checkComeInGame();
+				this.allOk();
+			} else {
+				this.loadCfg();
 			}
 		}
 

@@ -20,6 +20,11 @@ module game {
 			}
 			return null;
 		}
+		
+		public static setCfgData(url: string, data: Array<string>): void {
+			this.josnData[url] = data;
+		}
+
 		public static setDataByUrl(url: string, data: string): void {
 			let self = this;
 			data = data.replace(/\r/g, '');

@@ -5,7 +5,8 @@ module game {
 		public static TYPE_JSON: string = '.json';
 	
 		protected static BASE_PATH: string = 'resource/';
-		public static ZIP: string = GAME_PATH.BASE_PATH + 'config.zip';
+		// public static ZIP: string = GAME_PATH.BASE_PATH + 'config.zip';
+		public static CONFIG: string = GAME_PATH.BASE_PATH + 'config/';
 		public static MAP_PATH: string = GAME_PATH.BASE_PATH + 'map/';
 		public static WALL_PATH: string = GAME_PATH.BASE_PATH + 'wall/';
 		public static MOVIE_PLAYER_PATH: string = GAME_PATH.BASE_PATH + 'movie/player/';
