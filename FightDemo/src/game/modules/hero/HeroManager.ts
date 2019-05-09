@@ -27,7 +27,7 @@ module game {
 			let sceneMar: SceneManager = SceneManager.getInstance();
 			let driverdata: RoleData = sceneMar.createDriverData(ENUM_DriverType.role);
 			driverdata.x = pointArr[index];
-			driverdata.y = 780;
+			driverdata.y = 880;
 			driverdata.index = index;
 			driverdata.attr.clear();
 			driverdata.attr = attr;

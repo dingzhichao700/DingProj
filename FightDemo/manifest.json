@@ -5,9 +5,7 @@
 		"libs/modules/game/game.js",
 		"libs/modules/res/res.js",
 		"libs/modules/eui/eui.js",
-		"libs/modules/tween/tween.js",
-		"libs/modules/socket/socket.js",
-		"libs/jszip/jszip.js"
+		"libs/modules/tween/tween.js"
 	],
 	"game": [
 		"bin-debug/com/DLG/views/components/CComponent.js",

@@ -5,6 +5,7 @@ module game {
 			let self = this;
 			self._direction = ENUM_DriverDirection.up;
 		}
+
 		protected init(): void {
 			let self = this;
 
@@ -14,13 +15,12 @@ module game {
 			self._bodySkin.loadMovie();
 			self.update();
 			self.stand();
-		
 		}
+
 		public attack(skillId: number, px: number, py: number,monsterNotHit?:number): void {
 			let self = this;
 			super.attack(skillId, px, py);
 			let data: DriverData = self._data;
-			
 			
 			if (data.driverType == ENUM_DriverType.role) {
 				(<RoleData>data).attackPx = px;
@@ -28,9 +28,7 @@ module game {
 			}
 			let useSkillAction: UseSkillAction = DLG.FactoryUtils.getClass(UseSkillAction);
 			useSkillAction.useSkill(self, skillId);
-			
 		}
-		
 
 		public onPlayFrameCallBack(frame: number, _totalFrame: number): void {
 			let self = this;
@@ -38,17 +36,6 @@ module game {
 				if (frame == _totalFrame) {
 					self.stand();
 				}
-				// if (index == 2)
-				// {
-				// let data: DriverData = self._data;
-				// if (data)
-				// {
-				// 	FightManager.getInstance().useSkill(this, data.lastUseSkill  );
-				// }
-				// } else if (index == _totalFrame - 1)
-				// {
-				// 	self.stand();
-				// }	
 			}
 			if (frame == _totalFrame)
 			{
@@ -68,18 +55,6 @@ module game {
 						}	
 					}	
 				}
-				// else if (data.job == ENUM_JOB_TYPE.JOB_FS)
-				// {
-				// 	if (skills.indexOf(SkillType.JOB_FS_13011) != -1) {
-				// 		if (useSkillAction.checkSkillIsCD(data.id, SkillType.JOB_FS_13011) == false)
-				// 		{ 
-				// 			useSkillAction.setSkillCdTime(data.id, SkillType.JOB_FS_13011);
-				// 			data.bigWeaponHaveTimes = data.bigWeaponTotalTimes;
-				// 		}
-						
-				// 	}
-				// }	
-				
 			}	
 		}
 	

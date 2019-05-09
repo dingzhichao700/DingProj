@@ -117,7 +117,7 @@ module game {
 
 			self._wallBmp.texture = texture;
 			self._wallBmp.x = (GAME_CORE.APP_WIDTH - texture._bitmapWidth )>>1;
-			self._wallBmp.y = 660;
+			self._wallBmp.y = 760;
 		}
 		private onLoadError(): void {
 			let self = this;

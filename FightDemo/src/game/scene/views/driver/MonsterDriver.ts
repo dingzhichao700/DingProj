@@ -13,7 +13,6 @@ module game {
 		public constructor() {
 			super();
 			let self = this;
-			// self._data = new DriverData();
 			self.touchEnabled = false;
 			self._direction = ENUM_DriverDirection.down;
 			self._bodySkin = new MovieSkin(GAME_CORE.SHOW_MAP_MOVIE);
@@ -21,16 +20,13 @@ module game {
 			self._bodySkin.onPlayFrameCallBack = self.onPlayFrameCallBack;
 			self._bodySkin.onPlayFrameTaget = self;
 			self.addChild(self._bodySkin);
-		
-		
 		}
+
 		protected init(): void {
 			let self = this;
 		
 			self._bodySkin.setDirection(self._direction);
 			self._bodySkin.setMovieName(GAME_PATH.MOVIE_MONSTER_PATH, self._data.movieName);
-			// self._bodySkin.setAction(DriverAction.run);
-			// self._bodySkin.loadMovie();
 			self.stand();
 			self.update();
 			self.stand();
@@ -68,17 +64,15 @@ module game {
 					sp2.graphics.endFill();
 				}
 			}
-		
 		}
+
 		public showHpBar(value: boolean): void {
 			let self = this;
 			if (value && !self._hpBar) {
 				self._hpBar = new HpBar();
 				self._hpBar.showStyle();
-				// self._hpBar.x = self._hpBar.width / 2;
 			}
-			if (self._hpBar)
-			{
+			if (self._hpBar) {
 				if (value) {
 					if (self._hpBar.parent == null) self.addChild(self._hpBar);
 				} else {
@@ -88,10 +82,8 @@ module game {
 		}
 	
 		public showEffect(effectid:number, playTimes: number = 1): void {
-			
 			let self = this;
-			if (effectid == 0)
-			{
+			if (effectid == 0) {
 				return;
 			}	
 			let effectCfg: EffectCfg = EffectTable.getCfgById<EffectCfg>(effectid);
@@ -149,12 +141,10 @@ module game {
 					}
 				}
 				
-				if (effectCfg.py != 0)
-				{
+				if (effectCfg.py != 0) {
 					effect.y += effectCfg.py;
 				}
-				if (effectCfg.range && isBoss)
-				{
+				if (effectCfg.range && isBoss) {
 					let _px: number = DLG.Utils.random(-effectCfg.range, effectCfg.range);
 					let _py: number = DLG.Utils.random(-effectCfg.range, effectCfg.range);
 					effect.y += _py;
@@ -165,16 +155,10 @@ module game {
 				effect.onPlayEndCallBack = self.removeEffectCallBack;
 				effect.onPlayEndTaget = self;
 			}
-			// else
-			// {
-			// 	effect.clear();
-			// 	effect.play(playTimes);	
-			// }
-		
 		}
+
 		private hitEffectID: number;
-		public showHitEffect(): void
-		{
+		public showHitEffect(): void {
 			let self = this;
 			if (self._bodySkin.filters !== undefined)
 			{
@@ -183,45 +167,22 @@ module game {
 			self._bodySkin.filters = [DLG.DLGConfig.lightColorFlilter];
 			self.hitEffectID = DLG.DLGCore.clock.addTime(150, 1, self.removeHitEffect, self, null);
 		}
-		private removeHitEffect(): void
-		{
+
+		private removeHitEffect(): void {
 			let self = this;
-			if (self.hitEffectID)
-			{
+			if (self.hitEffectID) {
 				DLG.DLGCore.clock.removeTime(self.hitEffectID)
 				self.hitEffectID = undefined;
 			}
-			if (self._bodySkin.filters)
-			{
-				// self._bodySkin.filters.length = 0;
+			if (self._bodySkin.filters) {
 				self._bodySkin.filters = [];
 				self._bodySkin.filters = undefined;
 			}	
 		}
+
 		public removeEffectCallBack(): void {
 			let self = this;
-			// if (self._effectSprite && self._effectSprite.numChildren == 0) {
-			// 	self.removeChild(self._effectSprite);
-			// 	self._effectSprite = undefined;
-			// }
 		}
-		// public removeEffect(movieName: string ): void
-		// {
-		// 	let self = this;
-		// 	if (!self._effectSprite)
-		// 	{
-		// 		return;
-		// 	}
-		// 	let effect: EffectMovie = <EffectMovie>self._effectSprite.getChildByName(movieName);
-		// 	self._effectSprite.removeChild(effect);
-		// 	EffectMovie.returnEffectMovie(effect);
-		// 	if (self._effectSprite.numChildren == 0)
-		// 	{
-		// 		self.removeChild(self._effectSprite);
-		// 		self._effectSprite = undefined;
-		// 	}
-		// }
-
 	
 		public stand(): void {
 			let self = this;
@@ -229,17 +190,16 @@ module game {
 			self._bodySkin.setAction(self._actionState);
 			self._bodySkin.loadMovie();
 		}
+		
 		public attack(skillId: number, px: number, py: number,monsterNotHit?:number): void {
 			let self = this;
 			let data: DriverData = self._data;
 			if (!data) {
 				return;
 			}
-			if ((<MonsterData>data).isSwoonTime )
-			{
+			if ((<MonsterData>data).isSwoonTime ) {
 				return;
 			}
-			// data.lastUseSkill = skillId;
 			
 			if (self.isAttack() == false) {
 				self._actionState = ENUM_DriverAction.attack;
@@ -251,16 +211,17 @@ module game {
 				useSkillAction.useSkill(self, skillId,monsterNotHit);
 			}
 		}
+
 		public run(): void {
 			let self = this;
-			if ((<MonsterData>self._data).isSwoonTime )
-			{
+			if ((<MonsterData>self._data).isSwoonTime ) {
 				return;
 			}
 			self._actionState = ENUM_DriverAction.run;
 			self._bodySkin.setAction(self._actionState);
 			self._bodySkin.loadMovie();
 		}
+
 		public isAttack(): boolean {
 			let self = this;
 			if (self._actionState == ENUM_DriverAction.attack) {
@@ -268,6 +229,7 @@ module game {
 			}
 			return false;
 		}
+
 		public update(): void {
 			let self = this;
 			let data = self._data;
@@ -279,8 +241,8 @@ module game {
 			if (self._hpBar && self._hpBar.parent) {
 				self._hpBar.setValue(data.attr.getValue(Enum_Attr.hp), data.attr.getValue(Enum_Attr.totalHp));
 			}
-
 		}
+
 		public nextFrame(): void {
 			let self = this;
 			if ((<MonsterData>self._data).isSwoonTime)
@@ -289,25 +251,16 @@ module game {
 			}
 			self._bodySkin.nextFrame();
 		}
+
 		public onPlayFrameCallBack(frame: number, _totalFrame: number): void {
 			let self = this;
 			if (self._actionState == ENUM_DriverAction.attack) {
 				if (frame == _totalFrame) {
 					self.stand();
 				}
-				// if (index == 2)
-				// {
-				// let data: DriverData = self._data;
-				// if (data)
-				// {
-				// 	FightManager.getInstance().useSkill(this, data.lastUseSkill  );
-				// }
-				// } else if (index == _totalFrame - 1)
-				// {
-				// 	self.stand();
-				// }	
 			}
 		}
+
 		public move(): void {
 			let self = this;
 			let data: DriverData = self._data;
@@ -328,7 +281,6 @@ module game {
 			}
 		}
 	
-	
 		public setData(value: DriverData): void {
 			let self = this;
 			if (!self._data) {
@@ -339,19 +291,17 @@ module game {
 				self.update();
 			}
 		}
+
 		public getData(): DriverData {
 			return this._data;
 		}
-		// public getActionState(): number
-		// {
-		// 	return this._actionState;
-		// }
+		
 		public clear(): void {
 			let self = this;
 			self.rotation = 0;
 			self.removeHitEffect();
 			self.showHpBar(false);
-			// self._bodySkin.destroy();
 		}
+
 	}
 }

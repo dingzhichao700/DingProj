@@ -7,11 +7,7 @@ module game {
 		driverType: number;
 		movieName: string;
 		skills: Array<number>
-		// lastUseSkill: number;
-	
-		// speed: number;
-		// hp: number;
-		// totalHp: number;
+		
 		attr: AttrData;
 
 		buffs: Array<Array<BuffData>>;
@@ -21,6 +17,7 @@ module game {
 		clearBuff(): void
 		clear(): void
 	}
+	
 	export class DriverData implements IDriverData {
 		public constructor() {
 		}
@@ -31,11 +28,7 @@ module game {
 		public driverType: number;
 		public movieName: string;
 		public skills: Array<number>
-		// public lastUseSkill: number;
-	
-		// public hp: number;
-		// public totalHp: number;
-		// public speed: number;
+		
 		public attr: AttrData;
 		public buffs: Array<Array<BuffData>>;
 		public buffsAttr: AttrData;
@@ -58,6 +51,7 @@ module game {
 				self.buffsAttr.clear();
 			}
 		}
+
 		public clear(): void {
 			let self = this;
 			self.x = undefined;
@@ -69,8 +63,6 @@ module game {
 				self.skills.length = 0;
 			}
 			self.skills = undefined;
-			// self.lastUseSkill = undefined;
-
 		
 			if (self.attr) {
 				self.attr.clear();
@@ -78,17 +70,13 @@ module game {
 			}
 			
 			self.clearBuff();
-			if (self.buffs)
-			{
+			if (self.buffs) {
 				self.buffs = undefined;
 			}	
-			if (self.buffsAttr)
-			{
+			if (self.buffsAttr) {
 				self.buffsAttr.clear();
 				self.buffsAttr = undefined;
 			}	
-			
-
 		}
 	
 	}

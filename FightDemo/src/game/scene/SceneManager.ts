@@ -58,10 +58,8 @@ module game {
 				let blood: FontBlood = new FontBlood();
 				arr.push(blood);
 			}
-
-
-
 		}
+
 		public static getInstance(): SceneManager {
 			let self = this;
 			if (!self._instance) {
@@ -69,12 +67,7 @@ module game {
 			}
 			return self._instance;
 		}
-		// /**初始化战斗场景 */
-		// public initScene(): void
-		// {
-		// 	let scene: SceneWindow = new SceneWindow;
-		// 	DLG.DLGCore.stage.addChildAt(scene,0);
-		// }
+		
 		public initLayer(driverLayer: DriverRenderLayer, mapLayer: SceneMapLayer, _effectLayer: egret.Sprite): void {
 			let self = this;
 			self._driverLayer = driverLayer;
@@ -121,12 +114,7 @@ module game {
 			let self = this;
 			return self._sceneDta.bulletIdList;
 		}
-
-		// public getAllDriverByType(): Object
-		// {
-		// 	let self = this;
-		// 	return self._sceneDta.monsterDic;
-		// }
+		
 		public getDriverById(id: number, type: number): IDriver {
 			let self = this;
 			let idStr = id + '';
@@ -143,6 +131,7 @@ module game {
 			}
 			return null;
 		}
+
 		public createDriverData(driverType: number): any {
 			let self = this;
 			let data: any
@@ -166,8 +155,8 @@ module game {
 				SceneManager.ID = Number.MIN_VALUE;
 			}
 			return data;
-
 		}
+
 		public addDriver(driverData: DriverData): IDriver {
 			let self = this;
 			let type = driverData.driverType
@@ -192,6 +181,7 @@ module game {
 			self._driverLayer.addDriver(driver, layer);
 			return driver;
 		}
+
 		/**清空场上所有对象  */
 		public clearDriversByType(type: number): void {
 			let self = this;
@@ -229,10 +219,12 @@ module game {
 				bulletIdList = null;
 			}
 		}
+
 		public addEffect(effectId: number, playTimes: number, px: number, py: number): void {
 			let self = this;
 			self._driverLayer.addEffect(effectId, playTimes, px, py);
 		}
+
 		public updateWallHp(hp: number, totalHp: number): void {
 			let self = this;
 			let wall_id: number;
@@ -242,38 +234,6 @@ module game {
 			self._driverLayer.showWall(wall_id);
 		}
 
-		// private bombPlayTime: number = 0;
-		// private bombY: number = 0
-		// public playBomb(): void {
-		// 	let self = this;
-		// 	if (egret.getTimer() - self.bombPlayTime < 5000) {
-		// 		return;
-		// 	}
-		// 	self.bombPlayTime = egret.getTimer();
-
-		// 	self.bombY = 650
-		// 	self.bomb2();
-
-		// }
-		// private bomb2(): void {
-		// 	let self = this;
-		// 	let arr = SceneData.roleStandPoint;
-		// 	let ilen: number = arr.length;
-		// 	let i: number = 0;
-		// 	for (i = 0; i < ilen; i++) {
-		// 		let px: number = Math.floor(Math.random() * 20)
-		// 		if (Math.random() > 0.5) {
-		// 			px = -px;
-		// 		}
-		// 		this.addEffect('bowsBomb', 1, arr[i] + px, self.bombY + Math.random() * 20)
-		// 	}
-
-		// 	if (self.bombY > 150) {
-		// 		DLG.DLGCore.clock.addTime(100, 1, self.bomb2, self, null);
-		// 	} else {
-		// 	}
-		// 	self.bombY -= 150;
-		// }
 		public removeDriverByData(driverData: DriverData): void {
 			let self = this;
 			let type = driverData.driverType;
@@ -312,6 +272,7 @@ module game {
 			self._driverLayer.removeDriver(driver);
 			self.returnDriverByType(driver);
 		}
+
 		public removeDriver(driver: IDriver): void {
 			let self = this;
 			let driverData: DriverData = driver.getData();
@@ -350,6 +311,7 @@ module game {
 			self._driverLayer.removeDriver(driver);
 			self.returnDriverByType(driver);
 		}
+
 		/**从池里取一个显示对象 */
 		protected getNewDriverByType(type: number): IDriver {
 			let self = this;
@@ -375,6 +337,7 @@ module game {
 			}
 			return driver;
 		}
+
 		protected returnDriverByType(driver: IDriver): void {
 			let self = this;
 			if (egret.is(driver, 'MonsterDriver')) {
@@ -391,6 +354,7 @@ module game {
 			driver.getData().clear();
 			driver.setData(null);
 		}
+
 		/**获取指定范围内，某类型的对象
 		 *rangeH 如果有值，则查找的是方形范围
 		*/
@@ -479,6 +443,7 @@ module game {
 			MainUIManager.getInstance().sceneId = sceneId;
 			self.loadMap(sceneId);
 		}
+
 		private loadMap(sceneId: number): void {
 			let self = this;
 
@@ -494,10 +459,9 @@ module game {
 
 		public addRole(index: number, herovo: HeroVo): void {
 			let self = this;
-			let pointArr = SceneData.roleStandPoint;
 			let driverdata: RoleData = self.createDriverData(ENUM_DriverType.role);
-			driverdata.x = pointArr[index];
-			driverdata.y = 780;
+			driverdata.x = SceneData.roleStandPoint[index];
+			driverdata.y = 100;
 			driverdata.index = index;
 			driverdata.attr.clear();
 			herovo.attr.clone(driverdata.attr);
@@ -505,10 +469,11 @@ module game {
 			self.addDriver(driverdata);
 			FightManager.getInstance().onInitHeroBuff(driverdata);
 		}
+
 		public removeRoleByIndex(index: number): void {
 			let self = this;
-			let driverdata: RoleData
-			let driver: IDriver
+			let driverdata: RoleData;
+			let driver: IDriver;
 			let allRoles: Array<number> = self.getAllRoles();
 			let i: number = 0;
 			let len: number = allRoles.length;
@@ -523,6 +488,7 @@ module game {
 				}
 			}
 		}
+
 		public removeRoleById(id: number): void {
 			let self = this;
 			let driverdata: RoleData
@@ -538,6 +504,7 @@ module game {
 				}
 			}
 		}
+
 		public removeRoleByJob(job: number): void {
 			let self = this;
 			let driverdata: RoleData
@@ -555,8 +522,8 @@ module game {
 				}
 			}
 		}
-		public getRoleById(id: number): RoleDriver {
 
+		public getRoleById(id: number): RoleDriver {
 			let self = this;
 			let driver: IDriver
 			let allRoles: Array<number> = self.getAllRoles();
@@ -571,6 +538,7 @@ module game {
 			}
 			return null;
 		}
+
 		public getRolesByJob(job: number): Array<RoleDriver> {
 			let roles: Array<RoleDriver> = [];
 			let self = this;
@@ -594,6 +562,7 @@ module game {
 		public getSceneCfg(): SceneCfg {
 			return this._sceneCfg;
 		}
+
 		public getSkillCdMap() {
 			return this._skillCdMap;
 		}
@@ -601,5 +570,6 @@ module game {
 		public clear(): void {
 
 		}
+
 	}
 }

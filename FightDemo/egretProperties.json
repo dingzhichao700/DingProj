@@ -1,36 +1,39 @@
 {
-	"native": {
-		"path_ignore": [],
-		"android_as_path": "tafang_app"
-	},
-	"publish": {
-		"web": 0,
-		"native": 1,
-		"path": "bin-release"
-	},
-	"egret_version": "5.0.0",
-	"modules": [
-		{
-			"name": "egret"
-		},
-		{
-			"name": "game"
-		},
-		{
-			"name": "res"
-		},
-		{
-			"name": "eui"
-		},
-		{
-			"name": "tween"
-		},
-		{
-			"name": "socket"
-		},
-		{
-			"name": "jszip",
-			"path": "./libs/jszip/"
-		}
-	]
+  "native": {
+    "path_ignore": [],
+    "android_as_path": "tafang_app"
+  },
+  "publish": {
+    "web": 0,
+    "native": 1,
+    "path": "bin-release"
+  },
+  "egret_version": "5.0.0",
+  "modules": [
+    {
+      "name": "egret"
+    },
+    {
+      "name": "game"
+    },
+    {
+      "name": "res"
+    },
+    {
+      "name": "eui"
+    },
+    {
+      "name": "tween"
+    },
+    {
+      "name": "socket"
+    }
+  ],
+  "targets": {
+    "ios": {
+      "appname": "FightDemoIOS",
+      "packagename": "com.FightDemoIOS",
+      "hybrid": true
+    }
+  }
 }
