@@ -31,15 +31,6 @@ module DLG {
             return rand;
         }
 
-		public static getZipResByUrl(url: string, compFunc: Function, thisObject: any, type?: string){
-			RES.getResByUrl(url, function(data) {
-				if(data){
-					var zip = new JSZip(data);
-
-					compFunc.call(thisObject, zip.files);
-				}
-			}, this, type);
-		}
         public static transformResUrl(value:string):string
         {
             if(DEBUG)
