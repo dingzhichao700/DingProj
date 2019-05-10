@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ItemDesSkin" xmlns:e="http://ns.egret.com/eui" xmlns:DLG="DLG.*" xmlns:w="http://ns.egret.com/wing" width="390">
+	<DLG:CLabel id="des_txt" text="生命：100" anchorOffsetX="0" fontFamily="KaiTi" textAlign="left" size="20" anchorOffsetY="0" textColor="0xffffff" x="10" y="0" width="370"/>
+</e:Skin>

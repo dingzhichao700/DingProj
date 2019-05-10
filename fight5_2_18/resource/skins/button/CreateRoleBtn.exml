@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="CreateRoleBtn" width="202" height="64" xmlns:e="http://ns.egret.com/eui" xmlns:DLG="DLG.*">
+	<DLG:CImage source="CreateRole_json.CreateRole_CreateBtn_png" width="202" height="64" x="0" y="0"/>
+</e:Skin>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="BagItemSkin" width="70" height="70" xmlns:e="http://ns.egret.com/eui" xmlns:DLG="DLG.*" xmlns:w="http://ns.egret.com/wing">
+	<DLG:CImage id="bg_img" width="70" height="70" anchorOffsetY="0" x="0" y="0" scale9Grid="21,19,13,11" source="common_bg_icon4_png"/>
+	<DLG:CImage id="icon_img" anchorOffsetY="0" x="3" y="3" source="goods_1_png" scale9Grid="0,0,26,32" width="64" height="64"/>
+	<DLG:CImage id="icon_lock" anchorOffsetY="0" x="19" y="10.5" source="common_lock_icon_png" scale9Grid="0,0,26,32" locked="true"/>
+	<DLG:CLabel id="label_txt" text="2" anchorOffsetX="0" width="62" fontFamily="Arial" textAlign="right" horizontalCenter="1" verticalCenter="22.5" size="18" textColor="0xffffff" anchorOffsetY="0" height="17" visible="false"/>
+</e:Skin>

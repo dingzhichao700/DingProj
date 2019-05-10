@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ItemTipsBtn" width="96" height="42" xmlns:e="http://ns.egret.com/eui" xmlns:DLG="DLG.*" xmlns:w="http://ns.egret.com/wing">
+	<DLG:CImage id="img" scale9Grid="15,15,22,22" anchorOffsetY="0" x="0" y="0" width="96" height="42" source="common_btn3_png"/>
+	<DLG:CLabel id="label_txt" text="熔 炼" anchorOffsetX="0" width="110" fontFamily="KaiTi" textAlign="center" size="24" textColor="0xFFFFFF" anchorOffsetY="0" height="27" x="0" y="10" visible="false" locked="true"/>
+</e:Skin>
