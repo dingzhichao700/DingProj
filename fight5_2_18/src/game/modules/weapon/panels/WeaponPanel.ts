@@ -4,7 +4,7 @@ module game {
 		private _curInfo: WeaponInfo;
 		private _curIndex: number;
 		private _preIndex: number;
-		private _vmc: VMCView;
+		// private _vmc: VMCView;
 
 		public constructor(panelId: number, fromPanelid?: string) {
 			super(panelId);
@@ -22,9 +22,9 @@ module game {
 			let self = this;
 			self.initDefaultPanel();
 
-			if (!self._vmc) {
-				self._vmc = new VMCView();
-			}
+			// if (!self._vmc) {
+			// 	self._vmc = new VMCView();
+			// }
 
 			WeaponItem.onCallTarget = self;
 			WeaponItem.onCallBack = self.onSelectClick;
@@ -84,9 +84,10 @@ module game {
 			self.main.skill_txt.text = skillCfg.desc;
 
 
-			self._vmc.updatePose("fx_weapon_"+ self._curInfo.weaponId, 90, true, true, "",null,null);
-			self._vmc.play();
-			this.main.vmc_box.addChild(self._vmc);
+			this.main.imgWeapon.source = "00" + self._curInfo.weaponId + "_png";
+			// self._vmc.updatePose("fx_weapon_"+ self._curInfo.weaponId, 90, true, true, "",null,null);
+			// self._vmc.play();
+			// this.main.vmc_box.addChild(self._vmc);
 			// self._vmc.scaleX = obj["scaleX"];
 			// self._vmc.scaleY = obj["scaleY"];
 		}
@@ -98,10 +99,10 @@ module game {
 		public onDestroy(): void {
 			super.onDestroy();
 			let self = this;
-			if(self._vmc){
-				self._vmc.destroy();
-				self._vmc = null;
-			}
+			// if(self._vmc){
+			// 	self._vmc.destroy();
+			// 	self._vmc = null;
+			// }
 			if (self.main) {
 				self.main.onLoadCallBack = undefined;
 				self.main.onLoadCallTarget = undefined;

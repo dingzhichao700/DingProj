@@ -34,10 +34,9 @@ module game {
 			DLG.DLGCore.panel.close(PanelClassConfig.ID_WelcomePanel);
 			DLG.DLGCore.panel.close(PanelClassConfig.ID_GuidePanel);
 		}
-		private initDefaultPanel():void{
-			
-		}
 
+		private initDefaultPanel():void{
+		}
 		
 		private closePanelHandler(e: eui.UIEvent): void {
 			DLG.DLGCore.panel.closeAll();
@@ -45,6 +44,7 @@ module game {
 			var nextId:number = MissonIManager.getInstance().getNextMission( MainUIManager.getInstance().sceneId );
 			SceneManager.getInstance().changeMap(nextId,true);
 		}
+
 		public onDestroy(): void {
 			super.onDestroy();
 			let self = this;
@@ -55,5 +55,6 @@ module game {
 			}
 			self.main = undefined;
 		}
+		
 	}
 }

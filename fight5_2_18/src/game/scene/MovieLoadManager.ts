@@ -1,15 +1,12 @@
 module game {
 	export class MovieLoadManager {
-		private static _instance: MovieLoadManager;
-
 
 		protected _movieDataMap: Object;
 		/**正在加载中的资源 */
 		protected _movieLoadMap: Object;
 		protected _loadVoPoolArr: Array<MovieLoadVo>;
-		public constructor() {
-			this.init();
-		}
+
+		private static _instance: MovieLoadManager;
 		public static getInstance(): MovieLoadManager {
 			let self = this;
 			if (!self._instance) {
@@ -18,12 +15,17 @@ module game {
 			return self._instance;
 		}
 	
+		public constructor() {
+			this.init();
+		}
+
 		protected init(): void {
 			let self = this;
 			self._loadVoPoolArr = [];
 			self._movieLoadMap = {};
 			self._movieDataMap = {};
 		}
+
 		public getRes(url: string): Array<any> {
 			let self = this;
 			if (self._movieDataMap.hasOwnProperty(url)) {
@@ -31,6 +33,7 @@ module game {
 			}
 			return null;
 		}
+
 		public load(url: string, loadCallBack: Function, loadCallBackTarget: any): void {
 			let self = this;
 			if (self._movieDataMap.hasOwnProperty(url)) {
@@ -53,10 +56,12 @@ module game {
 			loadvo.load(url, loadCallBack, loadCallBackTarget);
 			self._movieLoadMap[url] = loadvo;
 		}
+
 		public addData(url: string, jsonObj: Object, bitmapData: egret.BitmapData): void {
 			let self = this;
 			self._movieDataMap[url] = [jsonObj, bitmapData];
 		}
+
 		public returnMovieLoadVo(vo: MovieLoadVo): void {
 			this._loadVoPoolArr.push(vo)
 		}

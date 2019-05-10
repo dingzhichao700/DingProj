@@ -30,7 +30,7 @@ module game {
 
 
 		/********************************************* */
-		/**显示当前侦位图 */
+		/**显示当前帧位图 */
 		protected _skinRenderBmp: egret.Bitmap;
 		protected _renderTexture: egret.RenderTexture
 		/**切图区域 */
@@ -116,7 +116,10 @@ module game {
 		private loadCfgComplete(url: string, josnObj: Object, bitmapData: egret.BitmapData): void {
 
 			this._poseInfo = josnObj;
-			this._skinBitMap.$bitmapData = bitmapData;
+			let tex = new egret.Texture();
+			tex.bitmapData = bitmapData;
+			this._skinBitMap.texture = tex;
+			// this._skinBitMap.$bitmapData = bitmapData;
 			if (!this._poseInfo) {
 				return;
 			}
@@ -199,7 +202,7 @@ module game {
 				return;
 			var isOver = false;
 			if (this._poseProgress < this._count - 1) {
-				++this._poseProgress;
+				this._poseProgress++;
 			} else {
 				if (this._repeat)
 					this._poseProgress = 0;

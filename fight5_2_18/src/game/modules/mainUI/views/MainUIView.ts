@@ -6,8 +6,9 @@ class MainUIView extends DLG.CComponent {
 	public title_txt:DLG.CLabel;
 	public des_txt:DLG.CLabel;
 
-	// public head_icom_img:DLG.CImage;
 	private imgHand:DLG.CImage;
+	public btnSkill1:DLG.CImage;
+	public btnSkill2:DLG.CImage;
 
 	/**区服List */
 	public mainList: DLG.CList;
@@ -39,7 +40,7 @@ class MainUIView extends DLG.CComponent {
 
 	private tweenCurse():void {
 		let scale:number = 2;
-		egret.Tween.get(this.imgHand).to({scaleX:scale, scaleY:scale, alpha:0.2}, 500).call(this.tweenDelay,this);
+		egret.Tween.get(this.imgHand).to({scaleX:scale, scaleY:scale, alpha:0.2}, 1000).call(this.tweenDelay,this);
 	}
 
 	private tweenDelay():void {

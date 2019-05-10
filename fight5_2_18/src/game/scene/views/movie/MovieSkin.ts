@@ -160,8 +160,8 @@ module game {
 			self._renderTexture.drawToTexture(self._skinBitMap, self._rect);
 			//将绘制好的 RenderTexture 进行显示
 			let bmp: egret.Bitmap = self._skinRenderBmp;
-			if (bmp.$bitmapData) bmp.$bitmapData.$dispose();
-			if (bmp.texture) bmp.texture = null;
+			// if (bmp.$bitmapData) bmp.$bitmapData.$dispose();
+			// if (bmp.texture) bmp.texture = null;
 			bmp.texture = self._renderTexture;
 	
 			if (frameData.rotated == true) {
@@ -241,7 +241,12 @@ module game {
 				// 	self._skinTexture.bitmapData.$dispose();
 				// }	
 			
-				if(self._skinBitMap) self._skinBitMap.$bitmapData = bitmapData;
+				if(self._skinBitMap){
+					let tex = new egret.Texture();
+					tex.bitmapData = bitmapData;
+					self._skinBitMap.texture = tex;
+					// self._skinBitMap.$bitmapData = bitmapData;
+				}
 				self._loadEnd = true;
 
 				if (self._playFrame != 0) {

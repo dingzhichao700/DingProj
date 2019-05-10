@@ -20,6 +20,7 @@ class WeaponView extends DLG.CComponent {
 	public skill_txt: DLG.CLabel;
 
 	public vmc_box:DLG.CGroup;
+	public imgWeapon:eui.Image;
 
 	public constructor() {
 		super();

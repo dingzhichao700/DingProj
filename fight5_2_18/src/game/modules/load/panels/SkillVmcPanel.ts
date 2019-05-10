@@ -18,6 +18,7 @@ module game {
 		public constructor(panelId: number, fromPanelid?: string) {
 			super(panelId);
 		}
+		
 		public onShow(...arg): void {
 			super.onShow(...arg);
 			let self = this;
@@ -27,6 +28,7 @@ module game {
 			self.main.onLoadCallTarget = self;
 			self._timeOutKeyArr = [];
 		}
+
 		protected initView(): void {
 			super.initView();
 			this._timeOutKeyArr.length = 0;
@@ -39,7 +41,7 @@ module game {
 
 				this._allVmcNum++;
 				let effect: VMCView = new VMCView();
-				effect.updatePose(obj["path"], 90,false, true, "", this.vmcPlayEnd, this);
+				effect.updatePose(obj["path"], 90, false, true, "", this.vmcPlayEnd, this);
 				effect.play();
 				this.main.vmc_box.addChild(effect);
 				effect.x = obj["x"];
@@ -48,33 +50,6 @@ module game {
 				effect.scaleY = obj["scaleY"];
 				this._timeOutKeyArr.push(egret.setTimeout(effect.play, effect, obj["dalay"]) );
 			}
-
-
-
-
-
-			// let effect: VMCView = new VMCView();
-			// effect.updatePose("anqi_lxz_03", 90, true, true, "", this.vmcPlayEnd, this);
-			// effect.play();
-			// this.main.vmc_box.addChild(effect);
-			// effect.x = 300;
-			// effect.y = 400;
-			// effect.scaleX = 2
-			// effect.scaleY = 2
-
-			// let effect2: VMCView = new VMCView();
-			// effect2.updatePose("anqi_lxz_02", 90, true, true, "", this.vmcPlayEnd, this);
-			// effect2.play();
-			// this.main.vmc_box.addChild(effect2);
-			// effect2.x = 300;
-			// effect2.y = 400;
-
-			// let effect1: VMCView = new VMCView();
-			// effect1.updatePose("anqi_lxz_01", 90, true, true, "", this.vmcPlayEnd, this);
-			// effect1.play();
-			// this.main.vmc_box.addChild(effect1);
-			// effect1.x = 300;
-			// effect1.y = 400;
 		}
 
 		private vmcPlayEnd(): void {
@@ -85,6 +60,7 @@ module game {
 				DLG.DLGCore.panel.close(PanelClassConfig.ID_SkillVmcPanel);
 			}
 		}
+
 		public onDestroy(): void {
 			this.main.vmc_box.removeChildren();
 			while(this._timeOutKeyArr.length> 0 ){
@@ -103,5 +79,6 @@ module game {
 			}
 			self.main = undefined;
 		}
+
 	}
 }

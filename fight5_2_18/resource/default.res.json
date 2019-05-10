@@ -13,7 +13,7 @@
 			"name": "login"
 		},
 		{
-			"keys": "cfg_Server_json,cfg_random_name_json,common_bg_icon_png,guide_arrow_png,load_bar_point_png,load_bg1_png,load_bar_pro_png,load_bg2_png,load_bar_bg1_png,load_bar_bg_png,welcom_bg_png,welcom_button_png,wuHun_bg_head1_png,common_btn3_png,common_btn4_png,common_close_btn1_png,loginBg1_jpg,loginBg_jpg,img_attackTip_png,img_hand_png",
+			"keys": "cfg_Server_json,cfg_random_name_json,common_bg_icon_png,guide_arrow_png,load_bar_point_png,load_bg1_png,load_bar_pro_png,load_bg2_png,load_bar_bg1_png,load_bar_bg_png,welcom_bg_png,welcom_button_png,wuHun_bg_head1_png,common_btn3_png,common_btn4_png,common_close_btn1_png,loginBg1_jpg,loginBg_jpg,img_attackTip_png,img_hand_png,001_png,002_png,003_png,004_png,skill_1_png,skill_2_png,bg_skillBtn_png",
 			"name": "preload"
 		},
 		{
@@ -975,6 +975,41 @@
 			"name": "img_hand_png",
 			"type": "image",
 			"url": "assets/Texture/mainTop/img_hand.png"
+		},
+		{
+			"name": "001_png",
+			"type": "image",
+			"url": "assets/Texture/weapon/001.png"
+		},
+		{
+			"name": "002_png",
+			"type": "image",
+			"url": "assets/Texture/weapon/002.png"
+		},
+		{
+			"name": "003_png",
+			"type": "image",
+			"url": "assets/Texture/weapon/003.png"
+		},
+		{
+			"name": "004_png",
+			"type": "image",
+			"url": "assets/Texture/weapon/004.png"
+		},
+		{
+			"name": "skill_1_png",
+			"type": "image",
+			"url": "assets/Texture/mainTop/skill_1.png"
+		},
+		{
+			"name": "skill_2_png",
+			"type": "image",
+			"url": "assets/Texture/mainTop/skill_2.png"
+		},
+		{
+			"name": "bg_skillBtn_png",
+			"type": "image",
+			"url": "assets/Texture/mainTop/bg_skillBtn.png"
 		}
 	]
 }

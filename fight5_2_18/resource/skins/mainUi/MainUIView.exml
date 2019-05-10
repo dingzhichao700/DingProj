@@ -31,9 +31,15 @@
 		</e:layout>
 		</DLG:CList>
 	</DLG:CGroup>
-	<e:Group x="191" y="314" anchorOffsetY="0" height="166">
+	<e:Group id="boxGuide" x="191" y="314" anchorOffsetY="0" height="166">
 		<DLG:CImage y="0" anchorOffsetX="0" anchorOffsetY="0" scale9Grid="35,32,35,35" x="0" scaleX="1" scaleY="1" source="img_attackTip_png"/>
-		<DLG:CImage source="img_hand_png" x="113" y="97"/>
-		<DLG:CImage id="imgHand" source="img_hand_png" x="129" y="113" anchorOffsetX="16" anchorOffsetY="16"/>
+		<DLG:CImage source="img_hand_png" x="99" y="92"/>
+		<DLG:CImage id="imgHand" source="img_hand_png" x="129" y="116" anchorOffsetX="30" anchorOffsetY="25"/>
+	</e:Group>
+	<e:Group id="boxSkill" x="564.04" y="621" anchorOffsetY="0" height="195" anchorOffsetX="0" width="73">
+		<DLG:CImage y="0" anchorOffsetX="0" anchorOffsetY="0" scale9Grid="35,32,35,35" x="0" scaleX="1" scaleY="1" source="bg_skillBtn_png"/>
+		<DLG:CImage id="btnSkill1" x="4.5" y="4.5" source="skill_1_png"/>
+		<DLG:CImage y="77" anchorOffsetX="0" anchorOffsetY="0" scale9Grid="35,32,35,35" x="0" scaleX="1" scaleY="1" source="bg_skillBtn_png"/>
+		<DLG:CImage id="btnSkill2" x="4.5" y="81.5" source="skill_2_png"/>
 	</e:Group>
 </e:Skin>

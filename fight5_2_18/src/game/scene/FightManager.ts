@@ -44,6 +44,8 @@ module game {
 		// public quickPutOnBullet: number;
 		public monsterNotHit: number = 0;
 
+		private swordLeftTime:number = 0;
+
 		public constructor() {
 			super();
 			let self = this;
@@ -56,7 +58,7 @@ module game {
 			//Q
 			DLG.KeyBoardManager.getInstance().addListener(self.test_bigSkillWuYingJian, self, 81);
 			//W,剑雨
-			DLG.KeyBoardManager.getInstance().addListener(self.test_wwordRain, self,87);
+			DLG.KeyBoardManager.getInstance().addListener(self.doSwordRain, self,87);
 		}
 
 		private test_bigSkillWuYingJian(): void {
@@ -76,14 +78,18 @@ module game {
 			}
 		}
 
-		private test_wwordRain(): void{
+		/**剑雨*/
+		public doSwordRain(): void{
+			if(this.swordLeftTime <= 0){
+				return;
+			}
+			this.swordLeftTime--;
 			let self = this;
 			let roleArr: Array<number> = self.m_sceneMar.getAllRoles();
 			let len
 			len = roleArr.length;
 			let i = 0;
 			for (i; i < len; i++) {
-		
 				let role: IDriver = self.m_sceneMar.getDriverById(roleArr[i], ENUM_DriverType.role);
 				if (!role) continue;
 				let roleData: RoleData = <RoleData>role.getData();
@@ -131,6 +137,8 @@ module game {
 		public onStart(): void {
 			let self = this;
 			self.onStop();
+
+			this.swordLeftTime = 1;
 			if (self._isStart) {
 				// debug("已经开了战斗，不需要再重复调用 start");
 				return;
@@ -263,41 +271,23 @@ module game {
 				let role: IDriver = self.m_sceneMar.getDriverById(roleArr[i], ENUM_DriverType.role);
 				if (!role)
 					continue;
-				let roleData: RoleData = <RoleData>role.getData();
-				/*if (roleData.bulletCurrent <= 0) { //没有子弹了
-					continue;
-				}
-				if (roleData.isLeader) {
-					if (self._leaderCanFight == true) {
-						//队长射击
-						if (self._useSkillAction.checkSkillIsCD(roleData.id, roleData.skills[0]) == false) {
-							role.attack(roleData.skills[0], self.touchStageX, self.touchStageY);
-						}
-						continue;
-					}
-				}*/
 
+				let roleData: RoleData = <RoleData>role.getData();
 				let canAttackMonster: Array<IDriver> = [];
 				let len = self.m_sceneMar.getAllMonsterLen();
 				let monsterArr: Array<number> = self.m_sceneMar.getAllMonster();
 				for (let j = 0; j < len; j++) {
 					let monster: IDriver = self.m_sceneMar.getDriverById(monsterArr[j], ENUM_DriverType.monster);
-					let monsterData: MonsterData = <MonsterData>monster.getData();
-					if (monsterData.y > 80) {
+					if (monster.getData().y > 80) {
 						canAttackMonster.push(monster);
 					}
 				}
 				if (canAttackMonster.length > 0) {
-					let skillid = roleData.skills[0];
-					// if (self._useSkillAction.checkSkillIsCD(roleData.id, skillid) == false) {
-						//如果可以使用技能,取一个最近的怪来打
-						// let monster: IDriver = self.getMiniNearMonster(canAttackMonster, roleData);
-						let monster: IDriver = canAttackMonster[0];
-						if (monster) {
-							let monsterData: DriverData = monster.getData();
-							role.attack(skillid, monsterData.x, monsterData.y);
-						}
-					// }
+					let monster: IDriver = canAttackMonster[0];
+					if (monster) {
+						let monsterData: DriverData = monster.getData();
+						role.attack(roleData.skills[0], monsterData.x, monsterData.y);
+					}
 				}
 			}
 		}
@@ -312,7 +302,7 @@ module game {
 			let dataT = self.m_clock.getTime();
 			self.currentCount++;
 			let currentCount = self.currentCount;
-			if(self._curSkillVmcTimes < self._maxSkillVmcTimes) {
+			/*if(self._curSkillVmcTimes < self._maxSkillVmcTimes) {
 				if(DLG.DLGCore.panel.getPanelById(PanelClassConfig.ID_GuidePanel) || DLG.DLGCore.panel.getPanelById(PanelClassConfig.ID_WelcomePanel)){
 					self._startTime = egret.getTimer();
 				}else{
@@ -326,7 +316,7 @@ module game {
 						self.createSkillVmc();
 					}
 				}	
-			}
+			}*/
 
 			let monsterArr: Array<number> = self.m_sceneMar.getAllMonster();
 			let monsterMap: Array<Array<IDriver>> = [[], [], [], [], [], [], [], [], [], []];

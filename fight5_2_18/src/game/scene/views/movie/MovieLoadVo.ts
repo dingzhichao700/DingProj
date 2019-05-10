@@ -73,23 +73,27 @@ module game {
 		}
 		protected loadTexture(): void {
 			let self = this;
-			if (!self._imageLoader) {
-				self._imageLoader = new egret.ImageLoader();
-				self._imageLoader.addEventListener(egret.Event.COMPLETE, self.onLoadTextureComplete, self);
-				self._imageLoader.addEventListener(egret.IOErrorEvent.IO_ERROR, self.onLoadTextureError, self);
-			}
-			self._imageLoader.load(self._url + GAME_PATH.TYPE_PNG);
+			// if (!self._imageLoader) {
+			// 	self._imageLoader = new egret.ImageLoader();
+			// 	self._imageLoader.addEventListener(egret.Event.COMPLETE, self.onLoadTextureComplete, self);
+			// 	self._imageLoader.addEventListener(egret.IOErrorEvent.IO_ERROR, self.onLoadTextureError, self);
+			// }
+			// self._imageLoader.load(self._url + GAME_PATH.TYPE_PNG);
+			RES.getResByUrl(self._url + GAME_PATH.TYPE_PNG, this.onLoadTextureComplete,this)
 		}
-		private onLoadTextureComplete(event: egret.Event): void {
+
+		// private onLoadTextureComplete(event: egret.Event): void {
+		private onLoadTextureComplete(tex: egret.Texture): void {
 		
 			let self = this;
 		
-			self._imageLoader.removeEventListener(egret.Event.COMPLETE, self.onLoadTextureComplete, self);
-			self._imageLoader.removeEventListener(egret.IOErrorEvent.IO_ERROR, self.onLoadTextureError, self);
-			self._imageLoader = undefined;
-			let loader: egret.ImageLoader = <egret.ImageLoader>event.target;
+			// self._imageLoader.removeEventListener(egret.Event.COMPLETE, self.onLoadTextureComplete, self);
+			// self._imageLoader.removeEventListener(egret.IOErrorEvent.IO_ERROR, self.onLoadTextureError, self);
+			// self._imageLoader = undefined;
+			// let loader: egret.ImageLoader = <egret.ImageLoader>event.target;
 			//获取加载到的纹理对象
-			let bitmapData: egret.BitmapData = loader.data;
+			// let bitmapData: egret.BitmapData = loader.data;
+			let bitmapData: egret.BitmapData = tex.bitmapData;
 			//创建纹理对象
 			// self._skinTexture = new egret.Texture();
 			// self._skinTexture.bitmapData = bitmapData;

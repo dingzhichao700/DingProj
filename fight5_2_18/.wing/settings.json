@@ -4,5 +4,6 @@
 		"**/bin-release": true
 	}
 ,
-"git.enabled": false
+"git.enabled": false,
+"editor.fontSize": 20
 }

@@ -13,6 +13,7 @@ module game {
 			self.main.onLoadCallBack = self.initView;
 			self.main.onLoadCallTarget = self;
 		}
+
 		protected initView(): void {
 			super.initView();
 			let self = this;
@@ -36,9 +37,11 @@ module game {
 
 			this.onResizeHandler();
 			this.stage.addEventListener(egret.Event.RESIZE, this.onResizeHandler, this);
-			// self.main.head_icom_img.source = "wuHun_head_4_png";
-			// self.main.head_title_img.source = "wuHun_head_title_1_png";
+
+			this.main.btnSkill1.addEventListener(egret.TouchEvent.TOUCH_END, self.onSkill, self);
+			this.main.btnSkill2.addEventListener(egret.TouchEvent.TOUCH_END, self.onSkill, self);
 		}
+
 		private onResizeHandler(): void {
 			var contentH: number = ApplicationManager.CONTENT_H;
             var windowH: number = document.documentElement.clientHeight;
@@ -46,15 +49,12 @@ module game {
             var globalScale: number = ApplicationManager.globalScale;
             this.main.top_box.y = -(windowH - contentH * globalScale) / (2 * globalScale);
             this.main.bottom_box.y = (windowH + contentH * globalScale) / (2 * globalScale) - 107;
-
-
-			// var contenW: number = ApplicationManager.CONTENT_W;
-            // var windoW: number = document.documentElement.clientWidth;
-            
-            // var globalScale: number = ApplicationManager.globalScale;
-            // this.main.top_left.x = -(windoW - contenW * globalScale) / (2 * globalScale);
-            // this.main.top_right.x = (windoW + contenW * globalScale) / (2 * globalScale);
 		}
+
+		public onSkill(): void {
+			FightManager.getInstance().doSwordRain();
+		}
+
 		public onRefresh(): void {
 			if (MainUIManager.getInstance().sceneId <= 0)
 				return;
@@ -76,5 +76,6 @@ module game {
 			}
 			self.main = undefined;
 		}
+
 	}
 }
