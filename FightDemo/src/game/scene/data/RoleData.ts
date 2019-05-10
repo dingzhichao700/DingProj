@@ -19,7 +19,6 @@ module game {
 		public index: number;
 		/**是否队长 */
 		public isLeader: boolean;
-
 	
 		/**产生三发子弹 概率*/
 		public canThreeRatio: number;
@@ -27,7 +26,6 @@ module game {
 		public canFiveRatio: number;
 		/**无限弓次数  必定产生三发子弹的次数 */
 		public infiniteArrowTimes: number;
-
 
 		/**双重攻击 概率 */
 		public doubleRatio: number;
@@ -68,17 +66,15 @@ module game {
 		/**产生火焰枪概率 */
 		public flamerRatio: number;
 
-
 		/**灵魂爆发：击杀敌人时，有100%的几率对周围造成x%的伤害 万分比 */
 		public baoFaHurtRatio: number;
 		/**根据敌人失去的体力，最多造成X%的伤害(Max23） */
 		public hpHurtExValueRatio: number;
 
-
-
 		public constructor() {
 			super();
 		}
+
 		public clear(): void {
 			super.clear();
 			let self = this;
@@ -86,7 +82,7 @@ module game {
 			self.attackPy = undefined;
 			self.index = undefined;
 			self.heroId = undefined;
-
 		}
+
 	}
 }

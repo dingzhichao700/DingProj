@@ -16,7 +16,6 @@ module game {
 		/**boss在哪一回合里出来 */
 		protected _bossBornRound: number;
 
-
 		/** 挑战boss失败 */
 		protected _fightBossFailed: boolean = false;
 		
@@ -39,13 +38,11 @@ module game {
 		protected _sceneHeroBuffsParame: Array<any>;
 		protected _sceneMonsterBuffs: Array<number>;
 		protected _sceneMonsterBuffsParame: Array<any>;
-
 	
 		/**怪物移动速度减少值 */
 		public monsterSpeedCut: number = 0;
 		// public quickPutOnBullet: number;
 		public monsterNotHit: number = 0;
-
 
 		public constructor() {
 			super();
@@ -53,38 +50,32 @@ module game {
 			self.createClock();
 			let stage: egret.Stage = DLG.DLGCore.stage;
 			stage.addEventListener(egret.Event.ENTER_FRAME, self.checkFightHandler, self);
+			stage.addEventListener(egret.TouchEvent.TOUCH_END, self.onClick, self);
 			//A
 			DLG.KeyBoardManager.getInstance().addListener(self.onFightBoss, self, 65);
 			//Q
 			DLG.KeyBoardManager.getInstance().addListener(self.test_bigSkillWuYingJian, self, 81);
-			//W
+			//W,剑雨
 			DLG.KeyBoardManager.getInstance().addListener(self.test_wwordRain, self,87);
 		}
-		private test_bigSkillWuYingJian(): void
-		{
+
+		private test_bigSkillWuYingJian(): void {
 			let self = this;
 			let roleArr: Array<number> = self.m_sceneMar.getAllRoles();
 			let len
 			len = roleArr.length;
 			let i = 0;
 			for (i; i < len; i++) {
-		
 				let role: IDriver = self.m_sceneMar.getDriverById(roleArr[i], ENUM_DriverType.role);
 				if (!role) continue;
 				let roleData: RoleData = <RoleData>role.getData();
-				if (roleData.skills.indexOf(SkillType.JOB_ZS_10002) != -1)
-				{
-					// if (self._useSkillAction.checkSkillIsCD(roleData.id, SkillType.JOB_JK_10002) == false)
-					// {
-						// debug("-----使用无影剑")
-						self._useSkillAction.useSkill(role, SkillType.JOB_ZS_10002);
-					// } else {
-					// 	debug("无影剑 CD中")
-					// }	
+				if (roleData.skills.indexOf(SkillType.JOB_ZS_10002) != -1) {
+					self._useSkillAction.useSkill(role, SkillType.JOB_ZS_10002);
 					return;
 				}	
 			}
 		}
+
 		private test_wwordRain(): void{
 			let self = this;
 			let roleArr: Array<number> = self.m_sceneMar.getAllRoles();
@@ -96,19 +87,13 @@ module game {
 				let role: IDriver = self.m_sceneMar.getDriverById(roleArr[i], ENUM_DriverType.role);
 				if (!role) continue;
 				let roleData: RoleData = <RoleData>role.getData();
-				if (roleData.skills.indexOf(SkillType.JOB_GJS_11002) != -1)
-				{
-					// if (self._useSkillAction.checkSkillIsCD(roleData.id, SkillType.JOB_YK_11002) == false)
-					// {
-						// debug("-----使用剑雨")
-						self._useSkillAction.useSkill(role, SkillType.JOB_GJS_11002);
-					// } else {
-					// 	debug("剑雨技能CD中")
-					// }
+				if (roleData.skills.indexOf(SkillType.JOB_GJS_11002) != -1) {
+					self._useSkillAction.useSkill(role, SkillType.JOB_GJS_11002);
 					return;
 				}	
 			}
 		}
+
 		public static getInstance(): FightManager {
 			let self = this;
 			if (!self._instance) {
@@ -116,6 +101,7 @@ module game {
 			}
 			return self._instance;
 		}
+
 		public onStop(): void {
 			let self = this;
 			if (self._isStart !== true) {
@@ -136,10 +122,12 @@ module game {
 			stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE, self.leaderFightMoveHandler, self);
 			stage.removeEventListener(egret.TouchEvent.TOUCH_END, self.leaderStopFightHandler, self);
 		}
+
 		private _maxSkillVmcTimes:number = 2;
 		private _curSkillVmcTimes:number = 0;
 		private _initGap:number = 4000;
 		private _startTime:number;
+
 		public onStart(): void {
 			let self = this;
 			self.onStop();
@@ -157,14 +145,12 @@ module game {
 			self._useSkillAction = DLG.FactoryUtils.getClass(UseSkillAction);
 			self._damageAction = DLG.FactoryUtils.getClass(DamageAction);
 			self.createSceneBuff();
-			
 
 			let sceneMar = SceneManager.getInstance();
 			let heroArr: Array<number> = sceneMar.getAllRoles();
 			let i:number = 0;
 			let len:number = heroArr.length;;
-			for( i=0; i < len ; i++)
-			{
+			for( i=0; i < len ; i++) {
 				let role: IDriver = sceneMar.getDriverById(heroArr[i], ENUM_DriverType.role);
 				if (!role) continue;
 				let roleData: DriverData = role.getData();
@@ -193,6 +179,11 @@ module game {
 			stage.addEventListener(egret.TouchEvent.TOUCH_END, self.leaderStopFightHandler, self);
 			stage.addEventListener(egret.TouchEvent.TOUCH_MOVE, self.leaderFightMoveHandler, self);
 		}
+
+		public onClick(): void {
+			this.doAttack();
+		}
+		
 		/**挑战boss */
 		public onFightBoss(): void {
 			let self = this;
@@ -264,21 +255,67 @@ module game {
 			sceneBuffs = null;
 		}
 	
-		// protected lastTime: number = 0;
+		protected doAttack(): void {
+			let self = this;
+			let roleArr: Array<number> = self.m_sceneMar.getAllRoles();
+			
+			for (let i = 0; i < roleArr.length; i++) {
+				let role: IDriver = self.m_sceneMar.getDriverById(roleArr[i], ENUM_DriverType.role);
+				if (!role)
+					continue;
+				let roleData: RoleData = <RoleData>role.getData();
+				/*if (roleData.bulletCurrent <= 0) { //没有子弹了
+					continue;
+				}
+				if (roleData.isLeader) {
+					if (self._leaderCanFight == true) {
+						//队长射击
+						if (self._useSkillAction.checkSkillIsCD(roleData.id, roleData.skills[0]) == false) {
+							role.attack(roleData.skills[0], self.touchStageX, self.touchStageY);
+						}
+						continue;
+					}
+				}*/
+
+				let canAttackMonster: Array<IDriver> = [];
+				let len = self.m_sceneMar.getAllMonsterLen();
+				let monsterArr: Array<number> = self.m_sceneMar.getAllMonster();
+				for (let j = 0; j < len; j++) {
+					let monster: IDriver = self.m_sceneMar.getDriverById(monsterArr[j], ENUM_DriverType.monster);
+					let monsterData: MonsterData = <MonsterData>monster.getData();
+					if (monsterData.y > 80) {
+						canAttackMonster.push(monster);
+					}
+				}
+				if (canAttackMonster.length > 0) {
+					let skillid = roleData.skills[0];
+					// if (self._useSkillAction.checkSkillIsCD(roleData.id, skillid) == false) {
+						//如果可以使用技能,取一个最近的怪来打
+						// let monster: IDriver = self.getMiniNearMonster(canAttackMonster, roleData);
+						let monster: IDriver = canAttackMonster[0];
+						if (monster) {
+							let monsterData: DriverData = monster.getData();
+							role.attack(skillid, monsterData.x, monsterData.y);
+						}
+					// }
+				}
+			}
+		}
+
 		protected currentCount: number = 0;
 		protected checkFightHandler(event: egret.Event): void {
 			let self = this;
-			if (!self.m_sceneMar)
-			{
+			if (!self.m_sceneMar) {
 				return;
 			}	
+
 			let dataT = self.m_clock.getTime();
 			self.currentCount++;
 			let currentCount = self.currentCount;
-			if(self._curSkillVmcTimes < self._maxSkillVmcTimes ){
-				if(DLG.DLGCore.panel.getPanelById(PanelClassConfig.ID_GuidePanel) || DLG.DLGCore.panel.getPanelById(PanelClassConfig.ID_WelcomePanel) )
+			if(self._curSkillVmcTimes < self._maxSkillVmcTimes) {
+				if(DLG.DLGCore.panel.getPanelById(PanelClassConfig.ID_GuidePanel) || DLG.DLGCore.panel.getPanelById(PanelClassConfig.ID_WelcomePanel)){
 					self._startTime = egret.getTimer();
-				else{
+				}else{
 					let gap:number = egret.getTimer() - self._startTime;
 					let curGap:number = self._initGap - 1000*self._curSkillVmcTimes;
 					curGap  = self._curSkillVmcTimes== 0 ? curGap : curGap + 2500; 
@@ -289,9 +326,8 @@ module game {
 						self.createSkillVmc();
 					}
 				}	
-				
 			}
-			// let sceneMar: SceneManager = SceneManager.getInstance();
+
 			let monsterArr: Array<number> = self.m_sceneMar.getAllMonster();
 			let monsterMap: Array<Array<IDriver>> = [[], [], [], [], [], [], [], [], [], []];
 			let canAttackMonster: Array<IDriver> = [];
@@ -345,8 +381,7 @@ module game {
 					let monster: IDriver = self.m_sceneMar.getDriverById(monsterArr[i], ENUM_DriverType.monster);
 					if (!monster) continue;
 					let monsterData: MonsterData = <MonsterData>monster.getData();
-					if (monsterData.isSwoonTime == undefined)
-					{
+					if (monsterData.isSwoonTime == undefined) {
 						if (monsterData.isBoss) {
 							if (monsterData.y < monsterData.targetY && monster.isAttack() == false) {
 								monster.run();
@@ -358,10 +393,8 @@ module game {
 							}
 						} else {
 							if (monster.isAttack() == false) {
-								if (monsterData.distance == 2)
-								{
-									if (checkAttack && self._useSkillAction.checkCanUseSkill(monsterData.id, monsterData.skills[0], SceneData.boundary - monsterData.y))
-									{
+								if (monsterData.distance == 2) {
+									if (checkAttack && self._useSkillAction.checkCanUseSkill(monsterData.id, monsterData.skills[0], SceneData.boundary - monsterData.y)) {
 										monster.attack(monsterData.skills[0], 0, 0,self.monsterNotHit);
 									} else {
 										if (monsterData.y < monsterData.targetY) {
@@ -369,24 +402,18 @@ module game {
 											monster.move();
 										}
 									}
-								} else
-								{
+								} else {
 									if (monsterData.y < monsterData.targetY) {
 										monster.run();
 										monster.move();
-									} else if(checkAttack && self._useSkillAction.checkSkillIsCD(monsterData.id, monsterData.skills[0]) == false)
-									{
+									} else if(checkAttack && self._useSkillAction.checkSkillIsCD(monsterData.id, monsterData.skills[0]) == false) {
 										monster.attack(monsterData.skills[0], 0, 0,self.monsterNotHit);
 									}
 								}	
-								
 							}
-						
 						}
-					} else
-					{
-						if (dataT - monsterData.isSwoonTime > 0)
-						{
+					} else {
+						if (dataT - monsterData.isSwoonTime > 0) {
 							monsterData.isSwoonTime = undefined;
 						}	
 					}	
@@ -408,55 +435,6 @@ module game {
 					}
 					DLG.SortTools.sortMap(canAttackMonster, 'y', false);
 				}
-			
-			
-				let roleArr: Array<number> = self.m_sceneMar.getAllRoles();
-			
-				len = roleArr.length;
-				// if (self._leaderCanFight == true) {
-					i = 0;
-				// } else {
-				// 	i = 1;
-				// }
-				for (i; i < len; i++) {
-				
-					let role: IDriver = self.m_sceneMar.getDriverById(roleArr[i], ENUM_DriverType.role);
-					if (!role) continue;
-					let roleData: RoleData = <RoleData>role.getData();
-					if (roleData.bulletCurrent <= 0)
-					{
-						//没有子弹了
-						continue;
-					}
-					if (roleData.isLeader)
-					{
-						if (self._leaderCanFight == true) {
-							//队长射击
-							if (self._useSkillAction.checkSkillIsCD(roleData.id, roleData.skills[0]) == false) {
-								role.attack(roleData.skills[0], self.touchStageX, self.touchStageY);
-							}
-							continue;
-						} else {
-							continue;
-						}
-					}	
-
-					if (canAttackMonster.length > 0) {
-						let skillid = roleData.skills[0];
-						if (self._useSkillAction.checkSkillIsCD(roleData.id, skillid) == false) {
-							//如果可以使用技能,取一个最近的怪来打
-							let monster: IDriver = self.getMiniNearMonster(canAttackMonster, roleData);
-							if (monster) {
-								let monsterData: DriverData = monster.getData();
-								role.attack(skillid, monsterData.x, monsterData.y);
-								// isAttackMonster = true;
-							}
-						}
-					}
-					
-					
-				}
-
 			}
 
 			let bulletArr: Array<number> = self.m_sceneMar.getAllBullet();
@@ -513,9 +491,7 @@ module game {
 						let mh = monsterData.byAttackRangeH;
 						let py = monsterData.byAttackRangeY;
 						let bds = bulletData.moveAttackRange;
-
 						let mpy = monsterData.y + py;
-					
 						if (mpy + mh + bds > bulletData.y && mpy - mh - bds < bulletData.y &&
 							monsterData.x + mw > bulletData.x && monsterData.x - mw < bulletData.x) {
 							
@@ -535,19 +511,19 @@ module game {
 						}
 					}
 				}
-				i++
+				i++;
 			}
 			monsterMap.length = 0;
 			monsterMap = null;
 			canAttackMonster.length = 0;
 			canAttackMonster = null;
-
 		}
+
 		private getMiniNearMonster(monsterArr: Array<IDriver>, roleData: DriverData): IDriver {
 			let skillDistance: number = 620;
 			let j: number = 0;
 		
-			let byAttackMonster: IDriver
+			let byAttackMonster: IDriver;
 			let d: number = 999999;
 			//性取优化，只取20个来检测。
 			let jLen: number = monsterArr.length > 20 ? 20 : monsterArr.length;
@@ -565,10 +541,6 @@ module game {
 			return byAttackMonster;
 		}
 	
-	
-
-	
-	
 		protected nextRound(): void {
 			let self = this;
 			self._roundNum++;
@@ -585,7 +557,8 @@ module game {
 			}
 			self.createRoundMonster();
 		}
-		/***产生一小波怪 */
+
+		/**产生一小波怪*/
 		private createRoundMonster(): void {
 			let self = this;
 			let i: number = 0;
@@ -613,15 +586,14 @@ module game {
 			self._monsterNumInRound += len;
 			monsterIds.length = 0;
 			monsterIds = null;
-		
 		}
 
 		private createSkillVmc():void{
 			DLG.DLGCore.panel.show(PanelClassConfig.ID_SkillVmcPanel);
 		}
+
 		/**每个关卡的时候，给人物增加场景中的buff */
-		public onInitHeroBuff(driverdata:RoleData): void
-		{
+		public onInitHeroBuff(driverdata:RoleData): void {
 			let self = this;
 			//给场景上的人物增加buff
 			// let sceneCfg: SceneCfg = self.m_sceneMar.getSceneCfg();
@@ -630,31 +602,27 @@ module game {
 			let i: number = 0;
 			let iLen: number = buffs.length;
 			for (i = 0; i < iLen; i++) {
-				if (buffs[i] == 11501)
-				{
+				if (buffs[i] == 11501) {
 					//队长攻击力减少20%，队友攻击力增加10%
-					if (driverdata.isLeader)
-					{
+					if (driverdata.isLeader) {
 						self.m_buffMar.onAddBuffToTargetData(driverdata, ENUM_BuffEffect.ATTACK, 86400000, 0, -2000);
 					} else {
 						self.m_buffMar.onAddBuffToTargetData(driverdata, ENUM_BuffEffect.ATTACK, 86400000, 0, 1000);
 					}
-				} else if(buffs[i] == 11601)
-				{
+				} else if(buffs[i] == 11601) {
 					//队长攻击力增加10%，队友攻击力减少20%
-					if (driverdata.isLeader)
-					{
+					if (driverdata.isLeader) {
 						self.m_buffMar.onAddBuffToTargetData(driverdata, ENUM_BuffEffect.ATTACK, 86400000, 0, 1000);
 					} else {
 						self.m_buffMar.onAddBuffToTargetData(driverdata, ENUM_BuffEffect.ATTACK, 86400000, 0, -2000);
 					}
-				} else
-				{
+				} else {
 					self.m_buffMar.onAddBuffToTargetData(driverdata, buffs[i], 86400000, parseInt(parame[0]), parseInt(parame[1]));
 				}	
 			}
 			self.m_buffMar.onActionTargetBuff(driverdata, Enum_BuffTrigger.create);
 		}
+
 		/**生出一只怪的数据 */
 		private bornMonsterData(isBoss: boolean, mid: number): MonsterData {
 			let self = this;
@@ -666,13 +634,11 @@ module game {
 			driverdata.y = 0;
 
 			let monsterCfg: MonsterCfg = MonsterTable.getCfgById<MonsterCfg>(mid);
-		
 			driverdata.attr.setValue(Enum_Attr.speed, monsterCfg.speed - self.monsterSpeedCut);
 			driverdata.movieName = monsterCfg.movieName;
 			driverdata.monsterCfgId = monsterCfg.id;
 			driverdata.distance = monsterCfg.distance;
 			if (isBoss) {
-
 				if (Math.random() > 0.5) {
 					driverdata.x = tmpPointArr[1] + px;
 				} else {
@@ -720,7 +686,6 @@ module game {
 				} else {
 					driverdata.targetY = SceneData.boundary + DLG.Utils.random(-15, 15);
 				}
-			
 			}
 			let sceneCfg: SceneCfg = self.m_sceneMar.getSceneCfg();
 			let buffs: Array<number> = self._sceneMonsterBuffs;
@@ -734,9 +699,9 @@ module game {
 
 			rangArr.length = 0;
 			rangArr = null;
-
 			return driverdata;
 		}
+
 		/**本关卡中，是否挑战boss失败 */
 		public getFightBossFailed(): boolean {
 			return this._fightBossFailed;
@@ -747,14 +712,15 @@ module game {
 		/**主角射击的X Y坐标 */
 		private touchStageX: number;
 		private touchStageY: number;
+
 		private leaderStopFightHandler(e: egret.TouchEvent): void {
 			let self = this;
-			if (self._leaderCanFight == true)
-			{
+			if (self._leaderCanFight == true) {
 				DLG.DLGCore.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE, self.leaderFightMoveHandler, self);
 			}
 			self._leaderCanFight = false;
 		}
+
 		private leaderFightHandler(e: egret.TouchEvent): void {
 			let self = this;
 			if (self._isStart != true) {
@@ -778,6 +744,7 @@ module game {
 				isAttackMonster = true;
 			}
 		}
+
 		private leaderFightMoveHandler(event: egret.TouchEvent): void {
 			let self = this;
 			if (self._leaderCanFight == true) {

@@ -7,7 +7,7 @@ class MainUIView extends DLG.CComponent {
 	public des_txt:DLG.CLabel;
 
 	// public head_icom_img:DLG.CImage;
-	// public head_title_img:DLG.CImage;
+	private imgHand:DLG.CImage;
 
 	/**区服List */
 	public mainList: DLG.CList;
@@ -33,6 +33,19 @@ class MainUIView extends DLG.CComponent {
 		if (self.onLoadCallBack) {
 			self.onLoadCallBack.call(self.onLoadCallTarget);
 		}
+
+		this.tweenCurse();
+	}
+
+	private tweenCurse():void {
+		let scale:number = 2;
+		egret.Tween.get(this.imgHand).to({scaleX:scale, scaleY:scale, alpha:0.2}, 500).call(this.tweenDelay,this);
+	}
+
+	private tweenDelay():void {
+		this.imgHand.scaleX = this.imgHand.scaleY = 1;
+		this.imgHand.alpha = 1;
+		this.tweenCurse();
 	}
 
 	public onDestroy(): void {

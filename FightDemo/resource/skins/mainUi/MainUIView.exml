@@ -31,4 +31,9 @@
 		</e:layout>
 		</DLG:CList>
 	</DLG:CGroup>
+	<e:Group x="191" y="314" anchorOffsetY="0" height="166">
+		<DLG:CImage y="0" anchorOffsetX="0" anchorOffsetY="0" scale9Grid="35,32,35,35" x="0" scaleX="1" scaleY="1" source="img_attackTip_png"/>
+		<DLG:CImage source="img_hand_png" x="113" y="97"/>
+		<DLG:CImage id="imgHand" source="img_hand_png" x="129" y="113" anchorOffsetX="16" anchorOffsetY="16"/>
+	</e:Group>
 </e:Skin>

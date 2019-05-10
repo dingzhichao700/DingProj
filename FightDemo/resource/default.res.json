@@ -13,7 +13,7 @@
 			"name": "login"
 		},
 		{
-			"keys": "cfg_Server_json,cfg_random_name_json,common_bg_icon_png,guide_arrow_png,load_bar_point_png,load_bg1_png,load_bar_pro_png,load_bg2_png,load_bar_bg1_png,load_bar_bg_png,welcom_bg_png,welcom_button_png,wuHun_bg_head1_png,common_btn3_png,common_btn4_png,common_close_btn1_png,loginBg1_jpg,loginBg_jpg",
+			"keys": "cfg_Server_json,cfg_random_name_json,common_bg_icon_png,guide_arrow_png,load_bar_point_png,load_bg1_png,load_bar_pro_png,load_bg2_png,load_bar_bg1_png,load_bar_bg_png,welcom_bg_png,welcom_button_png,wuHun_bg_head1_png,common_btn3_png,common_btn4_png,common_close_btn1_png,loginBg1_jpg,loginBg_jpg,img_attackTip_png,img_hand_png",
 			"name": "preload"
 		},
 		{
@@ -965,6 +965,16 @@
 			"url": "assets/Images/loginBg.jpg",
 			"type": "image",
 			"name": "loginBg_jpg"
+		},
+		{
+			"name": "img_attackTip_png",
+			"type": "image",
+			"url": "assets/Texture/mainTop/img_attackTip.png"
+		},
+		{
+			"name": "img_hand_png",
+			"type": "image",
+			"url": "assets/Texture/mainTop/img_hand.png"
 		}
 	]
 }

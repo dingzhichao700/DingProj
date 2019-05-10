@@ -14,6 +14,7 @@ module game {
 		public constructor() {
 			super();
 		}
+		
 		public clear(): void {
 			super.clear();
 			let self = this;
@@ -24,7 +25,7 @@ module game {
 			self.monsterCfgId = undefined;
 			self.targetY = undefined;
 			self.isSwoonTime = undefined;
-		
 		}
+
 	}
 }

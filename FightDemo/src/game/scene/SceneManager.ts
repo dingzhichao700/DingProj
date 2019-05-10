@@ -192,7 +192,8 @@ module game {
 				let monsterIdList: Array<number> = self._sceneDta.monsterIdList.concat();
 				for (i = 0; i < len; i++) {
 					let monster: IDriver = self.getDriverById(monsterIdList[i], ENUM_DriverType.monster);
-					if (!monster) continue;
+					if (!monster) 
+						continue;
 					self.removeDriver(monster);
 				}
 				monsterIdList.length = 0;
@@ -455,19 +456,6 @@ module game {
 				return;
 			}
 			self._mapLayer.loadMap(mapname, sceneId);
-		}
-
-		public addRole(index: number, herovo: HeroVo): void {
-			let self = this;
-			let driverdata: RoleData = self.createDriverData(ENUM_DriverType.role);
-			driverdata.x = SceneData.roleStandPoint[index];
-			driverdata.y = 100;
-			driverdata.index = index;
-			driverdata.attr.clear();
-			herovo.attr.clone(driverdata.attr);
-			driverdata.skills = herovo.skills;
-			self.addDriver(driverdata);
-			FightManager.getInstance().onInitHeroBuff(driverdata);
 		}
 
 		public removeRoleByIndex(index: number): void {

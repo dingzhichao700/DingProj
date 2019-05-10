@@ -59,7 +59,7 @@ module game {
 			CfgData.setCfgData(_name, data);
 			this.loadCount++;
 			if(this.loadCount >= this.cfg_list.length){
-				LoginManager.getInstance().loadZip = true;
+				LoginManager.getInstance().cfgLoaded = true;
 				LoginManager.getInstance().checkComeInGame();
 				this.allOk();
 			} else {
@@ -78,7 +78,7 @@ module game {
 					}
 				}
 			}
-			LoginManager.getInstance().loadZip = true;
+			LoginManager.getInstance().cfgLoaded = true;
 			LoginManager.getInstance().checkComeInGame();
 			this.allOk();
 		}
@@ -102,7 +102,7 @@ module game {
 		}
 
 		private allOk():void{
-			if(LoginManager.getInstance().loadZip && LoginManager.getInstance().loadMainRes && LoginManager.getInstance().loadPanelShowOk)
+			if(LoginManager.getInstance().cfgLoaded && LoginManager.getInstance().loadMainRes && LoginManager.getInstance().loadPanelShowOk)
 				SceneManager.getInstance().loadIngPanelOk();
 		}
 
