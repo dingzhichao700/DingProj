@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="MainBtn" width="100" height="100" xmlns:e="http://ns.egret.com/eui" xmlns:DLG="DLG.*" xmlns:w="http://ns.egret.com/wing">
+	<DLG:CLabel id="label_txt" text="登录" anchorOffsetX="0" width="100" fontFamily="KaiTi" textAlign="center" horizontalCenter="0" verticalCenter="0" textColor="0xff0000"/>
+	<DLG:CImage id="img" width="100" height="100" scale9Grid="15,15,22,22" source="Login_json.Login_panelSkin1_png" anchorOffsetY="0" x="0" y="0"/>
+</e:Skin>

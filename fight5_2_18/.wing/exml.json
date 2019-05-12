@@ -1,0 +1,13 @@
+{
+  "global": {
+    "globalAutoLayerMarkEnable": true
+  },
+  "16aa228d9ee": {
+    "guideLines": [
+      {
+        "type": "h",
+        "pos": -5
+      }
+    ]
+  }
+}

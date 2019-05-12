@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="SelectServer" width="640" height="960" xmlns:e="http://ns.egret.com/eui" xmlns:DLG="DLG.*" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" xmlns:panel="panel.*">
+	<DLG:CRect width="640" height="960" x="0" y="0" fillAlpha="0.3"/>
+	<DLG:CImage width="528" height="770" y="100" anchorOffsetX="0" anchorOffsetY="0" scale9Grid="35,32,35,35" horizontalCenter="0" source="Login_json.Login_smeltBg_png"/>
+	<DLG:CImage x="44.5" y="64" source="Login_json.Login_WndHead_png"/>
+	<DLG:CBmpButton id="btn_close" anchorOffsetX="0" anchorOffsetY="0" skinName="CloseBtn" horizontalCenter="253" verticalCenter="-379.5"/>
+	<DLG:CList id="serverList" width="347" height="700" x="218" y="134" anchorOffsetX="0" anchorOffsetY="0" itemRendererSkinName="SelectServerItem">
+		<e:layout>
+			<e:VerticalLayout gap="10"/>
+		</e:layout>
+	</DLG:CList>
+	<DLG:CList id="selectList" width="134" height="200" x="74" anchorOffsetX="0" y="136">
+		<e:layout>
+			<e:VerticalLayout gap="5"/>
+		</e:layout>
+	</DLG:CList>
+</e:Skin>

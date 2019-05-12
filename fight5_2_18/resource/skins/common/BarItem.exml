@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="BarItemSkin" states="normal,disabled,normalWithPrompt,disabledWithPrompt" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:DLG="DLG.*">
+	<DLG:CImage id="bg_img" y="0" anchorOffsetX="0" anchorOffsetY="0" scale9Grid="35,32,35,35" x="0" source="common_bar_bg_png" width="362"/>
+	<DLG:CImage id="bar_img" y="2.78" anchorOffsetX="0" anchorOffsetY="0" scale9Grid="35,32,35,35" x="16.07" source="common_bar_pro_png"/>
+	<DLG:CLabel id="lab_txt" text="规则说明" x="0" y="0" size="16" anchorOffsetY="0" anchorOffsetX="0" width="362" textAlign="center" textColor="0xffffff" fontFamily="KaiTi" locked="true"/>
+</e:Skin>

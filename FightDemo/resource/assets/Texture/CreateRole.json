@@ -1,0 +1,10 @@
+{"file":"CreateRole.png","frames":{
+"CreateRole_CreateBtn_png":{"x":1,"y":243,"w":199,"h":64,"offX":2,"offY":0,"sourceW":202,"sourceH":64},
+"CreateRole_HeroIcon_1_png":{"x":89,"y":403,"w":82,"h":82,"offX":0,"offY":0,"sourceW":82,"sourceH":82},
+"CreateRole_HeroIcon_2_png":{"x":173,"y":403,"w":82,"h":82,"offX":0,"offY":0,"sourceW":82,"sourceH":82},
+"CreateRole_NameBg_png":{"x":1,"y":309,"w":215,"h":43,"offX":0,"offY":0,"sourceW":215,"sourceH":43},
+"CreateRole_SexGuang_png":{"x":1,"y":403,"w":86,"h":87,"offX":0,"offY":0,"sourceW":86,"sourceH":87},
+"CreateRole_ShaiZi_png":{"x":187,"y":1,"w":49,"h":50,"offX":0,"offY":0,"sourceW":49,"sourceH":50},
+"CreateRole_Tell0_png":{"x":94,"y":1,"w":91,"h":240,"offX":0,"offY":0,"sourceW":91,"sourceH":240},
+"CreateRole_Tell1_png":{"x":1,"y":1,"w":91,"h":240,"offX":0,"offY":0,"sourceW":91,"sourceH":240},
+"CreateRole_Title_png":{"x":1,"y":354,"w":174,"h":47,"offX":2,"offY":2,"sourceW":178,"sourceH":51}}}

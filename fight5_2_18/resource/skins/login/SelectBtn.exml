@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="SelectBtn" width="131" height="45" xmlns:e="http://ns.egret.com/eui" xmlns:DLG="DLG.*" xmlns:w="http://ns.egret.com/wing">
+	<DLG:CImage id="up_mc" width="131" height="44" source="Login_json.Login_yellowBtnDark_png" verticalCenter="0" horizontalCenter="0"/>
+	<DLG:CImage id="select_mc" width="131" height="44" verticalCenter="0" horizontalCenter="0" source="Login_json.Login_yellowBtnBright_png"/>
+	<DLG:CLabel id="serverType" text="区服" width="131" height="44" textAlign="center" verticalAlign="middle" fontFamily="KaiTi" horizontalCenter="0" size="25" textColor="0xfff2cb" verticalCenter="0"/>
+</e:Skin>
