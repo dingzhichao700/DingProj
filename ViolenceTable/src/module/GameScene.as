@@ -26,9 +26,11 @@ package module {
 			addChild(table);
 			table.init();
 
-			Laya.stage.on(Event.RESIZE, this, onResize);
 			Laya.stage.on(Event.KEY_DOWN, this, onDown);
-			onResize();
+			Laya.timer.once(1, this, function():void{
+				this.centerX = 0;
+				this.centerY = 0;
+			});
 		}
 
 		private var blur:Number = 0;
@@ -47,18 +49,5 @@ package module {
 			table.imgBg.filters = [];
 		}
 		
-		private function onResize():void {
-//			console.log("size:", Browser.width, Browser.height);
-			Laya.timer.once(1, this, function():void {
-				Laya.stage.setScreenSize(Browser.width, Browser.height);
-//				Laya.stage.size(Browser.width, Browser.height);
-			});
-
-			var scale:Number = Browser.height / GAME_HEIGHT;
-			this.scaleX = this.scaleY = scale;
-			this.x = Browser.width / 2 - GAME_WIDTH * scale / 2;
-			this.y = Browser.height / 2 - GAME_HEIGHT * scale / 2;
-		}
-
 	}
 }

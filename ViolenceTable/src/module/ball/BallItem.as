@@ -42,11 +42,12 @@ package module.ball {
 			switch (_type) {
 				case 0:
 					_radius = 27;
-//					boxBall.graphics.drawCircle(0, 0, _radius, "#ffffff");
 					break;
 				case 1:
 					_radius = 27;
-//					boxBall.graphics.drawCircle(0, 0, _radius, "#e06444");
+					break;
+				case 2:
+					_radius = 27;
 					break;
 			}
 			ballImage.skin = "ball/ball_" + _type + ".png";

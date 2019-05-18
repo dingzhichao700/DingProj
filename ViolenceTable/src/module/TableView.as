@@ -1,4 +1,5 @@
 package module {
+	import laya.events.Event;
 	import laya.maths.Point;
 	import laya.media.SoundManager;
 	
@@ -27,7 +28,19 @@ package module {
 
 			txtSpeed.style.font = "wryh";
 			txtSpeed.style.fontSize = 20;
+
 			Laya.timer.frameLoop(1, this, onFrame);
+			Laya.stage.on(Event.RESIZE, this, onResize);
+			onResize();
+		}
+
+		private function onResize():void {
+//			console.log("size:", Browser.width, Browser.height);
+			this.width = Laya.stage.width;
+			this.height = Laya.stage.height;
+
+			imgBg.width = this.width;
+			imgBg.height = this.height;
 		}
 
 		private function initTable():void {
@@ -161,8 +174,11 @@ package module {
 							/**碰撞方向上，球2对球1的相对速度小于0才会相撞，否则不会*/
 							if (speedHit2 < speedHit1) {
 								hitBall = true;
-								SoundManager.playMusic("res/sound/hit_iron.mp3", 1);
-								
+								var soundUrl:String = "res/sound/hit_iron.mp3";
+								var volume:Number = Math.abs(speedHit1 - speedHit2) / 100;
+								SoundManager.setSoundVolume(Math.max(Math.min(volume, 1), 0.5));
+								SoundManager.playSound(soundUrl, 1);
+
 								/*碰撞方向上，撞后的角度*/
 								var angleHitSpit1:int = hitAngle + 180;
 								var angleHitSpit2:int = hitAngle;

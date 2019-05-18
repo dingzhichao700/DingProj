@@ -1,8 +1,10 @@
 ﻿package {
+	
+	import laya.display.Stage;
 	import laya.events.Event;
 	import laya.utils.Handler;
 	import laya.webgl.WebGL;
-
+	
 	import module.GameScene;
 
 	public class Main {
@@ -11,10 +13,11 @@
 		private const loadList:Array = ["comp", "ball"];
 
 		public function Main() {
-			//去除矢量锯齿
+			//去除锯齿
 			Laya.Config.isAntialias = true;
 			//初始化引擎
-			Laya.init(1920, 1080, WebGL);
+			Laya.init(768, 1080, WebGL);
+			Laya.stage.scaleMode = Stage.SCALE_FIXED_AUTO;
 //			Laya.stage.frameRate = "slow";
 
 			//激活资源版本控制

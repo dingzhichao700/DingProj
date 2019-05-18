@@ -38,7 +38,7 @@ package module.ball {
 		private function onDown():void {
 			Tween.to(this.boxBottom, {scaleX: 0.1, scaleY: 0.1}, 1000); //光圈缩小回去
 			this.off(Event.MOUSE_DOWN, this, onDown);
-			SoundManager.playMusic("res/sound/hit_hold.mp3", 1/*, new Handler(this, onComplete)*/);
+			SoundManager.playSound("res/sound/hit_hold.mp3", 1/*, new Handler(this, onComplete)*/);
 
 			stage.on(Event.MOUSE_UP, this, onUp);
 			stage.on(Event.MOUSE_OUT, this, onUp);
@@ -47,7 +47,7 @@ package module.ball {
 		private function onUp(e:Event):void {
 			stage.off(Event.MOUSE_OUT, this, onUp);
 			stage.off(Event.MOUSE_UP, this, onUp);
-			SoundManager.playMusic("res/sound/hit_ball.mp3", 1);
+			SoundManager.playSound("res/sound/hit_ball.mp3", 1);
 			
 			var rotationAdd:Number = Math.atan2(mouseY, mouseX) * 180 / Math.PI;
 			this.addSpeed(rotationAdd + 180, 20);

@@ -436,7 +436,8 @@ var Main=(function(){
 		this.loadCount=0;
 		this.loadList=["comp","ball"];
 		Laya.Config.isAntialias=true;
-		Laya.init(1920,1080,WebGL);
+		Laya.init(768,1080,WebGL);
+		Laya.stage.scaleMode="fixedauto";
 		this.loadCount=0;
 		for (var i=0;i < this.loadList.length;i++){
 			var url=this.loadList[i];
@@ -39113,9 +39114,11 @@ var GameScene=(function(_super){
 		this.table=new TableView();
 		this.addChild(this.table);
 		this.table.init();
-		Laya.stage.on("resize",this,this.onResize);
 		Laya.stage.on("keydown",this,this.onDown);
-		this.onResize();
+		Laya.timer.once(1,this,function(){
+			this.centerX=0;
+			this.centerY=0;
+		});
 	}
 
 	__proto.onDown=function(){
@@ -39129,16 +39132,6 @@ var GameScene=(function(_super){
 		Laya.stage.off("keyup",this,this.onUp);
 		Params.ins.timeScale=1;
 		this.table.imgBg.filters=[];
-	}
-
-	__proto.onResize=function(){
-		Laya.timer.once(1,this,function(){
-			Laya.stage.setScreenSize(Browser.width,Browser.height);
-		});
-		var scale=Browser.height / 1080;
-		this.scaleX=this.scaleY=scale;
-		this.x=Browser.width / 2-768 *scale / 2;
-		this.y=Browser.height / 2-1080 *scale / 2;
 	}
 
 	GameScene.getInstance=function(){GameScene.instance=GameScene.instance|| new GameScene();
@@ -39156,6 +39149,8 @@ var GameScene=(function(_super){
 var TableViewUI=(function(_super){
 	function TableViewUI(){
 		this.imgBg=null;
+		this.boxBg=null;
+		this.imgTable=null;
 		this.boxCon=null;
 		this.boxTable=null;
 		this.txtSpeed=null;
@@ -39170,7 +39165,7 @@ var TableViewUI=(function(_super){
 		this.createView(TableViewUI.uiView);
 	}
 
-	TableViewUI.uiView={"type":"View","props":{"width":768,"height":1080},"child":[{"type":"Image","props":{"y":-100,"x":0,"skin":"unpack/img_bg.jpg"}},{"type":"Image","props":{"y":131,"x":166,"var":"imgBg","skin":"unpack/img_table.png"}},{"type":"Box","props":{"y":74,"x":130,"width":506,"var":"boxCon","height":904},"child":[{"type":"Box","props":{"var":"boxTable"},"child":[{"type":"Image","props":{"y":0,"x":56,"width":401,"skin":"comp/blank.png","height":22}},{"type":"Image","props":{"y":47,"x":0,"width":26,"skin":"comp/blank.png","height":361}},{"type":"Image","props":{"y":493,"x":0,"width":26,"skin":"comp/blank.png","height":361}},{"type":"Image","props":{"y":493,"x":481,"width":26,"skin":"comp/blank.png","height":361}},{"type":"Image","props":{"y":53,"x":481,"width":26,"skin":"comp/blank.png","height":361}},{"type":"Image","props":{"y":880,"x":56,"width":401,"skin":"comp/blank.png","height":22}}]}]},{"type":"HTMLDivElement","props":{"y":14,"x":101,"width":571,"var":"txtSpeed","innerHTML":"测试文本啊哈哈","height":23}},{"type":"Image","props":{"y":170,"x":0,"skin":"comp/img_tray.png"}}]};
+	TableViewUI.uiView={"type":"View","props":{"width":768,"height":1080},"child":[{"type":"Image","props":{"var":"imgBg","skin":"unpack/img_bg.jpg","centerY":0,"centerX":0}},{"type":"Image","props":{"y":170,"skin":"comp/img_tray.png","left":0}},{"type":"Box","props":{"width":500,"height":1000,"centerY":0,"centerX":0},"child":[{"type":"Box","props":{"y":117,"x":56,"width":454,"var":"boxBg","centerX":0},"child":[{"type":"Image","props":{"var":"imgTable","skin":"unpack/img_table.png"}}]},{"type":"Box","props":{"y":60,"x":29,"width":506,"var":"boxCon","height":904},"child":[{"type":"Box","props":{"var":"boxTable"}}]},{"type":"HTMLDivElement","props":{"width":571,"var":"txtSpeed","innerHTML":"测试文本啊哈哈","height":23}}]}]};
 	return TableViewUI;
 })(View)
 
@@ -39751,6 +39746,9 @@ var BallItem=(function(_super){
 			case 1:
 				this._radius=27;
 				break ;
+			case 2:
+				this._radius=27;
+				break ;
 			}
 		this.ballImage.skin="ball/ball_"+this._type+".png";
 		this.speedSetHandler();
@@ -39800,6 +39798,15 @@ var TableView=(function(_super){
 		this.txtSpeed.style.font="wryh";
 		this.txtSpeed.style.fontSize=20;
 		Laya.timer.frameLoop(1,this,this.onFrame);
+		Laya.stage.on("resize",this,this.onResize);
+		this.onResize();
+	}
+
+	__proto.onResize=function(){
+		this.width=Laya.stage.width;
+		this.height=Laya.stage.height;
+		this.imgBg.width=this.width;
+		this.imgBg.height=this.height;
 	}
 
 	__proto.initTable=function(){
@@ -39909,7 +39916,10 @@ __proto.onFrame=function(){
 					var speedHit2=ball2.speed *Math.cos(angleHit2 / 180 *Math.PI);
 					if (speedHit2 < speedHit1){
 						hitBall=true;
-						SoundManager.playMusic("res/sound/hit_iron.mp3",1);
+						var soundUrl="res/sound/hit_iron.mp3";
+						var volume=Math.abs(speedHit1-speedHit2)/ 100;
+						SoundManager.setSoundVolume(Math.max(Math.min(volume,1),0.5));
+						SoundManager.playSound(soundUrl,1);
 						var angleHitSpit1=hitAngle+180;
 						var angleHitSpit2=hitAngle;
 						var speedHitSpit1=(Math.abs(speedHit1)+Math.abs(speedHit2))/ 2;
@@ -40076,7 +40086,7 @@ var HitBall=(function(_super){
 	__proto.onDown=function(){
 		Tween.to(this.boxBottom,{scaleX:0.1,scaleY:0.1},1000);
 		this.off("mousedown",this,this.onDown);
-		SoundManager.playMusic("res/sound/hit_hold.mp3",1);
+		SoundManager.playSound("res/sound/hit_hold.mp3",1);
 		this.stage.on("mouseup",this,this.onUp);
 		this.stage.on("mouseout",this,this.onUp);
 	}
@@ -40084,7 +40094,7 @@ var HitBall=(function(_super){
 	__proto.onUp=function(e){
 		this.stage.off("mouseout",this,this.onUp);
 		this.stage.off("mouseup",this,this.onUp);
-		SoundManager.playMusic("res/sound/hit_ball.mp3",1);
+		SoundManager.playSound("res/sound/hit_ball.mp3",1);
 		var rotationAdd=Math.atan2(this.mouseY,this.mouseX)*180 / Math.PI;
 		this.addSpeed(rotationAdd+180,20);
 	}
