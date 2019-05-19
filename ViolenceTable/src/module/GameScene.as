@@ -1,6 +1,7 @@
 package module {
 	import laya.events.Event;
 	import laya.filters.BlurFilter;
+	import laya.media.SoundManager;
 	import laya.ui.View;
 	import laya.utils.Browser;
 
@@ -8,9 +9,6 @@ package module {
 
 		private var table:TableView;
 		
-		public static const GAME_WIDTH:int = 768;
-		public static const GAME_HEIGHT:int = 1080;
-
 		private static var instance:GameScene;
 
 		public static function getInstance():GameScene {
@@ -36,17 +34,20 @@ package module {
 		private var blur:Number = 0;
 		private function onDown():void {
 			Laya.stage.on(Event.KEY_UP, this, onUp);
+			SoundManager.setMusicVolume(0.05);
 			
 			Params.ins.timeScale = 0.02;
 			 
 			var filter:BlurFilter = new BlurFilter();
-			table.imgBg.filters = [filter];
+			filter.strength = 4;
+			table.imgTable.filters = [filter];
 		}
 		
 		private function onUp():void {
 			Laya.stage.off(Event.KEY_UP, this, onUp);
+			SoundManager.setMusicVolume(0.5);
 			Params.ins.timeScale = 1;
-			table.imgBg.filters = [];
+			table.imgTable.filters = [];
 		}
 		
 	}

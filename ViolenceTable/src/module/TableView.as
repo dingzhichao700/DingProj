@@ -29,6 +29,8 @@ package module {
 			txtSpeed.style.font = "wryh";
 			txtSpeed.style.fontSize = 20;
 
+			SoundManager.playMusic("music/battle_1.mp3");
+			SoundManager.setMusicVolume(0.5);
 			Laya.timer.frameLoop(1, this, onFrame);
 			Laya.stage.on(Event.RESIZE, this, onResize);
 			onResize();
@@ -65,7 +67,7 @@ package module {
 
 		private function initBall():void {
 			ballList = new Array();
-			for (var i:int = 0; i < 1; i++) {
+			for (var i:int = 0; i < 10; i++) {
 				var ball:BallItem = addBall(200 + 100 * Math.floor(i / 5), 300 + 100 * (i % 5), 1, 1);
 				ball.ballRotation = 0;
 			}
@@ -138,6 +140,7 @@ package module {
 							}
 						}
 						if (findLine) {
+							SoundManager.playSound("sound/hit_wall_1.mp3", 1);
 							/*碰撞*/
 							var rotationAdd:Number = shortestApeakData[1] - ball.ballRotation;
 							ball.ballRotation = ball.ballRotation - 180 + rotationAdd * 2;
@@ -174,10 +177,10 @@ package module {
 							/**碰撞方向上，球2对球1的相对速度小于0才会相撞，否则不会*/
 							if (speedHit2 < speedHit1) {
 								hitBall = true;
-								var soundUrl:String = "res/sound/hit_iron.mp3";
-								var volume:Number = Math.abs(speedHit1 - speedHit2) / 100;
-								SoundManager.setSoundVolume(Math.max(Math.min(volume, 1), 0.5));
+								var soundUrl:String = "sound/hit_iron.mp3";
 								SoundManager.playSound(soundUrl, 1);
+								var volume:Number = Math.abs(speedHit1 - speedHit2) / 100;
+								SoundManager.setSoundVolume(Math.max(Math.min(volume, 0.6), 0.1), soundUrl);
 
 								/*碰撞方向上，撞后的角度*/
 								var angleHitSpit1:int = hitAngle + 180;
