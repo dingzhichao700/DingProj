@@ -816,6 +816,66 @@ var Params=(function(){
 })()
 
 
+//class utils.ShockUtil
+var ShockUtil=(function(){
+	function ShockUtil(){}
+	__class(ShockUtil,'utils.ShockUtil');
+	ShockUtil.play=function(view,time,range,speed,dir,handler){
+		(speed===void 0)&& (speed=0);
+		(dir===void 0)&& (dir=0);
+		if (ShockUtil.infoDic[view]){
+			ShockUtil.stop(view);
+		};
+		var beginX=view.x;
+		var beginY=view.y;
+		ShockUtil.infoDic[view]=[beginX,beginY,time,Browser.now(),range,speed,dir,handler];
+		Laya.timer.loop(1,view,ShockUtil.doShock,[view]);
+	}
+
+	ShockUtil.doShock=function(view){
+		var arr=ShockUtil.infoDic[view];
+		var maxTime=arr[2];
+		var passTime=Browser.now()-arr[3];
+		if (passTime >=maxTime){
+			ShockUtil.stop(view);
+			return;
+		};
+		var beginX=arr[0];
+		var beginY=arr[1];
+		var range=arr[4];
+		var speed=arr[5];
+		var dir=arr[6];
+		if (dir==0 || dir==1){
+			var addX=Math.sin(passTime *speed / 100)*range;
+			view.x=beginX+addX;
+		}
+		if (dir==0 || dir==2){
+			var addY=Math.cos(passTime *speed / 100)*range;
+			view.y=beginY+addY;
+		}
+	}
+
+	ShockUtil.stop=function(view){
+		if (ShockUtil.infoDic[view]){
+			Laya.timer.clearAll(view);
+			var arr=ShockUtil.infoDic[view];
+			var beginX=arr[0];
+			var beginY=arr[1];
+			view.x=beginX;
+			view.y=beginY;
+			var handler=arr[7];
+			if (handler){
+				handler.run();
+			}
+			delete ShockUtil.infoDic[view];
+		}
+	}
+
+	ShockUtil.infoDic={};
+	return ShockUtil;
+})()
+
+
 /**
 *Config 用于配置一些全局参数。如需更改，请在初始化引擎之前设置。
 */
@@ -39040,7 +39100,6 @@ var BlockItem=(function(_super){
 
 	__class(BlockItem,'module.ball.BlockItem',_super);
 	var __proto=BlockItem.prototype;
-	// drawBlock();
 	__proto.setRect=function(width,height){
 		this.data=[0,0,width,0,width,height,0,height];
 	}
@@ -39074,6 +39133,7 @@ var BlockItem=(function(_super){
 				this._pDown=point2.y;
 			}
 		}
+		this.drawBlock();
 	});
 
 	__getset(0,__proto,'lines',function(){
@@ -39150,6 +39210,7 @@ var GameScene=(function(_super){
 var TableViewUI=(function(_super){
 	function TableViewUI(){
 		this.imgBg=null;
+		this.boxScene=null;
 		this.imgTable=null;
 		this.boxCon=null;
 		this.boxTable=null;
@@ -39165,7 +39226,7 @@ var TableViewUI=(function(_super){
 		this.createView(TableViewUI.uiView);
 	}
 
-	TableViewUI.uiView={"type":"View","props":{"width":768,"height":1080},"child":[{"type":"Image","props":{"var":"imgBg","skin":"unpack/img_bg.jpg","height":1080,"centerY":0,"centerX":0}},{"type":"Box","props":{"width":572,"height":980,"centerY":0,"centerX":0},"child":[{"type":"Image","props":{"y":0,"x":0,"width":572,"var":"imgTable","skin":"unpack/img_table.png","sizeGrid":"123,142,148,140","height":980}},{"type":"Box","props":{"y":0,"x":0,"width":500,"var":"boxCon","height":904},"child":[{"type":"Box","props":{"var":"boxTable"}}]}]},{"type":"Box","props":{"y":170,"left":0},"child":[{"type":"Image","props":{"y":0,"skin":"comp/img_tray.png","left":-40}}]},{"type":"HTMLDivElement","props":{"y":11,"x":106,"width":472,"var":"txtSpeed","innerHTML":"测试文本啊哈哈","height":39}}]};
+	TableViewUI.uiView={"type":"View","props":{"width":768,"height":1080},"child":[{"type":"Image","props":{"var":"imgBg","skin":"unpack/img_bg.jpg","height":1080,"centerY":0,"centerX":0}},{"type":"Box","props":{"width":572,"var":"boxScene","height":980,"centerY":0,"centerX":0},"child":[{"type":"Image","props":{"y":0,"x":0,"width":572,"var":"imgTable","skin":"unpack/img_table.png","sizeGrid":"123,142,148,140","height":980}},{"type":"Box","props":{"y":0,"x":0,"width":500,"var":"boxCon","height":904},"child":[{"type":"Box","props":{"var":"boxTable"}}]}]},{"type":"Box","props":{"y":170,"left":0},"child":[{"type":"Image","props":{"y":0,"skin":"comp/img_tray.png","left":-40}}]},{"type":"HTMLDivElement","props":{"y":11,"x":106,"width":472,"var":"txtSpeed","innerHTML":"测试文本啊哈哈","height":39}}]};
 	return TableViewUI;
 })(View)
 
@@ -39894,6 +39955,7 @@ __proto.onFrame=function(){
 					}
 				}
 				if (findLine){
+					ShockUtil.play(this.boxScene,200,5,100);
 					SoundManager.playSound("sound/hit_wall_1.mp3",1);
 					var rotationAdd=shortestApeakData[1]-ball.ballRotation;
 					ball.ballRotation=ball.ballRotation-180+rotationAdd *2;
@@ -39919,10 +39981,11 @@ __proto.onFrame=function(){
 					var speedHit2=ball2.speed *Math.cos(angleHit2 / 180 *Math.PI);
 					if (speedHit2 < speedHit1){
 						hitBall=true;
+						ShockUtil.play(this.boxScene,200,1,100);
 						var soundUrl="sound/hit_iron.mp3";
 						SoundManager.playSound(soundUrl,1);
 						var volume=Math.abs(speedHit1-speedHit2)/ 100;
-						SoundManager.setSoundVolume(Math.max(Math.min(volume,0.6),0.1),soundUrl);
+						SoundManager.setSoundVolume(1,soundUrl);
 						var angleHitSpit1=hitAngle+180;
 						var angleHitSpit2=hitAngle;
 						var speedHitSpit1=(Math.abs(speedHit1)+Math.abs(speedHit2))/ 2;

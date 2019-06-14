@@ -8,6 +8,8 @@ package module {
 	import module.ball.BlockItem;
 	
 	import ui.TableViewUI;
+	
+	import utils.ShockUtil;
 
 	public class TableView extends TableViewUI {
 
@@ -140,6 +142,8 @@ package module {
 							}
 						}
 						if (findLine) {
+							ShockUtil.play(boxScene, 200, 5, 100);
+							
 							SoundManager.playSound("sound/hit_wall_1.mp3", 1);
 							/*碰撞*/
 							var rotationAdd:Number = shortestApeakData[1] - ball.ballRotation;
@@ -177,10 +181,15 @@ package module {
 							/**碰撞方向上，球2对球1的相对速度小于0才会相撞，否则不会*/
 							if (speedHit2 < speedHit1) {
 								hitBall = true;
+								
+								ShockUtil.play(boxScene, 200, 1, 100);
+								
+								/*播碰撞音*/
 								var soundUrl:String = "sound/hit_iron.mp3";
 								SoundManager.playSound(soundUrl, 1);
 								var volume:Number = Math.abs(speedHit1 - speedHit2) / 100;
-								SoundManager.setSoundVolume(Math.max(Math.min(volume, 0.6), 0.1), soundUrl);
+//								SoundManager.setSoundVolume(Math.max(Math.min(volume, 0.6), 0.1), soundUrl);
+								SoundManager.setSoundVolume(1, soundUrl);
 
 								/*碰撞方向上，撞后的角度*/
 								var angleHitSpit1:int = hitAngle + 180;
