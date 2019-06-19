@@ -51,6 +51,11 @@ module game {
             this.main.bottom_box.y = (windowH + contentH * globalScale) / (2 * globalScale) - 107;
 		}
 
+		public updateMonsterNum(cur:number, total:number): void {
+			this.main.imgPro.width = cur/total * 294;
+			this.main.txtNum.text = cur + "/" + total;
+		}
+
 		public onSkill(): void {
 			FightManager.getInstance().doSwordRain();
 		}

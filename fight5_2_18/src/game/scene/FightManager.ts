@@ -292,6 +292,11 @@ module game {
 			}
 		}
 
+		/**更新怪物数量*/
+		public updateMonsterNum():void {
+			MainUIManager.getInstance().updateMonsterNum(this.m_sceneMar.getAllMonster().length, this._monsterMaxNumInRound);
+		}
+
 		protected currentCount: number = 0;
 		protected checkFightHandler(event: egret.Event): void {
 			let self = this;
@@ -302,22 +307,6 @@ module game {
 			let dataT = self.m_clock.getTime();
 			self.currentCount++;
 			let currentCount = self.currentCount;
-			/*if(self._curSkillVmcTimes < self._maxSkillVmcTimes) {
-				if(DLG.DLGCore.panel.getPanelById(PanelClassConfig.ID_GuidePanel) || DLG.DLGCore.panel.getPanelById(PanelClassConfig.ID_WelcomePanel)){
-					self._startTime = egret.getTimer();
-				}else{
-					let gap:number = egret.getTimer() - self._startTime;
-					let curGap:number = self._initGap - 1000*self._curSkillVmcTimes;
-					curGap  = self._curSkillVmcTimes== 0 ? curGap : curGap + 2500; 
-					curGap = Math.max(curGap,2500) ;
-					if(gap >= curGap){
-						self._startTime = egret.getTimer();
-						self._curSkillVmcTimes += 1;
-						self.createSkillVmc();
-					}
-				}	
-			}*/
-
 			let monsterArr: Array<number> = self.m_sceneMar.getAllMonster();
 			let monsterMap: Array<Array<IDriver>> = [[], [], [], [], [], [], [], [], [], []];
 			let canAttackMonster: Array<IDriver> = [];
@@ -328,7 +317,7 @@ module game {
 				if ((self._fightBossFailed == false && self._canFightBoss == false) ||
 					(self._canFightBoss == true && self._isFighttingBoss == true)
 				) {
-					if (currentCount % 20 == 0) {
+					if (currentCount % 5 == 0) {
 						self.createRoundMonster();
 					}
 					if (self._monsterNumInRound >= self._monsterMaxNumInRound && len <= 3) {
@@ -553,8 +542,8 @@ module game {
 			let self = this;
 			let i: number = 0;
 			let len: number = Math.ceil(Math.random() * 5);
-			if ((self._fightBossFailed == false && self._canFightBoss == false) ||
-				(self._canFightBoss == true && self._isFighttingBoss == true)
+			if ((!self._fightBossFailed && !self._canFightBoss) ||
+				(self._canFightBoss && self._isFighttingBoss)
 			) {
 				let maxLen = self._monsterMaxNumInRound - self._monsterNumInRound;
 				if (len > maxLen) {
@@ -574,6 +563,7 @@ module game {
 				self.m_sceneMar.addDriver(driverdata);
 			}
 			self._monsterNumInRound += len;
+			this.updateMonsterNum();
 			monsterIds.length = 0;
 			monsterIds = null;
 		}

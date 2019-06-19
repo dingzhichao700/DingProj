@@ -150,7 +150,7 @@ module game {
 				attr.setValue(Enum_Attr.hp, 100);
 				attr.setValue(Enum_Attr.totalHp, 100);
 				attr.setValue(Enum_Attr.attack, 1000);
-				HeroManager.getInstance().addRole(0, 'player1', ENUM_JOB_TYPE.job_ZS, attr, [10001, 10002, 10003, 10004, 10005, 10006, 10007, 10008, 10009, 10010,10011]);
+				HeroManager.getInstance().addRole(0, 'player1', ENUM_JOB_TYPE.JOB_ZS, attr, [10001, 10002, 10003, 10004, 10005, 10006, 10007, 10008, 10009, 10010,10011]);
 				HeroManager.getInstance().addRole(1, 'player1', ENUM_JOB_TYPE.JOB_GJS, attr, [11001, 11002, 11003, 11004, 11005, 11006, 11007, 11008, 11009, 11010,11011]);
 				if (Math.random() > 0.5)
 					HeroManager.getInstance().addRole(2, 'player1', ENUM_JOB_TYPE.JOB_CK, attr, [12001, 12002, 12003, 12004, 12005, 12006, 12007, 12008, 12009, 12010,12011,12012]);

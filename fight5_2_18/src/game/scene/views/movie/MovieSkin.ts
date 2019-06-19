@@ -34,13 +34,11 @@ module game {
 			let self = this;
 			self.touchEnabled = false;
 			self.setShowMovie(showMovie);
-
 		}
-		public setShowMovie(value: boolean): void
-		{
+
+		public setShowMovie(value: boolean): void {
 			let self = this;
-			if (value == true)
-			{
+			if (value == true) {
 				if (!self._skinRenderBmp) {
 					self._skinRenderBmp = new egret.Bitmap();
 					self.addChild(self._skinRenderBmp);
@@ -48,48 +46,26 @@ module game {
 				if(!self._renderTexture) self._renderTexture = new egret.RenderTexture();
 				if(!self._rect) self._rect = new egret.Rectangle();
 				if(!self._skinBitMap) self._skinBitMap = new egret.Bitmap();
-			} else
-			{
-				
 			}	
 		}
-		// protected _isPlay: boolean = false;
-		// public play(): void
-		// {
-		// 	let self = this;
-		// 	self._isPlay = true;
-		// }
-		// public stop(): void
-		// {
-		// 	let self = this;
-		// 	self._isPlay = false;
-		// }
+
 		public setDirection(value: number): void {
 			let self = this;
 			self._direction = value;
-			// if (self._action != undefined && self._movieName && self._path)
-			// {
-			// 	self._playIndex = 0;
-			// 	self.loadMovie();
-			// }
 		}
+
 		public setAction(value: number): void {
 			let self = this;
 			if (self._action != value) {
 				self._action = value;
-				// if (self._direction && self._movieName && self._path)
-				// {
-				// 	self._playIndex = 0;
-				// 	self.loadMovie();
-				// }
 			}
 		}
+
 		public goToAndStop(frame: number): void {
 			let self = this;
 			self._isStop = true;
 			self._playFrame = frame
 			if (self._loadEnd == false) {
-				// self._playIndex = index;
 				return;
 			}
 
@@ -99,6 +75,7 @@ module game {
 				self.onPlayFrameCallBack.call(self.onPlayFrameTaget, frame, self._totalFrame);
 			}
 		}
+
 		public nextFrame(): void {
 			let self = this;
 			if (self._isStop == true) {
@@ -108,32 +85,22 @@ module game {
 				self._playFrame++;
 				return;
 			}
-			// if (self._playIndex > self._totalFrame)
-			// {
-			// 	//加载完后，设置在播放点上
-			// 	self._playIndex = self._playIndex % self._totalFrame;
-			// 	self.renderSkin(self._playIndex);
-			// } else {
 			let frame = self._playFrame;
 			frame++;
 			if (frame > self._totalFrame) {
 				frame = 1;
 			}
 			self.renderSkin(frame);
-			// }
 			if (self.onPlayFrameCallBack) {
 				self.onPlayFrameCallBack.call(self.onPlayFrameTaget, self._playFrame, self._totalFrame);
 			}
 		}
+
 		protected renderSkin(index: number, exRender: boolean = true): void {
 			let self = this;
 			if (!self._skinRenderBmp) {
 				return;
 			}
-			// if (self._playIndex == -1)
-			// {
-			// 	return;
-			// }	
 			if (exRender == false && self._playFrame == index) {
 				return;
 			}
@@ -156,12 +123,9 @@ module game {
 			}
 			
 			//使用 RenderTexture 进行显示
-			// self._renderTexture.drawToTexture(new egret.Bitmap(self._skinBitMap), self._rect);
 			self._renderTexture.drawToTexture(self._skinBitMap, self._rect);
 			//将绘制好的 RenderTexture 进行显示
 			let bmp: egret.Bitmap = self._skinRenderBmp;
-			// if (bmp.$bitmapData) bmp.$bitmapData.$dispose();
-			// if (bmp.texture) bmp.texture = null;
 			bmp.texture = self._renderTexture;
 	
 			if (frameData.rotated == true) {
@@ -175,19 +139,8 @@ module game {
 			}
 			bmp.width = self._rect.width;
 			bmp.height = self._rect.height;
-			
-		
 		}
-		// protected _footX: number;
-		// protected _footY: number;
-		// /**设置脚点 */
-		// public setFootPoint(x: number, y: number): void
-		// {
-		// 	let self = this;
-		// 	self._footX = x;
-		// 	self._footY = y;
-		// 	egret.callLater(self.renderSkin, this);
-		// }
+		
 		public setMovieName(path: string, movieName: string): void {
 			let self = this;
 			if (self._path == path && self._movieName == movieName) {
@@ -197,11 +150,8 @@ module game {
 			self._path = path;
 			self._playFrame = 0;
 			self._totalFrame = 0;
-			// if (self._action != undefined && self._direction)
-			// {
-			// 	self.loadMovie();
-			// }
 		}
+
 		public loadMovie(): void {
 			let self = this;
 			let url;
@@ -224,28 +174,16 @@ module game {
 				}
 			}
 		}
+
 		private onLoadComplete(url: string, jsonObj: Object, bitmapData: egret.BitmapData): void {
 			let self = this;
-			// if (!self.parent)
-			// {
-			// 	return;
-			// }	
 			if (url == self._url) {
-
 				self.unbindJosn(jsonObj);
-			
-
-				//创建纹理对象
-				// if (self._skinTexture && self._skinTexture.bitmapData)
-				// {
-				// 	self._skinTexture.bitmapData.$dispose();
-				// }	
 			
 				if(self._skinBitMap){
 					let tex = new egret.Texture();
 					tex.bitmapData = bitmapData;
 					self._skinBitMap.texture = tex;
-					// self._skinBitMap.$bitmapData = bitmapData;
 				}
 				self._loadEnd = true;
 
@@ -261,9 +199,7 @@ module game {
 					self.nextFrame();
 				}
 			}
-		
 		}
-	
 	
 		/**解析json */
 		protected unbindJosn(jsonObj): void {
@@ -273,8 +209,7 @@ module game {
 			let framesObj = jsonObj.frames;
 			let i: number = 0;
 			let len: number = framesObj.length;
-			if (self._poses)
-			{
+			if (self._poses) {
 				self._poses.length = 0;
 			}	
 			self._poses = [];
@@ -289,9 +224,7 @@ module game {
 			}
 		}
 
-	
 		private static getActionPath(_action): string {
-
 			if (_action == ENUM_DriverAction.attack) {
 				return 'attack';
 			} else if (_action == ENUM_DriverAction.run) {
@@ -301,11 +234,11 @@ module game {
 			}
 			return '';
 		}
+
 		public destroy(): void {
 			let self = this;
 			self.onPlayFrameCallBack = undefined;
 			self.onPlayFrameTaget = undefined;
-			// self._jsonObj = undefined;
 			self._poses = undefined;
 			self._playFrame = 0;
 			self._totalFrame = 0;

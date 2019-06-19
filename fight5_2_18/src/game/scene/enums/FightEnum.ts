@@ -36,7 +36,7 @@ module game {
 	export enum ENUM_JOB_TYPE
 	{
 		/**战士 */
-		job_ZS = 1,
+		JOB_ZS = 1,
 		/**弓箭手 */
 		JOB_GJS = 2,
 		/**刺客 */

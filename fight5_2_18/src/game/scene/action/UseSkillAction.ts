@@ -212,7 +212,7 @@ module game {
 					self.m_clock.addTime(p_time, 1, self.onPutOnBullet, self, driverdata);
 				}	
 			}	
-			if (driverdata.job == ENUM_JOB_TYPE.job_ZS) {
+			if (driverdata.job == ENUM_JOB_TYPE.JOB_ZS) {
 				let bulletCfg: BulletCfg = BulletTable.getCfgById<BulletCfg>(bulletId);
 				let angle: number = Math.atan2(driverdata.y - driverdata.attackPy, driverdata.x - driverdata.attackPx) * 180 / Math.PI - 90;
 				let b_ratio = Math.random() * 10000;

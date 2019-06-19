@@ -41,8 +41,9 @@ module game {
 		private closePanelHandler(e: eui.UIEvent): void {
 			DLG.DLGCore.panel.closeAll();
 
-			var nextId:number = MissonIManager.getInstance().getNextMission( MainUIManager.getInstance().sceneId );
-			SceneManager.getInstance().changeMap(nextId,true);
+			FightManager.getInstance().onStart();
+			// var nextId:number = MissonIManager.getInstance().getNextMission( MainUIManager.getInstance().sceneId );
+			// SceneManager.getInstance().changeMap(nextId,true);
 		}
 
 		public onDestroy(): void {

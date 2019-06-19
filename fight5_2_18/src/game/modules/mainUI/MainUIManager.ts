@@ -29,9 +29,19 @@ module game {
 		public set sceneId(id:number){
 			this._sceneId = id;
 
-			let mainUI: DLG.IPanel = DLG.DLGCore.panel.getPanelById(PanelClassConfig.ID_MainUiPanel);
-			mainUI.onRefresh();
+			this.mainUI.onRefresh();
 		}
+
+		/**更新怪物数量*/
+		public updateMonsterNum(cur:number, total:number){
+			this.mainUI.updateMonsterNum(cur, total);
+		}
+
+		public get mainUI():MainUIPanel {
+			let mainUI: DLG.IPanel = DLG.DLGCore.panel.getPanelById(PanelClassConfig.ID_MainUiPanel);
+			return mainUI as MainUIPanel;
+		}
+
 		public get sceneId():number{
 			return this._sceneId;
 		}

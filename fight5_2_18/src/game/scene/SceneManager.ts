@@ -250,6 +250,7 @@ module game {
 				}
 				let useSkillAction = DLG.FactoryUtils.getClass(UseSkillAction);
 				useSkillAction.clearDriverSkillCD(driverData.id);
+				FightManager.getInstance().updateMonsterNum();
 			} else if (type == ENUM_DriverType.role) {
 				sceneData.roleDic[idStr] = undefined;
 				delete sceneData.roleDic[idStr];
@@ -290,6 +291,7 @@ module game {
 				}
 				let useSkillAction = DLG.FactoryUtils.getClass(UseSkillAction);
 				useSkillAction.clearDriverSkillCD(driverData.id);
+				FightManager.getInstance().updateMonsterNum();
 			} else if (type == ENUM_DriverType.role) {
 				sceneData.roleDic[idStr] = undefined;
 				delete sceneData.roleDic[idStr];

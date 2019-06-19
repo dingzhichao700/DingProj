@@ -19,6 +19,9 @@ class MainUIView extends DLG.CComponent {
 	public top_left:DLG.CGroup;
 	public top_right:DLG.CGroup;
 
+	public imgPro:DLG.CImage;
+	public txtNum:DLG.CLabel;
+
 	public constructor() {
 		super();
 		let self = this;

@@ -1,8 +1,11 @@
 module game {
 	export class MissonIManager extends DLG.BaseAction {
+
 		private static _instance: MissonIManager
 		public curTimes:number = 7;
 		public maxTimes:number = 10;
+
+		public monsterWaveCount:number = 0;
 		private _mission:Array<MissionVo>;
 		
 		public clickFirstMission:boolean;
@@ -13,14 +16,15 @@ module game {
 			self.createSocket();
 			self.createPanelMar();
 		}
+
 		public static getInstance(): MissonIManager {
-			let self = this;
-			if (!self._instance) {
-				self._instance = new MissonIManager();
-				self._instance.initBagDatas();
+			if (!this._instance) {
+				this._instance = new MissonIManager();
+				this._instance.initBagDatas();
 			}
-			return self._instance;
+			return this._instance;
 		}
+
 		private initBagDatas():void{
 			let i:number=0
 			this._mission = [];
@@ -78,8 +82,6 @@ module game {
 			}
 			return this._mission[0].missionId;
 		}
-
-		
 
 	}
 }

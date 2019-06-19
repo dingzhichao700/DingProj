@@ -42,4 +42,9 @@
 		<DLG:CImage y="77" anchorOffsetX="0" anchorOffsetY="0" scale9Grid="35,32,35,35" x="0" scaleX="1" scaleY="1" source="bg_skillBtn_png"/>
 		<DLG:CImage id="btnSkill2" x="4.5" y="81.5" source="skill_2_png"/>
 	</e:Group>
+	<DLG:CGroup id="boxBar" width="325" height="32" x="164" y="147" anchorOffsetX="0" anchorOffsetY="0">
+		<e:Image source="progress_1_bg_png" x="2" y="-1" anchorOffsetX="0" width="314" scale9Grid="27,3,164,24" scaleX="1" scaleY="1"/>
+		<e:Image id="imgPro" source="progress_1_png" x="12" y="8" scaleX="1" scaleY="1" scale9Grid="24,1,150,13" width="294"/>
+		<DLG:CLabel id="txtNum" text="10/12" x="118" y="8" textColor="0xffed1c" size="18" textAlign="center" width="100"/>
+	</DLG:CGroup>
 </e:Skin>

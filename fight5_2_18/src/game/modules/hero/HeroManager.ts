@@ -39,7 +39,7 @@ module game {
 			driverdata.bulletCountMax = 100;
 
 			driverdata.putOnBulletCDTime = 6000;
-			if (job == ENUM_JOB_TYPE.job_ZS) {
+			if (job == ENUM_JOB_TYPE.JOB_ZS) {
 				driverdata.canThreeRatio = 4000
 				driverdata.doubleRatio = 5000;
 				driverdata.bigWeaponRatio = 1000;
