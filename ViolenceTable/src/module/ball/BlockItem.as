@@ -1,4 +1,5 @@
 package module.ball {
+	import laya.events.Event;
 	import laya.maths.Point;
 	import laya.ui.View;
 
@@ -15,6 +16,10 @@ package module.ball {
 			this.alpha = 0.5;
 		}
 
+		public function get data():Array {
+			return _data;
+		}
+		
 		public function set data(arr:Array):void {
 			_data = arr;
 			_data.push(0);
@@ -44,8 +49,24 @@ package module.ball {
 				}
 			}
 			drawBlock();
+			this.on(Event.MOUSE_DOWN,this, onDrag);
+			this.mouseEnabled = true;
 		}
 
+		private function onDrag():void {
+			this.off(Event.MOUSE_DOWN,this, onDrag);
+			this.on(Event.MOUSE_UP,this, stopDrag);
+			this.on(Event.MOUSE_OUT,this, stopDrag);
+			this.startDrag();
+		}
+		
+		private function stopDrag():void {
+			this.stopDrag();
+			this.off(Event.MOUSE_OUT,this, stopDrag);
+			this.off(Event.MOUSE_UP,this, stopDrag);
+			this.on(Event.MOUSE_DOWN,this, onDrag);
+		}
+			
 		public function setRect(width:int, height:int):void {
 			data = [0, 0, width, 0, width, height, 0, height];
 		}
