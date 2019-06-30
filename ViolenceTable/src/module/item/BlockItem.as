@@ -1,4 +1,4 @@
-package module.ball {
+package module.item {
 	import laya.events.Event;
 	import laya.maths.Point;
 	import laya.ui.View;
@@ -48,22 +48,22 @@ package module.ball {
 					_pDown = point2.y;
 				}
 			}
-			drawBlock();
+			this.width = _pRight - _pLeft;
+			this.height = _pDown - _pUp;
+//			drawBlock();
 			this.on(Event.MOUSE_DOWN,this, onDrag);
 			this.mouseEnabled = true;
 		}
 
 		private function onDrag():void {
 			this.off(Event.MOUSE_DOWN,this, onDrag);
-			this.on(Event.MOUSE_UP,this, stopDrag);
-			this.on(Event.MOUSE_OUT,this, stopDrag);
+			Laya.stage.on(Event.MOUSE_UP,this, endDrag);
 			this.startDrag();
 		}
 		
-		private function stopDrag():void {
+		private function endDrag():void {
 			this.stopDrag();
-			this.off(Event.MOUSE_OUT,this, stopDrag);
-			this.off(Event.MOUSE_UP,this, stopDrag);
+			Laya.stage.off(Event.MOUSE_UP,this, endDrag);
 			this.on(Event.MOUSE_DOWN,this, onDrag);
 		}
 			

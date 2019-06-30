@@ -3,6 +3,8 @@ package module.ball {
 	import laya.filters.GlowFilter;
 	import laya.ui.Image;
 	
+	import module.item.HpBarView;
+	
 	import ui.BallItemUI;
 
 	public class BallItem extends BallItemUI {
@@ -12,6 +14,7 @@ package module.ball {
 		private var _speed:Number = 0;
 		private var _radius:int;
 		private var _ballRotation:Number;
+		private var hpBar:HpBarView;
 		
 		private var ballImage:Image;
 		protected var _speedCost:Number = 0.99;
@@ -19,6 +22,11 @@ package module.ball {
 		public function BallItem() {
 			ballRotation = 0;
 			this.boxBall.cacheAsBitmap = true;
+		}
+		
+		public function showHpBar():void  {
+			hpBar ||= new HpBarView();
+			addChild(hpBar);
 		}
 
 		public function get ballRotation():Number {
@@ -31,7 +39,6 @@ package module.ball {
 
 		public function set type(value:int):void {
 			_type = value;
-//			boxBall.graphics.clear();
 			ballImage ||= new Image();
 			ballImage.x = -27;
 			ballImage.y = -27;

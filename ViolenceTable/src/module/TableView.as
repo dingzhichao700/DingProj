@@ -2,21 +2,21 @@ package module {
 	import laya.events.Event;
 	import laya.maths.Point;
 	import laya.media.SoundManager;
-	
+
 	import module.ball.BallItem;
 	import module.ball.BallManager;
-	import module.ball.BlockItem;
-	
+	import module.item.BlockItem;
+
 	import ui.TableViewUI;
-	
+
 	import utils.ShockUtil;
 
 	public class TableView extends TableViewUI {
 
 		private var ballList:Array;
 		private var blockList:Array;
-		private const WALL_POS:Array = [[0,0,0,0,490,0,490,22,0,22],[481,20,0,0,26,0,26,880,0,880],[0,880,0,0,490,0,490,22,0,22],[0,0,0,0,26,0,26,880,0,880]];
-		private const WALL_POS2:Array = [[0,0,0,0,490,0,490,22],[481,20,0,0,26,0,26,880],[0,880,0,0,490,0,490,22],[0,0,0,0,26,0,26,880]];
+		private const WALL_POS:Array = [[42, 19, 0, 0, 490, 0, 490, 22, 0, 22], [528, 47, 0, 0, 26, 0, 26, 880, 0, 880], [41, 937, 0, 0, 490, 0, 490, 22, 0, 22], [16, 52, 0, 0, 26, 0, 26, 880, 0, 880]];
+		private const WALL_POS2:Array = [[0, 0, 0, 0, 490, 0, 490, 22], [481, 20, 0, 0, 26, 0, 26, 880], [0, 880, 0, 0, 490, 0, 490, 22], [0, 0, 0, 0, 26, 0, 26, 880]];
 
 		public function TableView() {
 		}
@@ -28,7 +28,7 @@ package module {
 			txtSpeed.style.font = "wryh";
 			txtSpeed.style.fontSize = 20;
 
-			SoundManager.playMusic("music/battle_1.mp3");
+//			SoundManager.playMusic("music/battle_1.mp3");
 			SoundManager.setMusicVolume(0.5);
 			Laya.timer.frameLoop(1, this, onFrame);
 			Laya.stage.on(Event.RESIZE, this, onResize);
@@ -143,11 +143,16 @@ package module {
 								}
 							}
 						}
+						/*撞墙*/
 						if (findLine) {
+							/*震动*/
 							var range:int = Math.min(ball.speed, 5);
 							ShockUtil.play(boxScene, 200, range, 100);
 
+							/*音效*/
 							SoundManager.playSound("sound/hit_wall_1.mp3");
+							SoundManager.setSoundVolume(range / 5, "sound/hit_wall_1.mp3");
+
 							/*碰撞*/
 							var rotationAdd:Number = shortestApeakData[1] - ball.ballRotation;
 							ball.ballRotation = ball.ballRotation - 180 + rotationAdd * 2;
@@ -187,12 +192,11 @@ package module {
 
 								ShockUtil.play(boxScene, 200, 1, 100);
 
-								/*播碰撞音*/
+								/*音效*/
 								var soundUrl:String = "sound/hit_iron.mp3";
 								SoundManager.playSound(soundUrl, 1);
-								var volume:Number = Math.abs(speedHit1 - speedHit2) / 100;
-//								SoundManager.setSoundVolume(Math.max(Math.min(volume, 0.6), 0.1), soundUrl);
-								SoundManager.setSoundVolume(1, soundUrl);
+								var volume:Number = Math.abs(speedHit1 - speedHit2) / 5;
+								SoundManager.setSoundVolume(Math.min(volume, 1), soundUrl);
 
 								/*碰撞方向上，撞后的角度*/
 								var angleHitSpit1:int = hitAngle + 180;
