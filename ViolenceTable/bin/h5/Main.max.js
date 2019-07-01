@@ -816,6 +816,66 @@ var Params=(function(){
 })()
 
 
+//class utils.ShockUtil
+var ShockUtil=(function(){
+	function ShockUtil(){}
+	__class(ShockUtil,'utils.ShockUtil');
+	ShockUtil.play=function(view,time,range,speed,dir,handler){
+		(speed===void 0)&& (speed=0);
+		(dir===void 0)&& (dir=0);
+		if (ShockUtil.infoDic[view]){
+			ShockUtil.stop(view);
+		};
+		var beginX=view.x;
+		var beginY=view.y;
+		ShockUtil.infoDic[view]=[beginX,beginY,time,Browser.now(),range,speed,dir,handler];
+		Laya.timer.loop(1,view,ShockUtil.doShock,[view]);
+	}
+
+	ShockUtil.doShock=function(view){
+		var arr=ShockUtil.infoDic[view];
+		var maxTime=arr[2];
+		var passTime=Browser.now()-arr[3];
+		if (passTime >=maxTime){
+			ShockUtil.stop(view);
+			return;
+		};
+		var beginX=arr[0];
+		var beginY=arr[1];
+		var range=arr[4];
+		var speed=arr[5];
+		var dir=arr[6];
+		if (dir==0 || dir==1){
+			var addX=Math.sin(passTime *speed / 100)*range;
+			view.x=beginX+addX;
+		}
+		if (dir==0 || dir==2){
+			var addY=Math.cos(passTime *speed / 100)*range;
+			view.y=beginY+addY;
+		}
+	}
+
+	ShockUtil.stop=function(view){
+		if (ShockUtil.infoDic[view]){
+			Laya.timer.clearAll(view);
+			var arr=ShockUtil.infoDic[view];
+			var beginX=arr[0];
+			var beginY=arr[1];
+			view.x=beginX;
+			view.y=beginY;
+			var handler=arr[7];
+			if (handler){
+				handler.run();
+			}
+			delete ShockUtil.infoDic[view];
+		}
+	}
+
+	ShockUtil.infoDic={};
+	return ShockUtil;
+})()
+
+
 /**
 *Config 用于配置一些全局参数。如需更改，请在初始化引擎之前设置。
 */
@@ -37827,6 +37887,104 @@ var VScrollBar=(function(_super){
 
 
 /**
+*使用 <code>VSlider</code> 控件，用户可以通过在滑块轨道的终点之间移动滑块来选择值。
+*<p> <code>VSlider</code> 控件采用垂直方向。滑块轨道从下往上扩展，而标签位于轨道的左右两侧。</p>
+*
+*@example <caption>以下示例代码，创建了一个 <code>VSlider</code> 实例。</caption>
+*package
+*{
+	*import laya.ui.HSlider;
+	*import laya.ui.VSlider;
+	*import laya.utils.Handler;
+	*public class VSlider_Example
+	*{
+		*private var vSlider:VSlider;
+		*public function VSlider_Example()
+		*{
+			*Laya.init(640,800);//设置游戏画布宽高。
+			*Laya.stage.bgColor="#efefef";//设置画布的背景颜色。
+			*Laya.loader.load(["resource/ui/vslider.png","resource/ui/vslider$bar.png"],Handler.create(this,onLoadComplete));//加载资源。
+			*}
+		*private function onLoadComplete():void
+		*{
+			*vSlider=new VSlider();//创建一个 VSlider 类的实例对象 vSlider 。
+			*vSlider.skin="resource/ui/vslider.png";//设置 vSlider 的皮肤。
+			*vSlider.min=0;//设置 vSlider 最低位置值。
+			*vSlider.max=10;//设置 vSlider 最高位置值。
+			*vSlider.value=2;//设置 vSlider 当前位置值。
+			*vSlider.tick=1;//设置 vSlider 刻度值。
+			*vSlider.x=100;//设置 vSlider 对象的属性 x 的值，用于控制 vSlider 对象的显示位置。
+			*vSlider.y=100;//设置 vSlider 对象的属性 y 的值，用于控制 vSlider 对象的显示位置。
+			*vSlider.changeHandler=new Handler(this,onChange);//设置 vSlider 位置变化处理器。
+			*Laya.stage.addChild(vSlider);//把 vSlider 添加到显示列表。
+			*}
+		*private function onChange(value:Number):void
+		*{
+			*trace("滑块的位置： value="+value);
+			*}
+		*}
+	*}
+*@example
+*Laya.init(640,800);//设置游戏画布宽高
+*Laya.stage.bgColor="#efefef";//设置画布的背景颜色
+*var vSlider;
+*Laya.loader.load(["resource/ui/vslider.png","resource/ui/vslider$bar.png"],laya.utils.Handler.create(this,onLoadComplete));//加载资源。
+*function onLoadComplete(){
+	*vSlider=new laya.ui.VSlider();//创建一个 VSlider 类的实例对象 vSlider 。
+	*vSlider.skin="resource/ui/vslider.png";//设置 vSlider 的皮肤。
+	*vSlider.min=0;//设置 vSlider 最低位置值。
+	*vSlider.max=10;//设置 vSlider 最高位置值。
+	*vSlider.value=2;//设置 vSlider 当前位置值。
+	*vSlider.tick=1;//设置 vSlider 刻度值。
+	*vSlider.x=100;//设置 vSlider 对象的属性 x 的值，用于控制 vSlider 对象的显示位置。
+	*vSlider.y=100;//设置 vSlider 对象的属性 y 的值，用于控制 vSlider 对象的显示位置。
+	*vSlider.changeHandler=new laya.utils.Handler(this,onChange);//设置 vSlider 位置变化处理器。
+	*Laya.stage.addChild(vSlider);//把 vSlider 添加到显示列表。
+	*}
+*function onChange(value){
+	*console.log("滑块的位置： value="+value);
+	*}
+*@example
+*import HSlider=laya.ui.HSlider;
+*import VSlider=laya.ui.VSlider;
+*import Handler=laya.utils.Handler;
+*class VSlider_Example {
+	*private vSlider:VSlider;
+	*constructor(){
+		*Laya.init(640,800);//设置游戏画布宽高。
+		*Laya.stage.bgColor="#efefef";//设置画布的背景颜色。
+		*Laya.loader.load(["resource/ui/vslider.png","resource/ui/vslider$bar.png"],Handler.create(this,this.onLoadComplete));//加载资源。
+		*}
+	*private onLoadComplete():void {
+		*this.vSlider=new VSlider();//创建一个 VSlider 类的实例对象 vSlider 。
+		*this.vSlider.skin="resource/ui/vslider.png";//设置 vSlider 的皮肤。
+		*this.vSlider.min=0;//设置 vSlider 最低位置值。
+		*this.vSlider.max=10;//设置 vSlider 最高位置值。
+		*this.vSlider.value=2;//设置 vSlider 当前位置值。
+		*this.vSlider.tick=1;//设置 vSlider 刻度值。
+		*this.vSlider.x=100;//设置 vSlider 对象的属性 x 的值，用于控制 vSlider 对象的显示位置。
+		*this.vSlider.y=100;//设置 vSlider 对象的属性 y 的值，用于控制 vSlider 对象的显示位置。
+		*this.vSlider.changeHandler=new Handler(this,this.onChange);//设置 vSlider 位置变化处理器。
+		*Laya.stage.addChild(this.vSlider);//把 vSlider 添加到显示列表。
+		*}
+	*private onChange(value:number):void {
+		*console.log("滑块的位置： value="+value);
+		*}
+	*}
+*@see laya.ui.Slider
+*/
+//class laya.ui.VSlider extends laya.ui.Slider
+var VSlider=(function(_super){
+	function VSlider(){
+		VSlider.__super.call(this);;
+	}
+
+	__class(VSlider,'laya.ui.VSlider',_super);
+	return VSlider;
+})(Slider)
+
+
+/**
 *<code>TextInput</code> 类用于创建显示对象以显示和输入文本。
 *
 *@example <caption>以下示例代码，创建了一个 <code>TextInput</code> 实例。</caption>
@@ -38149,104 +38307,6 @@ var TextInput=(function(_super){
 
 	return TextInput;
 })(Label)
-
-
-/**
-*使用 <code>VSlider</code> 控件，用户可以通过在滑块轨道的终点之间移动滑块来选择值。
-*<p> <code>VSlider</code> 控件采用垂直方向。滑块轨道从下往上扩展，而标签位于轨道的左右两侧。</p>
-*
-*@example <caption>以下示例代码，创建了一个 <code>VSlider</code> 实例。</caption>
-*package
-*{
-	*import laya.ui.HSlider;
-	*import laya.ui.VSlider;
-	*import laya.utils.Handler;
-	*public class VSlider_Example
-	*{
-		*private var vSlider:VSlider;
-		*public function VSlider_Example()
-		*{
-			*Laya.init(640,800);//设置游戏画布宽高。
-			*Laya.stage.bgColor="#efefef";//设置画布的背景颜色。
-			*Laya.loader.load(["resource/ui/vslider.png","resource/ui/vslider$bar.png"],Handler.create(this,onLoadComplete));//加载资源。
-			*}
-		*private function onLoadComplete():void
-		*{
-			*vSlider=new VSlider();//创建一个 VSlider 类的实例对象 vSlider 。
-			*vSlider.skin="resource/ui/vslider.png";//设置 vSlider 的皮肤。
-			*vSlider.min=0;//设置 vSlider 最低位置值。
-			*vSlider.max=10;//设置 vSlider 最高位置值。
-			*vSlider.value=2;//设置 vSlider 当前位置值。
-			*vSlider.tick=1;//设置 vSlider 刻度值。
-			*vSlider.x=100;//设置 vSlider 对象的属性 x 的值，用于控制 vSlider 对象的显示位置。
-			*vSlider.y=100;//设置 vSlider 对象的属性 y 的值，用于控制 vSlider 对象的显示位置。
-			*vSlider.changeHandler=new Handler(this,onChange);//设置 vSlider 位置变化处理器。
-			*Laya.stage.addChild(vSlider);//把 vSlider 添加到显示列表。
-			*}
-		*private function onChange(value:Number):void
-		*{
-			*trace("滑块的位置： value="+value);
-			*}
-		*}
-	*}
-*@example
-*Laya.init(640,800);//设置游戏画布宽高
-*Laya.stage.bgColor="#efefef";//设置画布的背景颜色
-*var vSlider;
-*Laya.loader.load(["resource/ui/vslider.png","resource/ui/vslider$bar.png"],laya.utils.Handler.create(this,onLoadComplete));//加载资源。
-*function onLoadComplete(){
-	*vSlider=new laya.ui.VSlider();//创建一个 VSlider 类的实例对象 vSlider 。
-	*vSlider.skin="resource/ui/vslider.png";//设置 vSlider 的皮肤。
-	*vSlider.min=0;//设置 vSlider 最低位置值。
-	*vSlider.max=10;//设置 vSlider 最高位置值。
-	*vSlider.value=2;//设置 vSlider 当前位置值。
-	*vSlider.tick=1;//设置 vSlider 刻度值。
-	*vSlider.x=100;//设置 vSlider 对象的属性 x 的值，用于控制 vSlider 对象的显示位置。
-	*vSlider.y=100;//设置 vSlider 对象的属性 y 的值，用于控制 vSlider 对象的显示位置。
-	*vSlider.changeHandler=new laya.utils.Handler(this,onChange);//设置 vSlider 位置变化处理器。
-	*Laya.stage.addChild(vSlider);//把 vSlider 添加到显示列表。
-	*}
-*function onChange(value){
-	*console.log("滑块的位置： value="+value);
-	*}
-*@example
-*import HSlider=laya.ui.HSlider;
-*import VSlider=laya.ui.VSlider;
-*import Handler=laya.utils.Handler;
-*class VSlider_Example {
-	*private vSlider:VSlider;
-	*constructor(){
-		*Laya.init(640,800);//设置游戏画布宽高。
-		*Laya.stage.bgColor="#efefef";//设置画布的背景颜色。
-		*Laya.loader.load(["resource/ui/vslider.png","resource/ui/vslider$bar.png"],Handler.create(this,this.onLoadComplete));//加载资源。
-		*}
-	*private onLoadComplete():void {
-		*this.vSlider=new VSlider();//创建一个 VSlider 类的实例对象 vSlider 。
-		*this.vSlider.skin="resource/ui/vslider.png";//设置 vSlider 的皮肤。
-		*this.vSlider.min=0;//设置 vSlider 最低位置值。
-		*this.vSlider.max=10;//设置 vSlider 最高位置值。
-		*this.vSlider.value=2;//设置 vSlider 当前位置值。
-		*this.vSlider.tick=1;//设置 vSlider 刻度值。
-		*this.vSlider.x=100;//设置 vSlider 对象的属性 x 的值，用于控制 vSlider 对象的显示位置。
-		*this.vSlider.y=100;//设置 vSlider 对象的属性 y 的值，用于控制 vSlider 对象的显示位置。
-		*this.vSlider.changeHandler=new Handler(this,this.onChange);//设置 vSlider 位置变化处理器。
-		*Laya.stage.addChild(this.vSlider);//把 vSlider 添加到显示列表。
-		*}
-	*private onChange(value:number):void {
-		*console.log("滑块的位置： value="+value);
-		*}
-	*}
-*@see laya.ui.Slider
-*/
-//class laya.ui.VSlider extends laya.ui.Slider
-var VSlider=(function(_super){
-	function VSlider(){
-		VSlider.__super.call(this);;
-	}
-
-	__class(VSlider,'laya.ui.VSlider',_super);
-	return VSlider;
-})(Slider)
 
 
 /**
@@ -39025,81 +39085,6 @@ var BallItemUI=(function(_super){
 })(View)
 
 
-//class module.ball.BlockItem extends laya.ui.View
-var BlockItem=(function(_super){
-	function BlockItem(){
-		this._data=null;
-		this._lines=null;
-		this._pUp=0;
-		this._pDown=0;
-		this._pLeft=0;
-		this._pRight=0;
-		BlockItem.__super.call(this);
-		this.alpha=0.5;
-	}
-
-	__class(BlockItem,'module.ball.BlockItem',_super);
-	var __proto=BlockItem.prototype;
-	// drawBlock();
-	__proto.setRect=function(width,height){
-		this.data=[0,0,width,0,width,height,0,height];
-	}
-
-	__proto.drawBlock=function(){
-		this.graphics.clear();
-		this.graphics.drawPoly(0,0,this._data.slice(2),"#FF0000");
-	}
-
-	__getset(0,__proto,'data',null,function(arr){
-		this._data=arr;
-		this._data.push(0);
-		this._data.push(0);
-		this._pUp=0;
-		this._pDown=0;
-		this._pLeft=0;
-		this._pRight=0;
-		this._lines=[];
-		for (var i=0;i < this._data.length-2;i+=2){
-			var point1=new Point(this._data[i],this._data[i+1]);
-			var point2=new Point(this._data[i+2],this._data[i+3]);
-			this._lines.push([point1,point2]);
-			if (point2.x < this._pLeft){
-				this._pLeft=point2.x;
-				}else if (point2.x > this._pRight){
-				this._pRight=point2.x;
-			}
-			if (point2.y < this._pUp){
-				this._pUp=point2.y;
-				}else if (point2.y > this._pDown){
-				this._pDown=point2.y;
-			}
-		}
-	});
-
-	__getset(0,__proto,'lines',function(){
-		return this._lines;
-	});
-
-	__getset(0,__proto,'pUp',function(){
-		return this._pUp;
-	});
-
-	__getset(0,__proto,'pRight',function(){
-		return this._pRight;
-	});
-
-	__getset(0,__proto,'pDown',function(){
-		return this._pDown;
-	});
-
-	__getset(0,__proto,'pLeft',function(){
-		return this._pLeft;
-	});
-
-	return BlockItem;
-})(View)
-
-
 //class module.GameScene extends laya.ui.View
 var GameScene=(function(_super){
 	function GameScene(){
@@ -39146,10 +39131,122 @@ var GameScene=(function(_super){
 })(View)
 
 
+//class module.item.BlockItem extends laya.ui.View
+var BlockItem=(function(_super){
+	function BlockItem(){
+		this._data=null;
+		this._lines=null;
+		this._pUp=0;
+		this._pDown=0;
+		this._pLeft=0;
+		this._pRight=0;
+		BlockItem.__super.call(this);
+		this.alpha=0.5;
+	}
+
+	__class(BlockItem,'module.item.BlockItem',_super);
+	var __proto=BlockItem.prototype;
+	__proto.onDrag=function(){
+		this.off("mousedown",this,this.onDrag);
+		Laya.stage.on("mouseup",this,this.endDrag);
+		this.startDrag();
+	}
+
+	__proto.endDrag=function(){
+		this.stopDrag();
+		Laya.stage.off("mouseup",this,this.endDrag);
+		this.on("mousedown",this,this.onDrag);
+	}
+
+	__proto.setRect=function(width,height){
+		this.data=[0,0,width,0,width,height,0,height];
+	}
+
+	__proto.drawBlock=function(){
+		this.graphics.clear();
+		this.graphics.drawPoly(0,0,this._data.slice(2),"#FF0000");
+	}
+
+	__getset(0,__proto,'data',function(){
+		return this._data;
+		},function(arr){
+		this._data=arr;
+		this._data.push(0);
+		this._data.push(0);
+		this._pUp=0;
+		this._pDown=0;
+		this._pLeft=0;
+		this._pRight=0;
+		this._lines=[];
+		for (var i=0;i < this._data.length-2;i+=2){
+			var point1=new Point(this._data[i],this._data[i+1]);
+			var point2=new Point(this._data[i+2],this._data[i+3]);
+			this._lines.push([point1,point2]);
+			if (point2.x < this._pLeft){
+				this._pLeft=point2.x;
+				}else if (point2.x > this._pRight){
+				this._pRight=point2.x;
+			}
+			if (point2.y < this._pUp){
+				this._pUp=point2.y;
+				}else if (point2.y > this._pDown){
+				this._pDown=point2.y;
+			}
+		}
+		this.width=this._pRight-this._pLeft;
+		this.height=this._pDown-this._pUp;
+		this.on("mousedown",this,this.onDrag);
+		this.mouseEnabled=true;
+	});
+
+	__getset(0,__proto,'lines',function(){
+		return this._lines;
+	});
+
+	__getset(0,__proto,'pUp',function(){
+		return this._pUp;
+	});
+
+	__getset(0,__proto,'pRight',function(){
+		return this._pRight;
+	});
+
+	__getset(0,__proto,'pDown',function(){
+		return this._pDown;
+	});
+
+	__getset(0,__proto,'pLeft',function(){
+		return this._pLeft;
+	});
+
+	return BlockItem;
+})(View)
+
+
+//class ui.HpBarViewUI extends laya.ui.View
+var HpBarViewUI=(function(_super){
+	function HpBarViewUI(){
+		this.imgHp=null;
+		HpBarViewUI.__super.call(this);
+	}
+
+	__class(HpBarViewUI,'ui.HpBarViewUI',_super);
+	var __proto=HpBarViewUI.prototype;
+	__proto.createChildren=function(){
+		laya.ui.Component.prototype.createChildren.call(this);
+		this.createView(HpBarViewUI.uiView);
+	}
+
+	HpBarViewUI.uiView={"type":"View","props":{"width":52,"height":7},"child":[{"type":"Image","props":{"y":2,"x":2,"var":"imgHp","skin":"comp/progress_1_1.png"}},{"type":"Image","props":{"skin":"comp/progress_1_bg.png"}}]};
+	return HpBarViewUI;
+})(View)
+
+
 //class ui.TableViewUI extends laya.ui.View
 var TableViewUI=(function(_super){
 	function TableViewUI(){
 		this.imgBg=null;
+		this.boxScene=null;
 		this.imgTable=null;
 		this.boxCon=null;
 		this.boxTable=null;
@@ -39165,7 +39262,7 @@ var TableViewUI=(function(_super){
 		this.createView(TableViewUI.uiView);
 	}
 
-	TableViewUI.uiView={"type":"View","props":{"width":768,"height":1080},"child":[{"type":"Image","props":{"var":"imgBg","skin":"unpack/img_bg.jpg","height":1080,"centerY":0,"centerX":0}},{"type":"Box","props":{"width":572,"height":980,"centerY":0,"centerX":0},"child":[{"type":"Image","props":{"y":0,"x":0,"width":572,"var":"imgTable","skin":"unpack/img_table.png","sizeGrid":"123,142,148,140","height":980}},{"type":"Box","props":{"y":0,"x":0,"width":500,"var":"boxCon","height":904},"child":[{"type":"Box","props":{"var":"boxTable"}}]}]},{"type":"Box","props":{"y":170,"left":0},"child":[{"type":"Image","props":{"y":0,"skin":"comp/img_tray.png","left":-40}}]},{"type":"HTMLDivElement","props":{"y":11,"x":106,"width":472,"var":"txtSpeed","innerHTML":"测试文本啊哈哈","height":39}}]};
+	TableViewUI.uiView={"type":"View","props":{"width":768,"height":1080},"child":[{"type":"Image","props":{"var":"imgBg","skin":"unpack/img_bg.jpg","height":1080,"centerY":0,"centerX":0}},{"type":"Box","props":{"width":572,"var":"boxScene","height":980,"centerY":0,"centerX":0},"child":[{"type":"Image","props":{"y":0,"x":0,"width":572,"var":"imgTable","skin":"unpack/img_table.png","sizeGrid":"123,142,148,140","height":980}},{"type":"Box","props":{"y":0,"x":0,"width":500,"var":"boxCon","height":904},"child":[{"type":"Box","props":{"var":"boxTable"}}]}]},{"type":"Box","props":{"y":170,"left":0},"child":[{"type":"Image","props":{"y":0,"skin":"comp/img_tray.png","left":-40}}]},{"type":"HTMLDivElement","props":{"y":11,"x":106,"width":472,"var":"txtSpeed","innerHTML":"测试文本啊哈哈","height":39}}]};
 	return TableViewUI;
 })(View)
 
@@ -39700,6 +39797,7 @@ var BallItem=(function(_super){
 		this._speed=0;
 		this._radius=0;
 		this._ballRotation=NaN;
+		this.hpBar=null;
 		this.ballImage=null;
 		this._speedCost=0.99;
 		BallItem.__super.call(this);
@@ -39709,6 +39807,10 @@ var BallItem=(function(_super){
 
 	__class(BallItem,'module.ball.BallItem',_super);
 	var __proto=BallItem.prototype;
+	__proto.showHpBar=function(){this.hpBar=this.hpBar|| new HpBarView();
+		this.addChild(this.hpBar);
+	}
+
 	/**速度被设置后调度*/
 	__proto.speedSetHandler=function(){}
 	__proto.addSpeed=function(rotation,addSpeed){
@@ -39780,12 +39882,23 @@ var BallItem=(function(_super){
 })(BallItemUI)
 
 
+//class module.item.HpBarView extends ui.HpBarViewUI
+var HpBarView=(function(_super){
+	function HpBarView(){
+		HpBarView.__super.call(this);
+	}
+
+	__class(HpBarView,'module.item.HpBarView',_super);
+	return HpBarView;
+})(HpBarViewUI)
+
+
 //class module.TableView extends ui.TableViewUI
 var TableView=(function(_super){
 	function TableView(){
 		this.ballList=null;
 		this.blockList=null;
-		this.WALL_POS=[[0,0,490,22],[481,20,26,880],[0,880,490,22],[0,0,26,880]];
+		this.WALL_POS=[[42,19,0,0,490,0,490,22,0,22],[528,47,0,0,26,0,26,880,0,880],[41,937,0,0,490,0,490,22,0,22],[16,52,0,0,26,0,26,880,0,880]];
 		this.WALL_POS2=[[0,0,0,0,490,0,490,22],[481,20,0,0,26,0,26,880],[0,880,0,0,490,0,490,22],[0,0,0,0,26,0,26,880]];
 		TableView.__super.call(this);
 	}
@@ -39797,10 +39910,10 @@ var TableView=(function(_super){
 		this.initBall();
 		this.txtSpeed.style.font="wryh";
 		this.txtSpeed.style.fontSize=20;
-		SoundManager.playMusic("music/battle_1.mp3");
 		SoundManager.setMusicVolume(0.5);
 		Laya.timer.frameLoop(1,this,this.onFrame);
 		Laya.stage.on("resize",this,this.onResize);
+		Laya.stage.on("keydown",this,this.onKeyDown);
 		this.onResize();
 	}
 
@@ -39811,246 +39924,238 @@ var TableView=(function(_super){
 		this.imgBg.height=this.height;
 	}
 
+	__proto.onKeyDown=function(){
+		var outStr="[";
+		for (var i=0;i < this.blockList.length;i++){
+			var item=this.blockList[i];
+			outStr+="["+item.x+","+item.y+","+item.data.slice(0,item.data.length-2)+"]"+(i==this.blockList.length-1 ? "" :",");
+		}
+		outStr+="]";
+		console.log(outStr);
+	}
+
 	__proto.initTable=function(){
 		this.blockList=[];
-		for (var i=0;i < this.WALL_POS.length;i++){
+		var targetConf=this.WALL_POS;
+		for (var j=0;j < targetConf.length;j++){
 			var item=new BlockItem();
-			item.setRect(this.WALL_POS[i][2],this.WALL_POS[i][3]);
-			item.x=this.WALL_POS[i][0];
-			item.y=this.WALL_POS[i][1];
+			item.data=(targetConf [j]).slice(2);
+			item.x=targetConf[j][0];
+			item.y=targetConf[j][1];
 			this.boxTable.addChild(item);
 			this.blockList.push(item);
 		}
+		this.boxTable.mouseEnabled=true;
 	}
 
-	/*for (var j:int=0;j < WALL_POS2.length;j++){
-	var item:BlockItem=new BlockItem();
-	item.data=(WALL_POS2[j] as Array).slice(2);
-	item.x=WALL_POS2[j][0];
-	item.y=WALL_POS2[j][1];
-	boxTable.addChild(item);
-	blockList.push(item);
-}*/
-
-
-__proto.initBall=function(){
-	this.ballList=[];
-	for (var i=0;i < 10;i++){
-		var ball=this.addBall(200+100 *Math.floor(i / 5),300+100 *(i % 5),1,1);
-		ball.ballRotation=0;
-	};
-
-	var ball0=this.addBall(200,100,0,0);
-}
-
-
-/**
-*添加一个球到容器中
-*@param x
-*@param y
-*@param type 球类型
-*@param camp 阵营，0为玩家球，1为被敌方球
-*/
-__proto.addBall=function(x,y,type,camp){
-	(type===void 0)&& (type=1);
-	(camp===void 0)&& (camp=1);
-	var item=BallManager.getInstance().getBall(type);
-	item.x=x;
-	item.y=y;
-	item.type=type;
-	item.camp=camp;
-	this.ballList.push(item);
-	this.boxCon.addChild(item);
-	return item;
-}
-
-
-__proto.onFrame=function(){
-	var totalSpeed=0;
-	for (var i=0;i < this.ballList.length;i++){
-		var ball=this.ballList [i];
-		var hitBlock=false;
-		for (var j=0;j < this.blockList.length;j++){
-			var block=this.blockList [j];
-			var findLine=false;
-			var shortestApeakData;
-			if (this.hitTestBlock(ball,block)){
-				for (var k=0;k < block.lines.length;k++){
-					var apeak=this.getApeakData(ball.x,ball.y,block,block.lines [k]);
-					if (apeak[0] < ball.radius){
-						var clipAngle=Math.abs(ball.ballRotation-apeak[1])% 360;
-						if (clipAngle > 180){
-							clipAngle=Math.abs(360-clipAngle);
-						}
-						if (clipAngle < 90){
-							if (!findLine){
-								shortestApeakData=apeak;
-								findLine=true;
-							}
-							if (apeak[0] <=shortestApeakData[0]){
-								shortestApeakData=apeak;
-							}
-						}
-					}
-				}
-				if (findLine){
-					SoundManager.playSound("sound/hit_wall_1.mp3",1);
-					var rotationAdd=shortestApeakData[1]-ball.ballRotation;
-					ball.ballRotation=ball.ballRotation-180+rotationAdd *2;
-					while (ball.ballRotation <-180){
-						ball.ballRotation+=360;
-					}
-					while (ball.ballRotation > 180){
-						ball.ballRotation-=360;
-					}
-					hitBlock=true;
-				}
-			}
+	__proto.initBall=function(){
+		this.ballList=[];
+		for (var i=0;i < 10;i++){
+			var ball=this.addBall(200+100 *Math.floor(i / 5),300+100 *(i % 5),1,1);
+			ball.ballRotation=0;
 		};
-		var hitBall=false;
-		for (j=0;j < this.ballList.length;j++){
-			var ball2=this.ballList [j];
-			if (ball2 !=ball){
-				if (this.hitTestBall(ball,ball2)){
-					var hitAngle=parseInt(Math.atan2(ball2.y-ball.y,ball2.x-ball.x)*180 / Math.PI+"");
-					var angleHit1=(ball.ballRotation-hitAngle)% 360;
-					var angleHit2=(ball2.ballRotation-hitAngle)% 360;
-					var speedHit1=ball.speed *Math.cos(angleHit1 / 180 *Math.PI);
-					var speedHit2=ball2.speed *Math.cos(angleHit2 / 180 *Math.PI);
-					if (speedHit2 < speedHit1){
-						hitBall=true;
-						var soundUrl="sound/hit_iron.mp3";
-						SoundManager.playSound(soundUrl,1);
-						var volume=Math.abs(speedHit1-speedHit2)/ 100;
-						SoundManager.setSoundVolume(Math.max(Math.min(volume,0.6),0.1),soundUrl);
-						var angleHitSpit1=hitAngle+180;
-						var angleHitSpit2=hitAngle;
-						var speedHitSpit1=(Math.abs(speedHit1)+Math.abs(speedHit2))/ 2;
-						var speedHitSpit2=(Math.abs(speedHit1)+Math.abs(speedHit2))/ 2;
-						while (angleHit1 < 0){
-							angleHit1+=360;
+		var ball0=this.addBall(200,100,0,0);
+	}
+
+	/**
+	*添加一个球到容器中
+	*@param x
+	*@param y
+	*@param type 球类型
+	*@param camp 阵营，0为玩家球，1为被敌方球
+	*/
+	__proto.addBall=function(x,y,type,camp){
+		(type===void 0)&& (type=1);
+		(camp===void 0)&& (camp=1);
+		var item=BallManager.getInstance().getBall(type);
+		item.x=x;
+		item.y=y;
+		item.type=type;
+		item.camp=camp;
+		this.ballList.push(item);
+		this.boxCon.addChild(item);
+		return item;
+	}
+
+	__proto.onFrame=function(){
+		var totalSpeed=0;
+		for (var i=0;i < this.ballList.length;i++){
+			var ball=this.ballList [i];
+			var hitBlock=false;
+			for (var j=0;j < this.blockList.length;j++){
+				var block=this.blockList [j];
+				var findLine=false;
+				var shortestApeakData;
+				if (this.hitTestBlock(ball,block)){
+					for (var k=0;k < block.lines.length;k++){
+						var apeak=this.getApeakData(ball.x,ball.y,block,block.lines [k]);
+						if (apeak[0] < ball.radius){
+							var clipAngle=Math.abs(ball.ballRotation-apeak[1])% 360;
+							if (clipAngle > 180){
+								clipAngle=Math.abs(360-clipAngle);
+							}
+							if (clipAngle < 90){
+								if (!findLine){
+									shortestApeakData=apeak;
+									findLine=true;
+								}
+								if (apeak[0] <=shortestApeakData[0]){
+									shortestApeakData=apeak;
+								}
+							}
 						}
-						while (angleHit1 > 360){
-							angleHit1-=360;
-						};
-						var angleSide1=hitAngle+((0 < angleHit1 && angleHit1 < 180)? 90 :-90);
-						while (angleHit2 < 0){
-							angleHit2+=360;
+					}
+					if (findLine){
+						var range=Math.min(ball.speed,5);
+						ShockUtil.play(this.boxScene,200,range,100);
+						SoundManager.playSound("sound/hit_wall_1.mp3");
+						SoundManager.setSoundVolume(range / 5,"sound/hit_wall_1.mp3");
+						var rotationAdd=shortestApeakData[1]-ball.ballRotation;
+						ball.ballRotation=ball.ballRotation-180+rotationAdd *2;
+						while (ball.ballRotation <-180){
+							ball.ballRotation+=360;
 						}
-						while (angleHit2 > 360){
-							angleHit2-=360;
-						};
-						var angleSide2=hitAngle+((0 < angleHit2 && angleHit2 < 180)? 90 :-90);
-						var speedSide1=ball.speed *Math.abs(angleHit1 % 180==0 ? Math.round(Math.sin(angleHit1 / 180 *Math.PI)):Math.sin(angleHit1 / 180 *Math.PI));
-						var speedSide2=ball2.speed *Math.abs(angleHit1 % 180==0 ? Math.round(Math.sin(angleHit2 / 180 *Math.PI)):Math.sin(angleHit2 / 180 *Math.PI));
-						var result=[];
-						result=this.getSpeedCombine([[speedHitSpit1,angleHitSpit1],[speedSide1,angleSide1]]);
-						ball.speed=result[0];
-						ball.ballRotation=result[1];
-						result=this.getSpeedCombine([[speedHitSpit2,angleHitSpit2],[speedSide2,angleSide2]]);
-						ball2.speed=result[0];
-						ball2.ballRotation=result[1];
+						while (ball.ballRotation > 180){
+							ball.ballRotation-=360;
+						}
+						hitBlock=true;
+					}
+				}
+			};
+			var hitBall=false;
+			for (j=0;j < this.ballList.length;j++){
+				var ball2=this.ballList [j];
+				if (ball2 !=ball){
+					if (this.hitTestBall(ball,ball2)){
+						var hitAngle=parseInt(Math.atan2(ball2.y-ball.y,ball2.x-ball.x)*180 / Math.PI+"");
+						var angleHit1=(ball.ballRotation-hitAngle)% 360;
+						var angleHit2=(ball2.ballRotation-hitAngle)% 360;
+						var speedHit1=ball.speed *Math.cos(angleHit1 / 180 *Math.PI);
+						var speedHit2=ball2.speed *Math.cos(angleHit2 / 180 *Math.PI);
+						if (speedHit2 < speedHit1){
+							hitBall=true;
+							ShockUtil.play(this.boxScene,200,1,100);
+							var soundUrl="sound/hit_iron.mp3";
+							SoundManager.playSound(soundUrl,1);
+							var volume=Math.abs(speedHit1-speedHit2)/ 5;
+							SoundManager.setSoundVolume(Math.min(volume,1),soundUrl);
+							var angleHitSpit1=hitAngle+180;
+							var angleHitSpit2=hitAngle;
+							var speedHitSpit1=(Math.abs(speedHit1)+Math.abs(speedHit2))/ 2;
+							var speedHitSpit2=(Math.abs(speedHit1)+Math.abs(speedHit2))/ 2;
+							while (angleHit1 < 0){
+								angleHit1+=360;
+							}
+							while (angleHit1 > 360){
+								angleHit1-=360;
+							};
+							var angleSide1=hitAngle+((0 < angleHit1 && angleHit1 < 180)? 90 :-90);
+							while (angleHit2 < 0){
+								angleHit2+=360;
+							}
+							while (angleHit2 > 360){
+								angleHit2-=360;
+							};
+							var angleSide2=hitAngle+((0 < angleHit2 && angleHit2 < 180)? 90 :-90);
+							var speedSide1=ball.speed *Math.abs(angleHit1 % 180==0 ? Math.round(Math.sin(angleHit1 / 180 *Math.PI)):Math.sin(angleHit1 / 180 *Math.PI));
+							var speedSide2=ball2.speed *Math.abs(angleHit1 % 180==0 ? Math.round(Math.sin(angleHit2 / 180 *Math.PI)):Math.sin(angleHit2 / 180 *Math.PI));
+							var result=[];
+							result=this.getSpeedCombine([[speedHitSpit1,angleHitSpit1],[speedSide1,angleSide1]]);
+							ball.speed=result[0];
+							ball.ballRotation=result[1];
+							result=this.getSpeedCombine([[speedHitSpit2,angleHitSpit2],[speedSide2,angleSide2]]);
+							ball2.speed=result[0];
+							ball2.ballRotation=result[1];
+						}
 					}
 				}
 			}
+			if (!hitBlock && !hitBall && ball.speed !=0){
+				ball.speed=ball.speed *(ball.speedCost+(1-ball.speedCost)*(1-this.timeScale));
+				var xDis=Math.cos(ball.ballRotation / 180 *Math.PI)*ball.speed *this.timeScale;
+				var yDis=Math.sin(ball.ballRotation / 180 *Math.PI)*ball.speed *this.timeScale;
+				ball.x+=xDis;
+				ball.y+=yDis;
+			}
+			totalSpeed+=ball.speed;
 		}
-		if (!hitBlock && !hitBall && ball.speed !=0){
-			ball.speed=ball.speed *(ball.speedCost+(1-ball.speedCost)*(1-this.timeScale));
-			var xDis=Math.cos(ball.ballRotation / 180 *Math.PI)*ball.speed *this.timeScale;
-			var yDis=Math.sin(ball.ballRotation / 180 *Math.PI)*ball.speed *this.timeScale;
-			ball.x+=xDis;
-			ball.y+=yDis;
-		}
-		totalSpeed+=ball.speed;
+		this.txtSpeed.innerHTML=totalSpeed+"";
 	}
 
-	this.txtSpeed.innerHTML=totalSpeed+"";
-}
-
-
-/**
-*获取垂线数据
-*@param x
-*@param y
-*@param block 线数组，包含2个端点Point
-*@param line block内部的某条线，包含2个端点Point
-*@return [垂线长度，角度]
-*/
-__proto.getApeakData=function(x,y,block,line){
-	var point1=line[0];
-	var point2=line[1];
-	var disX=point2.x-point1.x;
-	var disY=point2.y-point1.y;
-	if (disY==0){
-		return [Math.abs(y-block.y-point1.y),y > (block.y+point1.y)?-90 :90];
-	}
-
-	if (disX==0){
-		return [Math.abs(x-block.x-point1.x),x > (block.x+point1.x)? 180 :0];
-	};
-
-	var angle1=Math.atan(disY / disX)*180 / Math.PI;
-	var param1=(block.y+point2.y)-(block.x+point2.x)*Math.tan(angle1 / 180 *Math.PI);
-	var angle2=angle1-90;
-	var param2=y-x *Math.tan(angle2 / 180 *Math.PI);
-	var peakX=(param2-param1)/ (Math.tan(angle1 / 180 *Math.PI)-Math.tan(angle2 / 180 *Math.PI));
-	var peakY=Math.tan(angle1 / 180 *Math.PI)*peakX+param1;
-	var peakDis=Math.sqrt((peakX-x)*(peakX-x)+(peakY-y)*(peakY-y));
-	var peakRotation=Math.atan2(peakY-y,peakX-x)*180 / Math.PI;
-	return [peakDis,peakRotation];
-}
-
-
-/**
-*求和速度
-*@param speedList 分速度列表[[速度1，角度1],[速度2，角度2]...]
-*@return [合速度，角度]
-*
-*/
-__proto.getSpeedCombine=function(speedList){
-	var speedX=0;
-	var speedY=0;
-	for (var i=0;i < speedList.length;i++){
-		speedX+=speedList[i][0] *Math.cos(speedList[i][1] / 180 *Math.PI);
-		speedY+=speedList[i][0] *Math.sin(speedList[i][1] / 180 *Math.PI);
-	};
-
-	var speedCombine=Math.sqrt(speedX *speedX+speedY *speedY);
-	var angleCombine=Math.atan2(speedY,speedX)*180 / Math.PI;
-	return [speedCombine,angleCombine];
-}
-
-
-/**碰撞检测(球对障碍)-只检测障碍边界范围*/
-__proto.hitTestBlock=function(item,block){
-	var radius=item.radius;
-	var finalX=item.x;
-	var finalY=item.y;
-	if ((block.x+block.pLeft-radius)< finalX && finalX < (block.x+block.pRight+radius)){
-		if ((block.y+block.pUp-radius)< finalY && finalY < (block.y+block.pDown+radius)){
-			return true;
+	/**
+	*获取垂线数据
+	*@param x
+	*@param y
+	*@param block 线数组，包含2个端点Point
+	*@param line block内部的某条线，包含2个端点Point
+	*@return [垂线长度，角度]
+	*/
+	__proto.getApeakData=function(x,y,block,line){
+		var point1=line[0];
+		var point2=line[1];
+		var disX=point2.x-point1.x;
+		var disY=point2.y-point1.y;
+		if (disY==0){
+			return [Math.abs(y-block.y-point1.y),y > (block.y+point1.y)?-90 :90];
 		}
+		if (disX==0){
+			return [Math.abs(x-block.x-point1.x),x > (block.x+point1.x)? 180 :0];
+		};
+		var angle1=Math.atan(disY / disX)*180 / Math.PI;
+		var param1=(block.y+point2.y)-(block.x+point2.x)*Math.tan(angle1 / 180 *Math.PI);
+		var angle2=angle1-90;
+		var param2=y-x *Math.tan(angle2 / 180 *Math.PI);
+		var peakX=(param2-param1)/ (Math.tan(angle1 / 180 *Math.PI)-Math.tan(angle2 / 180 *Math.PI));
+		var peakY=Math.tan(angle1 / 180 *Math.PI)*peakX+param1;
+		var peakDis=Math.sqrt((peakX-x)*(peakX-x)+(peakY-y)*(peakY-y));
+		var peakRotation=Math.atan2(peakY-y,peakX-x)*180 / Math.PI;
+		return [peakDis,peakRotation];
 	}
 
-	return false;
-}
+	/**
+	*求和速度
+	*@param speedList 分速度列表[[速度1，角度1],[速度2，角度2]...]
+	*@return [合速度，角度]
+	*
+	*/
+	__proto.getSpeedCombine=function(speedList){
+		var speedX=0;
+		var speedY=0;
+		for (var i=0;i < speedList.length;i++){
+			speedX+=speedList[i][0] *Math.cos(speedList[i][1] / 180 *Math.PI);
+			speedY+=speedList[i][0] *Math.sin(speedList[i][1] / 180 *Math.PI);
+		};
+		var speedCombine=Math.sqrt(speedX *speedX+speedY *speedY);
+		var angleCombine=Math.atan2(speedY,speedX)*180 / Math.PI;
+		return [speedCombine,angleCombine];
+	}
 
+	/**碰撞检测(球对障碍)-只检测障碍边界范围*/
+	__proto.hitTestBlock=function(item,block){
+		var radius=item.radius;
+		var finalX=item.x;
+		var finalY=item.y;
+		if ((block.x+block.pLeft-radius)< finalX && finalX < (block.x+block.pRight+radius)){
+			if ((block.y+block.pUp-radius)< finalY && finalY < (block.y+block.pDown+radius)){
+				return true;
+			}
+		}
+		return false;
+	}
 
-/**碰撞检测(球对球)-根据球心距离和半径和来检测*/
-__proto.hitTestBall=function(item,item2){
-	var disX=item2.x-item.x;
-	var disY=item2.y-item.y;
-	var dis=Math.sqrt(disX *disX+disY *disY);
-	return dis < (item.radius+item2.radius);
-}
+	/**碰撞检测(球对球)-根据球心距离和半径和来检测*/
+	__proto.hitTestBall=function(item,item2){
+		var disX=item2.x-item.x;
+		var disY=item2.y-item.y;
+		var dis=Math.sqrt(disX *disX+disY *disY);
+		return dis < (item.radius+item2.radius);
+	}
 
+	__getset(0,__proto,'timeScale',function(){
+		return Params.ins.timeScale;
+	});
 
-__getset(0,__proto,'timeScale',function(){
-	return Params.ins.timeScale;
-});
-
-
-return TableView;
+	return TableView;
 })(TableViewUI)
 
 
@@ -40059,7 +40164,7 @@ var HitBall=(function(_super){
 	function HitBall(){
 		HitBall.__super.call(this);
 		this.boxBottom.alpha=0.5;
-		this._speedCost=0.995;
+		this._speedCost=0.993;
 	}
 
 	__class(HitBall,'module.ball.HitBall',_super);

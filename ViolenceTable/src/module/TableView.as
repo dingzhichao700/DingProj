@@ -2,22 +2,21 @@ package module {
 	import laya.events.Event;
 	import laya.maths.Point;
 	import laya.media.SoundManager;
-	
+
 	import module.ball.BallItem;
 	import module.ball.BallManager;
-	import module.ball.BlockItem;
-	
+	import module.item.BlockItem;
+
 	import ui.TableViewUI;
+
+	import utils.ShockUtil;
 
 	public class TableView extends TableViewUI {
 
 		private var ballList:Array;
 		private var blockList:Array;
-		private const WALL_POS:Array = [[0, 0, 490, 22], [481, 20, 26, 880], [0, 880, 490, 22], [0, 0, 26, 880]];
+		private const WALL_POS:Array = [[42, 19, 0, 0, 490, 0, 490, 22, 0, 22], [528, 47, 0, 0, 26, 0, 26, 880, 0, 880], [41, 937, 0, 0, 490, 0, 490, 22, 0, 22], [16, 52, 0, 0, 26, 0, 26, 880, 0, 880]];
 		private const WALL_POS2:Array = [[0, 0, 0, 0, 490, 0, 490, 22], [481, 20, 0, 0, 26, 0, 26, 880], [0, 880, 0, 0, 490, 0, 490, 22], [0, 0, 0, 0, 26, 0, 26, 880]];
-
-//		private const WALL_POS2:Array = [[0, 0, 0, 0, 450, 0, 450, 450], [481, 20, 0, 0, 26, 0, 26, 880], [0, 880, 0, 0, 490, 0, 490, 22], [0, 0, 0, 0, 26, 0, 26, 880]];
-//		private const WALL_POS2:Array = [[0, 0, 0, 0, 450, 0, 450, 450]];
 
 		public function TableView() {
 		}
@@ -29,10 +28,11 @@ package module {
 			txtSpeed.style.font = "wryh";
 			txtSpeed.style.fontSize = 20;
 
-			SoundManager.playMusic("music/battle_1.mp3");
+//			SoundManager.playMusic("music/battle_1.mp3");
 			SoundManager.setMusicVolume(0.5);
 			Laya.timer.frameLoop(1, this, onFrame);
 			Laya.stage.on(Event.RESIZE, this, onResize);
+			Laya.stage.on(Event.KEY_DOWN, this, onKeyDown);
 			onResize();
 		}
 
@@ -45,24 +45,28 @@ package module {
 			imgBg.height = this.height;
 		}
 
+		private function onKeyDown():void {
+			var outStr:String = "[";
+			for (var i:int = 0; i < blockList.length; i++) {
+				var item:BlockItem = blockList[i];
+				outStr += "[" + item.x + "," + item.y + "," + item.data.slice(0, item.data.length - 2) + "]" + (i == blockList.length - 1 ? "" : ",");
+			}
+			outStr += "]";
+			trace(outStr);
+		}
+
 		private function initTable():void {
 			blockList = [];
-			for (var i:int = 0; i < WALL_POS.length; i++) {
+			var targetConf:Array = WALL_POS;
+			for (var j:int = 0; j < targetConf.length; j++) {
 				var item:BlockItem = new BlockItem();
-				item.setRect(WALL_POS[i][2], WALL_POS[i][3]);
-				item.x = WALL_POS[i][0];
-				item.y = WALL_POS[i][1];
+				item.data = (targetConf[j] as Array).slice(2);
+				item.x = targetConf[j][0];
+				item.y = targetConf[j][1];
 				boxTable.addChild(item);
 				blockList.push(item);
 			}
-		/*for (var j:int = 0; j < WALL_POS2.length; j++) {
-			var item:BlockItem = new BlockItem();
-			item.data = (WALL_POS2[j] as Array).slice(2);
-			item.x = WALL_POS2[j][0];
-			item.y = WALL_POS2[j][1];
-			boxTable.addChild(item);
-			blockList.push(item);
-		}*/
+			boxTable.mouseEnabled = true;
 		}
 
 		private function initBall():void {
@@ -139,8 +143,16 @@ package module {
 								}
 							}
 						}
+						/*撞墙*/
 						if (findLine) {
-							SoundManager.playSound("sound/hit_wall_1.mp3", 1);
+							/*震动*/
+							var range:int = Math.min(ball.speed, 5);
+							ShockUtil.play(boxScene, 200, range, 100);
+
+							/*音效*/
+							SoundManager.playSound("sound/hit_wall_1.mp3");
+							SoundManager.setSoundVolume(range / 5, "sound/hit_wall_1.mp3");
+
 							/*碰撞*/
 							var rotationAdd:Number = shortestApeakData[1] - ball.ballRotation;
 							ball.ballRotation = ball.ballRotation - 180 + rotationAdd * 2;
@@ -177,10 +189,14 @@ package module {
 							/**碰撞方向上，球2对球1的相对速度小于0才会相撞，否则不会*/
 							if (speedHit2 < speedHit1) {
 								hitBall = true;
+
+								ShockUtil.play(boxScene, 200, 1, 100);
+
+								/*音效*/
 								var soundUrl:String = "sound/hit_iron.mp3";
 								SoundManager.playSound(soundUrl, 1);
-								var volume:Number = Math.abs(speedHit1 - speedHit2) / 100;
-								SoundManager.setSoundVolume(Math.max(Math.min(volume, 0.6), 0.1), soundUrl);
+								var volume:Number = Math.abs(speedHit1 - speedHit2) / 5;
+								SoundManager.setSoundVolume(Math.min(volume, 1), soundUrl);
 
 								/*碰撞方向上，撞后的角度*/
 								var angleHitSpit1:int = hitAngle + 180;

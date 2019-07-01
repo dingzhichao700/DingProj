@@ -9,7 +9,7 @@ package module.ball {
 
 		public function HitBall() {
 			boxBottom.alpha = 0.5;
-			_speedCost = 0.995; 
+			_speedCost = 0.993; 
 		}
 
 		override protected function speedSetHandler():void {
