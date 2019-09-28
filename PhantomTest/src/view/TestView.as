@@ -6,23 +6,26 @@ package view {
 	import laya.maths.Point;
 	import laya.renders.Render;
 	import laya.renders.RenderSprite;
-	import laya.utils.Tween;
+	import laya.ui.Box;
+	import laya.ui.Image;
 	import laya.webgl.WebGLContext;
 	import laya.webgl.resource.RenderTarget2D;
 	import laya.webgl.utils.RenderState2D;
-
+	
 	import ui.TestPageUI;
 
 	public class TestView extends TestPageUI {
 
 		private var startPos:Point;
 		private var mousePos:Point;
+		
+		private var listPhantom:Array;
 
 		public function TestView() {
 			DebugPanel.init();
 			boxCon.on(Event.MOUSE_DOWN, this, onStart);
 //			Tween.to(boxCon, {x:100}, 2000);
-			Laya.timer.loop(2, this, drawPhantom);
+			Laya.timer.loop(100, this, drawPhantom);
 		}
 
 		private function onStart():void {
@@ -44,15 +47,16 @@ package view {
 		private var renderTarget:RenderTarget2D;
 
 		private function drawPhantom():void {
-			var stLayer:Sprite = boxProto as Sprite;
-			if (!renderTarget) {
-				renderTarget = RenderTarget2D.create(Math.floor(stLayer.width), Math.floor(stLayer.height), WebGLContext.RGBA, WebGLContext.UNSIGNED_BYTE, 0, false);
-			}
+			var stLayer:Sprite = boxCon as Sprite;
+//			if(renderTarget){
+//				renderTarget.destroy(true);
+//			}
+			renderTarget = RenderTarget2D.create(Math.floor(stLayer.width), Math.floor(stLayer.height), WebGLContext.RGBA, WebGLContext.UNSIGNED_BYTE, 0, false);
 			renderTarget.start();
 			renderTarget.clear(0, 0, 0, 0);
 			Render.context.clear();
 
-//			RenderSprite.renders[stLayer._renderType]._fun(stLayer, Render.context, 0, RenderState2D.height - Math.floor(stLayer.height));
+			RenderSprite.renders[stLayer._renderType]._fun(stLayer, Render.context, 0, RenderState2D.height - Math.floor(stLayer.height));
 			RenderSprite.renders[stLayer._renderType]._fun(stLayer, Render.context, 0, RenderState2D.height - Math.floor(stLayer.height));
 			Render.context.flush();
 			renderTarget.end()
@@ -61,6 +65,20 @@ package view {
 
 			boxCopy.graphics.clear();
 			boxCopy.graphics.drawTexture(renderTarget, 0, 0, renderTarget.width, renderTarget.height);
+			var boxItem:Box = new Box();
+			boxItem.graphics.clear();
+			boxItem.graphics.drawTexture(renderTarget, 0, 0, renderTarget.width, renderTarget.height);
+			boxItem.x = boxCon.x+100;
+			boxItem.y = boxCon.y+100;
+			boxProto.addChildAt(boxItem,0);
+			
+//			var img:Image = new Image();
+//			img.source = renderTarget;
+//			img.x = boxCon.x+100;
+//			img.y = boxCon.y+100;
+//			boxProto.addChildAt(img,0);
+//			listPhantom.push(boxItem);
+			
 		}
 
 	}
