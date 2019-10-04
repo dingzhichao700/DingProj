@@ -1,10 +1,10 @@
 package module.ball {
-	
+
 	import laya.filters.GlowFilter;
 	import laya.ui.Image;
-	
+
 	import module.item.HpBarView;
-	
+
 	import ui.BallItemUI;
 
 	public class BallItem extends BallItemUI {
@@ -15,16 +15,16 @@ package module.ball {
 		private var _radius:int;
 		private var _ballRotation:Number;
 		private var hpBar:HpBarView;
-		
-		private var ballImage:Image;
+
+		protected var ballImage:Image;
 		protected var _speedCost:Number = 0.99;
 
 		public function BallItem() {
 			ballRotation = 0;
 			this.boxBall.cacheAsBitmap = true;
 		}
-		
-		public function showHpBar():void  {
+
+		public function showHpBar():void {
 			hpBar ||= new HpBarView();
 			addChild(hpBar);
 		}
@@ -40,24 +40,25 @@ package module.ball {
 		public function set type(value:int):void {
 			_type = value;
 			ballImage ||= new Image();
-			ballImage.x = -27;
-			ballImage.y = -27;
 			boxBall.addChild(ballImage);
-			
-			var filter:GlowFilter = new GlowFilter("#333333",2,2,3);
-			ballImage.filters = [filter];
+
+//			var filter:GlowFilter = new GlowFilter("#333333",5,5,5);
+//			ballImage.filters = [filter];
 			switch (_type) {
 				case 0:
-					_radius = 27;
+					_radius = 39;
 					break;
 				case 1:
-					_radius = 27;
+					_radius = 39;
 					break;
 				case 2:
-					_radius = 27;
+					_radius = 39;
 					break;
 			}
 			ballImage.skin = "ball/ball_" + _type + ".png";
+			_radius = ballImage.width / 2;
+			ballImage.x = -radius;
+			ballImage.y = -radius;
 			speedSetHandler();
 		}
 

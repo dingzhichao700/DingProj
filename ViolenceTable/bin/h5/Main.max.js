@@ -39069,6 +39069,7 @@ var WebGLImage=(function(_super){
 var BallItemUI=(function(_super){
 	function BallItemUI(){
 		this.boxBottom=null;
+		this.boxPhantom=null;
 		this.boxBall=null;
 		BallItemUI.__super.call(this);
 	}
@@ -39080,7 +39081,7 @@ var BallItemUI=(function(_super){
 		this.createView(BallItemUI.uiView);
 	}
 
-	BallItemUI.uiView={"type":"View","props":{"width":39,"mouseEnabled":true,"height":39},"child":[{"type":"Box","props":{"y":0,"x":0,"var":"boxBottom","mouseThrough":true,"mouseEnabled":true}},{"type":"Box","props":{"y":0,"x":0,"var":"boxBall","mouseThrough":true,"mouseEnabled":true}}]};
+	BallItemUI.uiView={"type":"View","props":{"width":39,"mouseEnabled":true,"height":39},"child":[{"type":"Box","props":{"y":0,"x":0,"var":"boxBottom","mouseThrough":true,"mouseEnabled":true}},{"type":"Box","props":{"y":0,"x":0,"var":"boxPhantom","mouseThrough":true,"mouseEnabled":true}},{"type":"Box","props":{"y":0,"x":0,"var":"boxBall","mouseThrough":true,"mouseEnabled":true}}]};
 	return BallItemUI;
 })(View)
 
@@ -39110,16 +39111,12 @@ var GameScene=(function(_super){
 		Laya.stage.on("keyup",this,this.onUp);
 		SoundManager.setMusicVolume(0.05);
 		Params.ins.timeScale=0.02;
-		var filter=new BlurFilter();
-		filter.strength=4;
-		this.table.imgTable.filters=[filter];
 	}
 
 	__proto.onUp=function(){
 		Laya.stage.off("keyup",this,this.onUp);
 		SoundManager.setMusicVolume(0.5);
 		Params.ins.timeScale=1;
-		this.table.imgTable.filters=[];
 	}
 
 	GameScene.getInstance=function(){GameScene.instance=GameScene.instance|| new GameScene();
@@ -39247,7 +39244,6 @@ var TableViewUI=(function(_super){
 	function TableViewUI(){
 		this.imgBg=null;
 		this.boxScene=null;
-		this.imgTable=null;
 		this.boxCon=null;
 		this.boxTable=null;
 		this.txtSpeed=null;
@@ -39262,7 +39258,7 @@ var TableViewUI=(function(_super){
 		this.createView(TableViewUI.uiView);
 	}
 
-	TableViewUI.uiView={"type":"View","props":{"width":768,"height":1080},"child":[{"type":"Image","props":{"var":"imgBg","skin":"unpack/img_bg.jpg","height":1080,"centerY":0,"centerX":0}},{"type":"Box","props":{"width":572,"var":"boxScene","height":980,"centerY":0,"centerX":0},"child":[{"type":"Image","props":{"y":0,"x":0,"width":572,"var":"imgTable","skin":"unpack/img_table.png","sizeGrid":"123,142,148,140","height":980}},{"type":"Box","props":{"y":0,"x":0,"width":500,"var":"boxCon","height":904},"child":[{"type":"Box","props":{"var":"boxTable"}}]}]},{"type":"Box","props":{"y":170,"left":0},"child":[{"type":"Image","props":{"y":0,"skin":"comp/img_tray.png","left":-40}}]},{"type":"HTMLDivElement","props":{"y":11,"x":106,"width":472,"var":"txtSpeed","innerHTML":"测试文本啊哈哈","height":39}}]};
+	TableViewUI.uiView={"type":"View","props":{"width":768,"height":1080},"child":[{"type":"Image","props":{"var":"imgBg","skin":"unpack/img_bg.jpg","height":1080,"centerY":0,"centerX":0}},{"type":"Box","props":{"width":572,"var":"boxScene","height":980,"centerY":0,"centerX":0},"child":[{"type":"Box","props":{"y":0,"x":0,"width":500,"var":"boxCon","height":904},"child":[{"type":"Box","props":{"var":"boxTable"}}]}]},{"type":"HTMLDivElement","props":{"y":11,"x":106,"width":472,"var":"txtSpeed","innerHTML":"测试文本啊哈哈","height":39}}]};
 	return TableViewUI;
 })(View)
 
@@ -39836,23 +39832,22 @@ var BallItem=(function(_super){
 		return this._type;
 		},function(value){
 		this._type=value;this.ballImage=this.ballImage|| new Image();
-		this.ballImage.x=-27;
-		this.ballImage.y=-27;
 		this.boxBall.addChild(this.ballImage);
-		var filter=new GlowFilter("#333333",2,2,3);
-		this.ballImage.filters=[filter];
 		switch (this._type){
 			case 0:
-				this._radius=27;
+				this._radius=39;
 				break ;
 			case 1:
-				this._radius=27;
+				this._radius=39;
 				break ;
 			case 2:
-				this._radius=27;
+				this._radius=39;
 				break ;
 			}
 		this.ballImage.skin="ball/ball_"+this._type+".png";
+		this._radius=this.ballImage.width / 2;
+		this.ballImage.x=-this.radius;
+		this.ballImage.y=-this.radius;
 		this.speedSetHandler();
 	});
 
@@ -40162,8 +40157,15 @@ var TableView=(function(_super){
 //class module.ball.HitBall extends module.ball.BallItem
 var HitBall=(function(_super){
 	function HitBall(){
+		this.phantom=null;
+		this.renderTarget=null;
+		this.wing_left=null;
+		this.wing_right=null;
+		this.donwPos=null;
+		this.downImgPos=null;
+		this.pull_dis=100;
 		HitBall.__super.call(this);
-		this.boxBottom.alpha=0.5;
+		this.boxBottom.alpha=0.9;
 		this._speedCost=0.993;
 	}
 
@@ -40181,37 +40183,102 @@ var HitBall=(function(_super){
 	}
 
 	__proto.showHitAble=function(){
+		this.boxBottom.alpha=1;
 		this.boxBottom.scale(0.1,0.1);
 		this.boxBottom.graphics.clear();
-		this.boxBottom.graphics.drawCircle(0,0,this.radius+20,"#ffff00");
-		Tween.to(this.boxBottom,{scaleX:1,scaleY:1},1000,null,Handler.create(this,this.showComp));
+		this.boxBottom.graphics.drawCircle(0,0,this.radius+15,"#ffff00");
+		Tween.to(this.boxBottom,{scaleX:1.5,scaleY:1.5,alpha:0},1000,null,Handler.create(this,this.showComp));
 	}
 
 	__proto.showComp=function(){
+		this.boxBottom.scale(1,1);
 		this.on("mousedown",this,this.onDown);
 	}
 
 	__proto.onDown=function(){
-		Tween.to(this.boxBottom,{scaleX:0.1,scaleY:0.1},1000);
 		this.off("mousedown",this,this.onDown);
+		this.donwPos=new Point(this.mouseX,this.mouseY);
+		this.downImgPos=new Point(this.boxBall.x,this.boxBall.y);
+		Tween.to(this.boxBottom,{scaleX:0.1,scaleY:0.1},1000);
 		SoundManager.playSound("sound/hit_hold.mp3",1);
+		this.stage.on("mousemove",this,this.onMove);
 		this.stage.on("mouseup",this,this.onUp);
 		this.stage.on("mouseout",this,this.onUp);
+		var stLayer=this.ballImage;
+		this.renderTarget=RenderTarget2D.create(Math.floor(this.radius *2),Math.floor(this.radius *2),0x1908,0x1401,0,false);
+		this.renderTarget.start();
+		this.renderTarget.clear(0,0,0,0);
+		Render.context.clear();
+		this.renderTarget.sourceWidth=this.renderTarget.width;
+		this.renderTarget.sourceHeight=this.renderTarget.height;
+		RenderSprite.renders[stLayer._renderType]._fun(stLayer,Render.context,0,RenderState2D.height-Math.floor(stLayer.height));
+		RenderSprite.renders[stLayer._renderType]._fun(stLayer,Render.context,0,RenderState2D.height-Math.floor(stLayer.height));
+		Render.context.flush();
+		this.renderTarget.end();
+		this.renderTarget.sourceWidth=this.renderTarget.width;
+		this.renderTarget.sourceHeight=this.renderTarget.height;this.phantom=this.phantom|| new Box();
+		this.phantom.graphics.clear();
+		this.phantom.graphics.drawTexture(this.renderTarget,0,0,this.renderTarget.width,this.renderTarget.height);
+		this.phantom.alpha=0.7;
+		this.phantom.x=this.boxBall.x-this.radius;
+		this.phantom.y=this.boxBall.y-this.radius;
+		this.boxPhantom.addChild(this.phantom);
+	}
+
+	__proto.onMove=function(e){
+		var posX=(this.mouseX-this.donwPos.x);
+		var posY=(this.mouseY-this.donwPos.y);
+		var targetDis=Math.sqrt(posX *posX+posY *posY);
+		var rotation=Math.atan2(posY,posX);
+		if (targetDis <=this.pull_dis){
+			this.phantom.x=this.downImgPos.x+(this.mouseX-this.donwPos.x)-this.radius;
+			this.phantom.y=this.downImgPos.y+(this.mouseY-this.donwPos.y)-this.radius;
+			}else {
+			var targetX=Math.cos(rotation)*this.pull_dis;
+			var targetY=Math.sin(rotation)*this.pull_dis;
+			this.phantom.x=this.downImgPos.x+targetX-this.radius;
+			this.phantom.y=this.downImgPos.y+targetY-this.radius;
+		};
+		var pullAngle=targetDis / this.pull_dis *60;
+		pullAngle=Math.min(pullAngle,60);
+		var leftAngle=rotation+pullAngle / 180 *Math.PI;this.wing_left=this.wing_left|| new Image();
+		this.wing_left.skin="comp/pull_bar.png";
+		this.wing_left.pivotY=8;
+		this.wing_left.x=this.phantom.x+this.radius+Math.cos(leftAngle)*this.radius;
+		this.wing_left.y=this.phantom.y+this.radius+Math.sin(leftAngle)*this.radius;
+		this.wing_left.rotation=leftAngle *180 / Math.PI+90;
+		this.boxPhantom.addChild(this.wing_left);
+		var rightAngle=rotation-pullAngle / 180 *Math.PI;this.wing_right=this.wing_right|| new Image();
+		this.wing_right.skin="comp/pull_bar.png";
+		this.wing_right.x=this.phantom.x+this.radius+Math.cos(rightAngle)*this.radius;
+		this.wing_right.y=this.phantom.y+this.radius+Math.sin(rightAngle)*this.radius;
+		this.wing_right.rotation=rightAngle *180 / Math.PI-90;
+		this.boxPhantom.addChild(this.wing_right);
 	}
 
 	__proto.onUp=function(e){
+		if (this.phantom){
+			if (this.phantom.parent){
+				this.phantom.removeSelf();
+			}
+			this.phantom=null;
+		}
+		if (this.renderTarget){
+			this.renderTarget.destroy(true);
+			this.renderTarget=null;
+		}
+		this.stage.off("mousemove",this,this.onMove);
 		this.stage.off("mouseout",this,this.onUp);
 		this.stage.off("mouseup",this,this.onUp);
 		SoundManager.playSound("sound/hit_ball.mp3",1);
-		var rotationAdd=Math.atan2(this.mouseY,this.mouseX)*180 / Math.PI;
-		this.addSpeed(rotationAdd+180,20);
+		this.speed=0;
 	}
 
 	return HitBall;
 })(BallItem)
 
 
-	Laya.__init([EventDispatcher,LoaderManager,Render,View,Browser,DrawText,WebGLContext2D,ShaderCompile,Timer,GraphicAnimation,LocalStorage,WebGLFilter,AtlasGrid]);
+	Laya.__init([EventDispatcher,LoaderManager,View,Render,Browser,DrawText,WebGLContext2D,ShaderCompile,Timer,GraphicAnimation,LocalStorage,WebGLFilter,AtlasGrid]);
 	/**LayaGameStart**/
 	new Main();
 
