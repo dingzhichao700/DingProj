@@ -39893,7 +39893,8 @@ var TableView=(function(_super){
 	function TableView(){
 		this.ballList=null;
 		this.blockList=null;
-		this.WALL_POS=[[42,19,0,0,490,0,490,22,0,22],[528,47,0,0,26,0,26,880,0,880],[41,937,0,0,490,0,490,22,0,22],[16,52,0,0,26,0,26,880,0,880]];
+		this.WALL_POS=[];
+		// private const WALL_POS:Array=[[42,19,0,0,490,0,490,22,0,22],[528,47,0,0,26,0,26,880,0,880],[41,937,0,0,490,0,490,22,0,22],[16,52,0,0,26,0,26,880,0,880]];
 		this.WALL_POS2=[[0,0,0,0,490,0,490,22],[481,20,0,0,26,0,26,880],[0,880,0,0,490,0,490,22],[0,0,0,0,26,0,26,880]];
 		TableView.__super.call(this);
 	}
@@ -39945,11 +39946,11 @@ var TableView=(function(_super){
 
 	__proto.initBall=function(){
 		this.ballList=[];
-		for (var i=0;i < 10;i++){
-			var ball=this.addBall(200+100 *Math.floor(i / 5),300+100 *(i % 5),1,1);
+		for (var i=0;i < 1;i++){
+			var ball=this.addBall(280+100 *Math.floor(i / 5),600+100 *(i % 5),1,1);
 			ball.ballRotation=0;
 		};
-		var ball0=this.addBall(200,100,0,0);
+		var ball0=this.addBall(280,300,0,0);
 	}
 
 	/**
@@ -40161,9 +40162,13 @@ var HitBall=(function(_super){
 		this.renderTarget=null;
 		this.wing_left=null;
 		this.wing_right=null;
+		this.wing_center=null;
 		this.donwPos=null;
 		this.downImgPos=null;
-		this.pull_dis=100;
+		/**拖动最大距离*/
+		this.pull_max_dis=200;
+		/**拖动最大单侧张角弧度*/
+		this.pull_max_angel=30;
 		HitBall.__super.call(this);
 		this.boxBottom.alpha=0.9;
 		this._speedCost=0.993;
@@ -40217,43 +40222,66 @@ var HitBall=(function(_super){
 		this.renderTarget.end();
 		this.renderTarget.sourceWidth=this.renderTarget.width;
 		this.renderTarget.sourceHeight=this.renderTarget.height;this.phantom=this.phantom|| new Box();
+		this.phantom.alpha=0;
 		this.phantom.graphics.clear();
 		this.phantom.graphics.drawTexture(this.renderTarget,0,0,this.renderTarget.width,this.renderTarget.height);
-		this.phantom.alpha=0.7;
 		this.phantom.x=this.boxBall.x-this.radius;
 		this.phantom.y=this.boxBall.y-this.radius;
-		this.boxPhantom.addChild(this.phantom);
 	}
 
 	__proto.onMove=function(e){
 		var posX=(this.mouseX-this.donwPos.x);
 		var posY=(this.mouseY-this.donwPos.y);
-		var targetDis=Math.sqrt(posX *posX+posY *posY);
-		var rotation=Math.atan2(posY,posX);
-		if (targetDis <=this.pull_dis){
-			this.phantom.x=this.downImgPos.x+(this.mouseX-this.donwPos.x)-this.radius;
-			this.phantom.y=this.downImgPos.y+(this.mouseY-this.donwPos.y)-this.radius;
+		var pullDis=Math.sqrt(posX *posX+posY *posY);
+		var pullRadian=Math.atan2(posY,posX);
+		var phantomDis=pullDis *2 / 3;
+		if (phantomDis < this.pull_max_dis){
+			this.phantom.alpha=phantomDis *5 / this.pull_max_dis;
+			this.phantom.x=this.downImgPos.x+phantomDis *Math.cos(pullRadian)-this.radius;
+			this.phantom.y=this.downImgPos.y+phantomDis *Math.sin(pullRadian)-this.radius;
 			}else {
-			var targetX=Math.cos(rotation)*this.pull_dis;
-			var targetY=Math.sin(rotation)*this.pull_dis;
+			this.phantom.alpha=1;
+			var targetX=Math.cos(pullRadian)*this.pull_max_dis;
+			var targetY=Math.sin(pullRadian)*this.pull_max_dis;
 			this.phantom.x=this.downImgPos.x+targetX-this.radius;
 			this.phantom.y=this.downImgPos.y+targetY-this.radius;
 		};
-		var pullAngle=targetDis / this.pull_dis *60;
-		pullAngle=Math.min(pullAngle,60);
-		var leftAngle=rotation+pullAngle / 180 *Math.PI;this.wing_left=this.wing_left|| new Image();
+		var ballAlpha=NaN;
+		if (pullDis < this.radius *2){
+			ballAlpha=1;
+			}else {
+			ballAlpha=Math.max(-0.7 / this.radius *pullDis+2.4,0.3);
+		}
+		this.boxBall.alpha=ballAlpha;
+		this.updateWing();
+	}
+
+	__proto.updateWing=function(){
+		var disX=this.phantom.x-this.ballImage.x;
+		var disY=this.phantom.y-this.ballImage.y;
+		var phantomDis=Math.sqrt(disX *disX+disY *disY);
+		var phantomRadian=Math.atan2(disY,disX);
+		var wingRotation=phantomDis / this.pull_max_dis *this.pull_max_angel;
+		wingRotation=Math.min(wingRotation,this.pull_max_angel);
+		var leftAngle=phantomRadian+wingRotation / 180 *Math.PI;this.wing_left=this.wing_left|| new Image();
 		this.wing_left.skin="comp/pull_bar.png";
-		this.wing_left.pivotY=8;
-		this.wing_left.x=this.phantom.x+this.radius+Math.cos(leftAngle)*this.radius;
-		this.wing_left.y=this.phantom.y+this.radius+Math.sin(leftAngle)*this.radius;
+		this.wing_left.pivotY=this.wing_left.height;
+		this.wing_left.x=this.phantom.x+this.radius+Math.cos(leftAngle)*(this.radius-2);
+		this.wing_left.y=this.phantom.y+this.radius+Math.sin(leftAngle)*(this.radius-2);
 		this.wing_left.rotation=leftAngle *180 / Math.PI+90;
 		this.boxPhantom.addChild(this.wing_left);
-		var rightAngle=rotation-pullAngle / 180 *Math.PI;this.wing_right=this.wing_right|| new Image();
+		var rightAngle=phantomRadian-wingRotation / 180 *Math.PI;this.wing_right=this.wing_right|| new Image();
 		this.wing_right.skin="comp/pull_bar.png";
-		this.wing_right.x=this.phantom.x+this.radius+Math.cos(rightAngle)*this.radius;
-		this.wing_right.y=this.phantom.y+this.radius+Math.sin(rightAngle)*this.radius;
+		this.wing_right.x=this.phantom.x+this.radius+Math.cos(rightAngle)*(this.radius-2);
+		this.wing_right.y=this.phantom.y+this.radius+Math.sin(rightAngle)*(this.radius-2);
 		this.wing_right.rotation=rightAngle *180 / Math.PI-90;
 		this.boxPhantom.addChild(this.wing_right);
+		var pullRotation=phantomRadian *180 / Math.PI;this.wing_center=this.wing_center|| new Image();
+		this.wing_center.graphics.clear();
+		this.wing_center.graphics.drawPie(this.phantom.x+this.radius,this.phantom.y+this.radius,this.radius+this.wing_left.height-2,pullRotation-wingRotation,pullRotation+wingRotation,"#d1aa26");
+		this.boxPhantom.addChild(this.wing_center);
+		this.boxPhantom.addChild(this.phantom);
+		this.wing_center.alpha=this.wing_left.alpha=this.wing_right.alpha=(phantomDis-this.pull_max_dis / 5)/ this.pull_max_dis;
 	}
 
 	__proto.onUp=function(e){

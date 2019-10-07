@@ -19,6 +19,7 @@ package module.ball {
 		private var renderTarget:RenderTarget2D;
 		private var wing_left:Image;
 		private var wing_right:Image;
+		private var wing_center:Image;
 
 		public function HitBall() {
 			boxBottom.alpha = 0.9;
@@ -82,53 +83,85 @@ package module.ball {
 			renderTarget.sourceHeight = renderTarget.height;
 
 			phantom ||= new Box();
+			phantom.alpha = 0;
 			phantom.graphics.clear();
 			phantom.graphics.drawTexture(renderTarget, 0, 0, renderTarget.width, renderTarget.height);
-			phantom.alpha = 0.7;
 			phantom.x = boxBall.x - radius;
 			phantom.y = boxBall.y - radius;
-			boxPhantom.addChild(phantom);
 		}
 
-		private var pull_dis:int = 100;
+		/**拖动最大距离*/
+		private var pull_max_dis:int = 200;
+		/**拖动最大单侧张角弧度*/
+		private var pull_max_angel:int = 30;
 
 		private function onMove(e:Event):void {
 			var posX:int = (mouseX - donwPos.x);
 			var posY:int = (mouseY - donwPos.y);
-			var targetDis:int = Math.sqrt(posX * posX + posY * posY);
-			var rotation:int = Math.atan2(posY, posX);
-			if (targetDis <= pull_dis) {
-				phantom.x = downImgPos.x + (mouseX - donwPos.x) - radius;
-				phantom.y = downImgPos.y + (mouseY - donwPos.y) - radius;
+			/**拖动的实际距离*/
+			var pullDis:int = Math.sqrt(posX * posX + posY * posY);
+			/**拖动的弧度*/
+			var pullRadian:int = Math.atan2(posY, posX);
+			/**衰減后，幻影实际移出的距离*/
+			var phantomDis:int = pullDis * 2 / 3;
+			if (phantomDis < pull_max_dis) { //小于极限值
+				phantom.alpha = phantomDis * 5 / pull_max_dis;
+				phantom.x = downImgPos.x + phantomDis * Math.cos(pullRadian) - radius;
+				phantom.y = downImgPos.y + phantomDis * Math.sin(pullRadian) - radius;
 			} else {
-				var targetX:int = Math.cos(rotation) * pull_dis;
-				var targetY:int = Math.sin(rotation) * pull_dis;
+				phantom.alpha = 1;
+				var targetX:int = Math.cos(pullRadian) * pull_max_dis;
+				var targetY:int = Math.sin(pullRadian) * pull_max_dis;
 				phantom.x = downImgPos.x + targetX - radius;
 				phantom.y = downImgPos.y + targetY - radius;
 			}
+			var ballAlpha:Number;
+			if (pullDis < radius * 2) { //一倍直径以内完全不透明
+				ballAlpha = 1;
+			} else {
+				ballAlpha = Math.max(-0.7 / radius * pullDis + 2.4, 0.3);
+			}
+			boxBall.alpha = ballAlpha;
+			updateWing();
+		}
 
+		private function updateWing():void {
+			var disX:int = phantom.x - ballImage.x;
+			var disY:int = phantom.y - ballImage.y;
+			var phantomDis:int = Math.sqrt(disX * disX + disY * disY);
+			var phantomRadian:int = Math.atan2(disY, disX);
 			/**弹簧带单侧张角角度，0-60度，和拖动距离与pull_dis的比值相关*/
-			var pullAngle:int = targetDis / pull_dis * 60;
-			pullAngle = Math.min(pullAngle, 60);
+			var wingRotation:int = phantomDis / pull_max_dis * pull_max_angel;
+			wingRotation = Math.min(wingRotation, pull_max_angel);
 
 			//处理弹簧带
 			/*左边*/
-			var leftAngle:Number = rotation + pullAngle / 180 * Math.PI;
+			var leftAngle:Number = phantomRadian + wingRotation / 180 * Math.PI;
 			wing_left ||= new Image();
 			wing_left.skin = "comp/pull_bar.png";
-			wing_left.pivotY = 8;
-			wing_left.x = phantom.x + radius + Math.cos(leftAngle) * radius;
-			wing_left.y = phantom.y + radius + Math.sin(leftAngle) * radius;
+			wing_left.pivotY = wing_left.height;
+			wing_left.x = phantom.x + radius + Math.cos(leftAngle) * (radius - 2);
+			wing_left.y = phantom.y + radius + Math.sin(leftAngle) * (radius - 2);
 			wing_left.rotation = leftAngle * 180 / Math.PI + 90;
 			boxPhantom.addChild(wing_left);
 			/*右边*/
-			var rightAngle:Number = rotation - pullAngle / 180 * Math.PI;
+			var rightAngle:Number = phantomRadian - wingRotation / 180 * Math.PI;
 			wing_right ||= new Image();
 			wing_right.skin = "comp/pull_bar.png";
-			wing_right.x = phantom.x + radius + Math.cos(rightAngle) * radius;
-			wing_right.y = phantom.y + radius + Math.sin(rightAngle) * radius;
+			wing_right.x = phantom.x + radius + Math.cos(rightAngle) * (radius - 2);
+			wing_right.y = phantom.y + radius + Math.sin(rightAngle) * (radius - 2);
 			wing_right.rotation = rightAngle * 180 / Math.PI - 90;
 			boxPhantom.addChild(wing_right);
+			/*中间*/
+			var pullRotation:int = phantomRadian * 180 / Math.PI;
+			wing_center ||= new Image();
+			wing_center.graphics.clear();
+			wing_center.graphics.drawPie(phantom.x + radius, phantom.y + radius, radius + wing_left.height - 2, pullRotation - wingRotation, pullRotation + wingRotation, "#d1aa26");
+			boxPhantom.addChild(wing_center);
+
+			boxPhantom.addChild(phantom);
+
+			wing_center.alpha = wing_left.alpha = wing_right.alpha = (phantomDis - pull_max_dis / 5) / pull_max_dis;
 		}
 
 		private function onUp(e:Event):void {

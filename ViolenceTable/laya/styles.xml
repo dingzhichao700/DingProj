@@ -2,4 +2,5 @@
    <item name="unpack/img_yellow.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=0,1,0,1" picType="0" scale="0"/>
    <item name="unpack/img_green.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=0,16,0,16" picType="0" scale="0"/>
    <item name="unpack/img_nornal.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=0,15,0,15" picType="0" scale="0"/>
+   <item name="comp/pull_bar.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=0,6,0,5" picType="0" scale="0"/>
 </res>
