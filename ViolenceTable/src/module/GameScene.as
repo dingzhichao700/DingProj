@@ -32,22 +32,17 @@ package module {
 		}
 
 		private var blur:Number = 0;
-		private function onDown():void {
+		private function onDown():void { 
 			Laya.stage.on(Event.KEY_UP, this, onUp);
 			SoundManager.setMusicVolume(0.05);
 			
 			Params.ins.timeScale = 0.02;
-			 
-			var filter:BlurFilter = new BlurFilter();
-			filter.strength = 4;
-			table.imgTable.filters = [filter];
 		}
 		
 		private function onUp():void {
 			Laya.stage.off(Event.KEY_UP, this, onUp);
 			SoundManager.setMusicVolume(0.5);
 			Params.ins.timeScale = 1;
-			table.imgTable.filters = [];
 		}
 		
 	}

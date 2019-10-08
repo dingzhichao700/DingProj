@@ -48250,11 +48250,12 @@ var TestView=(function(_super){
 	function TestView(){
 		this.startPos=null;
 		this.mousePos=null;
+		this.listPhantom=null;
 		this.renderTarget=null;
 		TestView.__super.call(this);
 		DebugPanel.init();
 		this.boxCon.on("mousedown",this,this.onStart);
-		Laya.timer.loop(2,this,this.drawPhantom);
+		Laya.timer.loop(50,this,this.drawPhantom);
 	}
 
 	__class(TestView,'view.TestView',_super);
@@ -48276,20 +48277,39 @@ var TestView=(function(_super){
 	}
 
 	__proto.drawPhantom=function(){
-		var stLayer=this.boxProto;
-		if (!this.renderTarget){
-			this.renderTarget=RenderTarget2D.create(Math.floor(stLayer.width),Math.floor(stLayer.height),0x1908,0x1401,0,false);
-		}
+		var stLayer=this.boxCon;
+		this.renderTarget=RenderTarget2D.create(Math.floor(stLayer.width),Math.floor(stLayer.height),0x1908,0x1401,0,false);
 		this.renderTarget.start();
 		this.renderTarget.clear(0,0,0,0);
 		Render.context.clear();
 		RenderSprite.renders[stLayer._renderType]._fun(stLayer,Render.context,0,RenderState2D.height-Math.floor(stLayer.height));
+		RenderSprite.renders[stLayer._renderType]._fun(stLayer,Render.context,0,RenderState2D.height-Math.floor(stLayer.height));
 		Render.context.flush();
-		this.renderTarget.end()
+		this.renderTarget.end();
 		this.renderTarget.sourceWidth=this.renderTarget.width;
 		this.renderTarget.sourceHeight=this.renderTarget.height;
-		this.boxCopy.graphics.clear();
-		this.boxCopy.graphics.drawTexture(this.renderTarget,0,0,this.renderTarget.width,this.renderTarget.height);
+		var boxItem=new Box();
+		boxItem.graphics.clear();
+		boxItem.graphics.drawTexture(this.renderTarget,0,0,this.renderTarget.width,this.renderTarget.height);
+		boxItem.x=this.boxCon.x;
+		boxItem.y=this.boxCon.y;
+		Laya.timer.once(300,this,this.onTweenOutPhantom,[boxItem,this.renderTarget],false);
+		this.boxProto.addChild(boxItem);
+	}
+
+	__proto.onTweenOutPhantom=function(box,render){
+		Tween.to(box,{alpha:0},500,null,Handler.create(this,this.onClearRender,[box,render]));
+	}
+
+	__proto.onClearRender=function(box,render){
+		if (box.parent){
+			box.removeSelf();
+			box=null;
+		}
+		if (render){
+			render.destroy(true);
+			render=null;
+		}
 	}
 
 	return TestView;
@@ -48943,7 +48963,7 @@ var ToolBar=(function(_super){
 })(ToolBarUI)
 
 
-	Laya.__init([LoaderManager,EventDispatcher,Render,Browser,View,WebGLContext2D,ShaderCompile,Timer,GraphicAnimation,LocalStorage,DrawText,AtlasGrid]);
+	Laya.__init([EventDispatcher,LoaderManager,Render,Browser,View,WebGLContext2D,ShaderCompile,Timer,GraphicAnimation,LocalStorage,DrawText,AtlasGrid]);
 	/**LayaGameStart**/
 	new LayaUISample();
 

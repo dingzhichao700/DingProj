@@ -15,7 +15,8 @@ package module {
 
 		private var ballList:Array;
 		private var blockList:Array;
-		private const WALL_POS:Array = [[42, 19, 0, 0, 490, 0, 490, 22, 0, 22], [528, 47, 0, 0, 26, 0, 26, 880, 0, 880], [41, 937, 0, 0, 490, 0, 490, 22, 0, 22], [16, 52, 0, 0, 26, 0, 26, 880, 0, 880]];
+		private const WALL_POS:Array = [];
+//		private const WALL_POS:Array = [[42, 19, 0, 0, 490, 0, 490, 22, 0, 22], [528, 47, 0, 0, 26, 0, 26, 880, 0, 880], [41, 937, 0, 0, 490, 0, 490, 22, 0, 22], [16, 52, 0, 0, 26, 0, 26, 880, 0, 880]];
 		private const WALL_POS2:Array = [[0, 0, 0, 0, 490, 0, 490, 22], [481, 20, 0, 0, 26, 0, 26, 880], [0, 880, 0, 0, 490, 0, 490, 22], [0, 0, 0, 0, 26, 0, 26, 880]];
 
 		public function TableView() {
@@ -71,12 +72,12 @@ package module {
 
 		private function initBall():void {
 			ballList = new Array();
-			for (var i:int = 0; i < 10; i++) {
-				var ball:BallItem = addBall(200 + 100 * Math.floor(i / 5), 300 + 100 * (i % 5), 1, 1);
+			for (var i:int = 0; i < 1; i++) {
+				var ball:BallItem = addBall(280 + 100 * Math.floor(i / 5), 600 + 100 * (i % 5), 1, 1);
 				ball.ballRotation = 0;
 			}
 
-			var ball0:BallItem = addBall(200, 100, 0, 0);
+			var ball0:BallItem = addBall(280, 300, 0, 0);
 //			ball0.addSpeed(90, 15);
 
 //			var ball1:BallItem = addBall(300, 300, 0, 0);
