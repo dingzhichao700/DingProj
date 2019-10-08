@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/Users/linhongwei/Documents/MyTest/h5AndroidOL/build/intermediates/res/merged/debug/drawable/push.png",
+        "source": "/Users/linhongwei/Documents/MyTest/h5AndroidOL/res/drawable/push.png"
+    },
+    {
+        "merged": "/Users/linhongwei/Documents/MyTest/h5AndroidOL/build/intermediates/res/merged/debug/drawable/splash2.png",
+        "source": "/Users/linhongwei/Documents/MyTest/h5AndroidOL/res/drawable/splash2.png"
+    },
+    {
+        "merged": "/Users/linhongwei/Documents/MyTest/h5AndroidOL/build/intermediates/res/merged/debug/drawable/push_small.png",
+        "source": "/Users/linhongwei/Documents/MyTest/h5AndroidOL/res/drawable/push_small.png"
+    },
+    {
+        "merged": "/Users/linhongwei/Documents/MyTest/h5AndroidOL/build/intermediates/res/merged/debug/drawable/splash.jpg",
+        "source": "/Users/linhongwei/Documents/MyTest/h5AndroidOL/res/drawable/splash.jpg"
+    }
+]

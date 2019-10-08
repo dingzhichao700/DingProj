@@ -1,0 +1,16 @@
+#Tue Sep 05 12:17:11 CST 2017
+renamed.4=classes.dex
+renamed.3=classes5.dex
+renamed.2=classes2.dex
+renamed.1=classes3.dex
+base.4=/Users/linhongwei/Documents/MyTest/h5AndroidOL/build/intermediates/transforms/dex/debug/folders/1000/2/android-support-v4_a42db58f6feb720b4af1ace8fe6f2b686789d186
+renamed.0=classes4.dex
+base.3=/Users/linhongwei/Documents/MyTest/h5AndroidOL/build/intermediates/transforms/dex/debug/folders/1000/2/tbs_sdk_thirdapp_v3.2.0.1104_43200_sharewithdownload_withfilereader_withoutGame_obfs_20170609_115346_f093e04c47b0a3fb76309b24ba3d2c9b531517aa
+base.2=/Users/linhongwei/Documents/MyTest/h5AndroidOL/build/intermediates/transforms/dex/debug/folders/1000/2/GetuiSDK2.10.1.0-support-all_2ee47bbcd555a729b653bfb538a177009634ae9f
+base.1=/Users/linhongwei/Documents/MyTest/h5AndroidOL/build/intermediates/transforms/dex/debug/folders/1000/2/gson-2.1_e5dbf4c211d6d59263c36d0eedc632069c0d0f0e
+base.0=/Users/linhongwei/Documents/MyTest/h5AndroidOL/build/intermediates/transforms/dex/debug/folders/1000/2/json_simple-1.1_695992b05ce25775ef469d527e4b462a74cbff64
+file.4=/Users/linhongwei/Documents/MyTest/h5AndroidOL/build/intermediates/transforms/dex/debug/folders/1000/2/android-support-v4_a42db58f6feb720b4af1ace8fe6f2b686789d186/classes.dex
+file.3=/Users/linhongwei/Documents/MyTest/h5AndroidOL/build/intermediates/transforms/dex/debug/folders/1000/2/tbs_sdk_thirdapp_v3.2.0.1104_43200_sharewithdownload_withfilereader_withoutGame_obfs_20170609_115346_f093e04c47b0a3fb76309b24ba3d2c9b531517aa/classes.dex
+file.2=/Users/linhongwei/Documents/MyTest/h5AndroidOL/build/intermediates/transforms/dex/debug/folders/1000/2/GetuiSDK2.10.1.0-support-all_2ee47bbcd555a729b653bfb538a177009634ae9f/classes.dex
+file.1=/Users/linhongwei/Documents/MyTest/h5AndroidOL/build/intermediates/transforms/dex/debug/folders/1000/2/gson-2.1_e5dbf4c211d6d59263c36d0eedc632069c0d0f0e/classes.dex
+file.0=/Users/linhongwei/Documents/MyTest/h5AndroidOL/build/intermediates/transforms/dex/debug/folders/1000/2/json_simple-1.1_695992b05ce25775ef469d527e4b462a74cbff64/classes.dex

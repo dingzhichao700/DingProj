@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/Users/linhongwei/Documents/MyTest/h5AndroidOL/libs/android-support-v4.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="efec67655f6db90757faa37201efcee2a9ec3507">
+        <dex dex="/Users/linhongwei/Documents/MyTest/h5AndroidOL/build/intermediates/transforms/dex/debug/folders/1000/2/android-support-v4_a42db58f6feb720b4af1ace8fe6f2b686789d186/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/linhongwei/Documents/MyTest/h5AndroidOL/libs/tbs_sdk_thirdapp_v3.2.0.1104_43200_sharewithdownload_withfilereader_withoutGame_obfs_20170609_115346.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="e58a5f3e98fddc1752eb23c37db5e4b8fc174fe3">
+        <dex dex="/Users/linhongwei/Documents/MyTest/h5AndroidOL/build/intermediates/transforms/dex/debug/folders/1000/2/tbs_sdk_thirdapp_v3.2.0.1104_43200_sharewithdownload_withfilereader_withoutGame_obfs_20170609_115346_f093e04c47b0a3fb76309b24ba3d2c9b531517aa/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/linhongwei/Documents/MyTest/h5AndroidOL/libs/json_simple-1.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="5e303a03d04e6788dddfa3655272580ae0fc13bb">
+        <dex dex="/Users/linhongwei/Documents/MyTest/h5AndroidOL/build/intermediates/transforms/dex/debug/folders/1000/2/json_simple-1.1_695992b05ce25775ef469d527e4b462a74cbff64/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/linhongwei/Documents/MyTest/h5AndroidOL/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="839317334f1947d41dc7e762f1200b93284ece38">
+        <dex dex="/Users/linhongwei/Documents/MyTest/h5AndroidOL/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_c44a374ddf25f1ef66f347d234cfe9e141832849/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/linhongwei/Documents/MyTest/h5AndroidOL/libs/gson-2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="bd858833cacb4e6742f7698649fb874a360e230f">
+        <dex dex="/Users/linhongwei/Documents/MyTest/h5AndroidOL/build/intermediates/transforms/dex/debug/folders/1000/2/gson-2.1_e5dbf4c211d6d59263c36d0eedc632069c0d0f0e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/linhongwei/Documents/MyTest/h5AndroidOL/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="/Users/linhongwei/Documents/MyTest/h5AndroidOL/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_2c85c8bd402a22593aeefa2972e6676e11a0892f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/linhongwei/Documents/MyTest/h5AndroidOL/libs/GetuiSDK2.10.1.0-support-all.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="8af24061d0ec8c61501c24160ae1d20393396cb7">
+        <dex dex="/Users/linhongwei/Documents/MyTest/h5AndroidOL/build/intermediates/transforms/dex/debug/folders/1000/2/GetuiSDK2.10.1.0-support-all_2ee47bbcd555a729b653bfb538a177009634ae9f/classes.dex" />
+    </item>
+
+</items>
