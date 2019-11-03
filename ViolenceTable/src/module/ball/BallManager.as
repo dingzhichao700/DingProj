@@ -1,8 +1,10 @@
 package module.ball {
+	import base.ai.EnemyBallAiManager;
+	import base.ai.action.BaseEnemyMoveAction;
 
 	public class BallManager {
 
-		private var ballPool:Vector.<BallItem>;
+		private var ballPool:Vector.<BaseBall>;
 
 		private static var instance:BallManager;
 
@@ -12,14 +14,14 @@ package module.ball {
 		}
 
 		public function BallManager() {
-			ballPool = new Vector.<BallItem>;
+			ballPool = new Vector.<BaseBall>;
 		}
 
-		public function getBall(type:int):BallItem {
+		public function getBall(type:int):BaseBall {
 			if (ballPool.length > 0) {
 				for (var i:int = 0; i < ballPool.length; i++) {
-					if ((ballPool[i] as BallItem).type == type) {
-						return ballPool.slice(i, 1) as BallItem;
+					if ((ballPool[i] as BaseBall).type == type) {
+						return ballPool.slice(i, 1) as BaseBall;
 					}
 				}
 			}
@@ -28,13 +30,17 @@ package module.ball {
 					return new HitBall();
 					break;
 				case 1:
-					return new BallItem();
+					var enemy:BaseBall = new BaseBall();
+					var ai:EnemyBallAiManager = new EnemyBallAiManager();
+					ai.owner = enemy;
+					enemy.setAi(ai);
+					enemy.setAiActive(true);
 					break;
 			}
 			return null;
 		}
 
-		public function returnBall(item:BallItem):void {
+		public function returnBall(item:BaseBall):void {
 			ballPool.push(item);
 		}
 

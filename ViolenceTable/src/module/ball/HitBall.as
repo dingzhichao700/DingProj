@@ -13,7 +13,7 @@ package module.ball {
 	import laya.webgl.resource.RenderTarget2D;
 	import laya.webgl.utils.RenderState2D;
 
-	public class HitBall extends BallItem {
+	public class HitBall extends BaseBall {
 
 		private var phantom:Box;
 		private var renderTarget:RenderTarget2D;

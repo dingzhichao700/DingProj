@@ -1,13 +1,19 @@
 package module.ball {
 
-	import laya.filters.GlowFilter;
+	import base.ai.BaseAIManager;
+
 	import laya.ui.Image;
 
 	import module.item.HpBarView;
 
 	import ui.BallItemUI;
 
-	public class BallItem extends BallItemUI {
+	/**
+	 * 球基类
+	 * @author Administrator
+	 *
+	 */
+	public class BaseBall extends BallItemUI {
 
 		private var _type:int;
 		private var _camp:int;
@@ -16,10 +22,12 @@ package module.ball {
 		private var _ballRotation:Number;
 		private var hpBar:HpBarView;
 
+		private var _ai:BaseAIManager;
+
 		protected var ballImage:Image;
 		protected var _speedCost:Number = 0.99;
 
-		public function BallItem() {
+		public function BaseBall() {
 			ballRotation = 0;
 			this.boxBall.cacheAsBitmap = true;
 		}
@@ -109,6 +117,16 @@ package module.ball {
 			var speedTotalY:Number = addSpeed * Math.sin(rotation / 180 * Math.PI) + speed * Math.sin(ballRotation / 180 * Math.PI);
 			speed = Math.sqrt(speedTotalX * speedTotalX + speedTotalY * speedTotalY);
 			ballRotation = Math.atan2(speedTotalY, speedTotalX) * 180 / Math.PI;
+		}
+
+		/**设置ai*/
+		public function setAi(value:BaseAIManager):void {
+			_ai = value;
+		}
+		
+		/**设置ai是否启动*/
+		public function setAiActive(boo:Boolean):void {
+			_ai && _ai.setActive(boo);
 		}
 
 	}
