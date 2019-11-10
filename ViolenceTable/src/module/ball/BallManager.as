@@ -25,9 +25,10 @@ package module.ball {
 					}
 				}
 			}
+			var target:BaseBall;
 			switch (type) {
 				case 0:
-					return new HitBall();
+					target = new HitBall();
 					break;
 				case 1:
 					var enemy:BaseBall = new BaseBall();
@@ -35,9 +36,10 @@ package module.ball {
 					ai.owner = enemy;
 					enemy.setAi(ai);
 					enemy.setAiActive(true);
+					target = enemy;
 					break;
 			}
-			return null;
+			return target;
 		}
 
 		public function returnBall(item:BaseBall):void {

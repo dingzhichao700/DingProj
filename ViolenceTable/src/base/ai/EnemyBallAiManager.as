@@ -18,7 +18,7 @@ package base.ai {
 		}
 
 		override protected function loop():void {
-			console.log("启动了");
+//			owner.y += 1;
 		}
 
 	}

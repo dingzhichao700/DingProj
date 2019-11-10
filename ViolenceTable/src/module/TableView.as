@@ -78,15 +78,9 @@ package module {
 			}
 
 			var ball0:BaseBall = addBall(280, 300, 0, 0);
+//			ball0.ballRotation = 180;
+//			ball0.speed = 1;
 //			ball0.addSpeed(90, 15);
-
-//			var ball1:BallItem = addBall(300, 300, 0, 0);
-//			ball1.ballRotation = 180;
-//			ball1.speed = 1;
-//
-//			var ball2:BallItem = addBall(260, 400, 0, 0);
-//			ball2.ballRotation = -135;
-//			ball2.speed = 1;
 		}
 
 		/**

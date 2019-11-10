@@ -1,5 +1,6 @@
 ﻿package {
 	
+	import laya.debug.DebugPanel;
 	import laya.display.Stage;
 	import laya.events.Event;
 	import laya.utils.Handler;
@@ -18,6 +19,7 @@
 			//初始化引擎
 			Laya.init(768, 1080, WebGL);
 			Laya.stage.scaleMode = Stage.SCALE_FIXED_AUTO;
+			DebugPanel.init();
 //			Laya.stage.frameRate = "slow";
 
 			//激活资源版本控制
