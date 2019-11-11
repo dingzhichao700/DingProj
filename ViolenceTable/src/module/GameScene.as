@@ -1,9 +1,7 @@
 package module {
 	import laya.events.Event;
-	import laya.filters.BlurFilter;
 	import laya.media.SoundManager;
 	import laya.ui.View;
-	import laya.utils.Browser;
 
 	public class GameScene extends View {
 

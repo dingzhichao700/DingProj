@@ -3,7 +3,7 @@ package module {
 	import laya.maths.Point;
 	import laya.media.SoundManager;
 
-	import module.ball.BallItem;
+	import module.ball.BaseBall;
 	import module.ball.BallManager;
 	import module.item.BlockItem;
 
@@ -73,20 +73,14 @@ package module {
 		private function initBall():void {
 			ballList = new Array();
 			for (var i:int = 0; i < 1; i++) {
-				var ball:BallItem = addBall(280 + 100 * Math.floor(i / 5), 600 + 100 * (i % 5), 1, 1);
+				var ball:BaseBall = addBall(280 + 100 * Math.floor(i / 5), 600 + 100 * (i % 5), 1, 1);
 				ball.ballRotation = 0;
 			}
 
-			var ball0:BallItem = addBall(280, 300, 0, 0);
+			var ball0:BaseBall = addBall(280, 300, 0, 0);
+//			ball0.ballRotation = 180;
+//			ball0.speed = 1;
 //			ball0.addSpeed(90, 15);
-
-//			var ball1:BallItem = addBall(300, 300, 0, 0);
-//			ball1.ballRotation = 180;
-//			ball1.speed = 1;
-//
-//			var ball2:BallItem = addBall(260, 400, 0, 0);
-//			ball2.ballRotation = -135;
-//			ball2.speed = 1;
 		}
 
 		/**
@@ -96,8 +90,8 @@ package module {
 		 * @param type 球类型
 		 * @param camp 阵营，0为玩家球，1为被敌方球
 		 */
-		private function addBall(x:int, y:int, type:int = 1, camp:int = 1):BallItem {
-			var item:BallItem = BallManager.getInstance().getBall(type);
+		private function addBall(x:int, y:int, type:int = 1, camp:int = 1):BaseBall {
+			var item:BaseBall = BallManager.getInstance().getBall(type);
 			item.x = x;
 			item.y = y;
 			item.type = type;
@@ -110,7 +104,7 @@ package module {
 		private function onFrame():void {
 			var totalSpeed:Number = 0;
 			for (var i:int = 0; i < ballList.length; i++) {
-				var ball:BallItem = ballList[i] as BallItem;
+				var ball:BaseBall = ballList[i] as BaseBall;
 
 				/**是否撞了障碍*/
 				var hitBlock:Boolean = false;
@@ -173,7 +167,7 @@ package module {
 				/**是否撞了其他球*/
 				var hitBall:Boolean = false;
 				for (j = 0; j < ballList.length; j++) {
-					var ball2:BallItem = ballList[j] as BallItem;
+					var ball2:BaseBall = ballList[j] as BaseBall;
 					if (ball2 != ball) {
 						if (hitTestBall(ball, ball2)) {
 							/**碰撞切线角度*/
@@ -312,7 +306,7 @@ package module {
 		}
 
 		/**碰撞检测(球对障碍)-只检测障碍边界范围*/
-		private function hitTestBlock(item:BallItem, block:BlockItem):Boolean {
+		private function hitTestBlock(item:BaseBall, block:BlockItem):Boolean {
 			var radius:int = item.radius;
 			var finalX:int = item.x;
 			var finalY:int = item.y;
@@ -325,7 +319,7 @@ package module {
 		}
 
 		/**碰撞检测(球对球)-根据球心距离和半径和来检测*/
-		private function hitTestBall(item:BallItem, item2:BallItem):Boolean {
+		private function hitTestBall(item:BaseBall, item2:BaseBall):Boolean {
 			var disX:int = item2.x - item.x;
 			var disY:int = item2.y - item.y;
 			var dis:int = Math.sqrt(disX * disX + disY * disY);
