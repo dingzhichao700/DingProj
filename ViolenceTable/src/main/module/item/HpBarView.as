@@ -1,5 +1,5 @@
-package module.item {
-	import ui.HpBarViewUI;
+package main.module.item {
+	import main.ui.HpBarViewUI;
 
 	public class HpBarView extends HpBarViewUI {
 		

@@ -1,5 +1,5 @@
-package base.ai.action {
-	import module.ball.BaseBall;
+package main.base.action {
+	import main.module.ball.BaseBall;
 
 	public class BaseAction {
 		

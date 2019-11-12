@@ -1,16 +1,15 @@
-package module.ball {
-	import base.ai.EnemyBallAiManager;
-	import base.ai.action.BaseEnemyMoveAction;
+package main.module.ball {
+	import main.base.EnemyBallAiManager;
 
 	public class BallManager {
 
 		private var ballPool:Vector.<BaseBall>;
 
-		private static var instance:BallManager;
+		private static var _ins:BallManager;
 
-		public static function getInstance():BallManager {
-			instance ||= new BallManager();
-			return instance;
+		public static function get ins():BallManager {
+			_ins ||= new BallManager();
+			return _ins;
 		}
 
 		public function BallManager() {
@@ -39,6 +38,7 @@ package module.ball {
 					target = enemy;
 					break;
 			}
+			target.type = type;
 			return target;
 		}
 

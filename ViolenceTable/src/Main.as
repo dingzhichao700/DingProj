@@ -1,12 +1,11 @@
 ﻿package {
 	
-	import laya.debug.DebugPanel;
 	import laya.display.Stage;
 	import laya.events.Event;
 	import laya.utils.Handler;
 	import laya.webgl.WebGL;
 	
-	import module.GameScene;
+	import main.module.scene.SceneControl;
 
 	public class Main {
 
@@ -19,7 +18,7 @@
 			//初始化引擎
 			Laya.init(768, 1080, WebGL);
 			Laya.stage.scaleMode = Stage.SCALE_FIXED_AUTO;
-			DebugPanel.init();
+//			DebugPanel.init();
 //			Laya.stage.frameRate = "slow";
 
 			//激活资源版本控制
@@ -35,8 +34,10 @@
 		private function onLoaded(e:Event):void {
 			loadCount++;
 			if (loadCount == loadList.length) {
-				Laya.stage.addChild(GameScene.getInstance());
-				GameScene.getInstance().init();
+				console.log("预加载图集完成，耗时：");
+				SceneControl.ins.init();
+//				GameScene.getInstance().init();
+//				Laya.stage.addChild(GameScene.getInstance());
 			}
 		}
 

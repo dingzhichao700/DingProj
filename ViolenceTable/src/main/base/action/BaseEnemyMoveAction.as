@@ -1,4 +1,4 @@
-package base.ai.action {
+package main.base.action {
 
 	/**
 	 * 基本小怪-移动action 

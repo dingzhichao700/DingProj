@@ -1,4 +1,4 @@
-package module.item {
+package main.module.item {
 	import laya.events.Event;
 	import laya.maths.Point;
 	import laya.ui.View;

@@ -430,13 +430,13 @@ var ___Laya=(function(){
 })()
 
 
-//class base.ai.action.BaseAction
+//class main.base.action.BaseAction
 var BaseAction=(function(){
 	function BaseAction(){
 		this._player=null;
 	}
 
-	__class(BaseAction,'base.ai.action.BaseAction');
+	__class(BaseAction,'main.base.action.BaseAction');
 	var __proto=BaseAction.prototype;
 	__proto.action=function(){
 		return false;
@@ -460,14 +460,14 @@ var BaseAction=(function(){
 *@author dingzhichao
 *
 */
-//class base.ai.BaseAIManager
+//class main.base.BaseAIManager
 var BaseAIManager=(function(){
 	function BaseAIManager(){
 		this._owner=null;
 		this._actions=null;
 	}
 
-	__class(BaseAIManager,'base.ai.BaseAIManager');
+	__class(BaseAIManager,'main.base.BaseAIManager');
 	var __proto=BaseAIManager.prototype;
 	/**设置生效*/
 	__proto.setActive=function(boo){
@@ -511,44 +511,14 @@ var BaseAIManager=(function(){
 })()
 
 
-//class Main
-var Main=(function(){
-	function Main(){
-		this.loadCount=0;
-		this.loadList=["comp","ball"];
-		Laya.Config.isAntialias=true;
-		Laya.init(768,1080,WebGL);
-		Laya.stage.scaleMode="fixedauto";
-		DebugPanel.init();
-		this.loadCount=0;
-		for (var i=0;i < this.loadList.length;i++){
-			var url=this.loadList[i];
-			Laya.loader.load("res/"+url+".atlas",Handler.create(this,this.onLoaded));
-		}
-	}
-
-	__class(Main,'Main');
-	var __proto=Main.prototype;
-	__proto.onLoaded=function(e){
-		this.loadCount++;
-		if (this.loadCount==this.loadList.length){
-			Laya.stage.addChild(GameScene.getInstance());
-			GameScene.getInstance().init();
-		}
-	}
-
-	return Main;
-})()
-
-
-//class module.ball.BallManager
+//class main.module.ball.BallManager
 var BallManager=(function(){
 	function BallManager(){
 		this.ballPool=null;
 		this.ballPool=new Array;
 	}
 
-	__class(BallManager,'module.ball.BallManager');
+	__class(BallManager,'main.module.ball.BallManager');
 	var __proto=BallManager.prototype;
 	__proto.getBall=function(type){
 		if (this.ballPool.length > 0){
@@ -572,6 +542,7 @@ var BallManager=(function(){
 				target=enemy;
 				break ;
 			}
+		target.type=type;
 		return target;
 	}
 
@@ -579,11 +550,11 @@ var BallManager=(function(){
 		this.ballPool.push(item);
 	}
 
-	BallManager.getInstance=function(){BallManager.instance=BallManager.instance|| new BallManager();
-		return BallManager.instance;
-	}
+	__getset(1,BallManager,'ins',function(){BallManager._ins=BallManager._ins|| new BallManager();
+		return BallManager._ins;
+	});
 
-	BallManager.instance=null;
+	BallManager._ins=null;
 	return BallManager;
 })()
 
@@ -887,14 +858,54 @@ var Handler=(function(){
 })()
 
 
-//class Params
+//class main.module.scene.SceneControl
+var SceneControl=(function(){
+	function SceneControl(){
+		this.curScene=null;
+	}
+
+	__class(SceneControl,'main.module.scene.SceneControl');
+	var __proto=SceneControl.prototype;
+	__proto.init=function(){
+		this.curScene=new GameScene();
+		this.curScene.init();
+		Laya.stage.addChild(this.curScene);
+		Laya.stage.on("keydown",this,this.onDown);
+		Laya.timer.once(1,this,function(){
+			this.centerX=0;
+			this.centerY=0;
+		});
+	}
+
+	__proto.onDown=function(){
+		Laya.stage.on("keyup",this,this.onUp);
+		SoundManager.setMusicVolume(0.05);
+		Params.ins.timeScale=0.02;
+	}
+
+	__proto.onUp=function(){
+		Laya.stage.off("keyup",this,this.onUp);
+		SoundManager.setMusicVolume(0.5);
+		Params.ins.timeScale=1;
+	}
+
+	__getset(1,SceneControl,'ins',function(){SceneControl._ins=SceneControl._ins|| new SceneControl();
+		return SceneControl._ins;
+	});
+
+	SceneControl._ins=null;
+	return SceneControl;
+})()
+
+
+//class main.Params
 var Params=(function(){
 	function Params(){
 		/**时间倍率*/
 		this.timeScale=1;
 	}
 
-	__class(Params,'Params');
+	__class(Params,'main.Params');
 	__getset(1,Params,'ins',function(){Params._ins=Params._ins|| new Params();
 		return Params._ins;
 	});
@@ -904,10 +915,10 @@ var Params=(function(){
 })()
 
 
-//class utils.ShockUtil
+//class main.utils.ShockUtil
 var ShockUtil=(function(){
 	function ShockUtil(){}
-	__class(ShockUtil,'utils.ShockUtil');
+	__class(ShockUtil,'main.utils.ShockUtil');
 	ShockUtil.play=function(view,time,range,speed,dir,handler){
 		(speed===void 0)&& (speed=0);
 		(dir===void 0)&& (dir=0);
@@ -961,6 +972,35 @@ var ShockUtil=(function(){
 
 	ShockUtil.infoDic={};
 	return ShockUtil;
+})()
+
+
+//class Main
+var Main=(function(){
+	function Main(){
+		this.loadCount=0;
+		this.loadList=["comp","ball"];
+		Laya.Config.isAntialias=true;
+		Laya.init(768,1080,WebGL);
+		Laya.stage.scaleMode="fixedauto";
+		this.loadCount=0;
+		for (var i=0;i < this.loadList.length;i++){
+			var url=this.loadList[i];
+			Laya.loader.load("res/"+url+".atlas",Handler.create(this,this.onLoaded));
+		}
+	}
+
+	__class(Main,'Main');
+	var __proto=Main.prototype;
+	__proto.onLoaded=function(e){
+		this.loadCount++;
+		if (this.loadCount==this.loadList.length){
+			console.log("预加载图集完成，耗时：");
+			SceneControl.ins.init();
+		}
+	}
+
+	return Main;
 })()
 
 
@@ -22349,13 +22389,13 @@ var UIConfig=(function(){
 *@author Administrator
 *
 */
-//class base.ai.action.BaseBallAction extends base.ai.action.BaseAction
+//class main.base.action.BaseBallAction extends main.base.action.BaseAction
 var BaseBallAction=(function(_super){
 	function BaseBallAction(){
 		BaseBallAction.__super.call(this);
 	}
 
-	__class(BaseBallAction,'base.ai.action.BaseBallAction',_super);
+	__class(BaseBallAction,'main.base.action.BaseBallAction',_super);
 	return BaseBallAction;
 })(BaseAction)
 
@@ -22365,7 +22405,7 @@ var BaseBallAction=(function(_super){
 *@author dingzhichao
 *
 */
-//class base.ai.EnemyBallAiManager extends base.ai.BaseAIManager
+//class main.base.EnemyBallAiManager extends main.base.BaseAIManager
 var EnemyBallAiManager=(function(_super){
 	function EnemyBallAiManager(){
 		this.moveAction=null;
@@ -22374,7 +22414,7 @@ var EnemyBallAiManager=(function(_super){
 		this.addAction(this.moveAction);
 	}
 
-	__class(EnemyBallAiManager,'base.ai.EnemyBallAiManager',_super);
+	__class(EnemyBallAiManager,'main.base.EnemyBallAiManager',_super);
 	var __proto=EnemyBallAiManager.prototype;
 	__proto.loop=function(){}
 	return EnemyBallAiManager;
@@ -28653,13 +28693,13 @@ var MeshTexture=(function(_super){
 *@author dingzhichao
 *
 */
-//class base.ai.action.BaseEnemyMoveAction extends base.ai.action.BaseBallAction
+//class main.base.action.BaseEnemyMoveAction extends main.base.action.BaseBallAction
 var BaseEnemyMoveAction=(function(_super){
 	function BaseEnemyMoveAction(){
 		BaseEnemyMoveAction.__super.call(this);
 	}
 
-	__class(BaseEnemyMoveAction,'base.ai.action.BaseEnemyMoveAction',_super);
+	__class(BaseEnemyMoveAction,'main.base.action.BaseEnemyMoveAction',_super);
 	var __proto=BaseEnemyMoveAction.prototype;
 	__proto.action=function(){
 		return false;
@@ -31531,6 +31571,290 @@ var Component=(function(_super){
 	});
 
 	return Component;
+})(Sprite)
+
+
+/**
+*场景基类
+*@author dingzhichao
+*
+*/
+//class main.module.scene.BaseScene extends laya.display.Sprite
+var BaseScene=(function(_super){
+	function BaseScene(){
+		this.totalSpeed=NaN;
+		this._layerBlock=null;
+		this._layerBall=null;
+		this.ballList=null;
+		this.blockList=null;
+		this.WALL_POS=[];
+		// private const WALL_POS:Array=[[42,19,0,0,490,0,490,22,0,22],[528,47,0,0,26,0,26,880,0,880],[41,937,0,0,490,0,490,22,0,22],[16,52,0,0,26,0,26,880,0,880]];
+		this.WALL_POS2=[[0,0,0,0,490,0,490,22],[481,20,0,0,26,0,26,880],[0,880,0,0,490,0,490,22],[0,0,0,0,26,0,26,880]];
+		BaseScene.__super.call(this);
+	}
+
+	__class(BaseScene,'main.module.scene.BaseScene',_super);
+	var __proto=BaseScene.prototype;
+	__proto.init=function(){
+		this.initLayers();
+		this.initBlock();
+		this.initBall();
+		this.initListener();
+		this.onResize();
+	}
+
+	__proto.initListener=function(){
+		Laya.timer.frameLoop(1,this,this.onFrame);
+		Laya.stage.on("keydown",this,this.onKeyDown);
+		Laya.stage.on("resize",this,this.onResize);
+	}
+
+	/**初始化层级*/
+	__proto.initLayers=function(){
+		var bg=new Image();
+		bg.skin="unpack/img_bg.jpg";
+		this.addChild(bg);
+		this._layerBlock=new Sprite();
+		this.addChild(this._layerBlock);
+		this._layerBall=new Sprite();
+		this.addChild(this._layerBall);
+	}
+
+	/**初始化障碍物*/
+	__proto.initBlock=function(){
+		this.blockList=[];
+		var targetConf=this.WALL_POS;
+		for (var j=0;j < targetConf.length;j++){
+			var item=new BlockItem();
+			item.data=(targetConf [j]).slice(2);
+			item.x=targetConf[j][0];
+			item.y=targetConf[j][1];
+			this._layerBlock.addChild(item);
+			this.blockList.push(item);
+		}
+	}
+
+	/**初始化球*/
+	__proto.initBall=function(){
+		this.ballList=[];
+		for (var i=0;i < 1;i++){
+			var ball=this.addBall(280+100 *Math.floor(i / 5),600+100 *(i % 5),1,1);
+			ball.ballRotation=0;
+		};
+		var ball0=this.addBall(280,300,0,0);
+	}
+
+	/**
+	*添加一个球到容器中
+	*@param x
+	*@param y
+	*@param type 球类型
+	*@param camp 阵营，0为玩家球，1为被敌方球
+	*/
+	__proto.addBall=function(x,y,type,camp){
+		(type===void 0)&& (type=1);
+		(camp===void 0)&& (camp=1);
+		var item=BallManager.ins.getBall(type);
+		item.pos(x,y);
+		item.camp=camp;
+		this.ballList.push(item);
+		this._layerBall.addChild(item);
+		return item;
+	}
+
+	__proto.onResize=function(){
+		this.width=Laya.stage.width;
+		this.height=Laya.stage.height;
+	}
+
+	__proto.onFrame=function(){
+		this.totalSpeed=0;
+		for (var i=0;i < this.ballList.length;i++){
+			var ball=this.ballList [i];
+			var hitBlock=false;
+			for (var j=0;j < this.blockList.length;j++){
+				var block=this.blockList [j];
+				var findLine=false;
+				var shortestApeakData;
+				if (this.hitTestBlock(ball,block)){
+					for (var k=0;k < block.lines.length;k++){
+						var apeak=this.getApeakData(ball.x,ball.y,block,block.lines [k]);
+						if (apeak[0] < ball.radius){
+							var clipAngle=Math.abs(ball.ballRotation-apeak[1])% 360;
+							if (clipAngle > 180){
+								clipAngle=Math.abs(360-clipAngle);
+							}
+							if (clipAngle < 90){
+								if (!findLine){
+									shortestApeakData=apeak;
+									findLine=true;
+								}
+								if (apeak[0] <=shortestApeakData[0]){
+									shortestApeakData=apeak;
+								}
+							}
+						}
+					}
+					if (findLine){
+						var range=Math.min(ball.speed,5);
+						ShockUtil.play(this,200,range,100);
+						SoundManager.playSound("sound/hit_wall_1.mp3");
+						SoundManager.setSoundVolume(range / 5,"sound/hit_wall_1.mp3");
+						var rotationAdd=shortestApeakData[1]-ball.ballRotation;
+						ball.ballRotation=ball.ballRotation-180+rotationAdd *2;
+						while (ball.ballRotation <-180){
+							ball.ballRotation+=360;
+						}
+						while (ball.ballRotation > 180){
+							ball.ballRotation-=360;
+						}
+						hitBlock=true;
+					}
+				}
+			};
+			var hitBall=false;
+			for (j=0;j < this.ballList.length;j++){
+				var ball2=this.ballList [j];
+				if (ball2 !=ball){
+					if (this.hitTestBall(ball,ball2)){
+						var hitAngle=parseInt(Math.atan2(ball2.y-ball.y,ball2.x-ball.x)*180 / Math.PI+"");
+						var angleHit1=(ball.ballRotation-hitAngle)% 360;
+						var angleHit2=(ball2.ballRotation-hitAngle)% 360;
+						var speedHit1=ball.speed *Math.cos(angleHit1 / 180 *Math.PI);
+						var speedHit2=ball2.speed *Math.cos(angleHit2 / 180 *Math.PI);
+						if (speedHit2 < speedHit1){
+							hitBall=true;
+							ShockUtil.play(this,200,1,100);
+							var soundUrl="sound/hit_iron.mp3";
+							SoundManager.playSound(soundUrl,1);
+							var volume=Math.abs(speedHit1-speedHit2)/ 5;
+							SoundManager.setSoundVolume(Math.min(volume,1),soundUrl);
+							var angleHitSpit1=hitAngle+180;
+							var angleHitSpit2=hitAngle;
+							var speedHitSpit1=(Math.abs(speedHit1)+Math.abs(speedHit2))/ 2;
+							var speedHitSpit2=(Math.abs(speedHit1)+Math.abs(speedHit2))/ 2;
+							while (angleHit1 < 0){
+								angleHit1+=360;
+							}
+							while (angleHit1 > 360){
+								angleHit1-=360;
+							};
+							var angleSide1=hitAngle+((0 < angleHit1 && angleHit1 < 180)? 90 :-90);
+							while (angleHit2 < 0){
+								angleHit2+=360;
+							}
+							while (angleHit2 > 360){
+								angleHit2-=360;
+							};
+							var angleSide2=hitAngle+((0 < angleHit2 && angleHit2 < 180)? 90 :-90);
+							var speedSide1=ball.speed *Math.abs(angleHit1 % 180==0 ? Math.round(Math.sin(angleHit1 / 180 *Math.PI)):Math.sin(angleHit1 / 180 *Math.PI));
+							var speedSide2=ball2.speed *Math.abs(angleHit1 % 180==0 ? Math.round(Math.sin(angleHit2 / 180 *Math.PI)):Math.sin(angleHit2 / 180 *Math.PI));
+							var result=[];
+							result=this.getSpeedCombine([[speedHitSpit1,angleHitSpit1],[speedSide1,angleSide1]]);
+							ball.speed=result[0];
+							ball.ballRotation=result[1];
+							result=this.getSpeedCombine([[speedHitSpit2,angleHitSpit2],[speedSide2,angleSide2]]);
+							ball2.speed=result[0];
+							ball2.ballRotation=result[1];
+						}
+					}
+				}
+			}
+			if (!hitBlock && !hitBall && ball.speed !=0){
+				ball.speed=ball.speed *(ball.speedCost+(1-ball.speedCost)*(1-this.timeScale));
+				var xDis=Math.cos(ball.ballRotation / 180 *Math.PI)*ball.speed *this.timeScale;
+				var yDis=Math.sin(ball.ballRotation / 180 *Math.PI)*ball.speed *this.timeScale;
+				ball.x+=xDis;
+				ball.y+=yDis;
+			}
+			this.totalSpeed+=ball.speed;
+		}
+	}
+
+	/**
+	*获取垂线数据
+	*@param x
+	*@param y
+	*@param block 线数组，包含2个端点Point
+	*@param line block内部的某条线，包含2个端点Point
+	*@return [垂线长度，角度]
+	*/
+	__proto.getApeakData=function(x,y,block,line){
+		var point1=line[0];
+		var point2=line[1];
+		var disX=point2.x-point1.x;
+		var disY=point2.y-point1.y;
+		if (disY==0){
+			return [Math.abs(y-block.y-point1.y),y > (block.y+point1.y)?-90 :90];
+		}
+		if (disX==0){
+			return [Math.abs(x-block.x-point1.x),x > (block.x+point1.x)? 180 :0];
+		};
+		var angle1=Math.atan(disY / disX)*180 / Math.PI;
+		var param1=(block.y+point2.y)-(block.x+point2.x)*Math.tan(angle1 / 180 *Math.PI);
+		var angle2=angle1-90;
+		var param2=y-x *Math.tan(angle2 / 180 *Math.PI);
+		var peakX=(param2-param1)/ (Math.tan(angle1 / 180 *Math.PI)-Math.tan(angle2 / 180 *Math.PI));
+		var peakY=Math.tan(angle1 / 180 *Math.PI)*peakX+param1;
+		var peakDis=Math.sqrt((peakX-x)*(peakX-x)+(peakY-y)*(peakY-y));
+		var peakRotation=Math.atan2(peakY-y,peakX-x)*180 / Math.PI;
+		return [peakDis,peakRotation];
+	}
+
+	/**
+	*求和速度
+	*@param speedList 分速度列表[[速度1，角度1],[速度2，角度2]...]
+	*@return [合速度，角度]
+	*
+	*/
+	__proto.getSpeedCombine=function(speedList){
+		var speedX=0;
+		var speedY=0;
+		for (var i=0;i < speedList.length;i++){
+			speedX+=speedList[i][0] *Math.cos(speedList[i][1] / 180 *Math.PI);
+			speedY+=speedList[i][0] *Math.sin(speedList[i][1] / 180 *Math.PI);
+		};
+		var speedCombine=Math.sqrt(speedX *speedX+speedY *speedY);
+		var angleCombine=Math.atan2(speedY,speedX)*180 / Math.PI;
+		return [speedCombine,angleCombine];
+	}
+
+	/**碰撞检测(球对障碍)-只检测障碍边界范围*/
+	__proto.hitTestBlock=function(item,block){
+		var radius=item.radius;
+		var finalX=item.x;
+		var finalY=item.y;
+		if ((block.x+block.pLeft-radius)< finalX && finalX < (block.x+block.pRight+radius)){
+			if ((block.y+block.pUp-radius)< finalY && finalY < (block.y+block.pDown+radius)){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**碰撞检测(球对球)-根据球心距离和半径和来检测*/
+	__proto.hitTestBall=function(item,item2){
+		var disX=item2.x-item.x;
+		var disY=item2.y-item.y;
+		var dis=Math.sqrt(disX *disX+disY *disY);
+		return dis < (item.radius+item2.radius);
+	}
+
+	__proto.onKeyDown=function(){
+		var outStr="[";
+		for (var i=0;i < this.blockList.length;i++){
+			var item=this.blockList[i];
+			outStr+="["+item.x+","+item.y+","+item.data.slice(0,item.data.length-2)+"]"+(i==this.blockList.length-1 ? "" :",");
+		}
+		outStr+="]";
+		console.log(outStr);
+	}
+
+	__getset(0,__proto,'timeScale',function(){
+		return Params.ins.timeScale;
+	});
+
+	return BaseScene;
 })(Sprite)
 
 
@@ -36137,6 +36461,28 @@ var Box=(function(_super){
 
 	return Box;
 })(Component)
+
+
+//class main.module.scene.GameScene extends main.module.scene.BaseScene
+var GameScene=(function(_super){
+	function GameScene(){
+		this.txtSpeed=null;
+		GameScene.__super.call(this);
+	}
+
+	__class(GameScene,'main.module.scene.GameScene',_super);
+	var __proto=GameScene.prototype;
+	__proto.init=function(){
+		_super.prototype.init.call(this);
+		SoundManager.setMusicVolume(0.5);
+	}
+
+	__proto.onFrame=function(){
+		_super.prototype.onFrame.call(this);
+	}
+
+	return GameScene;
+})(BaseScene)
 
 
 /**
@@ -48109,7 +48455,7 @@ var WebGLImage=(function(_super){
 })(HTMLImage)
 
 
-//class ui.BallItemUI extends laya.ui.View
+//class main.ui.BallItemUI extends laya.ui.View
 var BallItemUI=(function(_super){
 	function BallItemUI(){
 		this.boxBottom=null;
@@ -48118,7 +48464,7 @@ var BallItemUI=(function(_super){
 		BallItemUI.__super.call(this);
 	}
 
-	__class(BallItemUI,'ui.BallItemUI',_super);
+	__class(BallItemUI,'main.ui.BallItemUI',_super);
 	var __proto=BallItemUI.prototype;
 	__proto.createChildren=function(){
 		laya.ui.Component.prototype.createChildren.call(this);
@@ -48130,49 +48476,7 @@ var BallItemUI=(function(_super){
 })(View)
 
 
-//class module.GameScene extends laya.ui.View
-var GameScene=(function(_super){
-	function GameScene(){
-		this.table=null;
-		this.blur=0;
-		GameScene.__super.call(this);
-	}
-
-	__class(GameScene,'module.GameScene',_super);
-	var __proto=GameScene.prototype;
-	__proto.init=function(){
-		this.table=new TableView();
-		this.addChild(this.table);
-		this.table.init();
-		Laya.stage.on("keydown",this,this.onDown);
-		Laya.timer.once(1,this,function(){
-			this.centerX=0;
-			this.centerY=0;
-		});
-	}
-
-	__proto.onDown=function(){
-		Laya.stage.on("keyup",this,this.onUp);
-		SoundManager.setMusicVolume(0.05);
-		Params.ins.timeScale=0.02;
-	}
-
-	__proto.onUp=function(){
-		Laya.stage.off("keyup",this,this.onUp);
-		SoundManager.setMusicVolume(0.5);
-		Params.ins.timeScale=1;
-	}
-
-	GameScene.getInstance=function(){GameScene.instance=GameScene.instance|| new GameScene();
-		return GameScene.instance;
-	}
-
-	GameScene.instance=null;
-	return GameScene;
-})(View)
-
-
-//class module.item.BlockItem extends laya.ui.View
+//class main.module.item.BlockItem extends laya.ui.View
 var BlockItem=(function(_super){
 	function BlockItem(){
 		this._data=null;
@@ -48185,7 +48489,7 @@ var BlockItem=(function(_super){
 		this.alpha=0.5;
 	}
 
-	__class(BlockItem,'module.item.BlockItem',_super);
+	__class(BlockItem,'main.module.item.BlockItem',_super);
 	var __proto=BlockItem.prototype;
 	__proto.onDrag=function(){
 		this.off("mousedown",this,this.onDrag);
@@ -48264,14 +48568,14 @@ var BlockItem=(function(_super){
 })(View)
 
 
-//class ui.HpBarViewUI extends laya.ui.View
+//class main.ui.HpBarViewUI extends laya.ui.View
 var HpBarViewUI=(function(_super){
 	function HpBarViewUI(){
 		this.imgHp=null;
 		HpBarViewUI.__super.call(this);
 	}
 
-	__class(HpBarViewUI,'ui.HpBarViewUI',_super);
+	__class(HpBarViewUI,'main.ui.HpBarViewUI',_super);
 	var __proto=HpBarViewUI.prototype;
 	__proto.createChildren=function(){
 		laya.ui.Component.prototype.createChildren.call(this);
@@ -48280,30 +48584,6 @@ var HpBarViewUI=(function(_super){
 
 	HpBarViewUI.uiView={"type":"View","props":{"width":52,"height":7},"child":[{"type":"Image","props":{"y":2,"x":2,"var":"imgHp","skin":"comp/progress_1_1.png"}},{"type":"Image","props":{"skin":"comp/progress_1_bg.png"}}]};
 	return HpBarViewUI;
-})(View)
-
-
-//class ui.TableViewUI extends laya.ui.View
-var TableViewUI=(function(_super){
-	function TableViewUI(){
-		this.imgBg=null;
-		this.boxScene=null;
-		this.boxCon=null;
-		this.boxTable=null;
-		this.txtSpeed=null;
-		TableViewUI.__super.call(this);
-	}
-
-	__class(TableViewUI,'ui.TableViewUI',_super);
-	var __proto=TableViewUI.prototype;
-	__proto.createChildren=function(){
-		View.regComponent("HTMLDivElement",HTMLDivElement);
-		laya.ui.Component.prototype.createChildren.call(this);
-		this.createView(TableViewUI.uiView);
-	}
-
-	TableViewUI.uiView={"type":"View","props":{"width":768,"height":1080},"child":[{"type":"Image","props":{"var":"imgBg","skin":"unpack/img_bg.jpg","height":1080,"centerY":0,"centerX":0}},{"type":"Box","props":{"width":572,"var":"boxScene","height":980,"centerY":0,"centerX":0},"child":[{"type":"Box","props":{"y":0,"x":0,"width":500,"var":"boxCon","height":904},"child":[{"type":"Box","props":{"var":"boxTable"}}]}]},{"type":"HTMLDivElement","props":{"y":11,"x":106,"width":472,"var":"txtSpeed","innerHTML":"测试文本啊哈哈","height":39}}]};
-	return TableViewUI;
 })(View)
 
 
@@ -49390,7 +49670,7 @@ var TextArea=(function(_super){
 *@author Administrator
 *
 */
-//class module.ball.BaseBall extends ui.BallItemUI
+//class main.module.ball.BaseBall extends main.ui.BallItemUI
 var BaseBall=(function(_super){
 	function BaseBall(){
 		this._type=0;
@@ -49407,7 +49687,7 @@ var BaseBall=(function(_super){
 		this.boxBall.cacheAsBitmap=true;
 	}
 
-	__class(BaseBall,'module.ball.BaseBall',_super);
+	__class(BaseBall,'main.module.ball.BaseBall',_super);
 	var __proto=BaseBall.prototype;
 	__proto.showHpBar=function(){this.hpBar=this.hpBar|| new HpBarView();
 		this.addChild(this.hpBar);
@@ -49493,282 +49773,15 @@ var BaseBall=(function(_super){
 })(BallItemUI)
 
 
-//class module.item.HpBarView extends ui.HpBarViewUI
+//class main.module.item.HpBarView extends main.ui.HpBarViewUI
 var HpBarView=(function(_super){
 	function HpBarView(){
 		HpBarView.__super.call(this);
 	}
 
-	__class(HpBarView,'module.item.HpBarView',_super);
+	__class(HpBarView,'main.module.item.HpBarView',_super);
 	return HpBarView;
 })(HpBarViewUI)
-
-
-//class module.TableView extends ui.TableViewUI
-var TableView=(function(_super){
-	function TableView(){
-		this.ballList=null;
-		this.blockList=null;
-		this.WALL_POS=[];
-		// private const WALL_POS:Array=[[42,19,0,0,490,0,490,22,0,22],[528,47,0,0,26,0,26,880,0,880],[41,937,0,0,490,0,490,22,0,22],[16,52,0,0,26,0,26,880,0,880]];
-		this.WALL_POS2=[[0,0,0,0,490,0,490,22],[481,20,0,0,26,0,26,880],[0,880,0,0,490,0,490,22],[0,0,0,0,26,0,26,880]];
-		TableView.__super.call(this);
-	}
-
-	__class(TableView,'module.TableView',_super);
-	var __proto=TableView.prototype;
-	__proto.init=function(){
-		this.initTable();
-		this.initBall();
-		this.txtSpeed.style.font="wryh";
-		this.txtSpeed.style.fontSize=20;
-		SoundManager.setMusicVolume(0.5);
-		Laya.timer.frameLoop(1,this,this.onFrame);
-		Laya.stage.on("resize",this,this.onResize);
-		Laya.stage.on("keydown",this,this.onKeyDown);
-		this.onResize();
-	}
-
-	__proto.onResize=function(){
-		this.width=Laya.stage.width;
-		this.height=Laya.stage.height;
-		this.imgBg.width=this.width;
-		this.imgBg.height=this.height;
-	}
-
-	__proto.onKeyDown=function(){
-		var outStr="[";
-		for (var i=0;i < this.blockList.length;i++){
-			var item=this.blockList[i];
-			outStr+="["+item.x+","+item.y+","+item.data.slice(0,item.data.length-2)+"]"+(i==this.blockList.length-1 ? "" :",");
-		}
-		outStr+="]";
-		console.log(outStr);
-	}
-
-	__proto.initTable=function(){
-		this.blockList=[];
-		var targetConf=this.WALL_POS;
-		for (var j=0;j < targetConf.length;j++){
-			var item=new BlockItem();
-			item.data=(targetConf [j]).slice(2);
-			item.x=targetConf[j][0];
-			item.y=targetConf[j][1];
-			this.boxTable.addChild(item);
-			this.blockList.push(item);
-		}
-		this.boxTable.mouseEnabled=true;
-	}
-
-	__proto.initBall=function(){
-		this.ballList=[];
-		for (var i=0;i < 1;i++){
-			var ball=this.addBall(280+100 *Math.floor(i / 5),600+100 *(i % 5),1,1);
-			ball.ballRotation=0;
-		};
-		var ball0=this.addBall(280,300,0,0);
-	}
-
-	/**
-	*添加一个球到容器中
-	*@param x
-	*@param y
-	*@param type 球类型
-	*@param camp 阵营，0为玩家球，1为被敌方球
-	*/
-	__proto.addBall=function(x,y,type,camp){
-		(type===void 0)&& (type=1);
-		(camp===void 0)&& (camp=1);
-		var item=BallManager.getInstance().getBall(type);
-		item.x=x;
-		item.y=y;
-		item.type=type;
-		item.camp=camp;
-		this.ballList.push(item);
-		this.boxCon.addChild(item);
-		return item;
-	}
-
-	__proto.onFrame=function(){
-		var totalSpeed=0;
-		for (var i=0;i < this.ballList.length;i++){
-			var ball=this.ballList [i];
-			var hitBlock=false;
-			for (var j=0;j < this.blockList.length;j++){
-				var block=this.blockList [j];
-				var findLine=false;
-				var shortestApeakData;
-				if (this.hitTestBlock(ball,block)){
-					for (var k=0;k < block.lines.length;k++){
-						var apeak=this.getApeakData(ball.x,ball.y,block,block.lines [k]);
-						if (apeak[0] < ball.radius){
-							var clipAngle=Math.abs(ball.ballRotation-apeak[1])% 360;
-							if (clipAngle > 180){
-								clipAngle=Math.abs(360-clipAngle);
-							}
-							if (clipAngle < 90){
-								if (!findLine){
-									shortestApeakData=apeak;
-									findLine=true;
-								}
-								if (apeak[0] <=shortestApeakData[0]){
-									shortestApeakData=apeak;
-								}
-							}
-						}
-					}
-					if (findLine){
-						var range=Math.min(ball.speed,5);
-						ShockUtil.play(this.boxScene,200,range,100);
-						SoundManager.playSound("sound/hit_wall_1.mp3");
-						SoundManager.setSoundVolume(range / 5,"sound/hit_wall_1.mp3");
-						var rotationAdd=shortestApeakData[1]-ball.ballRotation;
-						ball.ballRotation=ball.ballRotation-180+rotationAdd *2;
-						while (ball.ballRotation <-180){
-							ball.ballRotation+=360;
-						}
-						while (ball.ballRotation > 180){
-							ball.ballRotation-=360;
-						}
-						hitBlock=true;
-					}
-				}
-			};
-			var hitBall=false;
-			for (j=0;j < this.ballList.length;j++){
-				var ball2=this.ballList [j];
-				if (ball2 !=ball){
-					if (this.hitTestBall(ball,ball2)){
-						var hitAngle=parseInt(Math.atan2(ball2.y-ball.y,ball2.x-ball.x)*180 / Math.PI+"");
-						var angleHit1=(ball.ballRotation-hitAngle)% 360;
-						var angleHit2=(ball2.ballRotation-hitAngle)% 360;
-						var speedHit1=ball.speed *Math.cos(angleHit1 / 180 *Math.PI);
-						var speedHit2=ball2.speed *Math.cos(angleHit2 / 180 *Math.PI);
-						if (speedHit2 < speedHit1){
-							hitBall=true;
-							ShockUtil.play(this.boxScene,200,1,100);
-							var soundUrl="sound/hit_iron.mp3";
-							SoundManager.playSound(soundUrl,1);
-							var volume=Math.abs(speedHit1-speedHit2)/ 5;
-							SoundManager.setSoundVolume(Math.min(volume,1),soundUrl);
-							var angleHitSpit1=hitAngle+180;
-							var angleHitSpit2=hitAngle;
-							var speedHitSpit1=(Math.abs(speedHit1)+Math.abs(speedHit2))/ 2;
-							var speedHitSpit2=(Math.abs(speedHit1)+Math.abs(speedHit2))/ 2;
-							while (angleHit1 < 0){
-								angleHit1+=360;
-							}
-							while (angleHit1 > 360){
-								angleHit1-=360;
-							};
-							var angleSide1=hitAngle+((0 < angleHit1 && angleHit1 < 180)? 90 :-90);
-							while (angleHit2 < 0){
-								angleHit2+=360;
-							}
-							while (angleHit2 > 360){
-								angleHit2-=360;
-							};
-							var angleSide2=hitAngle+((0 < angleHit2 && angleHit2 < 180)? 90 :-90);
-							var speedSide1=ball.speed *Math.abs(angleHit1 % 180==0 ? Math.round(Math.sin(angleHit1 / 180 *Math.PI)):Math.sin(angleHit1 / 180 *Math.PI));
-							var speedSide2=ball2.speed *Math.abs(angleHit1 % 180==0 ? Math.round(Math.sin(angleHit2 / 180 *Math.PI)):Math.sin(angleHit2 / 180 *Math.PI));
-							var result=[];
-							result=this.getSpeedCombine([[speedHitSpit1,angleHitSpit1],[speedSide1,angleSide1]]);
-							ball.speed=result[0];
-							ball.ballRotation=result[1];
-							result=this.getSpeedCombine([[speedHitSpit2,angleHitSpit2],[speedSide2,angleSide2]]);
-							ball2.speed=result[0];
-							ball2.ballRotation=result[1];
-						}
-					}
-				}
-			}
-			if (!hitBlock && !hitBall && ball.speed !=0){
-				ball.speed=ball.speed *(ball.speedCost+(1-ball.speedCost)*(1-this.timeScale));
-				var xDis=Math.cos(ball.ballRotation / 180 *Math.PI)*ball.speed *this.timeScale;
-				var yDis=Math.sin(ball.ballRotation / 180 *Math.PI)*ball.speed *this.timeScale;
-				ball.x+=xDis;
-				ball.y+=yDis;
-			}
-			totalSpeed+=ball.speed;
-		}
-		this.txtSpeed.innerHTML=totalSpeed+"";
-	}
-
-	/**
-	*获取垂线数据
-	*@param x
-	*@param y
-	*@param block 线数组，包含2个端点Point
-	*@param line block内部的某条线，包含2个端点Point
-	*@return [垂线长度，角度]
-	*/
-	__proto.getApeakData=function(x,y,block,line){
-		var point1=line[0];
-		var point2=line[1];
-		var disX=point2.x-point1.x;
-		var disY=point2.y-point1.y;
-		if (disY==0){
-			return [Math.abs(y-block.y-point1.y),y > (block.y+point1.y)?-90 :90];
-		}
-		if (disX==0){
-			return [Math.abs(x-block.x-point1.x),x > (block.x+point1.x)? 180 :0];
-		};
-		var angle1=Math.atan(disY / disX)*180 / Math.PI;
-		var param1=(block.y+point2.y)-(block.x+point2.x)*Math.tan(angle1 / 180 *Math.PI);
-		var angle2=angle1-90;
-		var param2=y-x *Math.tan(angle2 / 180 *Math.PI);
-		var peakX=(param2-param1)/ (Math.tan(angle1 / 180 *Math.PI)-Math.tan(angle2 / 180 *Math.PI));
-		var peakY=Math.tan(angle1 / 180 *Math.PI)*peakX+param1;
-		var peakDis=Math.sqrt((peakX-x)*(peakX-x)+(peakY-y)*(peakY-y));
-		var peakRotation=Math.atan2(peakY-y,peakX-x)*180 / Math.PI;
-		return [peakDis,peakRotation];
-	}
-
-	/**
-	*求和速度
-	*@param speedList 分速度列表[[速度1，角度1],[速度2，角度2]...]
-	*@return [合速度，角度]
-	*
-	*/
-	__proto.getSpeedCombine=function(speedList){
-		var speedX=0;
-		var speedY=0;
-		for (var i=0;i < speedList.length;i++){
-			speedX+=speedList[i][0] *Math.cos(speedList[i][1] / 180 *Math.PI);
-			speedY+=speedList[i][0] *Math.sin(speedList[i][1] / 180 *Math.PI);
-		};
-		var speedCombine=Math.sqrt(speedX *speedX+speedY *speedY);
-		var angleCombine=Math.atan2(speedY,speedX)*180 / Math.PI;
-		return [speedCombine,angleCombine];
-	}
-
-	/**碰撞检测(球对障碍)-只检测障碍边界范围*/
-	__proto.hitTestBlock=function(item,block){
-		var radius=item.radius;
-		var finalX=item.x;
-		var finalY=item.y;
-		if ((block.x+block.pLeft-radius)< finalX && finalX < (block.x+block.pRight+radius)){
-			if ((block.y+block.pUp-radius)< finalY && finalY < (block.y+block.pDown+radius)){
-				return true;
-			}
-		}
-		return false;
-	}
-
-	/**碰撞检测(球对球)-根据球心距离和半径和来检测*/
-	__proto.hitTestBall=function(item,item2){
-		var disX=item2.x-item.x;
-		var disY=item2.y-item.y;
-		var dis=Math.sqrt(disX *disX+disY *disY);
-		return dis < (item.radius+item2.radius);
-	}
-
-	__getset(0,__proto,'timeScale',function(){
-		return Params.ins.timeScale;
-	});
-
-	return TableView;
-})(TableViewUI)
 
 
 /**
@@ -49999,6 +50012,26 @@ var NodeTool=(function(_super){
 	__proto.createChildren=function(){}
 	return NodeTool;
 })(NodeToolUI)
+
+
+/**
+*...
+*@author ww
+*/
+//class laya.debug.view.nodeInfo.nodetree.NodeTreeSetting extends laya.debug.ui.debugui.NodeTreeSettingUI
+var NodeTreeSetting=(function(_super){
+	function NodeTreeSetting(){
+		NodeTreeSetting.__super.call(this);
+		Base64AtlasManager.replaceRes(NodeTreeSettingUI.uiView);
+		this.createView(NodeTreeSettingUI.uiView);
+	}
+
+	__class(NodeTreeSetting,'laya.debug.view.nodeInfo.nodetree.NodeTreeSetting',_super);
+	var __proto=NodeTreeSetting.prototype;
+	//inits();
+	__proto.createChildren=function(){}
+	return NodeTreeSetting;
+})(NodeTreeSettingUI)
 
 
 /**
@@ -50248,26 +50281,6 @@ var NodeTree=(function(_super){
 *...
 *@author ww
 */
-//class laya.debug.view.nodeInfo.nodetree.NodeTreeSetting extends laya.debug.ui.debugui.NodeTreeSettingUI
-var NodeTreeSetting=(function(_super){
-	function NodeTreeSetting(){
-		NodeTreeSetting.__super.call(this);
-		Base64AtlasManager.replaceRes(NodeTreeSettingUI.uiView);
-		this.createView(NodeTreeSettingUI.uiView);
-	}
-
-	__class(NodeTreeSetting,'laya.debug.view.nodeInfo.nodetree.NodeTreeSetting',_super);
-	var __proto=NodeTreeSetting.prototype;
-	//inits();
-	__proto.createChildren=function(){}
-	return NodeTreeSetting;
-})(NodeTreeSettingUI)
-
-
-/**
-*...
-*@author ww
-*/
 //class laya.debug.view.nodeInfo.nodetree.ObjectCreate extends laya.debug.ui.debugui.ObjectCreateUI
 var ObjectCreate=(function(_super){
 	function ObjectCreate(){
@@ -50418,7 +50431,7 @@ var ToolBar=(function(_super){
 })(ToolBarUI)
 
 
-//class module.ball.HitBall extends module.ball.BaseBall
+//class main.module.ball.HitBall extends main.module.ball.BaseBall
 var HitBall=(function(_super){
 	function HitBall(){
 		this.phantom=null;
@@ -50437,7 +50450,7 @@ var HitBall=(function(_super){
 		this._speedCost=0.993;
 	}
 
-	__class(HitBall,'module.ball.HitBall',_super);
+	__class(HitBall,'main.module.ball.HitBall',_super);
 	var __proto=HitBall.prototype;
 	__proto.speedSetHandler=function(){
 		var hitarea=new HitArea();
