@@ -1,7 +1,0 @@
-#Tue Sep 05 12:17:11 CST 2017
-base.0=/Users/linhongwei/Documents/MyTest/h5AndroidOL/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_c44a374ddf25f1ef66f347d234cfe9e141832849
-renamed.1=classes.dex
-renamed.0=classes2.dex
-file.1=/Users/linhongwei/Documents/MyTest/h5AndroidOL/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_2c85c8bd402a22593aeefa2972e6676e11a0892f/classes.dex
-base.1=/Users/linhongwei/Documents/MyTest/h5AndroidOL/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_2c85c8bd402a22593aeefa2972e6676e11a0892f
-file.0=/Users/linhongwei/Documents/MyTest/h5AndroidOL/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_c44a374ddf25f1ef66f347d234cfe9e141832849/classes.dex

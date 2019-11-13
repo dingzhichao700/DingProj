@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="GetuiSDK2.10.1.0-support-all">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/libs/GetuiSDK2.10.1.0-support-all.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

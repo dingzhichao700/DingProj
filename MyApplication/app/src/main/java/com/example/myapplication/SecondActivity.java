@@ -7,7 +7,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageView;
 
-import com.game20190422.myapplication.R;
+import minimoshou.R;
 
 import java.util.Timer;
 
