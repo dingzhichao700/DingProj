@@ -3,19 +3,19 @@ Project configuration:E:\DingProj\ViolenceTable\.actionScriptProperties.
 1,0.00,,0,output path:E:/DingProj/ViolenceTable/bin/h5/
 1,0.00,,0,Main Class:E:/DingProj/ViolenceTable/src/Main.as
 1,0.00,,0,output file:Main
-1,0.00,,0,compilerSourcePath E:/DingProj/ViolenceTable/libs/laya/src/
+1,0.00,,0,compilerSourcePath E:/DingProj/LayaAirAS3_1.8.4/as/libs/src/
 
 1,0.00,,0,Compile Path:E:/DingProj/ViolenceTable/src/
 
-1,0.00,,0,Compile Path:E:/DingProj/ViolenceTable/libs/laya/src/
+1,0.00,,0,Compile Path:E:/DingProj/LayaAirAS3_1.8.4/as/libs/src/
 
 1,0.00,E:/DingProj/ViolenceTable/src,0,Collect
-1,0.00,E:/DingProj/ViolenceTable/libs/laya/src,0,Collect
+1,0.00,E:/DingProj/LayaAirAS3_1.8.4/as/libs/src,0,Collect
 1,2.00,,0,read class message
-1,89.95,,0,Disable Flash3D E:/DingProj/ViolenceTable/src/Main.as
-12,89.95,E:/DingProj/ViolenceTable/bin/h5/Main.max.js,1219779,
-11,89.95,E:/DingProj/ViolenceTable/bin/h5/Main.max.html,887,
+1,89.71,,0,Disable Flash3D E:/DingProj/ViolenceTable/src/Main.as
+12,89.71,E:/DingProj/ViolenceTable/bin/h5/Main.max.js,1230357,
+11,89.71,E:/DingProj/ViolenceTable/bin/h5/Main.max.html,887,
 ******************************************************************************
-1,89.95,C:\Program Files (x86)\Google\Chrome\Application\chrome.exe,0,找到chrome了，路径:C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
+1,89.71,C:\Program Files (x86)\Google\Chrome\Application\chrome.exe,0,找到chrome了，路径:C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
 
-14,89.95,,0,
+14,89.71,,0,
