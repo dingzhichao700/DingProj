@@ -17,7 +17,7 @@
 			//去除锯齿
 			Laya.Config.isAntialias = true;
 			//初始化引擎
-			Laya.init(768, 1080, WebGL);
+			Laya.init(768, 1024, WebGL);
 			Laya.stage.scaleMode = Stage.SCALE_FIXED_AUTO;
 //			DebugPanel.init();
 //			Laya.stage.frameRate = "slow";

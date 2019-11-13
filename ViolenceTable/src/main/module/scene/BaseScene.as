@@ -3,7 +3,6 @@ package main.module.scene {
 	import laya.events.Event;
 	import laya.maths.Point;
 	import laya.media.SoundManager;
-	import laya.resource.Bitmap;
 	import laya.ui.Image;
 	
 	import main.Params;
@@ -19,8 +18,13 @@ package main.module.scene {
 	 */	
 	public class BaseScene extends Sprite {
 		
+		private var bgView:BgView;
+		protected var bg_width:int; 
+		protected var bg_height:int; 
+		
 		protected var totalSpeed:Number;
 		
+		private var _layerBg:Sprite;
 		private var _layerBlock:Sprite;
 		private var _layerBall:Sprite;
 		
@@ -37,6 +41,7 @@ package main.module.scene {
 		
 		public function init():void {
 			initLayers();
+			updateBgView();
 			initBlock();
 			initBall();
 			initListener();
@@ -52,13 +57,18 @@ package main.module.scene {
 		
 		/**初始化层级*/
 		private function initLayers():void {
-			var bg:Image = new Image();
-			bg.skin = "unpack/img_bg.jpg";
-			addChild(bg);
+			_layerBg = new Sprite();
+			addChild(_layerBg);
 			_layerBlock = new Sprite();
 			addChild(_layerBlock);
 			_layerBall = new Sprite();
 			addChild(_layerBall);
+		}
+		
+		private function updateBgView():void {
+			bgView ||= new BgView();
+			bgView.init("unpack/img_bg.jpg", );
+			
 		}
 		
 		/**初始化障碍物*/
