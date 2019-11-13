@@ -1,5 +1,5 @@
-package base.ai {
-	import base.ai.action.BaseEnemyMoveAction;
+package main.base {
+	import main.base.action.BaseEnemyMoveAction;
 	
 	import laya.utils.Pool;
 

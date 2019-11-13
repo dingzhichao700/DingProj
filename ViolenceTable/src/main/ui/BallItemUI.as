@@ -1,5 +1,5 @@
 /**Created by the LayaAirIDE,do not modify.*/
-package ui {
+package main.ui {
 	import laya.ui.*;import laya.display.*; 
 
 	public class BallItemUI extends View {

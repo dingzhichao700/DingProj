@@ -1,12 +1,12 @@
-package module.ball {
+package main.module.ball {
 
-	import base.ai.BaseAIManager;
+	import main.base.BaseAIManager;
 
 	import laya.ui.Image;
 
-	import module.item.HpBarView;
+	import main.module.item.HpBarView;
 
-	import ui.BallItemUI;
+	import main.ui.BallItemUI;
 
 	/**
 	 * 球基类

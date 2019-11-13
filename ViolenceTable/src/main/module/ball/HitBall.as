@@ -1,4 +1,4 @@
-package module.ball {
+package main.module.ball {
 	import laya.events.Event;
 	import laya.maths.Point;
 	import laya.media.SoundManager;

@@ -1,4 +1,4 @@
-package base.ai.action {
+package main.base.action {
 
 	public class NPCBallAction extends BaseBallAction {
 		

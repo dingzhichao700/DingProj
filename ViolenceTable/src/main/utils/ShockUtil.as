@@ -1,4 +1,4 @@
-package utils {
+package main.utils {
 	import laya.display.Sprite;
 	import laya.utils.Browser;
 	import laya.utils.Handler;

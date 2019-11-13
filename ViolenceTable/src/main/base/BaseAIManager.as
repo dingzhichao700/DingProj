@@ -1,9 +1,9 @@
-package base.ai {
+package main.base {
 	import avmplus.getQualifiedClassName;
 
-	import base.ai.action.BaseAction;
+	import main.base.action.BaseAction;
 
-	import module.ball.BaseBall;
+	import main.module.ball.BaseBall;
 
 	/**
 	 * AI基类
