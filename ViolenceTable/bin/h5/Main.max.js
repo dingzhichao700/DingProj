@@ -910,6 +910,8 @@ var Params=(function(){
 		return Params._ins;
 	});
 
+	Params.GAME_WIDTH=576;
+	Params.GAME_HEIGHT=1024;
 	Params._ins=null;
 	return Params;
 })()
@@ -981,7 +983,7 @@ var Main=(function(){
 		this.loadCount=0;
 		this.loadList=["comp","ball"];
 		Laya.Config.isAntialias=true;
-		Laya.init(768,1080,WebGL);
+		Laya.init(576,1024,WebGL);
 		Laya.stage.scaleMode="fixedauto";
 		this.loadCount=0;
 		for (var i=0;i < this.loadList.length;i++){
@@ -31583,6 +31585,7 @@ var Component=(function(_super){
 var BaseScene=(function(_super){
 	function BaseScene(){
 		this.totalSpeed=NaN;
+		this._layerBg=null;
 		this._layerBlock=null;
 		this._layerBall=null;
 		this.ballList=null;
@@ -31597,6 +31600,7 @@ var BaseScene=(function(_super){
 	var __proto=BaseScene.prototype;
 	__proto.init=function(){
 		this.initLayers();
+		this.initBg();
 		this.initBlock();
 		this.initBall();
 		this.initListener();
@@ -31611,13 +31615,18 @@ var BaseScene=(function(_super){
 
 	/**初始化层级*/
 	__proto.initLayers=function(){
-		var bg=new Image();
-		bg.skin="unpack/img_bg.jpg";
-		this.addChild(bg);
+		this._layerBg=new Sprite();
+		this.addChild(this._layerBg);
 		this._layerBlock=new Sprite();
 		this.addChild(this._layerBlock);
 		this._layerBall=new Sprite();
 		this.addChild(this._layerBall);
+	}
+
+	__proto.initBg=function(){
+		var bg=new Sprite();
+		bg.graphics.drawRect(0,0,576,1024,"#5f5f5f");
+		this.layerBg.addChild(bg);
 	}
 
 	/**初始化障碍物*/
@@ -31663,8 +31672,9 @@ var BaseScene=(function(_super){
 	}
 
 	__proto.onResize=function(){
-		this.width=Laya.stage.width;
-		this.height=Laya.stage.height;
+		console.log("Browser w:"+Browser.width+" h:"+Browser.height+"\nStage w:"+Laya.stage.width+" h:"+Laya.stage.height);
+		this.x=(Laya.stage.width-576)/ 2;
+		this.y=(Laya.stage.height-1024)/ 2;
 	}
 
 	__proto.onFrame=function(){
@@ -31840,7 +31850,18 @@ var BaseScene=(function(_super){
 		return dis < (item.radius+item2.radius);
 	}
 
-	__proto.onKeyDown=function(){
+	__proto.onKeyDown=function(e){
+		switch (e.keyCode){
+			case 70:
+				this.traceBlocks();
+				break ;
+			case 45:
+				DebugPanel.init();
+				break ;
+			}
+	}
+
+	__proto.traceBlocks=function(){
 		var outStr="[";
 		for (var i=0;i < this.blockList.length;i++){
 			var item=this.blockList[i];
@@ -31849,6 +31870,10 @@ var BaseScene=(function(_super){
 		outStr+="]";
 		console.log(outStr);
 	}
+
+	__getset(0,__proto,'layerBg',function(){
+		return this._layerBg;
+	});
 
 	__getset(0,__proto,'timeScale',function(){
 		return Params.ins.timeScale;
@@ -50582,7 +50607,7 @@ var HitBall=(function(_super){
 })(BaseBall)
 
 
-	Laya.__init([LoaderManager,EventDispatcher,View,Render,Browser,DrawText,WebGLContext2D,ShaderCompile,Timer,GraphicAnimation,LocalStorage,AtlasGrid]);
+	Laya.__init([LoaderManager,EventDispatcher,View,Render,Browser,DrawText,WebGLContext2D,ShaderCompile,Timer,LocalStorage,GraphicAnimation,AtlasGrid]);
 	/**LayaGameStart**/
 	new Main();
 
