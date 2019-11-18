@@ -7,7 +7,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageView;
 
-import minimoshou.R;
+import honghuangyishoulu.R;
 
 import java.util.Timer;
 
