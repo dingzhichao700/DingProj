@@ -6,6 +6,7 @@
 	import laya.utils.Handler;
 	import laya.webgl.WebGL;
 	
+	import main.Params;
 	import main.module.scene.SceneControl;
 
 	public class Main {
@@ -17,7 +18,7 @@
 			//去除锯齿
 			Laya.Config.isAntialias = true;
 			//初始化引擎
-			Laya.init(768, 1024, WebGL);
+			Laya.init(Params.GAME_WIDTH, Params.GAME_HEIGHT, WebGL);
 			Laya.stage.scaleMode = Stage.SCALE_FIXED_AUTO;
 //			DebugPanel.init();
 //			Laya.stage.frameRate = "slow";

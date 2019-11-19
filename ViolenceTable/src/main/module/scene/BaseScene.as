@@ -3,7 +3,7 @@ package main.module.scene {
 	import laya.events.Event;
 	import laya.maths.Point;
 	import laya.media.SoundManager;
-	import laya.ui.Image;
+	import laya.utils.Browser;
 	
 	import main.Params;
 	import main.module.ball.BallManager;
@@ -41,7 +41,7 @@ package main.module.scene {
 		
 		public function init():void {
 			initLayers();
-			updateBgView();
+			initBg();
 			initBlock();
 			initBall();
 			initListener();
@@ -65,10 +65,14 @@ package main.module.scene {
 			addChild(_layerBall);
 		}
 		
-		private function updateBgView():void {
-			bgView ||= new BgView();
-			bgView.init("unpack/img_bg.jpg", );
-			
+		private function get layerBg():Sprite {
+			return _layerBg;
+		}
+		
+		private function initBg():void {
+			var bg:Sprite = new Sprite();
+			bg.graphics.drawRect(0, 0, 576, 1024, "#5f5f5f");
+			layerBg.addChild(bg);
 		}
 		
 		/**初始化障碍物*/
@@ -116,9 +120,9 @@ package main.module.scene {
 		}
 		
 		private function onResize():void {
-//			console.log("size:", Browser.width, Browser.height);
-			this.width = Laya.stage.width;
-			this.height = Laya.stage.height;
+			console.log("Browser w:" + Browser.width + " h:" + Browser.height + "\nStage w:" + Laya.stage.width + " h:" + Laya.stage.height);
+			this.x = (Laya.stage.width - Params.GAME_WIDTH) / 2;
+			this.y = (Laya.stage.height - Params.GAME_HEIGHT) / 2;
 		}
 		
 		protected function onFrame():void {
