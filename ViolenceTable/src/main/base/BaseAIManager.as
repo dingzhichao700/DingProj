@@ -1,8 +1,5 @@
 package main.base {
-	import avmplus.getQualifiedClassName;
-
 	import main.base.action.BaseAction;
-
 	import main.module.ball.BaseBall;
 
 	/**

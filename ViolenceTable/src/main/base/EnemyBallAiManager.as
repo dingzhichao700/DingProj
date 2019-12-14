@@ -1,7 +1,7 @@
 package main.base {
-	import main.base.action.BaseEnemyMoveAction;
-	
 	import laya.utils.Pool;
+	
+	import main.base.action.BaseEnemyMoveAction;
 
 	/**
 	 * 基本小怪AI

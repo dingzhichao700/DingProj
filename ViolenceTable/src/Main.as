@@ -1,5 +1,4 @@
 ﻿package {
-	
 	import laya.display.Sprite;
 	import laya.display.Stage;
 	import laya.events.Event;
