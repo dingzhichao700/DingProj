@@ -3,7 +3,7 @@ package main.base.action {
 
 	public class BaseAction {
 		
-		private var _player:BaseBall;
+		private var _owner:BaseBall;
 		
 		public function BaseAction() {
 		}
@@ -12,12 +12,12 @@ package main.base.action {
 			return false;
 		}
 		
-		public function setPlayer(obj:BaseBall):void {
-			_player = obj;
+		public function set owner(obj:BaseBall):void {
+			_owner = obj;
 		}
 		
-		public function get player():BaseBall {
-			return _player;
+		public function get owner():BaseBall {
+			return _owner;
 		}
 		
 		public function recover():void {

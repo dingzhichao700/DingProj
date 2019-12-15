@@ -11,6 +11,9 @@ package main.base.action {
 		}
 		
 		override public function action():Boolean {
+			if(owner.y < 800){
+				owner.y += 1;
+			}
 			return false;
 		}
 		

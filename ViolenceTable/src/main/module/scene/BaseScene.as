@@ -71,7 +71,7 @@ package main.module.scene {
 		
 		private function initBg():void {
 			var bg:Sprite = new Sprite();
-			bg.graphics.drawRect(0, 0, 576, 1024, "#5f5f5f");
+			bg.graphics.drawRect(0, 0, Params.GAME_WIDTH, Params.GAME_HEIGHT, "#5f5f5f");
 			layerBg.addChild(bg);
 		}
 		
@@ -93,7 +93,7 @@ package main.module.scene {
 		private function initBall():void {
 			ballList = new Array();
 			for (var i:int = 0; i < 1; i++) {
-				var ball:BaseBall = addBall(280 + 100 * Math.floor(i / 5), 600 + 100 * (i % 5), 1, 1);
+				var ball:BaseBall = addBall(580 + 100 * Math.floor(i / 5), 300 + 100 * (i % 5), 1, 1);
 				ball.ballRotation = 0;
 			}
 			

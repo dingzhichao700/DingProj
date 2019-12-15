@@ -19,8 +19,14 @@ package main.base {
 		/**AI持有者*/
 		public function set owner($owner:BaseBall):void {
 			_owner = $owner;
+			afterSetOwner();
 		}
 
+		/**设置AI持有者后触发*/
+		protected function afterSetOwner():void {
+			
+		}
+		
 		public function get owner():BaseBall {
 			return _owner;
 		}
@@ -45,7 +51,7 @@ package main.base {
 				_actions = new Vector.<BaseAction>;
 			}
 			if (_actions.indexOf(action) < 0) {
-				action.setPlayer(owner);
+				action.owner = owner;
 				_actions.push(action);
 			}
 		}

@@ -13,12 +13,17 @@ package main.base {
 		private var moveAction:BaseEnemyMoveAction;
 
 		public function EnemyBallAiManager() {
+		}
+
+		override protected function afterSetOwner():void {
 			moveAction = Pool.getItemByClass("base.ai.action.BaseEnemyMoveAction", BaseEnemyMoveAction);
 			addAction(moveAction);
 		}
-
+		
 		override protected function loop():void {
-//			owner.y += 1;
+			if(moveAction.action()){
+				
+			}
 		}
 
 	}

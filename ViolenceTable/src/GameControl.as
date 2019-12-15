@@ -1,25 +1,32 @@
-package main.module.scene {
+package {
 	import laya.events.Event;
 	import laya.media.SoundManager;
 	
 	import main.Params;
+	import main.module.scene.BaseScene;
+	import main.module.scene.GameScene;
+	import main.module.scene.GameUI;
 
-	public class SceneControl {
-
+	public class GameControl {
+		
+		/**游戏ui容器*/
 		private var _ui:GameUI;
+		/**游戏场景容器*/
 		private var _curScene:BaseScene;
-		private static var _ins:SceneControl;
-
-		public static function get ins():SceneControl {
-			_ins ||= new SceneControl();
+		
+		private static var _ins:GameControl;
+		
+		public static function get ins():GameControl {
+			_ins ||= new GameControl();
 			return _ins;
 		}
-
-		public function SceneControl() {
-		}
 		
-		public function init():void {
+		public function GameControl() {
+		}
+
+		public function start():void {
 			Laya.stage.removeChildren();
+			//初始化场景与ui
 			_curScene = new GameScene();
 			_curScene.init();
 			Laya.stage.addChild(_curScene);
@@ -27,10 +34,6 @@ package main.module.scene {
 			_ui.init();
 			Laya.stage.addChild(_ui);
 			Laya.stage.on(Event.KEY_DOWN, this, onDown);
-		}
-		
-		public function get curScene():BaseScene {
-			return _curScene;
 		}
 		
 		public function get ui():GameUI {

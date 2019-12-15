@@ -1,0 +1,50 @@
+{
+    "x":0,
+    "type":"BaseBox",
+    "selectedBox":1,
+    "selecteID":3,
+    "props":{"width":1024,"sceneColor":"#737373","height":576},
+    "nodeParent":-1,
+    "label":"BaseBox",
+    "isOpen":true,
+    "isDirectory":true,
+    "isAniNode":true,
+    "hasChild":true,
+    "compId":1,
+    "child":[
+        {
+            "x":15,
+            "type":"Button",
+            "props":{"y":331,"x":440,"width":100,"var":"btnMission","stateNum":"1","skin":"ball/ball_0.png","labelSize":22,"labelFont":"Microsoft YaHei","label":"闯关模式","height":100},
+            "nodeParent":1,
+            "label":"Button(btnMission)",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":3,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Button",
+            "props":{"y":437,"x":440,"width":100,"var":"btnAdv","stateNum":"1","skin":"ball/ball_1.png","labelSize":22,"labelFont":"Microsoft YaHei","labelColors":"#ffffff","label":"冒险模式","height":100},
+            "nodeParent":1,
+            "label":"Button(btnAdv)",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":4,
+            "child":[
+                ]
+        }],
+    "animations":[
+        {
+            "nodes":[
+                ],
+            "name":"ani1",
+            "id":1,
+            "frameRate":24,
+            "action":0
+        }]
+}
