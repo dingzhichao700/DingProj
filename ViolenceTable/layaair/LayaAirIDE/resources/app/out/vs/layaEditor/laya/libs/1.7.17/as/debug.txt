@@ -1,0 +1,24 @@
+1,0.00,,0,Project command:E:\Mine\Project\git\laya\dawawa\layaair\test\layatestfps\layatestfps.as3proj;iflash=false;
+Project configuration:E:\Mine\Project\git\laya\dawawa\layaair\test\layatestfps\layatestfps.as3proj.
+1,0.00,,0,output file:layatestfps
+1,0.00,,0,output path:E:/Mine/Project/git/laya/dawawa/layaair/test/layatestfps/bin/h5/
+1,0.00,,0,Main Class:E:/Mine/Project/git/laya/dawawa/layaair/test/layatestfps/src/LayaTest.as
+1,0.00,E:/Mine/Project/git/laya/dawawa/layaair/test/layatestfps/src,0,Collect
+1,0.00,E:/Mine/Project/git/laya/dawawa/layaair/ani/src,0,Collect
+1,0.00,E:/Mine/Project/git/laya/dawawa/layaair/core/src,0,Collect
+1,0.00,E:/Mine/Project/git/laya/dawawa/layaair/core/jsc,0,Collect
+1,0.00,E:/Mine/Project/git/laya/dawawa/layaair/filter/src,0,Collect
+1,0.00,E:/Mine/Project/git/laya/dawawa/layaair/html/src,0,Collect
+1,0.00,E:/Mine/Project/git/laya/dawawa/layaair/particle/src,0,Collect
+1,0.00,E:/Mine/Project/git/laya/dawawa/layaair/ui/src,0,Collect
+1,0.00,E:/Mine/Project/git/laya/dawawa/layaair/webGL/src,0,Collect
+1,2.00,,0,read class message
+1,89.87,,0,Disable Flash3D E:/Mine/Project/git/laya/dawawa/layaair/test/layatestfps/src/LayaTest.as
+12,89.87,E:/Mine/Project/git/laya/dawawa/layaair/test/layatestfps/bin/h5/layatestfps.max.js,1039105,
+11,89.87,E:/Mine/Project/git/laya/dawawa/layaair/test/layatestfps/bin/h5/layatestfps.max.html,894,
+******************************************************************************
+1,89.87,C:\Users\liuzihao\AppData\Local\Google\Chrome\Application\chrome.exe,0,’“µΩ chrome£∫C:\Users\liuzihao\AppData\Local\Google\Chrome\Application\chrome.exe
+
+1,89.87,C:\Users\liuzihao\AppData\Local\Google\Chrome\Application\chrome.exe,0,’“µΩ chrome£∫C:\Users\liuzihao\AppData\Local\Google\Chrome\Application\chrome.exe
+
+14,89.87,,0,

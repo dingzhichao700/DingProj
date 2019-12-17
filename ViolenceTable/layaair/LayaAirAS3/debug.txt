@@ -1,0 +1,21 @@
+1,0.00,,0,Project command:E:\DingWorks\DingProj\ViolenceTable\.actionScriptProperties;iflash=false;quickcompile=false;
+Project configuration:E:\DingWorks\DingProj\ViolenceTable\.actionScriptProperties.
+1,0.00,,0,output path:E:/DingWorks/DingProj/ViolenceTable/bin/h5/
+1,0.00,,0,Main Class:E:/DingWorks/DingProj/ViolenceTable/src/Main.as
+1,0.00,,0,output file:Main
+1,0.00,,0,compilerSourcePath E:/DingWorks/DingProj/ViolenceTable/libs/laya/src/
+
+1,0.00,,0,Compile Path:E:/DingWorks/DingProj/ViolenceTable/src/
+
+1,0.00,,0,Compile Path:E:/DingWorks/DingProj/ViolenceTable/libs/laya/src/
+
+1,0.00,E:/DingWorks/DingProj/ViolenceTable/src,0,Collect
+1,0.00,E:/DingWorks/DingProj/ViolenceTable/libs/laya/src,0,Collect
+1,2.00,,0,read class message
+1,89.69,,0,Disable Flash3D E:/DingWorks/DingProj/ViolenceTable/src/Main.as
+12,89.69,E:/DingWorks/DingProj/ViolenceTable/bin/h5/Main.max.js,1611741,
+11,89.69,E:/DingWorks/DingProj/ViolenceTable/bin/h5/Main.max.html,887,
+******************************************************************************
+1,89.69,C:\Program Files (x86)\Google\Chrome\Application\chrome.exe,0,’“µΩchrome¡À£¨¬∑æ∂:C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
+
+14,89.69,,0,
