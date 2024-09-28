@@ -52,7 +52,7 @@
     "debug": "^2.2.0",
     "minimist": "~0.1.0",
     "serve-index": "1.2.0",
-    "serve-static": "1.5.3"
+    "serve-static": "1.16.0"
   },
   "description": "Run static file server anywhere",
   "devDependencies": {},
